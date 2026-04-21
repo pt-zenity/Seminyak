@@ -342,6 +342,127 @@ const server = createServer(async (req, res) => {
     return
   }
 
+  // ── Crypto operations endpoint ────────────────────────────────────────────
+  if (url.pathname === '/crypto' && req.method === 'POST') {
+    let body = ''
+    req.on('data', chunk => { body += chunk })
+    req.on('end', async () => {
+      try {
+        const params = JSON.parse(body)
+        const { createRequire } = await import('module')
+        const require2 = createRequire(import.meta.url)
+        const crypto2 = require2('/home/user/webapp/lpd-crypto.cjs')
+        const op = params.op
+
+        let result = {}
+
+        if (op === 'keygen') {
+          // Derive AES keys from clientID + timestamp
+          result = crypto2.deriveAesKeys(params.clientID, params.timestamp)
+
+        } else if (op === 'encrypt') {
+          // AES encrypt
+          const enc = crypto2.aesEncrypt(params.plaintext, params.aesKey, params.aesIv)
+          result = { encrypted: enc, plaintext: params.plaintext }
+
+        } else if (op === 'decrypt') {
+          // AES decrypt
+          const dec = crypto2.aesDecrypt(params.ciphertext, params.aesKey, params.aesIv)
+          result = { decrypted: dec, ciphertext: params.ciphertext }
+
+        } else if (op === 'did-decode') {
+          // Decode X-CLIENT-ID
+          result = crypto2.decodeDID(params.did)
+
+        } else if (op === 'did-encode') {
+          // Encode X-CLIENT-ID
+          const enc = crypto2.encodeDID(params.clientID, params.timestamp, params.appName || 'Seminyak')
+          result = { encoded: enc, clientID: params.clientID, timestamp: params.timestamp }
+
+        } else if (op === 'jwt-decode') {
+          // Decode JWT Authorization
+          result = crypto2.decodeJWT(params.jwt)
+
+        } else if (op === 'hashcode') {
+          // Generate hash_code
+          const step = params.step || 'check'
+          let hash
+          if (step === 'posting') {
+            hash = crypto2.generateHashCodePosting(params)
+          } else if (step === 'lpd') {
+            hash = crypto2.generateHashCodeLPD(params)
+          } else {
+            hash = crypto2.generateHashCodeCheck(params)
+          }
+          result = { hash, step, formula: step === 'posting'
+            ? `SHA256("@"+fromAcc+"|"+amount+"~"+dateTime+"*"+refNo+"^"+destBank+"#"+destAcc+"("+destName+")"+"${crypto2.BPD_HASHCODE}+"@")`
+            : `SHA256("%"+fromAcc+"#"+amount+"@"+dateTime+"^"+refNo+"*"+destBank+"~"+destAcc+"|"+"${crypto2.BPD_HASHCODE}+"%")` }
+
+        } else if (op === 'reference') {
+          // Generate X-REFERENCE
+          const refs = []
+          for (let i = 0; i < (params.count || 3); i++) {
+            refs.push(crypto2.generateReference(params.prefix || 'SMY'))
+          }
+          result = { references: refs }
+
+        } else if (op === 'signature') {
+          // Generate X-SIGNATURE / X-PARTNER-ID
+          const sig = crypto2.generateSignature(params.token, params.timestamp, params.aesCs)
+          result = { signature: sig }
+
+        } else if (op === 'sig-decode') {
+          // Decode X-SIGNATURE base64 → hex
+          const hex = crypto2.decodeSignature(params.signature)
+          result = { hex, length: hex.length }
+
+        } else if (op === 'ios-token-sig') {
+          // iOS token signature
+          result = crypto2.generateIosTokenSig(params.timestamp || crypto2.nowJakarta())
+
+        } else if (op === 'snap-token-sig') {
+          // SNAP token signature
+          result = crypto2.generateSnapTokenSig(
+            params.clientKey || 'LPD-SEMINYAK-001',
+            params.timestamp || crypto2.nowJakartaISO()
+          )
+
+        } else if (op === 'build-transfer') {
+          // Build complete transfer request
+          result = crypto2.buildBankTransferRequest({
+            ...params,
+            timestamp: params.timestamp || crypto2.nowJakarta(),
+            refNo: params.refNo || crypto2.generateReference()
+          })
+
+        } else if (op === 'decrypt-body') {
+          // Decrypt full request body
+          result = { decrypted: crypto2.decryptRequestBody(params.body, params.aesKey, params.aesIv) }
+
+        } else if (op === 'timestamp') {
+          // Get current timestamps
+          result = {
+            jakarta: crypto2.nowJakarta(),
+            jakartaISO: crypto2.nowJakartaISO(),
+            utc: new Date().toISOString()
+          }
+
+        } else {
+          res.writeHead(400, corsHeaders())
+          res.end(JSON.stringify({ ok: false, error: `Unknown operation: ${op}` }))
+          return
+        }
+
+        res.writeHead(200, corsHeaders())
+        res.end(JSON.stringify({ ok: true, op, result }))
+      } catch (e) {
+        res.writeHead(200, corsHeaders())
+        res.end(JSON.stringify({ ok: false, error: e.message, stack: e.stack?.split('\n').slice(0,3).join(' | ') }))
+      }
+    })
+    return
+  }
+
   res.writeHead(404, corsHeaders())
   res.end(JSON.stringify({ error: 'Not found' }))
 })

@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { getSwaggerHTML } from './swagger'
+import { getCryptoHTML } from './crypto'
 
 const app = new Hono()
 
@@ -35,6 +36,24 @@ app.get('/api/exec/health', async (c) => {
     return c.json({ ok: false, error: 'Terminal server offline' }, 503)
   }
 })
+// ── Crypto operations proxy ──────────────────────────────────────────────────
+// Forward crypto operations ke terminal-server (Node.js yang punya akses fs/crypto)
+app.post('/api/crypto', async (c) => {
+  try {
+    const body = await c.req.json()
+    const resp = await fetch('http://127.0.0.1:3001/crypto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    const data = await resp.json() as Record<string, unknown>
+    return c.json(data)
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e)
+    return c.json({ ok: false, error: 'Crypto server error: ' + msg }, 500)
+  }
+})
+
 // ── Token Generator proxy ────────────────────────────────────────────────────
 // Generate SNAP / iOS token dengan RSA signature, forward ke terminal-server
 app.post('/api/token/generate', async (c) => {
@@ -60,6 +79,10 @@ app.get('/', (c) => {
 
 app.get('/swagger', (c) => {
   return c.html(getSwaggerHTML())
+})
+
+app.get('/crypto', (c) => {
+  return c.html(getCryptoHTML())
 })
 
 app.get('/docs', (c) => {
