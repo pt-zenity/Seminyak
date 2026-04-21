@@ -33,7 +33,8 @@ app.get('/api/exec/health', async (c) => {
     const data = await resp.json() as Record<string, unknown>
     return c.json({ ok: true, ...data })
   } catch {
-    return c.json({ ok: false, error: 'Terminal server offline' }, 503)
+    // On Cloudflare Pages edge: terminal-server not available
+    return c.json({ ok: false, error: 'Terminal server tidak tersedia di production. Gunakan sandbox URL untuk operasi crypto.', sandbox_only: true })
   }
 })
 // ── Crypto operations proxy ──────────────────────────────────────────────────
@@ -50,7 +51,7 @@ app.post('/api/crypto', async (c) => {
     return c.json(data)
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
-    return c.json({ ok: false, error: 'Crypto server error: ' + msg }, 500)
+    return c.json({ ok: false, error: 'Crypto server error: ' + msg + '. Pastikan menggunakan sandbox URL untuk operasi crypto.', sandbox_only: true })
   }
 })
 
@@ -69,7 +70,7 @@ app.post('/api/smart', async (c) => {
     return c.json(data)
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
-    return c.json({ ok: false, error: 'Smart server error: ' + msg }, 500)
+    return c.json({ ok: false, error: 'Smart server error: ' + msg + '. Pastikan menggunakan sandbox URL untuk operasi crypto.', sandbox_only: true })
   }
 })
 
