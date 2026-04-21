@@ -244,14 +244,31 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="runOp(event,'keygen')"><i class="fas fa-play"></i> Derive Keys</button>
+      <button class="btn btn-primary" onclick="runOp(event,'keygen')"><i class="fas fa-play"></i> Derive Keys + Generate X-CLIENT-ID</button>
       <button class="btn btn-secondary" onclick="fillNow('kg-ts')"><i class="fas fa-clock"></i> Sekarang (Jakarta)</button>
     </div>
     <div id="result-keygen" class="result-box"></div>
+
+    <!-- Auto X-CLIENT-ID result panel (muncul otomatis setelah keygen) -->
+    <div id="kg-did-panel" style="display:none;margin-top:12px;border:1px solid #22c55e33;border-radius:8px;background:#0a1a0a;padding:14px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="color:#22c55e;font-size:13px;font-weight:700"><i class="fas fa-id-badge"></i> X-CLIENT-ID (Auto-Generated)</span>
+        <span id="kg-did-badge" style="background:#14532d;color:#4ade80;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700">✅ SIAP</span>
+      </div>
+      <div style="display:flex;gap:6px;align-items:stretch">
+        <textarea id="kg-did-output" readonly rows="3" style="flex:1;background:#0d0d0d;border:1px solid #1a3a1a;border-radius:6px;color:#4ade80;font-size:10px;font-family:monospace;padding:8px;resize:none;word-break:break-all"></textarea>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="btn btn-secondary" style="font-size:10px;padding:6px 10px;white-space:nowrap" onclick="copyText(this,document.getElementById('kg-did-output').value)"><i class="fas fa-copy"></i> Salin</button>
+          <button class="btn btn-primary" style="font-size:10px;padding:6px 10px;white-space:nowrap;background:linear-gradient(135deg,#d97706,#b45309)" onclick="showTab('smart-login')"><i class="fas fa-sign-in-alt"></i> Login</button>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:#6b7280"><i class="fas fa-magic" style="color:#a78bfa"></i> X-CLIENT-ID di-encode otomatis dari clientID + timestamp yang sama. Form Login sudah diisi otomatis.</div>
+    </div>
+
     <div class="divider"></div>
     <div class="info-box info-yellow">
       <i class="fas fa-info-circle"></i>
-      <div><b>Cara kerja:</b> HMAC-SHA512(key=timestamp, msg=clientID) → 64 bytes → slice ke-HH:MM:SS untuk dapat key/iv/cs. AES Key = 32 bytes, IV = 16 bytes, CS = 8 bytes.</div>
+      <div><b>Cara kerja:</b> HMAC-SHA512(key=timestamp, msg=clientID) → 64 bytes → slice ke-HH:MM:SS untuk dapat key/iv/cs. AES Key = 32 bytes, IV = 16 bytes, CS = 8 bytes. <b>X-CLIENT-ID di-encode otomatis</b> menggunakan clientID + timestamp yang sama.</div>
     </div>
     <div class="quick-ref">
       <span class="comment"># CLI:</span><br>
@@ -938,39 +955,54 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 
     <!-- Step indicator -->
     <div class="step-indicator">
-      <div class="step active"><i class="fas fa-key"></i> 1. Paste Keygen</div>
+      <div class="step" id="sl-step1"><i class="fas fa-key"></i> 1. Derive Keys</div>
       <span class="step-arrow">›</span>
-      <div class="step"><i class="fas fa-user"></i> 2. Isi Kredensial</div>
+      <div class="step" id="sl-step2"><i class="fas fa-user"></i> 2. Isi Kredensial</div>
       <span class="step-arrow">›</span>
-      <div class="step"><i class="fas fa-sign-in-alt"></i> 3. Login</div>
+      <div class="step" id="sl-step3"><i class="fas fa-sign-in-alt"></i> 3. Login</div>
       <span class="step-arrow">›</span>
-      <div class="step"><i class="fas fa-check"></i> 4. Status 00</div>
+      <div class="step" id="sl-step4"><i class="fas fa-check"></i> 4. Status 00</div>
     </div>
 
-    <!-- AES Keys (dari Keygen) -->
-    <h4 style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px"><i class="fas fa-key"></i> Kunci AES & Client ID</h4>
+    <!-- Auto-fill status banner -->
+    <div id="sl-autofill-banner" style="display:none;background:#0a1a0a;border:1px solid #22c55e44;border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+      <span style="color:#22c55e;font-size:18px"><i class="fas fa-magic"></i></span>
+      <div style="flex:1">
+        <div style="color:#4ade80;font-size:12px;font-weight:700">Kunci & X-CLIENT-ID Terisi Otomatis!</div>
+        <div style="color:#6b7280;font-size:10px" id="sl-autofill-info">AES Key/IV/CS + X-CLIENT-ID dari Derive Keys tadi.</div>
+      </div>
+      <button class="btn btn-secondary" style="font-size:10px;padding:4px 10px" onclick="slPasteKeygen()"><i class="fas fa-sync"></i> Refresh</button>
+    </div>
+    <div id="sl-no-keygen-banner" style="background:#1a0a00;border:1px solid #d9770644;border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+      <span style="color:#f59e0b;font-size:18px"><i class="fas fa-exclamation-triangle"></i></span>
+      <div style="flex:1">
+        <div style="color:#fbbf24;font-size:12px;font-weight:700">Belum ada data Keygen</div>
+        <div style="color:#6b7280;font-size:10px">Jalankan <b>Derive AES Keys</b> terlebih dahulu — X-CLIENT-ID akan otomatis terisi.</div>
+      </div>
+      <button class="btn btn-secondary" style="font-size:10px;padding:4px 10px" onclick="showTab('keygen')"><i class="fas fa-key"></i> Ke Keygen</button>
+    </div>
+
+    <!-- AES Keys (dari Keygen — diisi otomatis) -->
+    <h4 style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px"><i class="fas fa-key"></i> Kunci AES & X-CLIENT-ID <span id="sl-keys-badge" style="display:none;background:#14532d;color:#4ade80;font-size:9px;padding:2px 7px;border-radius:8px;font-weight:700;margin-left:6px">✅ AUTO</span></h4>
     <div class="grid-2">
       <div class="field-row">
         <label>AES Key (base64, 32 bytes)</label>
-        <input type="text" id="sl-key" placeholder="dari Derive AES Keys"/>
+        <input type="text" id="sl-key" placeholder="Otomatis dari Derive AES Keys" readonly style="background:#111;color:#a78bfa"/>
       </div>
       <div class="field-row">
         <label>AES IV (base64, 16 bytes)</label>
-        <input type="text" id="sl-iv" placeholder="dari Derive AES Keys"/>
+        <input type="text" id="sl-iv" placeholder="Otomatis dari Derive AES Keys" readonly style="background:#111;color:#a78bfa"/>
       </div>
     </div>
     <div class="grid-2">
       <div class="field-row">
         <label>AES CS (base64, 8 bytes)</label>
-        <input type="text" id="sl-cs" placeholder="dari Derive AES Keys"/>
+        <input type="text" id="sl-cs" placeholder="Otomatis dari Derive AES Keys" readonly style="background:#111;color:#a78bfa"/>
       </div>
       <div class="field-row">
-        <label>X-CLIENT-ID (encoded)</label>
-        <input type="text" id="sl-did" placeholder="dari Encode X-CLIENT-ID"/>
+        <label>X-CLIENT-ID (encoded) <span style="color:#22c55e;font-size:9px">⚡ Auto</span></label>
+        <input type="text" id="sl-did" placeholder="Otomatis dari Derive AES Keys" readonly style="background:#111;color:#22c55e"/>
       </div>
-    </div>
-    <div class="btn-group" style="margin-bottom:16px">
-      <button class="btn btn-secondary" onclick="slPasteKeygen()"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
     <div class="divider"></div>
 
@@ -1227,6 +1259,11 @@ function showTab(name) {
   if (nav) nav.classList.add('active');
   // Auto-close sidebar on mobile after nav click
   if (window.innerWidth <= 768) closeSidebar();
+  // Update login banner saat pindah ke tab smart-login
+  if (name === 'smart-login') {
+    slPasteKeygen && slPasteKeygen();
+    updateLoginBanner && updateLoginBanner();
+  }
 }
 
 // ── Mobile Sidebar ─────────────────────────────────────────────────────────
@@ -1458,6 +1495,50 @@ async function runOp(e, opName) {
       if (opName === 'keygen') {
         lastKeygen = r.result;
         window._lastKeygen = r.result; // also for smart login
+
+        // ── AUTO: generate X-CLIENT-ID langsung setelah keygen berhasil ──────
+        var kgClientId = val('kg-clientid');
+        var kgTs       = val('kg-ts');
+        if (kgClientId && kgTs) {
+          callCrypto({ op: 'did-encode', clientID: kgClientId, timestamp: kgTs, appName: 'Seminyak' })
+            .then(function(dr) {
+              if (dr.ok && dr.result && dr.result.encoded) {
+                var encoded = dr.result.encoded;
+                window._lastDid = encoded;
+                if (window._lastKeygen) window._lastKeygen.clientIdEnc = encoded;
+
+                // Tampilkan panel hasil X-CLIENT-ID di tab keygen
+                var panel = document.getElementById('kg-did-panel');
+                var out   = document.getElementById('kg-did-output');
+                if (panel) panel.style.display = 'block';
+                if (out)   out.value = encoded;
+
+                // Auto-fill semua field di form login
+                var elKey = document.getElementById('sl-key');
+                var elIv  = document.getElementById('sl-iv');
+                var elCs  = document.getElementById('sl-cs');
+                var elDid = document.getElementById('sl-did');
+                if (elKey && r.result.aesKey) elKey.value = r.result.aesKey;
+                if (elIv  && r.result.aesIv)  elIv.value  = r.result.aesIv;
+                if (elCs  && r.result.aesCs)  elCs.value  = r.result.aesCs;
+                if (elDid) elDid.value = encoded;
+
+                // Tampilkan banner & badge di form login
+                var banner   = document.getElementById('sl-autofill-banner');
+                var noBanner = document.getElementById('sl-no-keygen-banner');
+                var badge    = document.getElementById('sl-keys-badge');
+                var info     = document.getElementById('sl-autofill-info');
+                var step1    = document.getElementById('sl-step1');
+                if (banner)   { banner.style.display = 'flex'; }
+                if (noBanner) { noBanner.style.display = 'none'; }
+                if (badge)    { badge.style.display = 'inline'; }
+                if (info)     { info.textContent = 'clientID: ' + kgClientId.substring(0,20) + '..., ts: ' + kgTs; }
+                if (step1)    { step1.className = 'step active'; }
+              }
+            })
+            .catch(function() { /* silent fail */ });
+        }
+        // ─────────────────────────────────────────────────────────────────────
       }
       // Save did-encode result for smart login paste
       if (opName === 'did-encode' && r.result && r.result.encoded) {
@@ -1583,18 +1664,34 @@ function copyRaw(text) {
   navigator.clipboard.writeText(text).catch(function(){});
 }
 
-// Paste AES keys dari keygen session ke form login
+// Update tampilan banner login berdasarkan ketersediaan keygen
+function updateLoginBanner() {
+  var hasKeygen = !!(window._lastKeygen && window._lastKeygen.clientIdEnc);
+  var banner   = document.getElementById('sl-autofill-banner');
+  var noBanner = document.getElementById('sl-no-keygen-banner');
+  var badge    = document.getElementById('sl-keys-badge');
+  var step1    = document.getElementById('sl-step1');
+  if (banner)   banner.style.display   = hasKeygen ? 'flex'   : 'none';
+  if (noBanner) noBanner.style.display = hasKeygen ? 'none'   : 'flex';
+  if (badge)    badge.style.display    = hasKeygen ? 'inline' : 'none';
+  if (step1)    step1.className        = hasKeygen ? 'step active' : 'step';
+}
+
+// Paste / refresh AES keys dari keygen ke form login
 function slPasteKeygen() {
   if (window._lastKeygen) {
     var k = window._lastKeygen;
-    var el; 
-    el = document.getElementById('sl-key'); if (el && k.aesKey) el.value = k.aesKey;
-    el = document.getElementById('sl-iv');  if (el && k.aesIv)  el.value = k.aesIv;
-    el = document.getElementById('sl-cs');  if (el && k.aesCs)  el.value = k.aesCs;
-    // Also paste X-CLIENT-ID if available from did-encode result
-    el = document.getElementById('sl-did');
-    if (el && k.clientIdEnc) el.value = k.clientIdEnc;
-    else if (el && window._lastDid) el.value = window._lastDid;
+    var elKey = document.getElementById('sl-key');
+    var elIv  = document.getElementById('sl-iv');
+    var elCs  = document.getElementById('sl-cs');
+    var elDid = document.getElementById('sl-did');
+    if (elKey && k.aesKey) elKey.value = k.aesKey;
+    if (elIv  && k.aesIv)  elIv.value  = k.aesIv;
+    if (elCs  && k.aesCs)  elCs.value  = k.aesCs;
+    // X-CLIENT-ID
+    var did = k.clientIdEnc || window._lastDid || '';
+    if (elDid && did) elDid.value = did;
+    updateLoginBanner();
   } else {
     alert('Belum ada data Keygen. Silakan jalankan Derive AES Keys terlebih dahulu.');
   }
@@ -1820,14 +1917,11 @@ function tfReset() {
   if (r) r.className = 'result-box';
 }
 
-// ── PATCH: simpan keygen result ke _lastKeygen ──────────────────────────────
-var _origCallCrypto = callCrypto;
-// Override runOp to intercept keygen result
-var _origRunOp = typeof runOp === 'function' ? runOp : null;
-
-// Init
-// Init
+// ── Init ─────────────────────────────────────────────────────────────────────
+// Isi timestamp sekarang ke field keygen
 fillNow('kg-ts');
+// Saat halaman load, update banner login (mungkin ada data dari session sebelumnya)
+updateLoginBanner();
 </script>
 </body>
 </html>`;
