@@ -546,15 +546,19 @@ async function handleSmart(body) {
   if (action === 'login') {
     const { user_name, user_pass } = params
     if (!user_name || !user_pass) throw new Error('user_name dan user_pass wajib diisi')
-    if (!aesKey || !aesIv)        throw new Error('aesKey dan aesIv wajib diisi')
+    if (!clientIdEnc)             throw new Error('clientIdEnc (X-CLIENT-ID) wajib diisi')
 
-    // Enkripsi kredensial
-    const encUser = crypto2.aesEncrypt(user_name, aesKey, aesIv)
-    const encPass = crypto2.aesEncrypt(user_pass, aesKey, aesIv)
+    // POC-verified: body harus berisi MD5(user_name) dan MD5(user_pass)
+    // BUKAN AES-encrypted. Server memverifikasi MD5 hash langsung.
+    const md5 = (s) => crypto.createHash('md5').update(s).digest('hex')
+    // Jika sudah MD5 (32 hex chars), kirim apa adanya; jika plain text, hash dulu
+    const isMd5 = (s) => /^[0-9a-f]{32}$/i.test(s)
+    const finalUser = isMd5(user_name) ? user_name : md5(user_name)
+    const finalPass = isMd5(user_pass) ? user_pass : md5(user_pass)
 
     const { headers, ts, jwt, sig, partnerId, xref } = buildSmartHeaders(token, aesCs, clientIdEnc, transNo)
     const url  = base + '/api/smart/access/login'
-    const data = JSON.stringify({ user_name: encUser, user_pass: encPass })
+    const data = JSON.stringify({ user_name: finalUser, user_pass: finalPass })
 
     let httpStatus, raw, parsed
     try {
@@ -572,22 +576,23 @@ async function handleSmart(body) {
       result: parsed,
       debug: {
         ts, xref,
-        user_name_enc: encUser,
-        user_pass_enc: encPass,
+        user_name_sent: finalUser,
+        user_pass_sent: finalPass,
+        user_name_was_md5: isMd5(user_name),
         jwt_preview:   jwt.substring(0, 40) + '...',
         sig_preview:   sig.substring(0, 20) + '...',
         partnerId_preview: partnerId.substring(0, 20) + '...',
       },
       requestHeaders: headers,
-      requestBody: { user_name: encUser, user_pass: encPass },
+      requestBody: { user_name: finalUser, user_pass: finalPass },
     }
   }
 
   // ── CEK SALDO ────────────────────────────────────────────────────────────────
   if (action === 'cek-saldo') {
     const { no_rek } = params
-    if (!no_rek)  throw new Error('no_rek wajib diisi')
-    if (!token)   throw new Error('token (JWT dari login) wajib diisi')
+    if (!no_rek)          throw new Error('no_rek wajib diisi')
+    if (!clientIdEnc)     throw new Error('clientIdEnc (X-CLIENT-ID) wajib diisi')
     if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
 
     const encNoRek = crypto2.aesEncrypt(no_rek, aesKey, aesIv)
@@ -620,11 +625,11 @@ async function handleSmart(body) {
   if (action === 'inquiry') {
     const { no_rek_from, no_rek_to, nominal, bank_dest } = params
     if (!no_rek_from || !no_rek_to || !nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
-    if (!token)   throw new Error('token wajib diisi')
+    if (!clientIdEnc) throw new Error('clientIdEnc (X-CLIENT-ID) wajib diisi')
     if (!aesKey || !aesIv || !aesCs) throw new Error('aesKey, aesIv, aesCs wajib diisi')
 
     const ref = transNo || crypto2.generateReference()
-    const { headers, ts, xref } = buildSmartHeaders(token, aesCs, clientIdEnc, ref)
+    const { headers, ts, xref } = buildSmartHeaders(null, aesCs, clientIdEnc, ref)
 
     const encFrom   = crypto2.aesEncrypt(no_rek_from, aesKey, aesIv)
     const encTo     = crypto2.aesEncrypt(no_rek_to, aesKey, aesIv)
@@ -659,11 +664,11 @@ async function handleSmart(body) {
   if (action === 'posting') {
     const { no_rek_from, no_rek_to, nominal, bank_dest, nama_dest, keterangan } = params
     if (!no_rek_from || !no_rek_to || !nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
-    if (!token)   throw new Error('token wajib diisi')
+    if (!clientIdEnc) throw new Error('clientIdEnc (X-CLIENT-ID) wajib diisi')
     if (!aesKey || !aesIv || !aesCs) throw new Error('aesKey, aesIv, aesCs wajib diisi')
 
     const ref = transNo || crypto2.generateReference()
-    const { headers, ts, xref } = buildSmartHeaders(token, aesCs, clientIdEnc, ref)
+    const { headers, ts, xref } = buildSmartHeaders(null, aesCs, clientIdEnc, ref)
 
     const encFrom   = crypto2.aesEncrypt(no_rek_from, aesKey, aesIv)
     const encTo     = crypto2.aesEncrypt(no_rek_to, aesKey, aesIv)

@@ -909,7 +909,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 <div id="smart-session-bar" style="display:none" class="content" style="padding-bottom:0">
 <div class="session-box">
   <div class="session-title"><span class="badge-live"><span class="dot"></span>Sesi Aktif</span> &nbsp; Nasabah Login</div>
-  <div class="session-field"><span class="sf-label">Token</span><span class="sf-val" id="ss-token-preview">—</span><button class="sf-copy" onclick="copyRaw(document.getElementById('ss-token-full').value)">Salin</button><input type="hidden" id="ss-token-full"/></div>
+  <div class="session-field"><span class="sf-label">Status</span><span class="sf-val" id="ss-token-preview">—</span><button class="sf-copy" onclick="copyRaw(document.getElementById('ss-token-full').value)" title="Salin X-CLIENT-ID">Salin DID</button><input type="hidden" id="ss-token-full"/></div>
   <div class="session-field"><span class="sf-label">AES Key</span><span class="sf-val" id="ss-key">—</span><button class="sf-copy" onclick="copyRaw(this.previousElementSibling.textContent)">Salin</button></div>
   <div class="session-field"><span class="sf-label">AES IV</span><span class="sf-val" id="ss-iv">—</span><button class="sf-copy" onclick="copyRaw(this.previousElementSibling.textContent)">Salin</button></div>
   <div class="session-field"><span class="sf-label">AES CS</span><span class="sf-val" id="ss-cs">—</span><button class="sf-copy" onclick="copyRaw(this.previousElementSibling.textContent)">Salin</button></div>
@@ -933,18 +933,18 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 
     <div class="info-box info-yellow">
       <i class="fas fa-info-circle"></i>
-      <div>Login akan mengenkripsi <code>user_name</code> &amp; <code>user_pass</code> dengan AES-256-CBC, membuat JWT + X-SIGNATURE otomatis dari private key LPD, lalu POST ke server. Token yang diterima disimpan untuk Cek Saldo &amp; Transfer.</div>
+      <div>Login mengirim <code>MD5(user_name)</code> &amp; <code>MD5(user_pass)</code> sebagai body. Header <b>Authorization</b> (JWT), <b>X-SIGNATURE</b>, <b>X-PARTNER-ID</b>, <b>X-CLIENT-ID</b> dibuat otomatis dari AES CS + private key LPD. Setelah berhasil, sesi aktif untuk Cek Saldo &amp; Transfer.</div>
     </div>
 
     <!-- Step indicator -->
     <div class="step-indicator">
-      <div class="step active"><i class="fas fa-key"></i> 1. Isi AES Key</div>
+      <div class="step active"><i class="fas fa-key"></i> 1. Paste Keygen</div>
       <span class="step-arrow">›</span>
       <div class="step"><i class="fas fa-user"></i> 2. Isi Kredensial</div>
       <span class="step-arrow">›</span>
       <div class="step"><i class="fas fa-sign-in-alt"></i> 3. Login</div>
       <span class="step-arrow">›</span>
-      <div class="step"><i class="fas fa-check"></i> 4. Dapat Token</div>
+      <div class="step"><i class="fas fa-check"></i> 4. Status 00</div>
     </div>
 
     <!-- AES Keys (dari Keygen) -->
@@ -993,17 +993,19 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 
     <div class="btn-group">
       <button class="btn btn-primary" style="background:linear-gradient(135deg,#d97706,#b45309)" id="sl-btn" onclick="smartLogin(this)"><i class="fas fa-sign-in-alt"></i> Login Sekarang</button>
+      <button class="btn btn-secondary" onclick="slShowCurl()" title="Tampilkan curl command yang akan dikirim"><i class="fas fa-terminal"></i> Preview Curl</button>
     </div>
     <div id="result-smart-login" class="result-box"></div>
 
     <div class="divider"></div>
     <div class="quick-ref">
-      <span class="comment"># Flow otomatis yang dilakukan:</span><br>
-      <span class="cmd">1. aesEncrypt(user_name, key, iv)  →  user_name terenkripsi</span><br>
-      <span class="cmd">2. aesEncrypt(user_pass, key, iv)  →  user_pass terenkripsi</span><br>
+      <span class="comment"># Flow otomatis (sesuai POC sukses):</span><br>
+      <span class="cmd">1. MD5(user_name)  →  user_name hashed (32 hex)</span><br>
+      <span class="cmd">2. MD5(user_pass)  →  user_pass hashed (32 hex)</span><br>
       <span class="cmd">3. createJWT(refNo, tsISO, priv_lpd)  →  Authorization header</span><br>
-      <span class="cmd">4. generateSignature(jwt, ts, cs)  →  X-SIGNATURE & X-PARTNER-ID</span><br>
-      <span class="cmd">5. POST /api/smart/access/login  →  dapat token</span><br>
+      <span class="cmd">4. generateSignature(jwt, ts, aesCs)  →  X-SIGNATURE & X-PARTNER-ID</span><br>
+      <span class="cmd">5. POST /api/smart/access/login  →  status:"00" + account_list</span><br>
+      <span class="comment"># Catatan: Body TIDAK di-AES-encrypt. Hanya header yang perlu AES CS.</span><br>
     </div>
   </div>
 </div>
@@ -1017,7 +1019,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 <div class="content">
 <div id="smart-saldo-session" class="session-box" style="display:none">
   <div class="session-title"><span class="badge-live"><span class="dot"></span>Sesi Aktif</span></div>
-  <div class="session-field"><span class="sf-label">Token</span><span class="sf-val" id="saldo-token-preview">—</span></div>
+  <div class="session-field"><span class="sf-label">Status</span><span class="sf-val" id="saldo-token-preview">—</span></div>
 </div>
 <div id="smart-saldo-noauth" class="info-box info-red">
   <i class="fas fa-exclamation-triangle"></i>
@@ -1061,7 +1063,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 <div class="content">
 <div id="smart-tf-session" class="session-box" style="display:none">
   <div class="session-title"><span class="badge-live"><span class="dot"></span>Sesi Aktif</span></div>
-  <div class="session-field"><span class="sf-label">Token</span><span class="sf-val" id="tf-token-preview">—</span></div>
+  <div class="session-field"><span class="sf-label">Status</span><span class="sf-val" id="tf-token-preview">—</span></div>
 </div>
 <div id="smart-tf-noauth" class="info-box info-red">
   <i class="fas fa-exclamation-triangle"></i>
@@ -1457,6 +1459,12 @@ async function runOp(e, opName) {
         lastKeygen = r.result;
         window._lastKeygen = r.result; // also for smart login
       }
+      // Save did-encode result for smart login paste
+      if (opName === 'did-encode' && r.result && r.result.encoded) {
+        window._lastDid = r.result.encoded;
+        // Also attach to keygen for convenience
+        if (window._lastKeygen) window._lastKeygen.clientIdEnc = r.result.encoded;
+      }
       // Special formatting for build-transfer: show curl command
       if (opName === 'build-transfer' && r.result) {
         const res = r.result;
@@ -1529,22 +1537,31 @@ function updateSessionUI() {
   if (tfNo) tfNo.style.display = has ? 'none' : 'flex';
 
   if (has) {
-    var preview = smartSession.token.substring(0, 30) + '...';
+    // Show session info - JWT is re-generated per request, show AES CS preview instead
+    var csPreview = (smartSession.aesCs || '').substring(0, 12) + '...';
+    var statusLabel = '✅ Login OK (status:00)';
     var els = ['ss-token-preview','saldo-token-preview','tf-token-preview'];
     els.forEach(function(id) {
       var e = document.getElementById(id);
-      if (e) e.textContent = preview;
+      if (e) e.textContent = statusLabel;
     });
     var full = document.getElementById('ss-token-full');
-    if (full) full.value = smartSession.token;
+    if (full) full.value = smartSession.clientIdEnc || '';
     var ssKey = document.getElementById('ss-key');
-    if (ssKey) ssKey.textContent = smartSession.aesKey || '—';
+    if (ssKey) ssKey.textContent = smartSession.aesKey ? smartSession.aesKey.substring(0,20)+'...' : '—';
     var ssIv = document.getElementById('ss-iv');
-    if (ssIv) ssIv.textContent = smartSession.aesIv || '—';
+    if (ssIv) ssIv.textContent = smartSession.aesIv ? smartSession.aesIv.substring(0,20)+'...' : '—';
     var ssCs = document.getElementById('ss-cs');
     if (ssCs) ssCs.textContent = smartSession.aesCs || '—';
     var ssDid = document.getElementById('ss-did');
     if (ssDid) ssDid.textContent = (smartSession.clientIdEnc || '—').substring(0,40) + '...';
+    // Show account_list count if available
+    var lr = smartSession.loginResult;
+    if (lr && lr.account_list) {
+      var accs = lr.account_list.split ? lr.account_list.split('|') : [];
+      var ssTitle = document.querySelector('#smart-session-bar .session-title');
+      if (ssTitle) ssTitle.innerHTML = '<span class="badge-live"><span class="dot"></span>Sesi Aktif</span> &nbsp; ' + (accs.length > 0 ? accs.length + ' Rekening' : 'Login Berhasil');
+    }
     // Update nav badge
     var navLogin = document.getElementById('nav-smart-login');
     if (navLogin) navLogin.innerHTML = '<i class="fas fa-check-circle" style="color:#4ade80"></i> Login ✓';
@@ -1574,9 +1591,51 @@ function slPasteKeygen() {
     el = document.getElementById('sl-key'); if (el && k.aesKey) el.value = k.aesKey;
     el = document.getElementById('sl-iv');  if (el && k.aesIv)  el.value = k.aesIv;
     el = document.getElementById('sl-cs');  if (el && k.aesCs)  el.value = k.aesCs;
+    // Also paste X-CLIENT-ID if available from did-encode result
+    el = document.getElementById('sl-did');
+    if (el && k.clientIdEnc) el.value = k.clientIdEnc;
+    else if (el && window._lastDid) el.value = window._lastDid;
   } else {
     alert('Belum ada data Keygen. Silakan jalankan Derive AES Keys terlebih dahulu.');
   }
+}
+
+// Preview curl command untuk login (tanpa benar-benar mengirim request)
+function slShowCurl() {
+  var did     = val('sl-did');
+  var aesCs   = val('sl-cs');
+  var user    = val('sl-user') || '<user_name>';
+  var pass    = val('sl-pass') || '<user_pass>';
+  var baseUrl = val('sl-url') || 'https://lpdseminyak.biz.id:8000';
+
+  if (!did || !aesCs) {
+    showResult('smart-login', 'Isi X-CLIENT-ID dan AES CS terlebih dahulu (Paste dari Keygen)', false);
+    return;
+  }
+
+  var md5Note = (user.length === 32 && /^[0-9a-f]+$/i.test(user))
+    ? '(sudah MD5)' : '(akan di-MD5 otomatis)';
+  var bs = String.fromCharCode(92);
+  var q  = String.fromCharCode(39);
+  var nl = String.fromCharCode(10);
+  var passPreview = pass.length > 8 ? pass.substring(0,4)+'****' : pass;
+  var lines = [];
+  lines.push('# Login request - body berisi MD5(user_name) dan MD5(user_pass)');
+  lines.push('# Header JWT/X-SIGNATURE di-generate otomatis dari private key LPD');
+  lines.push('');
+  lines.push('curl -X POST "' + baseUrl + '/api/smart/access/login" ' + bs);
+  lines.push('  -H "Content-Type: application/json" ' + bs);
+  lines.push('  -H "Authorization: <JWT - di-generate dari private_lpd.pem>" ' + bs);
+  lines.push('  -H "X-TIMESTAMP: <timestamp Jakarta>" ' + bs);
+  lines.push('  -H "X-SIGNATURE: <HMAC-SHA512(jwt:ts,aesCs)>" ' + bs);
+  lines.push('  -H "X-PARTNER-ID: <sama dgn X-SIGNATURE>" ' + bs);
+  lines.push('  -H "X-CLIENT-ID: ' + did.substring(0,30) + '..." ' + bs);
+  lines.push('  -H "X-REFERENCE: <SMY...>" ' + bs);
+  lines.push('  -H "X-Forwarded-For: 34.50.74.78" ' + bs);
+  lines.push('  -d ' + q + '{"user_name":"<MD5(' + user + ')> ' + md5Note + '","user_pass":"<MD5(' + passPreview + ')>"}' + q);
+  lines.push('');
+  lines.push('# Respons sukses: {"status":"00","message":"Sukses","account_list":"...","bank_key":"..."}');
+  showResult('smart-login', lines.join(nl), true);
 }
 
 // Panggil API /api/smart
@@ -1599,8 +1658,9 @@ async function smartLogin(btn) {
   var pass    = val('sl-pass');
   var baseUrl = val('sl-url') || 'https://lpdseminyak.biz.id:8000';
 
-  if (!aesKey || !aesIv) { alert('AES Key dan IV wajib diisi!'); return; }
-  if (!user || !pass)    { alert('Username dan Password wajib diisi!'); return; }
+  if (!did)           { alert('X-CLIENT-ID wajib diisi! (Paste dari Keygen dulu)'); return; }
+  if (!aesCs)         { alert('AES CS wajib diisi! (Paste dari Keygen dulu)'); return; }
+  if (!user || !pass) { alert('Username dan Password wajib diisi!'); return; }
 
   setLoading(btn, true);
   try {
@@ -1611,9 +1671,22 @@ async function smartLogin(btn) {
       user_name: user, user_pass: pass,
     });
 
-    if (r.ok && r.result && (r.result.token || r.result.data)) {
-      var token = r.result.token || (r.result.data && r.result.data.token) || JSON.stringify(r.result);
-      smartSession = { token: token, aesKey: aesKey, aesIv: aesIv, aesCs: aesCs, clientIdEnc: did, baseUrl: baseUrl };
+    // Server mengembalikan status:"00" jika berhasil (tidak ada field "token")
+    // Sesi disimpan dengan AES keys untuk request berikutnya
+    var loginOk = r.ok && r.result && (
+      r.result.status === '00' ||
+      r.result.token ||
+      (r.result.data && r.result.data.token)
+    );
+
+    if (loginOk) {
+      // Simpan sesi: gunakan "logged_in" sebagai marker, JWT di-generate ulang tiap request
+      smartSession = {
+        token: 'LOGGED_IN',  // marker - JWT di-generate ulang tiap request di backend
+        aesKey: aesKey, aesIv: aesIv, aesCs: aesCs,
+        clientIdEnc: did, baseUrl: baseUrl,
+        loginResult: r.result,  // simpan data akun (account_list, bank_key, dll)
+      };
       updateSessionUI();
       showResult('smart-login', r, true);
     } else {
