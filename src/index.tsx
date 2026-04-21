@@ -5,6 +5,7 @@ import { getSwaggerHTML } from './swagger'
 const app = new Hono()
 
 app.use('/static/*', serveStatic({ root: './public' }))
+app.get('/favicon.ico', (c) => c.body(null, 204))
 
 // ── Terminal proxy ──────────────────────────────────────────────────────────
 // Forward perintah ke terminal-server (Node.js) di port 3001
