@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
+import { getSwaggerHTML } from './swagger'
 
 const app = new Hono()
 
@@ -36,7 +37,11 @@ app.get('/api/exec/health', async (c) => {
 // ────────────────────────────────────────────────────────────────────────────
 
 app.get('/', (c) => {
-  return c.redirect('/docs')
+  return c.redirect('/swagger')
+})
+
+app.get('/swagger', (c) => {
+  return c.html(getSwaggerHTML())
 })
 
 app.get('/docs', (c) => {
@@ -296,6 +301,7 @@ tr:last-child td{border-bottom:none}
   <a href="#" onclick="showSection('helpers');return false" id="nav-helpers"><i class="fas fa-tools"></i> Helper Classes</a>
   <a href="#" onclick="showSection('troubleshoot');return false" id="nav-troubleshoot"><i class="fas fa-bug"></i> Troubleshooting</a>
   <div class="nav-section">Tools</div>
+  <a href="/swagger" style="color:#7c3aed;font-weight:700"><i class="fas fa-flask"></i> API Explorer (Swagger)</a>
   <a href="#" onclick="showSection('terminal');return false" id="nav-terminal"><i class="fas fa-terminal"></i> Terminal Interaktif</a>
 </nav>
 </aside>
