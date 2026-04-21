@@ -177,6 +177,15 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);
   border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* Token detail panel slide-in */
+#token-detail-panel{transition:transform .25s ease,opacity .25s ease}
+#token-detail-panel::-webkit-scrollbar{width:4px}
+#token-detail-panel::-webkit-scrollbar-thumb{background:#1e293b;border-radius:4px}
+
+/* SNAP client key input */
+#snap-client-key{transition:border-color .15s}
+#snap-client-key:focus{border-color:#7c3aed !important;box-shadow:0 0 0 2px rgba(124,58,237,.2)}
 </style>
 </head>
 <body>
@@ -196,7 +205,13 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   <label><i class="fas fa-server" style="margin-right:4px"></i>Base URL:</label>
   <input id="base-url-input" type="text" value="https://lpdseminyak.biz.id:8000" placeholder="https://your-api-host.com"/>
   <span class="url-badge">LIVE</span>
-  <span style="color:#64748b;font-size:11px;margin-left:8px">· Ubah URL untuk mengarahkan request ke server Anda</span>
+  <div style="width:1px;height:24px;background:#334155;flex-shrink:0;margin:0 6px"></div>
+  <label style="color:#94a3b8;font-size:11px;font-weight:600;white-space:nowrap"><i class="fas fa-id-card" style="margin-right:4px;color:#7c3aed"></i>X-CLIENT-KEY:</label>
+  <input id="snap-client-key" type="text" value="LPD-SEMINYAK-001"
+    style="background:#0f172a;border:1px solid #334155;color:#c4b5fd;padding:5px 10px;border-radius:5px;font-family:monospace;font-size:11px;width:160px;outline:none"
+    placeholder="LPD-SEMINYAK-001"
+    title="X-CLIENT-KEY untuk SNAP B2B Token (partner ID yang terdaftar di BPD)"/>
+  <span style="color:#64748b;font-size:10px;margin-left:4px">SNAP</span>
 </div>
 
 <!-- TOKEN TOOLBAR -->
@@ -920,6 +935,9 @@ function scrollTo(id) {
 
 // ─── Global token store ───────────────────────────────────────────────────────
 var _tokens = { snap: null, ios: null, snapHeaders: {}, iosHeaders: {} };
+window._tokenHdrCache = {};
+
+
 var WHITELIST_IP = '34.50.74.78';
 
 function toggleXFwd(label) {
@@ -949,36 +967,51 @@ function getBaseUrl() {
 // ─── Auto Token ───────────────────────────────────────────────────────────────
 function autoToken(type) {
   var btn = document.getElementById('btn-' + type + '-token');
+  if (!btn) return;
   var origHtml = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Generating...';
+
+  // Read optional client-key override from UI
+  var clientKeyEl = document.getElementById('snap-client-key');
+  var clientKey = clientKeyEl ? clientKeyEl.value.trim() : '';
+
+  var payload = { type: type, baseUrl: getBaseUrl() };
+  if (clientKey) payload.clientKey = clientKey;
+
+  var t0 = Date.now();
   fetch('/api/token/generate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type: type, baseUrl: getBaseUrl() })
+    body: JSON.stringify(payload)
   })
   .then(function(r){ return r.json(); })
   .then(function(d){
-    if (!d.ok) { showTokenToast(type, d); return; }
+    var ms = Date.now() - t0;
+    d._ms = ms;
     if (type === 'snap') {
       _tokens.snap = d.token;
       _tokens.snapHeaders = d.headers || {};
-      updateTokenBadge('snap', d.token);
-      injectSnapHeaders(d.headers, d.token);
+      updateTokenBadge('snap', d.token, d);
+      // Inject headers even when token is null (we still have valid timestamp+signature)
+      if (d.headers) injectSnapHeaders(d.headers, d.token);
     } else {
       _tokens.ios = d.token;
       _tokens.iosHeaders = d.headers || {};
-      updateTokenBadge('ios', d.token);
-      injectIosHeaders(d.headers, d.token);
+      updateTokenBadge('ios', d.token, d);
+      if (d.headers) injectIosHeaders(d.headers, d.token);
     }
     if (d.token) localStorage.setItem('lpd_'+type+'_token', d.token);
-    showTokenToast(type, d);
+    showTokenDetail(type, d);
   })
-  .catch(function(e){ alert('Fetch error: ' + e.message); })
+  .catch(function(e){
+    showTokenDetail(type, { ok: false, error: 'Fetch error: ' + e.message,
+      hint: 'Periksa Base URL dan koneksi jaringan.' });
+  })
   .finally(function(){ btn.disabled = false; btn.innerHTML = origHtml; });
 }
 
-function updateTokenBadge(type, token) {
+function updateTokenBadge(type, token, d) {
   var el = document.getElementById(type + '-token-badge');
   if (!el) return;
   var dot = el.querySelector('i');
@@ -989,12 +1022,15 @@ function updateTokenBadge(type, token) {
     el.style.borderColor  = type === 'snap' ? '#7c3aed' : '#059669';
     if (dot) { dot.style.color = type === 'snap' ? '#a78bfa' : '#34d399'; }
     if (txt) txt.textContent  = type.toUpperCase() + ' \u2713 ' + token.substring(0,16) + '...';
+    el.title = 'Token: ' + token + (d && d.timestamp ? ' | ' + d.timestamp : '');
   } else {
+    var code = (d && (d.responseCode || d.error)) ? String(d.responseCode || d.error).substring(0,12) : 'Gagal';
     el.style.background  = 'rgba(127,29,29,.2)';
     el.style.color       = '#fca5a5';
     el.style.borderColor = '#7f1d1d';
     if (dot) dot.style.color = '#ef4444';
-    if (txt) txt.textContent = type.toUpperCase() + ' \u2013 No Token';
+    if (txt) txt.textContent = type.toUpperCase() + ' \u2715 ' + code;
+    el.title = d ? JSON.stringify(d.raw || {error: d.error}) : '';
   }
 }
 
@@ -1026,28 +1062,143 @@ function injectIosHeaders(headers, token) {
   });
 }
 
-function showTokenToast(type, d) {
-  var toast = document.getElementById('token-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'token-toast';
-    toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1e293b;color:#e2e8f0;padding:14px 18px;border-radius:10px;font-size:13px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:420px;border-left:4px solid #22c55e';
-    document.body.appendChild(toast);
+// ─── Token Detail Panel ───────────────────────────────────────────────────────
+function showTokenDetail(type, d) {
+  var panel = document.getElementById('token-detail-panel');
+  if (!panel) {
+    panel = document.createElement('div');
+    panel.id = 'token-detail-panel';
+    panel.style.cssText = [
+      'position:fixed;bottom:0;right:0;width:500px;max-height:90vh;overflow-y:auto',
+      'background:#0f172a;color:#e2e8f0;border-radius:12px 0 0 0;z-index:9999',
+      'box-shadow:-4px -4px 40px rgba(0,0,0,.7);font-size:12px;font-family:monospace',
+      'border-top:2px solid #334155;border-left:2px solid #334155;transition:all .2s'
+    ].join(';');
+    document.body.appendChild(panel);
   }
-  if (d.token) {
-    toast.style.borderLeftColor = '#22c55e';
-    toast.innerHTML = '<b style="color:#4ade80"><i class="fas fa-check-circle"></i> ' + type.toUpperCase() + ' Token OK</b><br>'
-      + '<code style="color:#94a3b8;font-size:10px">' + d.token.substring(0,40) + '...</code><br>'
-      + '<span style="color:#60a5fa;font-size:11px"><i class="fas fa-magic"></i> X-TIMESTAMP, X-SIGNATURE, Authorization diisi otomatis.</span><br>'
-      + '<span style="color:#f59e0b;font-size:10px"><i class="fas fa-shield-alt"></i> X-Forwarded-For: 34.50.74.78 akan diinjeksi ke setiap request.</span>';
+
+  var ok      = !!(d.token);
+  var hasResp = !!(d.responseCode || d.httpStatus);
+  var isSnap  = type === 'snap';
+  var accent  = ok ? '#22c55e' : (hasResp ? '#f59e0b' : '#ef4444');
+  var icon    = ok ? 'fa-check-circle' : (hasResp ? 'fa-exclamation-triangle' : 'fa-times-circle');
+  var ms      = d._ms ? '<span style="color:#475569;font-weight:400;font-size:11px">' + d._ms + ' ms</span>' : '';
+
+  // ── Header rows (always shown if we got headers from signing) ──────────────
+  var hdr = d.headers || {};
+  // Store header values in a temp object accessible by copyHdr() below
+  window._tokenHdrCache = hdr;
+  var headerBlock = '';
+  if (Object.keys(hdr).length > 0) {
+    var hdrIdx = 0;
+    var hdrRows = Object.keys(hdr).map(function(k) {
+      var v = hdr[k];
+      var shortened = v && v.length > 60 ? v.substring(0,60) + '...' : v;
+      var color = k === 'X-SIGNATURE' ? '#86efac' : k === 'X-TIMESTAMP' ? '#c4b5fd' : '#fbbf24';
+      var safeKey = k;
+      return '<tr>'
+        + '<td style="color:#64748b;padding:3px 10px 3px 0;white-space:nowrap;vertical-align:top;font-size:11px">' + safeKey + '</td>'
+        + '<td style="padding:3px 0"><code style="color:' + color + ';word-break:break-all;font-size:11px">' + shortened + '</code>'
+        + ' <button onclick="copyHdr(&quot;' + safeKey + '&quot;)" style="background:#1e293b;border:none;color:#64748b;cursor:pointer;padding:1px 5px;border-radius:3px;font-size:10px" title="Copy">&#128203;</button>'
+        + '</td></tr>';
+    }).join('');
+    headerBlock = '<div style="margin-bottom:8px">'
+      + '<div style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid #1e293b">Generated Request Headers</div>'
+      + '<table style="width:100%;border-collapse:collapse;line-height:1.6">'
+        + hdrRows
+        + '<tr><td style="color:#64748b;font-size:11px;padding:2px 10px 2px 0">X-Forwarded-For</td><td><code style="color:#f59e0b">34.50.74.78</code> <button id="copy-xfwd" onclick="copyHdr(&quot;X-Forwarded-For&quot;)" style="background:#1e293b;border:none;color:#64748b;cursor:pointer;padding:1px 5px;border-radius:3px;font-size:10px">&#128203;</button></td></tr>'
+      + '</table>'
+      + '</div>';
+  }
+
+  // ── Response rows ──────────────────────────────────────────────────────────
+  var respRows = '';
+  if (d.url)            respRows += '<tr><td style="color:#64748b;font-size:11px;white-space:nowrap;padding:2px 10px 2px 0">URL</td><td><code style="color:#7dd3fc;word-break:break-all;font-size:10px">' + d.url + '</code></td></tr>';
+  if (d.httpStatus)     respRows += '<tr><td style="color:#64748b;font-size:11px;white-space:nowrap;padding:2px 10px 2px 0">HTTP Status</td><td><code style="color:' + (d.httpStatus===200?'#4ade80':'#fbbf24') + '">' + d.httpStatus + '</code></td></tr>';
+  if (d.responseCode)   respRows += '<tr><td style="color:#64748b;font-size:11px;white-space:nowrap;padding:2px 10px 2px 0">responseCode</td><td><code style="color:' + (d.responseCode==='2007300'?'#4ade80':'#fbbf24') + '">' + d.responseCode + '</code></td></tr>';
+  if (d.responseMessage)respRows += '<tr><td style="color:#64748b;font-size:11px;white-space:nowrap;padding:2px 10px 2px 0">responseMessage</td><td><code style="color:#94a3b8">' + d.responseMessage + '</code></td></tr>';
+  if (d.token)          respRows += '<tr><td style="color:#64748b;font-size:11px;white-space:nowrap;padding:2px 10px 2px 0">accessToken</td><td><code style="color:#4ade80;word-break:break-all;font-size:10px">' + d.token + '</code></td></tr>';
+  if (d.error)          respRows += '<tr><td style="color:#64748b;font-size:11px;white-space:nowrap;padding:2px 10px 2px 0;vertical-align:top">error</td><td><code style="color:#f87171;word-break:break-all;font-size:10px">' + d.error + '</code></td></tr>';
+  if (d.hint)           respRows += '<tr><td style="color:#64748b;font-size:11px;white-space:nowrap;padding:2px 10px 2px 0;vertical-align:top">hint</td><td><code style="color:#fbbf24;font-size:10px">' + d.hint + '</code></td></tr>';
+
+  // ── Status notes ───────────────────────────────────────────────────────────
+  var noteHtml = '';
+  if (ok) {
+    noteHtml = '<div style="padding:10px 0 4px;color:#60a5fa;font-size:11px;line-height:1.7;border-top:1px solid #1e293b;margin-top:8px">'
+      + '<i class="fas fa-magic" style="color:#a78bfa"></i> X-TIMESTAMP, X-' + (isSnap?'CLIENT-KEY':'CLIENT-ID') + ', X-SIGNATURE & Authorization <b>diisi otomatis</b>.<br>'
+      + '<i class="fas fa-shield-alt" style="color:#f59e0b"></i> X-Forwarded-For: 34.50.74.78 diinjeksi otomatis ke setiap request.<br>'
+      + '<i class="fas fa-clock" style="color:#94a3b8"></i> Token berlaku 3 menit dari: ' + (d.timestamp||'') + '.'
+      + '</div>';
+  } else if (isSnap && d.responseCode === '4017301') {
+    noteHtml = '<div style="padding:10px 0 4px;color:#fbbf24;font-size:11px;line-height:1.7;border-top:1px solid #1e293b;margin-top:8px">'
+      + '<i class="fas fa-info-circle"></i> <b>responseCode 4017301</b> = "Invalid access Token"<br>'
+      + 'Artinya signature sampai ke server tetapi verifikasi gagal. Server memverifikasi menggunakan <b>public_key_bpd.pem</b>.<br>'
+      + '<span style="color:#94a3b8">Diperlukan private key BPD (dari bank BPD Bali) untuk mendapatkan token SNAP yang valid.</span><br><br>'
+      + '<i class="fas fa-check" style="color:#22c55e"></i> Headers (X-TIMESTAMP + X-SIGNATURE) <b>sudah diisi otomatis</b> di form endpoint.'
+      + '</div>';
+  } else if (!isSnap && d.httpStatus === 500) {
+    noteHtml = '<div style="padding:10px 0 4px;color:#fbbf24;font-size:11px;line-height:1.7;border-top:1px solid #1e293b;margin-top:8px">'
+      + '<i class="fas fa-database"></i> <b>HTTP 500</b> = Server error internal.<br>'
+      + 'Kemungkinan koneksi database SQL Server di server production bermasalah.<br>'
+      + '<span style="color:#94a3b8">Signature iOS sudah digenerate dengan benar menggunakan <b>private_key_lpd.pem</b>.</span><br><br>'
+      + '<i class="fas fa-check" style="color:#22c55e"></i> Headers (X-TIMESTAMP + X-SIGNATURE) <b>sudah diisi otomatis</b> di form endpoint.'
+      + '</div>';
   } else {
-    toast.style.borderLeftColor = '#ef4444';
-    toast.innerHTML = '<b style="color:#f87171"><i class="fas fa-exclamation-circle"></i> ' + type.toUpperCase() + ' Token Gagal</b><br>'
-      + '<span style="color:#94a3b8;font-size:11px">' + (d.error || d.responseMessage || d.message || 'Cek Base URL & koneksi server') + '</span>';
+    noteHtml = '<div style="padding:10px 0 4px;color:#f87171;font-size:11px;line-height:1.7;border-top:1px solid #1e293b;margin-top:8px">'
+      + '<i class="fas fa-exclamation-circle"></i> Koneksi ke server gagal. Periksa Base URL dan pastikan server berjalan.'
+      + '</div>';
   }
-  toast.style.display = 'block';
-  clearTimeout(toast._timer);
-  toast._timer = setTimeout(function(){ toast.style.display='none'; }, 7000);
+
+  // ── Assemble panel ─────────────────────────────────────────────────────────
+  panel.innerHTML =
+    '<div style="display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:2px solid #1e293b;background:#020617;position:sticky;top:0;z-index:1">'
+      + '<i class="fas ' + icon + '" style="color:' + accent + ';font-size:15px"></i>'
+      + '<b style="color:' + accent + ';font-size:13px">' + type.toUpperCase() + ' Token — '
+        + (ok ? '&#10003; Berhasil' : (hasResp ? '&#9888; Respons Server' : '&#10007; Gagal')) + '</b>'
+      + ms
+      + '<button onclick="closeTokenPanel()" style="margin-left:auto;background:transparent;border:none;color:#64748b;cursor:pointer;font-size:18px;line-height:1;padding:0 4px">&times;</button>'
+    + '</div>'
+    + '<div style="padding:14px 16px">'
+      + headerBlock
+      + (respRows ? '<div style="margin-top:8px"><div style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid #1e293b">Server Response</div><table style="width:100%;border-collapse:collapse;line-height:1.7">' + respRows + '</table></div>' : '')
+      + noteHtml
+    + '</div>';
+
+  panel.style.display = 'block';
+  clearTimeout(panel._timer);
+  // Keep open longer if error (user needs to read)
+  panel._timer = setTimeout(function(){ panel.style.display='none'; }, ok ? 10000 : 20000);
+}
+
+// Keep showTokenToast as alias for compatibility
+function showTokenToast(type, d) { showTokenDetail(type, d); }
+
+function closeTokenPanel() {
+  var p = document.getElementById('token-detail-panel');
+  if (p) p.style.display = 'none';
+}
+
+
+
+// ─── Copy header value to clipboard ──────────────────────────────────────────
+function copyHdr(key) {
+  var cache = window._tokenHdrCache || {};
+  var val = cache[key] || (key === 'X-Forwarded-For' ? WHITELIST_IP : '');
+  if (!val) return;
+  try {
+    navigator.clipboard.writeText(val).then(function() {
+      var btns = document.querySelectorAll('[onclick*="copyHdr(\\"' + key + '\\")"]');
+      btns.forEach(function(b) {
+        var o = b.innerHTML; b.innerHTML = '&#10003;';
+        setTimeout(function(){ b.innerHTML = o; }, 1200);
+      });
+    });
+  } catch(e) {
+    var ta = document.createElement('textarea');
+    ta.value = val; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  }
 }
 
 // ─── Try Request (+ X-Forwarded-For otomatis) ────────────────────────────────
@@ -1098,15 +1249,23 @@ function tryRequest(epId) {
 
   var reqInfo = method + ' ' + url;
   var t0 = Date.now();
+
+  // Build sent-headers summary (exclude Content-Type for display)
+  var sentHdrs = Object.keys(headers).filter(function(k){ return k !== 'Accept'; }).map(function(k){
+    var v = headers[k];
+    // Truncate long values
+    return k + ': ' + (v && v.length > 40 ? v.substring(0,38) + '…' : v);
+  }).join(String.fromCharCode(10));
+
   fetch(url, fetchOpts)
     .then(function(r) {
       var ms = Date.now() - t0;
       return r.text().then(function(text){ return { status: r.status, text: text, ms: ms }; });
     })
-    .then(function(d){ showResponse(epId, d.status, d.text, d.ms, reqInfo); })
+    .then(function(d){ showResponse(epId, d.status, d.text, d.ms, reqInfo, sentHdrs); })
     .catch(function(err) {
       var NL = String.fromCharCode(10);
-      showResponse(epId, 0, 'Network Error: ' + err.message + NL + NL + 'Pastikan:' + NL + '1. Base URL benar' + NL + '2. Server berjalan' + NL + '3. CORS diizinkan', Date.now()-t0, reqInfo);
+      showResponse(epId, 0, 'Network Error: ' + err.message + NL + NL + 'Pastikan:' + NL + '1. Base URL benar' + NL + '2. Server berjalan' + NL + '3. CORS diizinkan', Date.now()-t0, reqInfo, sentHdrs);
     })
     .finally(function() {
       btn.disabled = false;
@@ -1114,16 +1273,21 @@ function tryRequest(epId) {
     });
 }
 
-function showResponse(epId, status, text, ms, reqInfo) {
+function showResponse(epId, status, text, ms, reqInfo, sentHdrs) {
   var box = document.getElementById('resp-'+epId);
   var codeEl = document.getElementById('resp-status-'+epId);
   var timeEl = document.getElementById('resp-time-'+epId);
   var bodyEl = document.getElementById('resp-body-'+epId);
   var reqEl  = document.getElementById('resp-req-'+epId);
+  var hdrsEl = document.getElementById('resp-hdrs-'+epId);
 
   box.style.display = 'block';
   timeEl.textContent = ms + ' ms';
   if (reqEl && reqInfo) reqEl.textContent = reqInfo;
+  if (hdrsEl && sentHdrs) {
+    hdrsEl.textContent = sentHdrs;
+    hdrsEl.style.display = 'block';
+  }
 
   var cls = status >= 200 && status < 300 ? 'status-2xx' : status >= 400 && status < 500 ? 'status-4xx' : 'status-5xx';
   if (status === 0) cls = 'status-5xx';
@@ -1313,7 +1477,9 @@ function epCard(
             <span class="status-code" id="resp-status-${id}">200</span>
             <span style="color:#94a3b8;font-size:12px">Response</span>
             <span class="response-time" id="resp-time-${id}"></span>
+            <span id="resp-req-${id}" style="color:#475569;font-size:10px;margin-left:8px;font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px"></span>
           </div>
+          <pre id="resp-hdrs-${id}" style="display:none;background:#0a0f1e;color:#475569;font-size:10px;padding:8px 14px;margin:0;border-bottom:1px solid #1e293b;white-space:pre;font-family:monospace;line-height:1.5"></pre>
           <pre class="response-body" id="resp-body-${id}"></pre>
         </div>
       </div>

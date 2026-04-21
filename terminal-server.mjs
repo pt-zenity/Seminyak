@@ -28,34 +28,59 @@ function isoTimestampJKT() {
 
 // ─── Generate SNAP Token (BPD private key) ───────────────────────────────────
 // Alur: X-TIMESTAMP + X-CLIENT-KEY → sign SHA256withRSA → X-SIGNATURE
-// POST /v1.0/access-token/b2b  {"grantType":"client_credentials"}
-async function generateSnapToken(baseUrl) {
+// POST /api/v1.0/access-token/b2b  {"grantType":"client_credentials"}
+async function generateSnapToken(baseUrl, clientKeyOverride) {
   const privKey = fs.readFileSync(PRIV_BPD, 'utf8')
   const ts       = isoTimestampJKT()
-  const clientKey = 'LPD-SEMINYAK-001'  // X-CLIENT-KEY (partner ID)
+  const clientKey = clientKeyOverride || 'LPD-SEMINYAK-001'  // X-CLIENT-KEY (partner ID)
   const msg      = clientKey + '|' + ts
   const sig      = crypto.sign('SHA256', Buffer.from(msg), {
     key: privKey, padding: crypto.constants.RSA_PKCS1_PADDING
   })
   const signature = sig.toString('base64')
 
-  const url = baseUrl.replace(/\/+$/, '') + '/v1.0/access-token/b2b'
+  // Laravel routes/api.php gets /api prefix from RouteServiceProvider
+  const base = baseUrl.replace(/\/+$/, '')
+  const url = base + '/api/v1.0/access-token/b2b'
   const headers = {
     'Content-Type':    'application/json',
     'X-TIMESTAMP':     ts,
     'X-CLIENT-KEY':    clientKey,
     'X-SIGNATURE':     signature,
     'X-Forwarded-For': WHITELIST_IP,
+    'X-Real-IP':       WHITELIST_IP,
   }
   const body = JSON.stringify({ grantType: 'client_credentials' })
 
-  const res  = await fetchWithTimeout(url, { method: 'POST', headers, body }, 15000)
-  const data = await res.json()
+  let data, httpStatus
+  try {
+    const res = await fetchWithTimeout(url, { method: 'POST', headers, body }, 15000)
+    httpStatus = res.status
+    const rawBody = await res.text()
+    try { data = JSON.parse(rawBody) } catch(_) {
+      return {
+        ok: false, type: 'snap',
+        error: 'Server returned HTTP ' + httpStatus + ' (non-JSON response)',
+        hint: 'Cek Base URL dan pastikan server berjalan.',
+        httpStatus, url, timestamp: ts, clientKey,
+        signaturePreview: signature.substring(0, 20) + '...',
+        headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-KEY': clientKey, 'X-SIGNATURE': signature },
+      }
+    }
+  } catch(e) {
+    return { ok: false, type: 'snap', error: e.message, url,
+      headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-KEY': clientKey, 'X-SIGNATURE': signature } }
+  }
   return {
     ok: true, type: 'snap',
     token: data.accessToken || null,
     responseCode: data.responseCode,
     responseMessage: data.responseMessage,
+    httpStatus,
+    url,
+    timestamp: ts,
+    clientKey,
+    signaturePreview: signature.substring(0, 20) + '...',
     headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-KEY': clientKey, 'X-SIGNATURE': signature },
     raw: data,
   }
@@ -80,22 +105,49 @@ async function generateIosToken(baseUrl, clientIdEnc) {
   })
   const signature = sig.toString('base64')
 
-  const url = baseUrl.replace(/\/+$/, '') + '/smart/access/token'
+  // Laravel routes use /api prefix
+  const base = baseUrl.replace(/\/+$/, '')
+  const url = base + '/api/smart/access/token'
   const headers = {
     'Content-Type':    'application/json',
     'X-TIMESTAMP':     ts,
     'X-CLIENT-ID':     clientIdEnc || '',
     'X-SIGNATURE':     signature,
     'X-Forwarded-For': WHITELIST_IP,
+    'X-Real-IP':       WHITELIST_IP,
   }
 
-  const res  = await fetchWithTimeout(url, { method: 'POST', headers, body: '' }, 15000)
-  const data = await res.json()
+  let data, httpStatus, rawBody
+  try {
+    const res = await fetchWithTimeout(url, { method: 'POST', headers, body: '' }, 15000)
+    httpStatus = res.status
+    rawBody = await res.text()
+    try { data = JSON.parse(rawBody) } catch(_) {
+      // Server returned non-JSON (e.g. 500 HTML error page)
+      return {
+        ok: false, type: 'ios',
+        error: 'Server returned HTTP ' + httpStatus + ' (non-JSON response)',
+        hint: httpStatus === 500
+          ? 'Server error – kemungkinan koneksi database production bermasalah. Signature sudah benar.'
+          : 'Cek Base URL dan endpoint.',
+        httpStatus, url, timestamp: ts,
+        signaturePreview: signature.substring(0, 20) + '...',
+        headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-ID': clientIdEnc || '', 'X-SIGNATURE': signature },
+      }
+    }
+  } catch(e) {
+    return { ok: false, type: 'ios', error: e.message, url,
+      headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-ID': clientIdEnc || '', 'X-SIGNATURE': signature } }
+  }
   return {
     ok: true, type: 'ios',
     token: data.token || null,
     status: data.status,
     message: data.message,
+    httpStatus,
+    url,
+    timestamp: ts,
+    signaturePreview: signature.substring(0, 20) + '...',
     headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-ID': clientIdEnc || '', 'X-SIGNATURE': signature },
     raw: data,
   }
@@ -269,10 +321,10 @@ const server = createServer(async (req, res) => {
     req.on('data', chunk => { body += chunk })
     req.on('end', async () => {
       try {
-        const { type, baseUrl, clientIdEnc } = JSON.parse(body)
+        const { type, baseUrl, clientIdEnc, clientKey } = JSON.parse(body)
         let result
         if (type === 'snap') {
-          result = await generateSnapToken(baseUrl || 'https://lpdseminyak.biz.id:8000')
+          result = await generateSnapToken(baseUrl || 'https://lpdseminyak.biz.id:8000', clientKey)
         } else if (type === 'ios') {
           result = await generateIosToken(baseUrl || 'https://lpdseminyak.biz.id:8000', clientIdEnc || '')
         } else {
