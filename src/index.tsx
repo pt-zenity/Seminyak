@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { getSwaggerHTML } from './swagger'
 import { getCryptoHTML } from './crypto'
+import { getAdminHTML } from './admin'
 import { handleCryptoOp } from './edge-crypto'
 
 const app = new Hono()
@@ -238,12 +239,115 @@ app.post('/api/token/generate', async (c) => {
 })
 // ────────────────────────────────────────────────────────────────────────────
 
+// ── Admin API ─────────────────────────────────────────────────────────────
+// Read LPD Seminyak log files from the bundled lpd_seminyak storage
+// These files are embedded at build time via Vite (no runtime fs access)
+const LOG_BASE = '/home/user/webapp/lpd_seminyak/storage/logs'
+
+app.post('/api/admin', async (c) => {
+  try {
+    const body = await c.req.json() as Record<string, string>
+    const op = body.op
+
+    if (op === 'list-logs') {
+      // Return list of available log files via terminal-server
+      const execRes = await fetch('http://127.0.0.1:3001/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: `find ${LOG_BASE} -maxdepth 2 -name "*.txt" -o -name "*.log" | sort -r | head -200` })
+      })
+      const execData = await execRes.json() as { stdout?: string; stderr?: string }
+      const lines = (execData.stdout || '').trim().split('\n').filter(Boolean)
+      
+      const files = lines.map(path => {
+        const name = path.split('/').pop() || ''
+        const dirPart = path.replace(LOG_BASE + '/', '').replace('/' + name, '')
+        return { name, dir: dirPart === name ? 'root' : dirPart, path }
+      })
+
+      // Count errors from laravel.log
+      const errExec = await fetch('http://127.0.0.1:3001/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: `grep -c "local.ERROR" ${LOG_BASE}/laravel.log 2>/dev/null || echo 0` })
+      })
+      const errData = await errExec.json() as { stdout?: string }
+      const errorCount = parseInt((errData.stdout || '0').trim()) || 0
+
+      // Build endpoint stats from recent logs (7 days)
+      const statsExec = await fetch('http://127.0.0.1:3001/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: `grep -h "POST http" ${LOG_BASE}/access-*.txt ${LOG_BASE}/transfer-*.txt ${LOG_BASE}/tabungan-*.txt 2>/dev/null | grep -oP '/api/[a-z/._-]+' | sort | uniq -c | sort -rn | head -20` })
+      })
+      const statsData = await statsExec.json() as { stdout?: string }
+      const endpoints: Record<string, number> = {}
+      ;(statsData.stdout || '').trim().split('\n').forEach(line => {
+        const m = line.trim().match(/^(\d+)\s+(.+)$/)
+        if (m) endpoints[m[2]] = parseInt(m[1])
+      })
+
+      // Daily counts from past 30 days
+      const dailyExec = await fetch('http://127.0.0.1:3001/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: `grep -h "REQUEST" ${LOG_BASE}/access-*.txt 2>/dev/null | grep -oP '\\d{4}-\\d{2}-\\d{2}' | sort | uniq -c | tail -30` })
+      })
+      const dailyData = await dailyExec.json() as { stdout?: string }
+      const daily: Record<string, number> = {}
+      ;(dailyData.stdout || '').trim().split('\n').forEach(line => {
+        const m = line.trim().match(/^(\d+)\s+(\d{4}-\d{2}-\d{2})$/)
+        if (m) daily[m[2]] = parseInt(m[1])
+      })
+
+      return c.json({ ok: true, files, error_count: errorCount, endpoints, daily })
+    }
+
+    if (op === 'read-log') {
+      const fileName = (body.path || '').replace(/\.\./g, '').replace(/[^a-zA-Z0-9._\-]/g, '')
+      const dir = (body.dir || 'root').replace(/\.\./g, '').replace(/[^a-zA-Z0-9._\-]/g, '')
+      
+      let filePath = ''
+      if (dir === 'root') {
+        filePath = `${LOG_BASE}/${fileName}`
+      } else {
+        filePath = `${LOG_BASE}/${dir}/${fileName}`
+      }
+
+      const readExec = await fetch('http://127.0.0.1:3001/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: `cat "${filePath}" 2>/dev/null | head -c 500000` })
+      })
+      const readData = await readExec.json() as { stdout?: string; stderr?: string; exitCode?: number }
+      
+      if (!readData.stdout || readData.stdout.trim() === '') {
+        return c.json({ ok: false, error: `File tidak ditemukan atau kosong: ${fileName}` })
+      }
+      return c.json({ ok: true, content: readData.stdout, path: filePath })
+    }
+
+    return c.json({ ok: false, error: 'Unknown operation: ' + op })
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e)
+    // If terminal server unavailable (production), return helpful error
+    if (msg.includes('fetch') || msg.includes('ECONNREFUSED') || msg.includes('refused')) {
+      return c.json({ ok: false, error: 'Admin panel memerlukan sandbox environment. Di production, fitur baca log tidak tersedia karena tidak ada akses filesystem.' })
+    }
+    return c.json({ ok: false, error: 'Admin error: ' + msg })
+  }
+})
+
 app.get('/', (c) => {
-  return c.redirect('/swagger')
+  return c.redirect('/admin')
 })
 
 app.get('/swagger', (c) => {
   return c.html(getSwaggerHTML())
+})
+
+app.get('/admin', (c) => {
+  return c.html(getAdminHTML())
 })
 
 app.get('/crypto', (c) => {

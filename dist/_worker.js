@@ -1,4 +1,4 @@
-var Xa=Object.defineProperty;var na=e=>{throw TypeError(e)};var Ga=(e,a,t)=>a in e?Xa(e,a,{enumerable:!0,configurable:!0,writable:!0,value:t}):e[a]=t;var w=(e,a,t)=>Ga(e,typeof a!="symbol"?a+"":a,t),We=(e,a,t)=>a.has(e)||na("Cannot "+t);var f=(e,a,t)=>(We(e,a,"read from private field"),t?t.call(e):a.get(e)),I=(e,a,t)=>a.has(e)?na("Cannot add the same private member more than once"):a instanceof WeakSet?a.add(e):a.set(e,t),S=(e,a,t,s)=>(We(e,a,"write to private field"),s?s.call(e,t):a.set(e,t),t),P=(e,a,t)=>(We(e,a,"access private method"),t);var ia=(e,a,t,s)=>({set _(n){S(e,a,n,t)},get _(){return f(e,a,s)}});var ra=(e,a,t)=>(s,n)=>{let i=-1;return o(0);async function o(d){if(d<=i)throw new Error("next() called multiple times");i=d;let p,r=!1,g;if(e[d]?(g=e[d][0][0],s.req.routeIndex=d):g=d===e.length&&n||void 0,g)try{p=await g(s,()=>o(d+1))}catch(h){if(h instanceof Error&&a)s.error=h,p=await a(h,s),r=!0;else throw h}else s.finalized===!1&&t&&(p=await t(s));return p&&(s.finalized===!1||r)&&(s.res=p),s}},Fa=Symbol(),$a=async(e,a=Object.create(null))=>{const{all:t=!1,dot:s=!1}=a,i=(e instanceof Ta?e.raw.headers:e.headers).get("Content-Type");return i!=null&&i.startsWith("multipart/form-data")||i!=null&&i.startsWith("application/x-www-form-urlencoded")?Ya(e,{all:t,dot:s}):{}};async function Ya(e,a){const t=await e.formData();return t?Va(t,a):{}}function Va(e,a){const t=Object.create(null);return e.forEach((s,n)=>{a.all||n.endsWith("[]")?Ja(t,n,s):t[n]=s}),a.dot&&Object.entries(t).forEach(([s,n])=>{s.includes(".")&&(Wa(t,s,n),delete t[s])}),t}var Ja=(e,a,t)=>{e[a]!==void 0?Array.isArray(e[a])?e[a].push(t):e[a]=[e[a],t]:a.endsWith("[]")?e[a]=[t]:e[a]=t},Wa=(e,a,t)=>{if(/(?:^|\.)__proto__\./.test(a))return;let s=e;const n=a.split(".");n.forEach((i,o)=>{o===n.length-1?s[i]=t:((!s[i]||typeof s[i]!="object"||Array.isArray(s[i])||s[i]instanceof File)&&(s[i]=Object.create(null)),s=s[i])})},va=e=>{const a=e.split("/");return a[0]===""&&a.shift(),a},Qa=e=>{const{groups:a,path:t}=Za(e),s=va(t);return et(s,a)},Za=e=>{const a=[];return e=e.replace(/\{[^}]+\}/g,(t,s)=>{const n=`@${s}`;return a.push([n,t]),n}),{groups:a,path:e}},et=(e,a)=>{for(let t=a.length-1;t>=0;t--){const[s]=a[t];for(let n=e.length-1;n>=0;n--)if(e[n].includes(s)){e[n]=e[n].replace(s,a[t][1]);break}}return e},ze={},at=(e,a)=>{if(e==="*")return"*";const t=e.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);if(t){const s=`${e}#${a}`;return ze[s]||(t[2]?ze[s]=a&&a[0]!==":"&&a[0]!=="*"?[s,t[1],new RegExp(`^${t[2]}(?=/${a})`)]:[e,t[1],new RegExp(`^${t[2]}$`)]:ze[s]=[e,t[1],!0]),ze[s]}return null},aa=(e,a)=>{try{return a(e)}catch{return e.replace(/(?:%[0-9A-Fa-f]{2})+/g,t=>{try{return a(t)}catch{return t}})}},ya=e=>aa(e,decodeURI),ka=e=>{const a=e.url,t=a.indexOf("/",a.indexOf(":")+4);let s=t;for(;s<a.length;s++){const n=a.charCodeAt(s);if(n===37){const i=a.indexOf("?",s),o=a.indexOf("#",s),d=i===-1?o===-1?void 0:o:o===-1?i:Math.min(i,o),p=a.slice(t,d);return ya(p.includes("%25")?p.replace(/%25/g,"%2525"):p)}else if(n===63||n===35)break}return a.slice(t,s)},tt=e=>{const a=ka(e);return a.length>1&&a.at(-1)==="/"?a.slice(0,-1):a},he=(e,a,...t)=>(t.length&&(a=he(a,...t)),`${(e==null?void 0:e[0])==="/"?"":"/"}${e}${a==="/"?"":`${(e==null?void 0:e.at(-1))==="/"?"":"/"}${(a==null?void 0:a[0])==="/"?a.slice(1):a}`}`),xa=e=>{if(e.charCodeAt(e.length-1)!==63||!e.includes(":"))return null;const a=e.split("/"),t=[];let s="";return a.forEach(n=>{if(n!==""&&!/\:/.test(n))s+="/"+n;else if(/\:/.test(n))if(/\?/.test(n)){t.length===0&&s===""?t.push("/"):t.push(s);const i=n.replace("?","");s+="/"+i,t.push(s)}else s+="/"+n}),t.filter((n,i,o)=>o.indexOf(n)===i)},Qe=e=>/[%+]/.test(e)?(e.indexOf("+")!==-1&&(e=e.replace(/\+/g," ")),e.indexOf("%")!==-1?aa(e,wa):e):e,Sa=(e,a,t)=>{let s;if(!t&&a&&!/[%+]/.test(a)){let o=e.indexOf("?",8);if(o===-1)return;for(e.startsWith(a,o+1)||(o=e.indexOf(`&${a}`,o+1));o!==-1;){const d=e.charCodeAt(o+a.length+1);if(d===61){const p=o+a.length+2,r=e.indexOf("&",p);return Qe(e.slice(p,r===-1?void 0:r))}else if(d==38||isNaN(d))return"";o=e.indexOf(`&${a}`,o+1)}if(s=/[%+]/.test(e),!s)return}const n={};s??(s=/[%+]/.test(e));let i=e.indexOf("?",8);for(;i!==-1;){const o=e.indexOf("&",i+1);let d=e.indexOf("=",i);d>o&&o!==-1&&(d=-1);let p=e.slice(i+1,d===-1?o===-1?void 0:o:d);if(s&&(p=Qe(p)),i=o,p==="")continue;let r;d===-1?r="":(r=e.slice(d+1,o===-1?void 0:o),s&&(r=Qe(r))),t?(n[p]&&Array.isArray(n[p])||(n[p]=[]),n[p].push(r)):n[p]??(n[p]=r)}return a?n[a]:n},st=Sa,nt=(e,a)=>Sa(e,a,!0),wa=decodeURIComponent,oa=e=>aa(e,wa),xe,K,W,Ia,Aa,ea,Q,ua,Ta=(ua=class{constructor(e,a="/",t=[[]]){I(this,W);w(this,"raw");I(this,xe);I(this,K);w(this,"routeIndex",0);w(this,"path");w(this,"bodyCache",{});I(this,Q,e=>{const{bodyCache:a,raw:t}=this,s=a[e];if(s)return s;const n=Object.keys(a)[0];return n?a[n].then(i=>(n==="json"&&(i=JSON.stringify(i)),new Response(i)[e]())):a[e]=t[e]()});this.raw=e,this.path=a,S(this,K,t),S(this,xe,{})}param(e){return e?P(this,W,Ia).call(this,e):P(this,W,Aa).call(this)}query(e){return st(this.url,e)}queries(e){return nt(this.url,e)}header(e){if(e)return this.raw.headers.get(e)??void 0;const a={};return this.raw.headers.forEach((t,s)=>{a[s]=t}),a}async parseBody(e){return $a(this,e)}json(){return f(this,Q).call(this,"text").then(e=>JSON.parse(e))}text(){return f(this,Q).call(this,"text")}arrayBuffer(){return f(this,Q).call(this,"arrayBuffer")}blob(){return f(this,Q).call(this,"blob")}formData(){return f(this,Q).call(this,"formData")}addValidatedData(e,a){f(this,xe)[e]=a}valid(e){return f(this,xe)[e]}get url(){return this.raw.url}get method(){return this.raw.method}get[Fa](){return f(this,K)}get matchedRoutes(){return f(this,K)[0].map(([[,e]])=>e)}get routePath(){return f(this,K)[0].map(([[,e]])=>e)[this.routeIndex].path}},xe=new WeakMap,K=new WeakMap,W=new WeakSet,Ia=function(e){const a=f(this,K)[0][this.routeIndex][1][e],t=P(this,W,ea).call(this,a);return t&&/\%/.test(t)?oa(t):t},Aa=function(){const e={},a=Object.keys(f(this,K)[0][this.routeIndex][1]);for(const t of a){const s=P(this,W,ea).call(this,f(this,K)[0][this.routeIndex][1][t]);s!==void 0&&(e[t]=/\%/.test(s)?oa(s):s)}return e},ea=function(e){return f(this,K)[1]?f(this,K)[1][e]:e},Q=new WeakMap,ua),it={Stringify:1},Pa=async(e,a,t,s,n)=>{typeof e=="object"&&!(e instanceof String)&&(e instanceof Promise||(e=e.toString()),e instanceof Promise&&(e=await e));const i=e.callbacks;return i!=null&&i.length?(n?n[0]+=e:n=[e],Promise.all(i.map(d=>d({phase:a,buffer:n,context:s}))).then(d=>Promise.all(d.filter(Boolean).map(p=>Pa(p,a,!1,s,n))).then(()=>n[0]))):Promise.resolve(e)},rt="text/plain; charset=UTF-8",Ze=(e,a)=>({"Content-Type":e,...a}),_e=(e,a)=>new Response(e,a),qe,Oe,$,Se,Y,O,Le,we,Te,de,Me,He,Z,ve,fa,ot=(fa=class{constructor(e,a){I(this,Z);I(this,qe);I(this,Oe);w(this,"env",{});I(this,$);w(this,"finalized",!1);w(this,"error");I(this,Se);I(this,Y);I(this,O);I(this,Le);I(this,we);I(this,Te);I(this,de);I(this,Me);I(this,He);w(this,"render",(...e)=>(f(this,we)??S(this,we,a=>this.html(a)),f(this,we).call(this,...e)));w(this,"setLayout",e=>S(this,Le,e));w(this,"getLayout",()=>f(this,Le));w(this,"setRenderer",e=>{S(this,we,e)});w(this,"header",(e,a,t)=>{this.finalized&&S(this,O,_e(f(this,O).body,f(this,O)));const s=f(this,O)?f(this,O).headers:f(this,de)??S(this,de,new Headers);a===void 0?s.delete(e):t!=null&&t.append?s.append(e,a):s.set(e,a)});w(this,"status",e=>{S(this,Se,e)});w(this,"set",(e,a)=>{f(this,$)??S(this,$,new Map),f(this,$).set(e,a)});w(this,"get",e=>f(this,$)?f(this,$).get(e):void 0);w(this,"newResponse",(...e)=>P(this,Z,ve).call(this,...e));w(this,"body",(e,a,t)=>P(this,Z,ve).call(this,e,a,t));w(this,"text",(e,a,t)=>!f(this,de)&&!f(this,Se)&&!a&&!t&&!this.finalized?new Response(e):P(this,Z,ve).call(this,e,a,Ze(rt,t)));w(this,"json",(e,a,t)=>P(this,Z,ve).call(this,JSON.stringify(e),a,Ze("application/json",t)));w(this,"html",(e,a,t)=>{const s=n=>P(this,Z,ve).call(this,n,a,Ze("text/html; charset=UTF-8",t));return typeof e=="object"?Pa(e,it.Stringify,!1,{}).then(s):s(e)});w(this,"redirect",(e,a)=>{const t=String(e);return this.header("Location",/[^\x00-\xFF]/.test(t)?encodeURI(t):t),this.newResponse(null,a??302)});w(this,"notFound",()=>(f(this,Te)??S(this,Te,()=>_e()),f(this,Te).call(this,this)));S(this,qe,e),a&&(S(this,Y,a.executionCtx),this.env=a.env,S(this,Te,a.notFoundHandler),S(this,He,a.path),S(this,Me,a.matchResult))}get req(){return f(this,Oe)??S(this,Oe,new Ta(f(this,qe),f(this,He),f(this,Me))),f(this,Oe)}get event(){if(f(this,Y)&&"respondWith"in f(this,Y))return f(this,Y);throw Error("This context has no FetchEvent")}get executionCtx(){if(f(this,Y))return f(this,Y);throw Error("This context has no ExecutionContext")}get res(){return f(this,O)||S(this,O,_e(null,{headers:f(this,de)??S(this,de,new Headers)}))}set res(e){if(f(this,O)&&e){e=_e(e.body,e);for(const[a,t]of f(this,O).headers.entries())if(a!=="content-type")if(a==="set-cookie"){const s=f(this,O).headers.getSetCookie();e.headers.delete("set-cookie");for(const n of s)e.headers.append("set-cookie",n)}else e.headers.set(a,t)}S(this,O,e),this.finalized=!0}get var(){return f(this,$)?Object.fromEntries(f(this,$)):{}}},qe=new WeakMap,Oe=new WeakMap,$=new WeakMap,Se=new WeakMap,Y=new WeakMap,O=new WeakMap,Le=new WeakMap,we=new WeakMap,Te=new WeakMap,de=new WeakMap,Me=new WeakMap,He=new WeakMap,Z=new WeakSet,ve=function(e,a,t){const s=f(this,O)?new Headers(f(this,O).headers):f(this,de)??new Headers;if(typeof a=="object"&&"headers"in a){const i=a.headers instanceof Headers?a.headers:new Headers(a.headers);for(const[o,d]of i)o.toLowerCase()==="set-cookie"?s.append(o,d):s.set(o,d)}if(t)for(const[i,o]of Object.entries(t))if(typeof o=="string")s.set(i,o);else{s.delete(i);for(const d of o)s.append(i,d)}const n=typeof a=="number"?a:(a==null?void 0:a.status)??f(this,Se);return _e(e,{status:n,headers:s})},fa),_="ALL",dt="all",lt=["get","post","put","delete","options","patch"],Ea="Can not add a route since the matcher is already built.",Ca=class extends Error{},ct="__COMPOSED_HANDLER",pt=e=>e.text("404 Not Found",404),da=(e,a)=>{if("getResponse"in e){const t=e.getResponse();return a.newResponse(t.body,t)}return console.error(e),a.text("Internal Server Error",500)},j,N,_a,U,re,Ue,Xe,Ie,ut=(Ie=class{constructor(a={}){I(this,N);w(this,"get");w(this,"post");w(this,"put");w(this,"delete");w(this,"options");w(this,"patch");w(this,"all");w(this,"on");w(this,"use");w(this,"router");w(this,"getPath");w(this,"_basePath","/");I(this,j,"/");w(this,"routes",[]);I(this,U,pt);w(this,"errorHandler",da);w(this,"onError",a=>(this.errorHandler=a,this));w(this,"notFound",a=>(S(this,U,a),this));w(this,"fetch",(a,...t)=>P(this,N,Xe).call(this,a,t[1],t[0],a.method));w(this,"request",(a,t,s,n)=>a instanceof Request?this.fetch(t?new Request(a,t):a,s,n):(a=a.toString(),this.fetch(new Request(/^https?:\/\//.test(a)?a:`http://localhost${he("/",a)}`,t),s,n)));w(this,"fire",()=>{addEventListener("fetch",a=>{a.respondWith(P(this,N,Xe).call(this,a.request,a,void 0,a.request.method))})});[...lt,dt].forEach(i=>{this[i]=(o,...d)=>(typeof o=="string"?S(this,j,o):P(this,N,re).call(this,i,f(this,j),o),d.forEach(p=>{P(this,N,re).call(this,i,f(this,j),p)}),this)}),this.on=(i,o,...d)=>{for(const p of[o].flat()){S(this,j,p);for(const r of[i].flat())d.map(g=>{P(this,N,re).call(this,r.toUpperCase(),f(this,j),g)})}return this},this.use=(i,...o)=>(typeof i=="string"?S(this,j,i):(S(this,j,"*"),o.unshift(i)),o.forEach(d=>{P(this,N,re).call(this,_,f(this,j),d)}),this);const{strict:s,...n}=a;Object.assign(this,n),this.getPath=s??!0?a.getPath??ka:tt}route(a,t){const s=this.basePath(a);return t.routes.map(n=>{var o;let i;t.errorHandler===da?i=n.handler:(i=async(d,p)=>(await ra([],t.errorHandler)(d,()=>n.handler(d,p))).res,i[ct]=n.handler),P(o=s,N,re).call(o,n.method,n.path,i)}),this}basePath(a){const t=P(this,N,_a).call(this);return t._basePath=he(this._basePath,a),t}mount(a,t,s){let n,i;s&&(typeof s=="function"?i=s:(i=s.optionHandler,s.replaceRequest===!1?n=p=>p:n=s.replaceRequest));const o=i?p=>{const r=i(p);return Array.isArray(r)?r:[r]}:p=>{let r;try{r=p.executionCtx}catch{}return[p.env,r]};n||(n=(()=>{const p=he(this._basePath,a),r=p==="/"?0:p.length;return g=>{const h=new URL(g.url);return h.pathname=h.pathname.slice(r)||"/",new Request(h,g)}})());const d=async(p,r)=>{const g=await t(n(p.req.raw),...o(p));if(g)return g;await r()};return P(this,N,re).call(this,_,he(a,"*"),d),this}},j=new WeakMap,N=new WeakSet,_a=function(){const a=new Ie({router:this.router,getPath:this.getPath});return a.errorHandler=this.errorHandler,S(a,U,f(this,U)),a.routes=this.routes,a},U=new WeakMap,re=function(a,t,s){a=a.toUpperCase(),t=he(this._basePath,t);const n={basePath:this._basePath,path:t,method:a,handler:s};this.router.add(a,t,[s,n]),this.routes.push(n)},Ue=function(a,t){if(a instanceof Error)return this.errorHandler(a,t);throw a},Xe=function(a,t,s,n){if(n==="HEAD")return(async()=>new Response(null,await P(this,N,Xe).call(this,a,t,s,"GET")))();const i=this.getPath(a,{env:s}),o=this.router.match(n,i),d=new ot(a,{path:i,matchResult:o,env:s,executionCtx:t,notFoundHandler:f(this,U)});if(o[0].length===1){let r;try{r=o[0][0][0][0](d,async()=>{d.res=await f(this,U).call(this,d)})}catch(g){return P(this,N,Ue).call(this,g,d)}return r instanceof Promise?r.then(g=>g||(d.finalized?d.res:f(this,U).call(this,d))).catch(g=>P(this,N,Ue).call(this,g,d)):r??f(this,U).call(this,d)}const p=ra(o[0],this.errorHandler,f(this,U));return(async()=>{try{const r=await p(d);if(!r.finalized)throw new Error("Context is not finalized. Did you forget to return a Response object or `await next()`?");return r.res}catch(r){return P(this,N,Ue).call(this,r,d)}})()},Ie),Da=[];function ft(e,a){const t=this.buildAllMatchers(),s=((n,i)=>{const o=t[n]||t[_],d=o[2][i];if(d)return d;const p=i.match(o[0]);if(!p)return[[],Da];const r=p.indexOf("",1);return[o[1][r],p]});return this.match=s,s(e,a)}var Fe="[^/]+",Ne=".*",Be="(?:|/.*)",ye=Symbol(),mt=new Set(".\\+*[^]$()");function bt(e,a){return e.length===1?a.length===1?e<a?-1:1:-1:a.length===1||e===Ne||e===Be?1:a===Ne||a===Be?-1:e===Fe?1:a===Fe?-1:e.length===a.length?e<a?-1:1:a.length-e.length}var le,ce,X,fe,gt=(fe=class{constructor(){I(this,le);I(this,ce);I(this,X,Object.create(null))}insert(a,t,s,n,i){if(a.length===0){if(f(this,le)!==void 0)throw ye;if(i)return;S(this,le,t);return}const[o,...d]=a,p=o==="*"?d.length===0?["","",Ne]:["","",Fe]:o==="/*"?["","",Be]:o.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);let r;if(p){const g=p[1];let h=p[2]||Fe;if(g&&p[2]&&(h===".*"||(h=h.replace(/^\((?!\?:)(?=[^)]+\)$)/,"(?:"),/\((?!\?:)/.test(h))))throw ye;if(r=f(this,X)[h],!r){if(Object.keys(f(this,X)).some(l=>l!==Ne&&l!==Be))throw ye;if(i)return;r=f(this,X)[h]=new fe,g!==""&&S(r,ce,n.varIndex++)}!i&&g!==""&&s.push([g,f(r,ce)])}else if(r=f(this,X)[o],!r){if(Object.keys(f(this,X)).some(g=>g.length>1&&g!==Ne&&g!==Be))throw ye;if(i)return;r=f(this,X)[o]=new fe}r.insert(d,t,s,n,i)}buildRegExpStr(){const t=Object.keys(f(this,X)).sort(bt).map(s=>{const n=f(this,X)[s];return(typeof f(n,ce)=="number"?`(${s})@${f(n,ce)}`:mt.has(s)?`\\${s}`:s)+n.buildRegExpStr()});return typeof f(this,le)=="number"&&t.unshift(`#${f(this,le)}`),t.length===0?"":t.length===1?t[0]:"(?:"+t.join("|")+")"}},le=new WeakMap,ce=new WeakMap,X=new WeakMap,fe),$e,Ke,ma,ht=(ma=class{constructor(){I(this,$e,{varIndex:0});I(this,Ke,new gt)}insert(e,a,t){const s=[],n=[];for(let o=0;;){let d=!1;if(e=e.replace(/\{[^}]+\}/g,p=>{const r=`@\\${o}`;return n[o]=[r,p],o++,d=!0,r}),!d)break}const i=e.match(/(?::[^\/]+)|(?:\/\*$)|./g)||[];for(let o=n.length-1;o>=0;o--){const[d]=n[o];for(let p=i.length-1;p>=0;p--)if(i[p].indexOf(d)!==-1){i[p]=i[p].replace(d,n[o][1]);break}}return f(this,Ke).insert(i,a,s,f(this,$e),t),s}buildRegExp(){let e=f(this,Ke).buildRegExpStr();if(e==="")return[/^$/,[],[]];let a=0;const t=[],s=[];return e=e.replace(/#(\d+)|@(\d+)|\.\*\$/g,(n,i,o)=>i!==void 0?(t[++a]=Number(i),"$()"):(o!==void 0&&(s[Number(o)]=++a),"")),[new RegExp(`^${e}`),t,s]}},$e=new WeakMap,Ke=new WeakMap,ma),vt=[/^$/,[],Object.create(null)],Ge=Object.create(null);function Na(e){return Ge[e]??(Ge[e]=new RegExp(e==="*"?"":`^${e.replace(/\/\*$|([.\\+*[^\]$()])/g,(a,t)=>t?`\\${t}`:"(?:|/.*)")}$`))}function yt(){Ge=Object.create(null)}function kt(e){var r;const a=new ht,t=[];if(e.length===0)return vt;const s=e.map(g=>[!/\*|\/:/.test(g[0]),...g]).sort(([g,h],[l,c])=>g?1:l?-1:h.length-c.length),n=Object.create(null);for(let g=0,h=-1,l=s.length;g<l;g++){const[c,m,b]=s[g];c?n[m]=[b.map(([y])=>[y,Object.create(null)]),Da]:h++;let A;try{A=a.insert(m,h,c)}catch(y){throw y===ye?new Ca(m):y}c||(t[h]=b.map(([y,u])=>{const x=Object.create(null);for(u-=1;u>=0;u--){const[v,C]=A[u];x[v]=C}return[y,x]}))}const[i,o,d]=a.buildRegExp();for(let g=0,h=t.length;g<h;g++)for(let l=0,c=t[g].length;l<c;l++){const m=(r=t[g][l])==null?void 0:r[1];if(!m)continue;const b=Object.keys(m);for(let A=0,y=b.length;A<y;A++)m[b[A]]=d[m[b[A]]]}const p=[];for(const g in o)p[g]=t[o[g]];return[i,p,n]}function ge(e,a){if(e){for(const t of Object.keys(e).sort((s,n)=>n.length-s.length))if(Na(t).test(a))return[...e[t]]}}var ee,ae,Ye,Ba,ba,xt=(ba=class{constructor(){I(this,Ye);w(this,"name","RegExpRouter");I(this,ee);I(this,ae);w(this,"match",ft);S(this,ee,{[_]:Object.create(null)}),S(this,ae,{[_]:Object.create(null)})}add(e,a,t){var d;const s=f(this,ee),n=f(this,ae);if(!s||!n)throw new Error(Ea);s[e]||[s,n].forEach(p=>{p[e]=Object.create(null),Object.keys(p[_]).forEach(r=>{p[e][r]=[...p[_][r]]})}),a==="/*"&&(a="*");const i=(a.match(/\/:/g)||[]).length;if(/\*$/.test(a)){const p=Na(a);e===_?Object.keys(s).forEach(r=>{var g;(g=s[r])[a]||(g[a]=ge(s[r],a)||ge(s[_],a)||[])}):(d=s[e])[a]||(d[a]=ge(s[e],a)||ge(s[_],a)||[]),Object.keys(s).forEach(r=>{(e===_||e===r)&&Object.keys(s[r]).forEach(g=>{p.test(g)&&s[r][g].push([t,i])})}),Object.keys(n).forEach(r=>{(e===_||e===r)&&Object.keys(n[r]).forEach(g=>p.test(g)&&n[r][g].push([t,i]))});return}const o=xa(a)||[a];for(let p=0,r=o.length;p<r;p++){const g=o[p];Object.keys(n).forEach(h=>{var l;(e===_||e===h)&&((l=n[h])[g]||(l[g]=[...ge(s[h],g)||ge(s[_],g)||[]]),n[h][g].push([t,i-r+p+1]))})}}buildAllMatchers(){const e=Object.create(null);return Object.keys(f(this,ae)).concat(Object.keys(f(this,ee))).forEach(a=>{e[a]||(e[a]=P(this,Ye,Ba).call(this,a))}),S(this,ee,S(this,ae,void 0)),yt(),e}},ee=new WeakMap,ae=new WeakMap,Ye=new WeakSet,Ba=function(e){const a=[];let t=e===_;return[f(this,ee),f(this,ae)].forEach(s=>{const n=s[e]?Object.keys(s[e]).map(i=>[i,s[e][i]]):[];n.length!==0?(t||(t=!0),a.push(...n)):e!==_&&a.push(...Object.keys(s[_]).map(i=>[i,s[_][i]]))}),t?kt(a):null},ba),te,V,ga,St=(ga=class{constructor(e){w(this,"name","SmartRouter");I(this,te,[]);I(this,V,[]);S(this,te,e.routers)}add(e,a,t){if(!f(this,V))throw new Error(Ea);f(this,V).push([e,a,t])}match(e,a){if(!f(this,V))throw new Error("Fatal error");const t=f(this,te),s=f(this,V),n=t.length;let i=0,o;for(;i<n;i++){const d=t[i];try{for(let p=0,r=s.length;p<r;p++)d.add(...s[p]);o=d.match(e,a)}catch(p){if(p instanceof Ca)continue;throw p}this.match=d.match.bind(d),S(this,te,[d]),S(this,V,void 0);break}if(i===n)throw new Error("Fatal error");return this.name=`SmartRouter + ${this.activeRouter.name}`,o}get activeRouter(){if(f(this,V)||f(this,te).length!==1)throw new Error("No active router has been determined yet.");return f(this,te)[0]}},te=new WeakMap,V=new WeakMap,ga),De=Object.create(null),wt=e=>{for(const a in e)return!0;return!1},se,R,pe,Ae,B,J,oe,Pe,Tt=(Pe=class{constructor(a,t,s){I(this,J);I(this,se);I(this,R);I(this,pe);I(this,Ae,0);I(this,B,De);if(S(this,R,s||Object.create(null)),S(this,se,[]),a&&t){const n=Object.create(null);n[a]={handler:t,possibleKeys:[],score:0},S(this,se,[n])}S(this,pe,[])}insert(a,t,s){S(this,Ae,++ia(this,Ae)._);let n=this;const i=Qa(t),o=[];for(let d=0,p=i.length;d<p;d++){const r=i[d],g=i[d+1],h=at(r,g),l=Array.isArray(h)?h[0]:r;if(l in f(n,R)){n=f(n,R)[l],h&&o.push(h[1]);continue}f(n,R)[l]=new Pe,h&&(f(n,pe).push(h),o.push(h[1])),n=f(n,R)[l]}return f(n,se).push({[a]:{handler:s,possibleKeys:o.filter((d,p,r)=>r.indexOf(d)===p),score:f(this,Ae)}}),n}search(a,t){var g;const s=[];S(this,B,De);let i=[this];const o=va(t),d=[],p=o.length;let r=null;for(let h=0;h<p;h++){const l=o[h],c=h===p-1,m=[];for(let A=0,y=i.length;A<y;A++){const u=i[A],x=f(u,R)[l];x&&(S(x,B,f(u,B)),c?(f(x,R)["*"]&&P(this,J,oe).call(this,s,f(x,R)["*"],a,f(u,B)),P(this,J,oe).call(this,s,x,a,f(u,B))):m.push(x));for(let v=0,C=f(u,pe).length;v<C;v++){const T=f(u,pe)[v],k=f(u,B)===De?{}:{...f(u,B)};if(T==="*"){const F=f(u,R)["*"];F&&(P(this,J,oe).call(this,s,F,a,f(u,B)),S(F,B,k),m.push(F));continue}const[M,q,H]=T;if(!l&&!(H instanceof RegExp))continue;const L=f(u,R)[M];if(H instanceof RegExp){if(r===null){r=new Array(p);let be=t[0]==="/"?1:0;for(let Ce=0;Ce<p;Ce++)r[Ce]=be,be+=o[Ce].length+1}const F=t.substring(r[h]),Je=H.exec(F);if(Je){if(k[q]=Je[0],P(this,J,oe).call(this,s,L,a,f(u,B),k),wt(f(L,R))){S(L,B,k);const be=((g=Je[0].match(/\//))==null?void 0:g.length)??0;(d[be]||(d[be]=[])).push(L)}continue}}(H===!0||H.test(l))&&(k[q]=l,c?(P(this,J,oe).call(this,s,L,a,k,f(u,B)),f(L,R)["*"]&&P(this,J,oe).call(this,s,f(L,R)["*"],a,k,f(u,B))):(S(L,B,k),m.push(L)))}}const b=d.shift();i=b?m.concat(b):m}return s.length>1&&s.sort((h,l)=>h.score-l.score),[s.map(({handler:h,params:l})=>[h,l])]}},se=new WeakMap,R=new WeakMap,pe=new WeakMap,Ae=new WeakMap,B=new WeakMap,J=new WeakSet,oe=function(a,t,s,n,i){for(let o=0,d=f(t,se).length;o<d;o++){const p=f(t,se)[o],r=p[s]||p[_],g={};if(r!==void 0&&(r.params=Object.create(null),a.push(r),n!==De||i&&i!==De))for(let h=0,l=r.possibleKeys.length;h<l;h++){const c=r.possibleKeys[h],m=g[r.score];r.params[c]=i!=null&&i[c]&&!m?i[c]:n[c]??(i==null?void 0:i[c]),g[r.score]=!0}}},Pe),ue,ha,It=(ha=class{constructor(){w(this,"name","TrieRouter");I(this,ue);S(this,ue,new Tt)}add(e,a,t){const s=xa(a);if(s){for(let n=0,i=s.length;n<i;n++)f(this,ue).insert(e,s[n],t);return}f(this,ue).insert(e,a,t)}match(e,a){return f(this,ue).search(e,a)}},ue=new WeakMap,ha),Ra=class extends ut{constructor(e={}){super(e),this.router=e.router??new St({routers:[new xt,new It]})}},At=/^\s*(?:text\/(?!event-stream(?:[;\s]|$))[^;\s]+|application\/(?:javascript|json|xml|xml-dtd|ecmascript|dart|postscript|rtf|tar|toml|vnd\.dart|vnd\.ms-fontobject|vnd\.ms-opentype|wasm|x-httpd-php|x-javascript|x-ns-proxy-autoconfig|x-sh|x-tar|x-virtualbox-hdd|x-virtualbox-ova|x-virtualbox-ovf|x-virtualbox-vbox|x-virtualbox-vdi|x-virtualbox-vhd|x-virtualbox-vmdk|x-www-form-urlencoded)|font\/(?:otf|ttf)|image\/(?:bmp|vnd\.adobe\.photoshop|vnd\.microsoft\.icon|vnd\.ms-dds|x-icon|x-ms-bmp)|message\/rfc822|model\/gltf-binary|x-shader\/x-fragment|x-shader\/x-vertex|[^;\s]+?\+(?:json|text|xml|yaml))(?:[;\s]|$)/i,la=(e,a=Et)=>{const t=/\.([a-zA-Z0-9]+?)$/,s=e.match(t);if(!s)return;let n=a[s[1].toLowerCase()];return n&&n.startsWith("text")&&(n+="; charset=utf-8"),n},Pt={aac:"audio/aac",avi:"video/x-msvideo",avif:"image/avif",av1:"video/av1",bin:"application/octet-stream",bmp:"image/bmp",css:"text/css",csv:"text/csv",eot:"application/vnd.ms-fontobject",epub:"application/epub+zip",gif:"image/gif",gz:"application/gzip",htm:"text/html",html:"text/html",ico:"image/x-icon",ics:"text/calendar",jpeg:"image/jpeg",jpg:"image/jpeg",js:"text/javascript",json:"application/json",jsonld:"application/ld+json",map:"application/json",mid:"audio/x-midi",midi:"audio/x-midi",mjs:"text/javascript",mp3:"audio/mpeg",mp4:"video/mp4",mpeg:"video/mpeg",oga:"audio/ogg",ogv:"video/ogg",ogx:"application/ogg",opus:"audio/opus",otf:"font/otf",pdf:"application/pdf",png:"image/png",rtf:"application/rtf",svg:"image/svg+xml",tif:"image/tiff",tiff:"image/tiff",ts:"video/mp2t",ttf:"font/ttf",txt:"text/plain",wasm:"application/wasm",webm:"video/webm",weba:"audio/webm",webmanifest:"application/manifest+json",webp:"image/webp",woff:"font/woff",woff2:"font/woff2",xhtml:"application/xhtml+xml",xml:"application/xml",zip:"application/zip","3gp":"video/3gpp","3g2":"video/3gpp2",gltf:"model/gltf+json",glb:"model/gltf-binary"},Et=Pt,Ct=(...e)=>{let a=e.filter(n=>n!=="").join("/");a=a.replace(new RegExp("(?<=\\/)\\/+","g"),"");const t=a.split("/"),s=[];for(const n of t)n===".."&&s.length>0&&s.at(-1)!==".."?s.pop():n!=="."&&s.push(n);return s.join("/")||"."},qa={br:".br",zstd:".zst",gzip:".gz"},_t=Object.keys(qa),Dt="index.html",Nt=e=>{const a=e.root??"./",t=e.path,s=e.join??Ct;return async(n,i)=>{var g,h,l,c;if(n.finalized)return i();let o;if(e.path)o=e.path;else try{if(o=ya(n.req.path),/(?:^|[\/\\])\.{1,2}(?:$|[\/\\])|[\/\\]{2,}/.test(o))throw new Error}catch{return await((g=e.onNotFound)==null?void 0:g.call(e,n.req.path,n)),i()}let d=s(a,!t&&e.rewriteRequestPath?e.rewriteRequestPath(o):o);e.isDir&&await e.isDir(d)&&(d=s(d,Dt));const p=e.getContent;let r=await p(d,n);if(r instanceof Response)return n.newResponse(r.body,r);if(r){const m=e.mimes&&la(d,e.mimes)||la(d);if(n.header("Content-Type",m||"application/octet-stream"),e.precompressed&&(!m||At.test(m))){const b=new Set((h=n.req.header("Accept-Encoding"))==null?void 0:h.split(",").map(A=>A.trim()));for(const A of _t){if(!b.has(A))continue;const y=await p(d+qa[A],n);if(y){r=y,n.header("Content-Encoding",A),n.header("Vary","Accept-Encoding",{append:!0});break}}}return await((l=e.onFound)==null?void 0:l.call(e,d,n)),n.body(r)}await((c=e.onNotFound)==null?void 0:c.call(e,d,n)),await i()}},Bt=async(e,a)=>{let t;a&&a.manifest?typeof a.manifest=="string"?t=JSON.parse(a.manifest):t=a.manifest:typeof __STATIC_CONTENT_MANIFEST=="string"?t=JSON.parse(__STATIC_CONTENT_MANIFEST):t=__STATIC_CONTENT_MANIFEST;let s;a&&a.namespace?s=a.namespace:s=__STATIC_CONTENT;const n=t[e];if(!n)return null;const i=await s.get(n,{type:"stream"});return i||null},Rt=e=>async function(t,s){return Nt({...e,getContent:async i=>Bt(i,{manifest:e.manifest,namespace:e.namespace?e.namespace:t.env?t.env.__STATIC_CONTENT:void 0})})(t,s)},qt=e=>Rt(e);function Ot(){return`<!DOCTYPE html>
+var Ga=Object.defineProperty;var ia=e=>{throw TypeError(e)};var Fa=(e,a,t)=>a in e?Ga(e,a,{enumerable:!0,configurable:!0,writable:!0,value:t}):e[a]=t;var S=(e,a,t)=>Fa(e,typeof a!="symbol"?a+"":a,t),Qe=(e,a,t)=>a.has(e)||ia("Cannot "+t);var m=(e,a,t)=>(Qe(e,a,"read from private field"),t?t.call(e):a.get(e)),A=(e,a,t)=>a.has(e)?ia("Cannot add the same private member more than once"):a instanceof WeakSet?a.add(e):a.set(e,t),w=(e,a,t,s)=>(Qe(e,a,"write to private field"),s?s.call(e,t):a.set(e,t),t),E=(e,a,t)=>(Qe(e,a,"access private method"),t);var ra=(e,a,t,s)=>({set _(n){w(e,a,n,t)},get _(){return m(e,a,s)}});var oa=(e,a,t)=>(s,n)=>{let i=-1;return r(0);async function r(d){if(d<=i)throw new Error("next() called multiple times");i=d;let p,o=!1,g;if(e[d]?(g=e[d][0][0],s.req.routeIndex=d):g=d===e.length&&n||void 0,g)try{p=await g(s,()=>r(d+1))}catch(h){if(h instanceof Error&&a)s.error=h,p=await a(h,s),o=!0;else throw h}else s.finalized===!1&&t&&(p=await t(s));return p&&(s.finalized===!1||o)&&(s.res=p),s}},Xa=Symbol(),Ya=async(e,a=Object.create(null))=>{const{all:t=!1,dot:s=!1}=a,i=(e instanceof Ia?e.raw.headers:e.headers).get("Content-Type");return i!=null&&i.startsWith("multipart/form-data")||i!=null&&i.startsWith("application/x-www-form-urlencoded")?Ja(e,{all:t,dot:s}):{}};async function Ja(e,a){const t=await e.formData();return t?Va(t,a):{}}function Va(e,a){const t=Object.create(null);return e.forEach((s,n)=>{a.all||n.endsWith("[]")?Wa(t,n,s):t[n]=s}),a.dot&&Object.entries(t).forEach(([s,n])=>{s.includes(".")&&(Qa(t,s,n),delete t[s])}),t}var Wa=(e,a,t)=>{e[a]!==void 0?Array.isArray(e[a])?e[a].push(t):e[a]=[e[a],t]:a.endsWith("[]")?e[a]=[t]:e[a]=t},Qa=(e,a,t)=>{if(/(?:^|\.)__proto__\./.test(a))return;let s=e;const n=a.split(".");n.forEach((i,r)=>{r===n.length-1?s[i]=t:((!s[i]||typeof s[i]!="object"||Array.isArray(s[i])||s[i]instanceof File)&&(s[i]=Object.create(null)),s=s[i])})},ya=e=>{const a=e.split("/");return a[0]===""&&a.shift(),a},Za=e=>{const{groups:a,path:t}=et(e),s=ya(t);return at(s,a)},et=e=>{const a=[];return e=e.replace(/\{[^}]+\}/g,(t,s)=>{const n=`@${s}`;return a.push([n,t]),n}),{groups:a,path:e}},at=(e,a)=>{for(let t=a.length-1;t>=0;t--){const[s]=a[t];for(let n=e.length-1;n>=0;n--)if(e[n].includes(s)){e[n]=e[n].replace(s,a[t][1]);break}}return e},je={},tt=(e,a)=>{if(e==="*")return"*";const t=e.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);if(t){const s=`${e}#${a}`;return je[s]||(t[2]?je[s]=a&&a[0]!==":"&&a[0]!=="*"?[s,t[1],new RegExp(`^${t[2]}(?=/${a})`)]:[e,t[1],new RegExp(`^${t[2]}$`)]:je[s]=[e,t[1],!0]),je[s]}return null},ta=(e,a)=>{try{return a(e)}catch{return e.replace(/(?:%[0-9A-Fa-f]{2})+/g,t=>{try{return a(t)}catch{return t}})}},ka=e=>ta(e,decodeURI),xa=e=>{const a=e.url,t=a.indexOf("/",a.indexOf(":")+4);let s=t;for(;s<a.length;s++){const n=a.charCodeAt(s);if(n===37){const i=a.indexOf("?",s),r=a.indexOf("#",s),d=i===-1?r===-1?void 0:r:r===-1?i:Math.min(i,r),p=a.slice(t,d);return ka(p.includes("%25")?p.replace(/%25/g,"%2525"):p)}else if(n===63||n===35)break}return a.slice(t,s)},st=e=>{const a=xa(e);return a.length>1&&a.at(-1)==="/"?a.slice(0,-1):a},ve=(e,a,...t)=>(t.length&&(a=ve(a,...t)),`${(e==null?void 0:e[0])==="/"?"":"/"}${e}${a==="/"?"":`${(e==null?void 0:e.at(-1))==="/"?"":"/"}${(a==null?void 0:a[0])==="/"?a.slice(1):a}`}`),wa=e=>{if(e.charCodeAt(e.length-1)!==63||!e.includes(":"))return null;const a=e.split("/"),t=[];let s="";return a.forEach(n=>{if(n!==""&&!/\:/.test(n))s+="/"+n;else if(/\:/.test(n))if(/\?/.test(n)){t.length===0&&s===""?t.push("/"):t.push(s);const i=n.replace("?","");s+="/"+i,t.push(s)}else s+="/"+n}),t.filter((n,i,r)=>r.indexOf(n)===i)},Ze=e=>/[%+]/.test(e)?(e.indexOf("+")!==-1&&(e=e.replace(/\+/g," ")),e.indexOf("%")!==-1?ta(e,Ta):e):e,Sa=(e,a,t)=>{let s;if(!t&&a&&!/[%+]/.test(a)){let r=e.indexOf("?",8);if(r===-1)return;for(e.startsWith(a,r+1)||(r=e.indexOf(`&${a}`,r+1));r!==-1;){const d=e.charCodeAt(r+a.length+1);if(d===61){const p=r+a.length+2,o=e.indexOf("&",p);return Ze(e.slice(p,o===-1?void 0:o))}else if(d==38||isNaN(d))return"";r=e.indexOf(`&${a}`,r+1)}if(s=/[%+]/.test(e),!s)return}const n={};s??(s=/[%+]/.test(e));let i=e.indexOf("?",8);for(;i!==-1;){const r=e.indexOf("&",i+1);let d=e.indexOf("=",i);d>r&&r!==-1&&(d=-1);let p=e.slice(i+1,d===-1?r===-1?void 0:r:d);if(s&&(p=Ze(p)),i=r,p==="")continue;let o;d===-1?o="":(o=e.slice(d+1,r===-1?void 0:r),s&&(o=Ze(o))),t?(n[p]&&Array.isArray(n[p])||(n[p]=[]),n[p].push(o)):n[p]??(n[p]=o)}return a?n[a]:n},nt=Sa,it=(e,a)=>Sa(e,a,!0),Ta=decodeURIComponent,da=e=>ta(e,Ta),we,K,Q,Aa,Ea,aa,Z,fa,Ia=(fa=class{constructor(e,a="/",t=[[]]){A(this,Q);S(this,"raw");A(this,we);A(this,K);S(this,"routeIndex",0);S(this,"path");S(this,"bodyCache",{});A(this,Z,e=>{const{bodyCache:a,raw:t}=this,s=a[e];if(s)return s;const n=Object.keys(a)[0];return n?a[n].then(i=>(n==="json"&&(i=JSON.stringify(i)),new Response(i)[e]())):a[e]=t[e]()});this.raw=e,this.path=a,w(this,K,t),w(this,we,{})}param(e){return e?E(this,Q,Aa).call(this,e):E(this,Q,Ea).call(this)}query(e){return nt(this.url,e)}queries(e){return it(this.url,e)}header(e){if(e)return this.raw.headers.get(e)??void 0;const a={};return this.raw.headers.forEach((t,s)=>{a[s]=t}),a}async parseBody(e){return Ya(this,e)}json(){return m(this,Z).call(this,"text").then(e=>JSON.parse(e))}text(){return m(this,Z).call(this,"text")}arrayBuffer(){return m(this,Z).call(this,"arrayBuffer")}blob(){return m(this,Z).call(this,"blob")}formData(){return m(this,Z).call(this,"formData")}addValidatedData(e,a){m(this,we)[e]=a}valid(e){return m(this,we)[e]}get url(){return this.raw.url}get method(){return this.raw.method}get[Xa](){return m(this,K)}get matchedRoutes(){return m(this,K)[0].map(([[,e]])=>e)}get routePath(){return m(this,K)[0].map(([[,e]])=>e)[this.routeIndex].path}},we=new WeakMap,K=new WeakMap,Q=new WeakSet,Aa=function(e){const a=m(this,K)[0][this.routeIndex][1][e],t=E(this,Q,aa).call(this,a);return t&&/\%/.test(t)?da(t):t},Ea=function(){const e={},a=Object.keys(m(this,K)[0][this.routeIndex][1]);for(const t of a){const s=E(this,Q,aa).call(this,m(this,K)[0][this.routeIndex][1][t]);s!==void 0&&(e[t]=/\%/.test(s)?da(s):s)}return e},aa=function(e){return m(this,K)[1]?m(this,K)[1][e]:e},Z=new WeakMap,fa),rt={Stringify:1},Pa=async(e,a,t,s,n)=>{typeof e=="object"&&!(e instanceof String)&&(e instanceof Promise||(e=e.toString()),e instanceof Promise&&(e=await e));const i=e.callbacks;return i!=null&&i.length?(n?n[0]+=e:n=[e],Promise.all(i.map(d=>d({phase:a,buffer:n,context:s}))).then(d=>Promise.all(d.filter(Boolean).map(p=>Pa(p,a,!1,s,n))).then(()=>n[0]))):Promise.resolve(e)},ot="text/plain; charset=UTF-8",ea=(e,a)=>({"Content-Type":e,...a}),Be=(e,a)=>new Response(e,a),Oe,qe,Y,Se,J,O,Me,Te,Ie,le,He,ze,ee,ye,ma,dt=(ma=class{constructor(e,a){A(this,ee);A(this,Oe);A(this,qe);S(this,"env",{});A(this,Y);S(this,"finalized",!1);S(this,"error");A(this,Se);A(this,J);A(this,O);A(this,Me);A(this,Te);A(this,Ie);A(this,le);A(this,He);A(this,ze);S(this,"render",(...e)=>(m(this,Te)??w(this,Te,a=>this.html(a)),m(this,Te).call(this,...e)));S(this,"setLayout",e=>w(this,Me,e));S(this,"getLayout",()=>m(this,Me));S(this,"setRenderer",e=>{w(this,Te,e)});S(this,"header",(e,a,t)=>{this.finalized&&w(this,O,Be(m(this,O).body,m(this,O)));const s=m(this,O)?m(this,O).headers:m(this,le)??w(this,le,new Headers);a===void 0?s.delete(e):t!=null&&t.append?s.append(e,a):s.set(e,a)});S(this,"status",e=>{w(this,Se,e)});S(this,"set",(e,a)=>{m(this,Y)??w(this,Y,new Map),m(this,Y).set(e,a)});S(this,"get",e=>m(this,Y)?m(this,Y).get(e):void 0);S(this,"newResponse",(...e)=>E(this,ee,ye).call(this,...e));S(this,"body",(e,a,t)=>E(this,ee,ye).call(this,e,a,t));S(this,"text",(e,a,t)=>!m(this,le)&&!m(this,Se)&&!a&&!t&&!this.finalized?new Response(e):E(this,ee,ye).call(this,e,a,ea(ot,t)));S(this,"json",(e,a,t)=>E(this,ee,ye).call(this,JSON.stringify(e),a,ea("application/json",t)));S(this,"html",(e,a,t)=>{const s=n=>E(this,ee,ye).call(this,n,a,ea("text/html; charset=UTF-8",t));return typeof e=="object"?Pa(e,rt.Stringify,!1,{}).then(s):s(e)});S(this,"redirect",(e,a)=>{const t=String(e);return this.header("Location",/[^\x00-\xFF]/.test(t)?encodeURI(t):t),this.newResponse(null,a??302)});S(this,"notFound",()=>(m(this,Ie)??w(this,Ie,()=>Be()),m(this,Ie).call(this,this)));w(this,Oe,e),a&&(w(this,J,a.executionCtx),this.env=a.env,w(this,Ie,a.notFoundHandler),w(this,ze,a.path),w(this,He,a.matchResult))}get req(){return m(this,qe)??w(this,qe,new Ia(m(this,Oe),m(this,ze),m(this,He))),m(this,qe)}get event(){if(m(this,J)&&"respondWith"in m(this,J))return m(this,J);throw Error("This context has no FetchEvent")}get executionCtx(){if(m(this,J))return m(this,J);throw Error("This context has no ExecutionContext")}get res(){return m(this,O)||w(this,O,Be(null,{headers:m(this,le)??w(this,le,new Headers)}))}set res(e){if(m(this,O)&&e){e=Be(e.body,e);for(const[a,t]of m(this,O).headers.entries())if(a!=="content-type")if(a==="set-cookie"){const s=m(this,O).headers.getSetCookie();e.headers.delete("set-cookie");for(const n of s)e.headers.append("set-cookie",n)}else e.headers.set(a,t)}w(this,O,e),this.finalized=!0}get var(){return m(this,Y)?Object.fromEntries(m(this,Y)):{}}},Oe=new WeakMap,qe=new WeakMap,Y=new WeakMap,Se=new WeakMap,J=new WeakMap,O=new WeakMap,Me=new WeakMap,Te=new WeakMap,Ie=new WeakMap,le=new WeakMap,He=new WeakMap,ze=new WeakMap,ee=new WeakSet,ye=function(e,a,t){const s=m(this,O)?new Headers(m(this,O).headers):m(this,le)??new Headers;if(typeof a=="object"&&"headers"in a){const i=a.headers instanceof Headers?a.headers:new Headers(a.headers);for(const[r,d]of i)r.toLowerCase()==="set-cookie"?s.append(r,d):s.set(r,d)}if(t)for(const[i,r]of Object.entries(t))if(typeof r=="string")s.set(i,r);else{s.delete(i);for(const d of r)s.append(i,d)}const n=typeof a=="number"?a:(a==null?void 0:a.status)??m(this,Se);return Be(e,{status:n,headers:s})},ma),_="ALL",lt="all",ct=["get","post","put","delete","options","patch"],Ca="Can not add a route since the matcher is already built.",_a=class extends Error{},pt="__COMPOSED_HANDLER",ut=e=>e.text("404 Not Found",404),la=(e,a)=>{if("getResponse"in e){const t=e.getResponse();return a.newResponse(t.body,t)}return console.error(e),a.text("Internal Server Error",500)},j,D,Ba,U,oe,$e,Ge,Ae,ft=(Ae=class{constructor(a={}){A(this,D);S(this,"get");S(this,"post");S(this,"put");S(this,"delete");S(this,"options");S(this,"patch");S(this,"all");S(this,"on");S(this,"use");S(this,"router");S(this,"getPath");S(this,"_basePath","/");A(this,j,"/");S(this,"routes",[]);A(this,U,ut);S(this,"errorHandler",la);S(this,"onError",a=>(this.errorHandler=a,this));S(this,"notFound",a=>(w(this,U,a),this));S(this,"fetch",(a,...t)=>E(this,D,Ge).call(this,a,t[1],t[0],a.method));S(this,"request",(a,t,s,n)=>a instanceof Request?this.fetch(t?new Request(a,t):a,s,n):(a=a.toString(),this.fetch(new Request(/^https?:\/\//.test(a)?a:`http://localhost${ve("/",a)}`,t),s,n)));S(this,"fire",()=>{addEventListener("fetch",a=>{a.respondWith(E(this,D,Ge).call(this,a.request,a,void 0,a.request.method))})});[...ct,lt].forEach(i=>{this[i]=(r,...d)=>(typeof r=="string"?w(this,j,r):E(this,D,oe).call(this,i,m(this,j),r),d.forEach(p=>{E(this,D,oe).call(this,i,m(this,j),p)}),this)}),this.on=(i,r,...d)=>{for(const p of[r].flat()){w(this,j,p);for(const o of[i].flat())d.map(g=>{E(this,D,oe).call(this,o.toUpperCase(),m(this,j),g)})}return this},this.use=(i,...r)=>(typeof i=="string"?w(this,j,i):(w(this,j,"*"),r.unshift(i)),r.forEach(d=>{E(this,D,oe).call(this,_,m(this,j),d)}),this);const{strict:s,...n}=a;Object.assign(this,n),this.getPath=s??!0?a.getPath??xa:st}route(a,t){const s=this.basePath(a);return t.routes.map(n=>{var r;let i;t.errorHandler===la?i=n.handler:(i=async(d,p)=>(await oa([],t.errorHandler)(d,()=>n.handler(d,p))).res,i[pt]=n.handler),E(r=s,D,oe).call(r,n.method,n.path,i)}),this}basePath(a){const t=E(this,D,Ba).call(this);return t._basePath=ve(this._basePath,a),t}mount(a,t,s){let n,i;s&&(typeof s=="function"?i=s:(i=s.optionHandler,s.replaceRequest===!1?n=p=>p:n=s.replaceRequest));const r=i?p=>{const o=i(p);return Array.isArray(o)?o:[o]}:p=>{let o;try{o=p.executionCtx}catch{}return[p.env,o]};n||(n=(()=>{const p=ve(this._basePath,a),o=p==="/"?0:p.length;return g=>{const h=new URL(g.url);return h.pathname=h.pathname.slice(o)||"/",new Request(h,g)}})());const d=async(p,o)=>{const g=await t(n(p.req.raw),...r(p));if(g)return g;await o()};return E(this,D,oe).call(this,_,ve(a,"*"),d),this}},j=new WeakMap,D=new WeakSet,Ba=function(){const a=new Ae({router:this.router,getPath:this.getPath});return a.errorHandler=this.errorHandler,w(a,U,m(this,U)),a.routes=this.routes,a},U=new WeakMap,oe=function(a,t,s){a=a.toUpperCase(),t=ve(this._basePath,t);const n={basePath:this._basePath,path:t,method:a,handler:s};this.router.add(a,t,[s,n]),this.routes.push(n)},$e=function(a,t){if(a instanceof Error)return this.errorHandler(a,t);throw a},Ge=function(a,t,s,n){if(n==="HEAD")return(async()=>new Response(null,await E(this,D,Ge).call(this,a,t,s,"GET")))();const i=this.getPath(a,{env:s}),r=this.router.match(n,i),d=new dt(a,{path:i,matchResult:r,env:s,executionCtx:t,notFoundHandler:m(this,U)});if(r[0].length===1){let o;try{o=r[0][0][0][0](d,async()=>{d.res=await m(this,U).call(this,d)})}catch(g){return E(this,D,$e).call(this,g,d)}return o instanceof Promise?o.then(g=>g||(d.finalized?d.res:m(this,U).call(this,d))).catch(g=>E(this,D,$e).call(this,g,d)):o??m(this,U).call(this,d)}const p=oa(r[0],this.errorHandler,m(this,U));return(async()=>{try{const o=await p(d);if(!o.finalized)throw new Error("Context is not finalized. Did you forget to return a Response object or `await next()`?");return o.res}catch(o){return E(this,D,$e).call(this,o,d)}})()},Ae),Da=[];function mt(e,a){const t=this.buildAllMatchers(),s=((n,i)=>{const r=t[n]||t[_],d=r[2][i];if(d)return d;const p=i.match(r[0]);if(!p)return[[],Da];const o=p.indexOf("",1);return[r[1][o],p]});return this.match=s,s(e,a)}var Xe="[^/]+",Ne=".*",Re="(?:|/.*)",ke=Symbol(),bt=new Set(".\\+*[^]$()");function gt(e,a){return e.length===1?a.length===1?e<a?-1:1:-1:a.length===1||e===Ne||e===Re?1:a===Ne||a===Re?-1:e===Xe?1:a===Xe?-1:e.length===a.length?e<a?-1:1:a.length-e.length}var ce,pe,$,me,ht=(me=class{constructor(){A(this,ce);A(this,pe);A(this,$,Object.create(null))}insert(a,t,s,n,i){if(a.length===0){if(m(this,ce)!==void 0)throw ke;if(i)return;w(this,ce,t);return}const[r,...d]=a,p=r==="*"?d.length===0?["","",Ne]:["","",Xe]:r==="/*"?["","",Re]:r.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);let o;if(p){const g=p[1];let h=p[2]||Xe;if(g&&p[2]&&(h===".*"||(h=h.replace(/^\((?!\?:)(?=[^)]+\)$)/,"(?:"),/\((?!\?:)/.test(h))))throw ke;if(o=m(this,$)[h],!o){if(Object.keys(m(this,$)).some(l=>l!==Ne&&l!==Re))throw ke;if(i)return;o=m(this,$)[h]=new me,g!==""&&w(o,pe,n.varIndex++)}!i&&g!==""&&s.push([g,m(o,pe)])}else if(o=m(this,$)[r],!o){if(Object.keys(m(this,$)).some(g=>g.length>1&&g!==Ne&&g!==Re))throw ke;if(i)return;o=m(this,$)[r]=new me}o.insert(d,t,s,n,i)}buildRegExpStr(){const t=Object.keys(m(this,$)).sort(gt).map(s=>{const n=m(this,$)[s];return(typeof m(n,pe)=="number"?`(${s})@${m(n,pe)}`:bt.has(s)?`\\${s}`:s)+n.buildRegExpStr()});return typeof m(this,ce)=="number"&&t.unshift(`#${m(this,ce)}`),t.length===0?"":t.length===1?t[0]:"(?:"+t.join("|")+")"}},ce=new WeakMap,pe=new WeakMap,$=new WeakMap,me),Ye,Ke,ba,vt=(ba=class{constructor(){A(this,Ye,{varIndex:0});A(this,Ke,new ht)}insert(e,a,t){const s=[],n=[];for(let r=0;;){let d=!1;if(e=e.replace(/\{[^}]+\}/g,p=>{const o=`@\\${r}`;return n[r]=[o,p],r++,d=!0,o}),!d)break}const i=e.match(/(?::[^\/]+)|(?:\/\*$)|./g)||[];for(let r=n.length-1;r>=0;r--){const[d]=n[r];for(let p=i.length-1;p>=0;p--)if(i[p].indexOf(d)!==-1){i[p]=i[p].replace(d,n[r][1]);break}}return m(this,Ke).insert(i,a,s,m(this,Ye),t),s}buildRegExp(){let e=m(this,Ke).buildRegExpStr();if(e==="")return[/^$/,[],[]];let a=0;const t=[],s=[];return e=e.replace(/#(\d+)|@(\d+)|\.\*\$/g,(n,i,r)=>i!==void 0?(t[++a]=Number(i),"$()"):(r!==void 0&&(s[Number(r)]=++a),"")),[new RegExp(`^${e}`),t,s]}},Ye=new WeakMap,Ke=new WeakMap,ba),yt=[/^$/,[],Object.create(null)],Fe=Object.create(null);function Na(e){return Fe[e]??(Fe[e]=new RegExp(e==="*"?"":`^${e.replace(/\/\*$|([.\\+*[^\]$()])/g,(a,t)=>t?`\\${t}`:"(?:|/.*)")}$`))}function kt(){Fe=Object.create(null)}function xt(e){var o;const a=new vt,t=[];if(e.length===0)return yt;const s=e.map(g=>[!/\*|\/:/.test(g[0]),...g]).sort(([g,h],[l,c])=>g?1:l?-1:h.length-c.length),n=Object.create(null);for(let g=0,h=-1,l=s.length;g<l;g++){const[c,f,b]=s[g];c?n[f]=[b.map(([y])=>[y,Object.create(null)]),Da]:h++;let T;try{T=a.insert(f,h,c)}catch(y){throw y===ke?new _a(f):y}c||(t[h]=b.map(([y,u])=>{const x=Object.create(null);for(u-=1;u>=0;u--){const[v,C]=T[u];x[v]=C}return[y,x]}))}const[i,r,d]=a.buildRegExp();for(let g=0,h=t.length;g<h;g++)for(let l=0,c=t[g].length;l<c;l++){const f=(o=t[g][l])==null?void 0:o[1];if(!f)continue;const b=Object.keys(f);for(let T=0,y=b.length;T<y;T++)f[b[T]]=d[f[b[T]]]}const p=[];for(const g in r)p[g]=t[r[g]];return[i,p,n]}function he(e,a){if(e){for(const t of Object.keys(e).sort((s,n)=>n.length-s.length))if(Na(t).test(a))return[...e[t]]}}var ae,te,Je,Ra,ga,wt=(ga=class{constructor(){A(this,Je);S(this,"name","RegExpRouter");A(this,ae);A(this,te);S(this,"match",mt);w(this,ae,{[_]:Object.create(null)}),w(this,te,{[_]:Object.create(null)})}add(e,a,t){var d;const s=m(this,ae),n=m(this,te);if(!s||!n)throw new Error(Ca);s[e]||[s,n].forEach(p=>{p[e]=Object.create(null),Object.keys(p[_]).forEach(o=>{p[e][o]=[...p[_][o]]})}),a==="/*"&&(a="*");const i=(a.match(/\/:/g)||[]).length;if(/\*$/.test(a)){const p=Na(a);e===_?Object.keys(s).forEach(o=>{var g;(g=s[o])[a]||(g[a]=he(s[o],a)||he(s[_],a)||[])}):(d=s[e])[a]||(d[a]=he(s[e],a)||he(s[_],a)||[]),Object.keys(s).forEach(o=>{(e===_||e===o)&&Object.keys(s[o]).forEach(g=>{p.test(g)&&s[o][g].push([t,i])})}),Object.keys(n).forEach(o=>{(e===_||e===o)&&Object.keys(n[o]).forEach(g=>p.test(g)&&n[o][g].push([t,i]))});return}const r=wa(a)||[a];for(let p=0,o=r.length;p<o;p++){const g=r[p];Object.keys(n).forEach(h=>{var l;(e===_||e===h)&&((l=n[h])[g]||(l[g]=[...he(s[h],g)||he(s[_],g)||[]]),n[h][g].push([t,i-o+p+1]))})}}buildAllMatchers(){const e=Object.create(null);return Object.keys(m(this,te)).concat(Object.keys(m(this,ae))).forEach(a=>{e[a]||(e[a]=E(this,Je,Ra).call(this,a))}),w(this,ae,w(this,te,void 0)),kt(),e}},ae=new WeakMap,te=new WeakMap,Je=new WeakSet,Ra=function(e){const a=[];let t=e===_;return[m(this,ae),m(this,te)].forEach(s=>{const n=s[e]?Object.keys(s[e]).map(i=>[i,s[e][i]]):[];n.length!==0?(t||(t=!0),a.push(...n)):e!==_&&a.push(...Object.keys(s[_]).map(i=>[i,s[_][i]]))}),t?xt(a):null},ga),se,V,ha,St=(ha=class{constructor(e){S(this,"name","SmartRouter");A(this,se,[]);A(this,V,[]);w(this,se,e.routers)}add(e,a,t){if(!m(this,V))throw new Error(Ca);m(this,V).push([e,a,t])}match(e,a){if(!m(this,V))throw new Error("Fatal error");const t=m(this,se),s=m(this,V),n=t.length;let i=0,r;for(;i<n;i++){const d=t[i];try{for(let p=0,o=s.length;p<o;p++)d.add(...s[p]);r=d.match(e,a)}catch(p){if(p instanceof _a)continue;throw p}this.match=d.match.bind(d),w(this,se,[d]),w(this,V,void 0);break}if(i===n)throw new Error("Fatal error");return this.name=`SmartRouter + ${this.activeRouter.name}`,r}get activeRouter(){if(m(this,V)||m(this,se).length!==1)throw new Error("No active router has been determined yet.");return m(this,se)[0]}},se=new WeakMap,V=new WeakMap,ha),De=Object.create(null),Tt=e=>{for(const a in e)return!0;return!1},ne,R,ue,Ee,N,W,de,Pe,It=(Pe=class{constructor(a,t,s){A(this,W);A(this,ne);A(this,R);A(this,ue);A(this,Ee,0);A(this,N,De);if(w(this,R,s||Object.create(null)),w(this,ne,[]),a&&t){const n=Object.create(null);n[a]={handler:t,possibleKeys:[],score:0},w(this,ne,[n])}w(this,ue,[])}insert(a,t,s){w(this,Ee,++ra(this,Ee)._);let n=this;const i=Za(t),r=[];for(let d=0,p=i.length;d<p;d++){const o=i[d],g=i[d+1],h=tt(o,g),l=Array.isArray(h)?h[0]:o;if(l in m(n,R)){n=m(n,R)[l],h&&r.push(h[1]);continue}m(n,R)[l]=new Pe,h&&(m(n,ue).push(h),r.push(h[1])),n=m(n,R)[l]}return m(n,ne).push({[a]:{handler:s,possibleKeys:r.filter((d,p,o)=>o.indexOf(d)===p),score:m(this,Ee)}}),n}search(a,t){var g;const s=[];w(this,N,De);let i=[this];const r=ya(t),d=[],p=r.length;let o=null;for(let h=0;h<p;h++){const l=r[h],c=h===p-1,f=[];for(let T=0,y=i.length;T<y;T++){const u=i[T],x=m(u,R)[l];x&&(w(x,N,m(u,N)),c?(m(x,R)["*"]&&E(this,W,de).call(this,s,m(x,R)["*"],a,m(u,N)),E(this,W,de).call(this,s,x,a,m(u,N))):f.push(x));for(let v=0,C=m(u,ue).length;v<C;v++){const I=m(u,ue)[v],k=m(u,N)===De?{}:{...m(u,N)};if(I==="*"){const F=m(u,R)["*"];F&&(E(this,W,de).call(this,s,F,a,m(u,N)),w(F,N,k),f.push(F));continue}const[H,L,z]=I;if(!l&&!(z instanceof RegExp))continue;const q=m(u,R)[H];if(z instanceof RegExp){if(o===null){o=new Array(p);let ge=t[0]==="/"?1:0;for(let _e=0;_e<p;_e++)o[_e]=ge,ge+=r[_e].length+1}const F=t.substring(o[h]),We=z.exec(F);if(We){if(k[L]=We[0],E(this,W,de).call(this,s,q,a,m(u,N),k),Tt(m(q,R))){w(q,N,k);const ge=((g=We[0].match(/\//))==null?void 0:g.length)??0;(d[ge]||(d[ge]=[])).push(q)}continue}}(z===!0||z.test(l))&&(k[L]=l,c?(E(this,W,de).call(this,s,q,a,k,m(u,N)),m(q,R)["*"]&&E(this,W,de).call(this,s,m(q,R)["*"],a,k,m(u,N))):(w(q,N,k),f.push(q)))}}const b=d.shift();i=b?f.concat(b):f}return s.length>1&&s.sort((h,l)=>h.score-l.score),[s.map(({handler:h,params:l})=>[h,l])]}},ne=new WeakMap,R=new WeakMap,ue=new WeakMap,Ee=new WeakMap,N=new WeakMap,W=new WeakSet,de=function(a,t,s,n,i){for(let r=0,d=m(t,ne).length;r<d;r++){const p=m(t,ne)[r],o=p[s]||p[_],g={};if(o!==void 0&&(o.params=Object.create(null),a.push(o),n!==De||i&&i!==De))for(let h=0,l=o.possibleKeys.length;h<l;h++){const c=o.possibleKeys[h],f=g[o.score];o.params[c]=i!=null&&i[c]&&!f?i[c]:n[c]??(i==null?void 0:i[c]),g[o.score]=!0}}},Pe),fe,va,At=(va=class{constructor(){S(this,"name","TrieRouter");A(this,fe);w(this,fe,new It)}add(e,a,t){const s=wa(a);if(s){for(let n=0,i=s.length;n<i;n++)m(this,fe).insert(e,s[n],t);return}m(this,fe).insert(e,a,t)}match(e,a){return m(this,fe).search(e,a)}},fe=new WeakMap,va),La=class extends ft{constructor(e={}){super(e),this.router=e.router??new St({routers:[new wt,new At]})}},Et=/^\s*(?:text\/(?!event-stream(?:[;\s]|$))[^;\s]+|application\/(?:javascript|json|xml|xml-dtd|ecmascript|dart|postscript|rtf|tar|toml|vnd\.dart|vnd\.ms-fontobject|vnd\.ms-opentype|wasm|x-httpd-php|x-javascript|x-ns-proxy-autoconfig|x-sh|x-tar|x-virtualbox-hdd|x-virtualbox-ova|x-virtualbox-ovf|x-virtualbox-vbox|x-virtualbox-vdi|x-virtualbox-vhd|x-virtualbox-vmdk|x-www-form-urlencoded)|font\/(?:otf|ttf)|image\/(?:bmp|vnd\.adobe\.photoshop|vnd\.microsoft\.icon|vnd\.ms-dds|x-icon|x-ms-bmp)|message\/rfc822|model\/gltf-binary|x-shader\/x-fragment|x-shader\/x-vertex|[^;\s]+?\+(?:json|text|xml|yaml))(?:[;\s]|$)/i,ca=(e,a=Ct)=>{const t=/\.([a-zA-Z0-9]+?)$/,s=e.match(t);if(!s)return;let n=a[s[1].toLowerCase()];return n&&n.startsWith("text")&&(n+="; charset=utf-8"),n},Pt={aac:"audio/aac",avi:"video/x-msvideo",avif:"image/avif",av1:"video/av1",bin:"application/octet-stream",bmp:"image/bmp",css:"text/css",csv:"text/csv",eot:"application/vnd.ms-fontobject",epub:"application/epub+zip",gif:"image/gif",gz:"application/gzip",htm:"text/html",html:"text/html",ico:"image/x-icon",ics:"text/calendar",jpeg:"image/jpeg",jpg:"image/jpeg",js:"text/javascript",json:"application/json",jsonld:"application/ld+json",map:"application/json",mid:"audio/x-midi",midi:"audio/x-midi",mjs:"text/javascript",mp3:"audio/mpeg",mp4:"video/mp4",mpeg:"video/mpeg",oga:"audio/ogg",ogv:"video/ogg",ogx:"application/ogg",opus:"audio/opus",otf:"font/otf",pdf:"application/pdf",png:"image/png",rtf:"application/rtf",svg:"image/svg+xml",tif:"image/tiff",tiff:"image/tiff",ts:"video/mp2t",ttf:"font/ttf",txt:"text/plain",wasm:"application/wasm",webm:"video/webm",weba:"audio/webm",webmanifest:"application/manifest+json",webp:"image/webp",woff:"font/woff",woff2:"font/woff2",xhtml:"application/xhtml+xml",xml:"application/xml",zip:"application/zip","3gp":"video/3gpp","3g2":"video/3gpp2",gltf:"model/gltf+json",glb:"model/gltf-binary"},Ct=Pt,_t=(...e)=>{let a=e.filter(n=>n!=="").join("/");a=a.replace(new RegExp("(?<=\\/)\\/+","g"),"");const t=a.split("/"),s=[];for(const n of t)n===".."&&s.length>0&&s.at(-1)!==".."?s.pop():n!=="."&&s.push(n);return s.join("/")||"."},Oa={br:".br",zstd:".zst",gzip:".gz"},Bt=Object.keys(Oa),Dt="index.html",Nt=e=>{const a=e.root??"./",t=e.path,s=e.join??_t;return async(n,i)=>{var g,h,l,c;if(n.finalized)return i();let r;if(e.path)r=e.path;else try{if(r=ka(n.req.path),/(?:^|[\/\\])\.{1,2}(?:$|[\/\\])|[\/\\]{2,}/.test(r))throw new Error}catch{return await((g=e.onNotFound)==null?void 0:g.call(e,n.req.path,n)),i()}let d=s(a,!t&&e.rewriteRequestPath?e.rewriteRequestPath(r):r);e.isDir&&await e.isDir(d)&&(d=s(d,Dt));const p=e.getContent;let o=await p(d,n);if(o instanceof Response)return n.newResponse(o.body,o);if(o){const f=e.mimes&&ca(d,e.mimes)||ca(d);if(n.header("Content-Type",f||"application/octet-stream"),e.precompressed&&(!f||Et.test(f))){const b=new Set((h=n.req.header("Accept-Encoding"))==null?void 0:h.split(",").map(T=>T.trim()));for(const T of Bt){if(!b.has(T))continue;const y=await p(d+Oa[T],n);if(y){o=y,n.header("Content-Encoding",T),n.header("Vary","Accept-Encoding",{append:!0});break}}}return await((l=e.onFound)==null?void 0:l.call(e,d,n)),n.body(o)}await((c=e.onNotFound)==null?void 0:c.call(e,d,n)),await i()}},Rt=async(e,a)=>{let t;a&&a.manifest?typeof a.manifest=="string"?t=JSON.parse(a.manifest):t=a.manifest:typeof __STATIC_CONTENT_MANIFEST=="string"?t=JSON.parse(__STATIC_CONTENT_MANIFEST):t=__STATIC_CONTENT_MANIFEST;let s;a&&a.namespace?s=a.namespace:s=__STATIC_CONTENT;const n=t[e];if(!n)return null;const i=await s.get(n,{type:"stream"});return i||null},Lt=e=>async function(t,s){return Nt({...e,getContent:async i=>Rt(i,{manifest:e.manifest,namespace:e.namespace?e.namespace:t.env?t.env.__STATIC_CONTENT:void 0})})(t,s)},Ot=e=>Lt(e);function qt(){return`<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8"/>
@@ -305,12 +305,12 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   <div class="grp-body">
 
     <!-- SNAP Token -->
-    ${E("snap-token","POST","/api/v1.0/access-token/b2b","Get Access Token B2B",[{name:"grantType",in:"body",type:"string",req:!0,desc:"Harus bernilai <code>client_credentials</code>"},{name:"X-TIMESTAMP",in:"header",type:"string",req:!0,desc:"ISO 8601 datetime: <code>2024-01-15T10:30:00+07:00</code>"},{name:"X-CLIENT-KEY",in:"header",type:"string",req:!0,desc:"Partner ID / Client Key dari konfigurasi SNAP"},{name:"X-SIGNATURE",in:"header",type:"string",req:!0,desc:"Tanda tangan RSA SHA-256 dengan private key LPD"}],'{"responseCode":"2007300","responseMessage":"Successful","accessToken":"eyJ0eXAiOiJKV1QiLC...","tokenType":"BearerToken","expiresIn":"900"}',`{
+    ${P("snap-token","POST","/api/v1.0/access-token/b2b","Get Access Token B2B",[{name:"grantType",in:"body",type:"string",req:!0,desc:"Harus bernilai <code>client_credentials</code>"},{name:"X-TIMESTAMP",in:"header",type:"string",req:!0,desc:"ISO 8601 datetime: <code>2024-01-15T10:30:00+07:00</code>"},{name:"X-CLIENT-KEY",in:"header",type:"string",req:!0,desc:"Partner ID / Client Key dari konfigurasi SNAP"},{name:"X-SIGNATURE",in:"header",type:"string",req:!0,desc:"Tanda tangan RSA SHA-256 dengan private key LPD"}],'{"responseCode":"2007300","responseMessage":"Successful","accessToken":"eyJ0eXAiOiJKV1QiLC...","tokenType":"BearerToken","expiresIn":"900"}',`{
   "grantType": "client_credentials"
 }`,["snapTransferIn middleware","RSA SHA-256 signature","JWT token (exp: 15 menit)"],"Token digunakan untuk semua request SNAP selanjutnya. Expire dalam 15 menit.")}
 
     <!-- SNAP Inquiry -->
-    ${E("snap-inquiry","POST","/api/v1.0/transfer-va/inquiry","Virtual Account Inquiry",[{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {accessToken} dari endpoint access-token/b2b"},{name:"X-TIMESTAMP",in:"header",type:"string",req:!0,desc:"ISO 8601 datetime"},{name:"X-SIGNATURE",in:"header",type:"string",req:!0,desc:"HMAC-SHA512 signature"},{name:"X-PARTNER-ID",in:"header",type:"string",req:!0,desc:"Partner ID (BPD Bali)"},{name:"X-EXTERNAL-ID",in:"header",type:"string",req:!0,desc:"Unique ID request (max 36 char)"},{name:"CHANNEL-ID",in:"header",type:"string",req:!0,desc:"Channel ID sistem"},{name:"partnerServiceId",in:"body",type:"string",req:!0,desc:"Kode bank prefix (8 digit, left-padded dengan spasi)"},{name:"customerNo",in:"body",type:"string",req:!0,desc:"Nomor nasabah (max 20 char)"},{name:"virtualAccountNo",in:"body",type:"string",req:!0,desc:"Nomor Virtual Account lengkap"},{name:"inquiryRequestId",in:"body",type:"string",req:!0,desc:"Reference ID unik dari bank pengirim"},{name:"amount",in:"body",type:"object",req:!1,desc:'Object {value: "100000.00", currency: "IDR"}'},{name:"additionalInfo",in:"body",type:"object",req:!0,desc:"{terminalType, terminalId}"}],'{"responseCode":"2002400","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","inquiryRequestId":"INQ-001","virtualAccountName":"I MADE BUDI"}}',`{
+    ${P("snap-inquiry","POST","/api/v1.0/transfer-va/inquiry","Virtual Account Inquiry",[{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {accessToken} dari endpoint access-token/b2b"},{name:"X-TIMESTAMP",in:"header",type:"string",req:!0,desc:"ISO 8601 datetime"},{name:"X-SIGNATURE",in:"header",type:"string",req:!0,desc:"HMAC-SHA512 signature"},{name:"X-PARTNER-ID",in:"header",type:"string",req:!0,desc:"Partner ID (BPD Bali)"},{name:"X-EXTERNAL-ID",in:"header",type:"string",req:!0,desc:"Unique ID request (max 36 char)"},{name:"CHANNEL-ID",in:"header",type:"string",req:!0,desc:"Channel ID sistem"},{name:"partnerServiceId",in:"body",type:"string",req:!0,desc:"Kode bank prefix (8 digit, left-padded dengan spasi)"},{name:"customerNo",in:"body",type:"string",req:!0,desc:"Nomor nasabah (max 20 char)"},{name:"virtualAccountNo",in:"body",type:"string",req:!0,desc:"Nomor Virtual Account lengkap"},{name:"inquiryRequestId",in:"body",type:"string",req:!0,desc:"Reference ID unik dari bank pengirim"},{name:"amount",in:"body",type:"object",req:!1,desc:'Object {value: "100000.00", currency: "IDR"}'},{name:"additionalInfo",in:"body",type:"object",req:!0,desc:"{terminalType, terminalId}"}],'{"responseCode":"2002400","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","inquiryRequestId":"INQ-001","virtualAccountName":"I MADE BUDI"}}',`{
   "partnerServiceId": "  881234",
   "customerNo": "0123456",
   "virtualAccountNo": "  8812340123456",
@@ -320,7 +320,7 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
 }`,["snapTransferIn middleware","HMAC-SHA512 signature check","IP whitelist BPD (8 IP)","Token validation"],"Middleware memvalidasi: IP sumber, HMAC signature, token JWT, dan field mandatory.")}
 
     <!-- SNAP Payment -->
-    ${E("snap-payment","POST","/api/v1.0/transfer-va/payment","Virtual Account Payment",[{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {accessToken}"},{name:"X-TIMESTAMP",in:"header",type:"string",req:!0,desc:"ISO 8601 datetime"},{name:"X-SIGNATURE",in:"header",type:"string",req:!0,desc:"HMAC-SHA512 signature"},{name:"X-PARTNER-ID",in:"header",type:"string",req:!0,desc:"Partner ID"},{name:"X-EXTERNAL-ID",in:"header",type:"string",req:!0,desc:"Unique request ID"},{name:"partnerServiceId",in:"body",type:"string",req:!0,desc:"Kode bank prefix"},{name:"customerNo",in:"body",type:"string",req:!0,desc:"Nomor nasabah"},{name:"virtualAccountNo",in:"body",type:"string",req:!0,desc:"Nomor Virtual Account"},{name:"virtualAccountName",in:"body",type:"string",req:!0,desc:"Nama nasabah"},{name:"paymentRequestId",in:"body",type:"string",req:!0,desc:"Reference ID unik pembayaran"},{name:"amount",in:"body",type:"object",req:!0,desc:'{value: "100000.00", currency: "IDR"}'},{name:"trxDateTime",in:"body",type:"string",req:!0,desc:"Waktu transaksi ISO 8601"},{name:"additionalInfo",in:"body",type:"object",req:!1,desc:"{terminalType, terminalId}"}],'{"responseCode":"2002500","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","paymentRequestId":"PAY-001","paidAmount":{"value":"100000.00","currency":"IDR"},"trxDateTime":"2024-01-15T10:35:00+07:00"}}',`{
+    ${P("snap-payment","POST","/api/v1.0/transfer-va/payment","Virtual Account Payment",[{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {accessToken}"},{name:"X-TIMESTAMP",in:"header",type:"string",req:!0,desc:"ISO 8601 datetime"},{name:"X-SIGNATURE",in:"header",type:"string",req:!0,desc:"HMAC-SHA512 signature"},{name:"X-PARTNER-ID",in:"header",type:"string",req:!0,desc:"Partner ID"},{name:"X-EXTERNAL-ID",in:"header",type:"string",req:!0,desc:"Unique request ID"},{name:"partnerServiceId",in:"body",type:"string",req:!0,desc:"Kode bank prefix"},{name:"customerNo",in:"body",type:"string",req:!0,desc:"Nomor nasabah"},{name:"virtualAccountNo",in:"body",type:"string",req:!0,desc:"Nomor Virtual Account"},{name:"virtualAccountName",in:"body",type:"string",req:!0,desc:"Nama nasabah"},{name:"paymentRequestId",in:"body",type:"string",req:!0,desc:"Reference ID unik pembayaran"},{name:"amount",in:"body",type:"object",req:!0,desc:'{value: "100000.00", currency: "IDR"}'},{name:"trxDateTime",in:"body",type:"string",req:!0,desc:"Waktu transaksi ISO 8601"},{name:"additionalInfo",in:"body",type:"object",req:!1,desc:"{terminalType, terminalId}"}],'{"responseCode":"2002500","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","paymentRequestId":"PAY-001","paidAmount":{"value":"100000.00","currency":"IDR"},"trxDateTime":"2024-01-15T10:35:00+07:00"}}',`{
   "partnerServiceId": "  881234",
   "customerNo": "0123456",
   "virtualAccountNo": "  8812340123456",
@@ -349,17 +349,17 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("ios-token","POST","/api/smart/access/token","Get Access Token iOS",[{name:"user_id",in:"query",type:"string",req:!0,desc:"Customer ID / IMEI (dienkripsi AES-256)"},{name:"device_id",in:"query",type:"string",req:!0,desc:"Device identifier"},{name:"X-Access-Key",in:"header",type:"string",req:!0,desc:"Access key dari konfigurasi"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","token":"eyJ0eXAiOiJKV1Qi...","expired":"2024-01-15 11:30:00"}',"",["iosCheckAccess middleware","IP whitelist check","Partner validation","Access logging"],"Token berlaku selama sesi aktif. Gunakan sebagai Authorization header di endpoint lain.")}
+    ${P("ios-token","POST","/api/smart/access/token","Get Access Token iOS",[{name:"user_id",in:"query",type:"string",req:!0,desc:"Customer ID / IMEI (dienkripsi AES-256)"},{name:"device_id",in:"query",type:"string",req:!0,desc:"Device identifier"},{name:"X-Access-Key",in:"header",type:"string",req:!0,desc:"Access key dari konfigurasi"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","token":"eyJ0eXAiOiJKV1Qi...","expired":"2024-01-15 11:30:00"}',"",["iosCheckAccess middleware","IP whitelist check","Partner validation","Access logging"],"Token berlaku selama sesi aktif. Gunakan sebagai Authorization header di endpoint lain.")}
 
-    ${E("ios-register","POST","/api/smart/access/register","Register Nasabah",[{name:"user_name",in:"query",type:"string",req:!0,desc:"Username nasabah (dienkripsi)"},{name:"user_pass",in:"query",type:"string",req:!0,desc:"Password (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token} dari /access/token"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","pin":"ENC_PIN...","account_list":[{"norek":"1.123456","type":"tabungan"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}',"",["iosCheckAccess","iosTokenMdw"],"Jika nasabah pertama kali (status=SY), akan di-upgrade ke status A dan dikembalikan data lengkap.")}
+    ${P("ios-register","POST","/api/smart/access/register","Register Nasabah",[{name:"user_name",in:"query",type:"string",req:!0,desc:"Username nasabah (dienkripsi)"},{name:"user_pass",in:"query",type:"string",req:!0,desc:"Password (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token} dari /access/token"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","pin":"ENC_PIN...","account_list":[{"norek":"1.123456","type":"tabungan"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}',"",["iosCheckAccess","iosTokenMdw"],"Jika nasabah pertama kali (status=SY), akan di-upgrade ke status A dan dikembalikan data lengkap.")}
 
-    ${E("ios-login","POST","/api/smart/access/login","Login Nasabah",[{name:"user_name",in:"query",type:"string",req:!0,desc:"Username (dienkripsi AES-256)"},{name:"user_pass",in:"query",type:"string",req:!0,desc:"Password (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","account_list":[{"norek":"1.123456","type":"tabungan","saldo":"ENC_SALDO"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}',"",["iosCheckAccess","iosTokenMdw"],"Mengembalikan daftar rekening dan saldo (terenkripsi), daftar bank, dan produk PPOB aktif.")}
+    ${P("ios-login","POST","/api/smart/access/login","Login Nasabah",[{name:"user_name",in:"query",type:"string",req:!0,desc:"Username (dienkripsi AES-256)"},{name:"user_pass",in:"query",type:"string",req:!0,desc:"Password (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","account_list":[{"norek":"1.123456","type":"tabungan","saldo":"ENC_SALDO"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}',"",["iosCheckAccess","iosTokenMdw"],"Mengembalikan daftar rekening dan saldo (terenkripsi), daftar bank, dan produk PPOB aktif.")}
 
-    ${E("ios-logout","POST","/api/smart/access/logout","Logout Nasabah",[{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses"}',"",["iosCheckAccess","iosTokenMdw"],"Menutup token di gmob_token (set status=closed, end_time=now).")}
+    ${P("ios-logout","POST","/api/smart/access/logout","Logout Nasabah",[{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses"}',"",["iosCheckAccess","iosTokenMdw"],"Menutup token di gmob_token (set status=closed, end_time=now).")}
 
-    ${E("ios-update-pass","POST","/api/smart/access/update/pass","Update Password",[{name:"old_pass",in:"query",type:"string",req:!0,desc:"Password lama (dienkripsi AES-256)"},{name:"new_pass",in:"query",type:"string",req:!0,desc:"Password baru (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Password berhasil diubah"}',"",["iosCheckAccess","iosTokenMdw"],"Verifikasi password lama sebelum update ke gmob_nasabah.pass_crypto.")}
+    ${P("ios-update-pass","POST","/api/smart/access/update/pass","Update Password",[{name:"old_pass",in:"query",type:"string",req:!0,desc:"Password lama (dienkripsi AES-256)"},{name:"new_pass",in:"query",type:"string",req:!0,desc:"Password baru (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Password berhasil diubah"}',"",["iosCheckAccess","iosTokenMdw"],"Verifikasi password lama sebelum update ke gmob_nasabah.pass_crypto.")}
 
-    ${E("ios-update-pin","POST","/api/smart/access/update/pin","Update PIN",[{name:"old_pin",in:"query",type:"string",req:!0,desc:"PIN lama (dienkripsi AES-256)"},{name:"new_pin",in:"query",type:"string",req:!0,desc:"PIN baru (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"PIN berhasil diubah"}',"",["iosCheckAccess","iosTokenMdw"],"Verifikasi PIN lama sebelum update ke gmob_nasabah.pin_crypto.")}
+    ${P("ios-update-pin","POST","/api/smart/access/update/pin","Update PIN",[{name:"old_pin",in:"query",type:"string",req:!0,desc:"PIN lama (dienkripsi AES-256)"},{name:"new_pin",in:"query",type:"string",req:!0,desc:"PIN baru (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"PIN berhasil diubah"}',"",["iosCheckAccess","iosTokenMdw"],"Verifikasi PIN lama sebelum update ke gmob_nasabah.pin_crypto.")}
 
   </div>
 </div>
@@ -379,11 +379,11 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("tab-list","POST","/api/smart/tabungan/account-list","Daftar Rekening Nasabah",[{name:"customer_id",in:"query",type:"string",req:!0,desc:"Customer ID terenkripsi"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","data":[{"norek":"ENC...","type":"tabungan","saldo":"ENC...","currency":"IDR"},{"norek":"ENC...","type":"pinjaman","saldo":"ENC..."}]}',"",["iosCheckAccess","iosTokenMdw"],"Mengembalikan semua rekening (tabungan, pinjaman, deposito) dengan saldo terenkripsi.")}
+    ${P("tab-list","POST","/api/smart/tabungan/account-list","Daftar Rekening Nasabah",[{name:"customer_id",in:"query",type:"string",req:!0,desc:"Customer ID terenkripsi"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","data":[{"norek":"ENC...","type":"tabungan","saldo":"ENC...","currency":"IDR"},{"norek":"ENC...","type":"pinjaman","saldo":"ENC..."}]}',"",["iosCheckAccess","iosTokenMdw"],"Mengembalikan semua rekening (tabungan, pinjaman, deposito) dengan saldo terenkripsi.")}
 
-    ${E("tab-history","POST","/api/smart/tabungan/transaction-history","Histori Transaksi",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (dienkripsi)"},{name:"start_date",in:"query",type:"string",req:!1,desc:"Tanggal mulai YYYY-MM-DD"},{name:"end_date",in:"query",type:"string",req:!1,desc:"Tanggal akhir YYYY-MM-DD"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","data":[{"tanggal":"2024-01-15","keterangan":"Transfer Masuk","debet":0,"kredit":100000,"saldo":1500000}]}',"",["iosCheckAccess","iosTokenMdw"],"Query dari gtb_folio, hasil dienkripsi. Default 30 hari terakhir jika tanggal tidak disertakan.")}
+    ${P("tab-history","POST","/api/smart/tabungan/transaction-history","Histori Transaksi",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (dienkripsi)"},{name:"start_date",in:"query",type:"string",req:!1,desc:"Tanggal mulai YYYY-MM-DD"},{name:"end_date",in:"query",type:"string",req:!1,desc:"Tanggal akhir YYYY-MM-DD"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","data":[{"tanggal":"2024-01-15","keterangan":"Transfer Masuk","debet":0,"kredit":100000,"saldo":1500000}]}',"",["iosCheckAccess","iosTokenMdw"],"Query dari gtb_folio, hasil dienkripsi. Default 30 hari terakhir jika tanggal tidak disertakan.")}
 
-    ${E("tab-mutasi","POST","/api/smart/tabungan/mutasi-history","Histori Mutasi",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (dienkripsi)"},{name:"period",in:"query",type:"string",req:!1,desc:"Periode: YYYYMM (default: bulan ini)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","saldo_awal":"ENC...","saldo_akhir":"ENC...","data":[{"tgl":"2024-01-15","ket":"PPOB-PLN","nominal":"ENC...","jenis":"D"}]}',"",["iosCheckAccess","iosTokenMdw"],"Mutasi per periode (bulanan). Semua nilai nominal dienkripsi AES-256-CBC.")}
+    ${P("tab-mutasi","POST","/api/smart/tabungan/mutasi-history","Histori Mutasi",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (dienkripsi)"},{name:"period",in:"query",type:"string",req:!1,desc:"Periode: YYYYMM (default: bulan ini)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","saldo_awal":"ENC...","saldo_akhir":"ENC...","data":[{"tgl":"2024-01-15","ket":"PPOB-PLN","nominal":"ENC...","jenis":"D"}]}',"",["iosCheckAccess","iosTokenMdw"],"Mutasi per periode (bulanan). Semua nilai nominal dienkripsi AES-256-CBC.")}
 
   </div>
 </div>
@@ -403,17 +403,17 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("tr-lpd-check","POST","/api/smart/transfer/lpd/check","LPD – Cek Rekening Tujuan",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening tujuan (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses inquiry","product_type":"tabungan","customer_name":"I WAYAN SARI"}',"",["iosCheckAccess","iosTokenMdw"],"Verifikasi rekening tujuan sesama LPD. Error 01 = rekening tidak aktif.")}
+    ${P("tr-lpd-check","POST","/api/smart/transfer/lpd/check","LPD – Cek Rekening Tujuan",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening tujuan (dienkripsi AES-256)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses inquiry","product_type":"tabungan","customer_name":"I WAYAN SARI"}',"",["iosCheckAccess","iosTokenMdw"],"Verifikasi rekening tujuan sesama LPD. Error 01 = rekening tidak aktif.")}
 
-    ${E("tr-lpd-inquiry","POST","/api/smart/transfer/lpd/inquiry","LPD – Inquiry Transfer",[{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"to_acc",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal (dienkripsi)"},{name:"from_name",in:"query",type:"string",req:!0,desc:"Nama pengirim (dienkripsi)"},{name:"to_name",in:"query",type:"string",req:!0,desc:"Nama penerima (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan + hashCode (dienkripsi, format: ket<>hash)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"81","message":"Sukses Inquiry"}',"",["iosCheckAccess","iosTokenMdw","SHA-256 hash check","Saldo & limit check"],"Verifikasi: hash SHA-256, saldo cukup (min SALDO_MIN=50.000), limit transfer (10K–1M). Status 81 = bisa dilanjutkan.")}
+    ${P("tr-lpd-inquiry","POST","/api/smart/transfer/lpd/inquiry","LPD – Inquiry Transfer",[{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"to_acc",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal (dienkripsi)"},{name:"from_name",in:"query",type:"string",req:!0,desc:"Nama pengirim (dienkripsi)"},{name:"to_name",in:"query",type:"string",req:!0,desc:"Nama penerima (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan + hashCode (dienkripsi, format: ket<>hash)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"81","message":"Sukses Inquiry"}',"",["iosCheckAccess","iosTokenMdw","SHA-256 hash check","Saldo & limit check"],"Verifikasi: hash SHA-256, saldo cukup (min SALDO_MIN=50.000), limit transfer (10K–1M). Status 81 = bisa dilanjutkan.")}
 
-    ${E("tr-lpd-post","POST","/api/smart/transfer/lpd/post","LPD – Posting Transfer",[{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi unik (dienkripsi)"},{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"to_acc",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN nasabah (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Transfer Berhasil","reference_no":"20240115120001"}',"",["iosCheckAccess","iosTokenMdw","PIN validation","Duplicate check (trans_no)","DB: gtb_folio + gak_mutasi"],"Error 40=saldo kurang, 45=duplikat transaksi, 51-53=hash mismatch, 54=PIN salah. Posting ke gtb_folio dan gak_mutasi.")}
+    ${P("tr-lpd-post","POST","/api/smart/transfer/lpd/post","LPD – Posting Transfer",[{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi unik (dienkripsi)"},{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"to_acc",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN nasabah (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Transfer Berhasil","reference_no":"20240115120001"}',"",["iosCheckAccess","iosTokenMdw","PIN validation","Duplicate check (trans_no)","DB: gtb_folio + gak_mutasi"],"Error 40=saldo kurang, 45=duplikat transaksi, 51-53=hash mismatch, 54=PIN salah. Posting ke gtb_folio dan gak_mutasi.")}
 
-    ${E("tr-bank-check","POST","/api/smart/transfer/bank/check","Bank – Cek Rekening Tujuan",[{name:"bank_code",in:"query",type:"string",req:!0,desc:"Kode bank tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening tujuan di bank (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_name":"I KETUT DANA","bank_name":"BNI"}',"",["iosCheckAccess","iosTokenMdw"],"Melakukan cURL ke BPD API untuk validasi rekening tujuan di bank lain.")}
+    ${P("tr-bank-check","POST","/api/smart/transfer/bank/check","Bank – Cek Rekening Tujuan",[{name:"bank_code",in:"query",type:"string",req:!0,desc:"Kode bank tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening tujuan di bank (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_name":"I KETUT DANA","bank_name":"BNI"}',"",["iosCheckAccess","iosTokenMdw"],"Melakukan cURL ke BPD API untuk validasi rekening tujuan di bank lain.")}
 
-    ${E("tr-bank-inquiry","POST","/api/smart/transfer/bank/inquiry","Bank – Inquiry Transfer",[{name:"bank_code",in:"query",type:"string",req:!0,desc:"Kode bank tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal transfer (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan + hash (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"81","message":"Sukses Inquiry","fee":"3500","total":"103500"}',"",["iosCheckAccess","iosTokenMdw","HMAC-SHA256 check","BPD cURL call"],"Menghitung biaya transfer dari gcore_bankcode. Status 81 = dapat dilanjutkan ke posting.")}
+    ${P("tr-bank-inquiry","POST","/api/smart/transfer/bank/inquiry","Bank – Inquiry Transfer",[{name:"bank_code",in:"query",type:"string",req:!0,desc:"Kode bank tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal transfer (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan + hash (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"81","message":"Sukses Inquiry","fee":"3500","total":"103500"}',"",["iosCheckAccess","iosTokenMdw","HMAC-SHA256 check","BPD cURL call"],"Menghitung biaya transfer dari gcore_bankcode. Status 81 = dapat dilanjutkan ke posting.")}
 
-    ${E("tr-bank-post","POST","/api/smart/transfer/bank/post","Bank – Posting Transfer",[{name:"bank_code",in:"query",type:"string",req:!0,desc:"Kode bank (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN nasabah (dienkripsi)"},{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Transfer Berhasil","reference_no":"BPD20240115001"}',"",["iosCheckAccess","iosTokenMdw","PIN check","BPD API call via cURL","DB: gcore_transfer"],"Mengirim ke BPD API, jika sukses insert ke gcore_transfer. Jika gagal, lakukan rollback gtb_folio.")}
+    ${P("tr-bank-post","POST","/api/smart/transfer/bank/post","Bank – Posting Transfer",[{name:"bank_code",in:"query",type:"string",req:!0,desc:"Kode bank (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening tujuan (dienkripsi)"},{name:"from_acc",in:"query",type:"string",req:!0,desc:"Rekening sumber (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN nasabah (dienkripsi)"},{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi (dienkripsi)"},{name:"remark",in:"query",type:"string",req:!0,desc:"Keterangan (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Transfer Berhasil","reference_no":"BPD20240115001"}',"",["iosCheckAccess","iosTokenMdw","PIN check","BPD API call via cURL","DB: gcore_transfer"],"Mengirim ke BPD API, jika sukses insert ke gcore_transfer. Jika gagal, lakukan rollback gtb_folio.")}
 
   </div>
 </div>
@@ -433,13 +433,13 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("ppob-check","POST","/api/smart/ppob/check","PPOB – Cek Tagihan",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk PPOB (dienkripsi). Contoh: PLN-POSTPAID"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"ID Pelanggan / nomor meter (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_name":"I MADE SUKERTA","tagihan":"150000","period":"202401","denda":"0","total":"150000","admin":"2500"}',"",["iosCheckAccess","iosTokenMdw"],"Cek ke FastPay/IAK. Kembalikan detail tagihan: nama, jumlah, periode, denda, biaya admin.")}
+    ${P("ppob-check","POST","/api/smart/ppob/check","PPOB – Cek Tagihan",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk PPOB (dienkripsi). Contoh: PLN-POSTPAID"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"ID Pelanggan / nomor meter (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","customer_name":"I MADE SUKERTA","tagihan":"150000","period":"202401","denda":"0","total":"150000","admin":"2500"}',"",["iosCheckAccess","iosTokenMdw"],"Cek ke FastPay/IAK. Kembalikan detail tagihan: nama, jumlah, periode, denda, biaya admin.")}
 
-    ${E("ppob-request","POST","/api/smart/ppob/request","PPOB – Bayar Tagihan",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk PPOB (dienkripsi)"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"ID Pelanggan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal pembayaran (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN transaksi (dienkripsi)"},{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi unik (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Pembayaran Berhasil","ref_no":"FP20240115001","struk":"PLN POSTPAID 150000 OK"}',"",["iosCheckAccess","iosTokenMdw","PIN validation","Saldo check","FastPay/IAK API call"],"Cek saldo cukup, kirim ke FastPay/IAK, insert gppob_transaction dan gtb_folio. Jika gagal = rollback.")}
+    ${P("ppob-request","POST","/api/smart/ppob/request","PPOB – Bayar Tagihan",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk PPOB (dienkripsi)"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"ID Pelanggan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal pembayaran (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN transaksi (dienkripsi)"},{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi unik (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Pembayaran Berhasil","ref_no":"FP20240115001","struk":"PLN POSTPAID 150000 OK"}',"",["iosCheckAccess","iosTokenMdw","PIN validation","Saldo check","FastPay/IAK API call"],"Cek saldo cukup, kirim ke FastPay/IAK, insert gppob_transaction dan gtb_folio. Jika gagal = rollback.")}
 
-    ${E("iak-check","POST","/api/smart/iak/check","IAK – Cek Produk",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk IAK (dienkripsi). Contoh: TSEL5 (Telkomsel 5K)"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"Nomor HP tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","product_name":"Telkomsel 5.000","price":"5500","admin":"0"}',"",["iosCheckAccess","iosTokenMdw"],"Cek ketersediaan dan harga produk IAK (pulsa, paket data, game voucher).")}
+    ${P("iak-check","POST","/api/smart/iak/check","IAK – Cek Produk",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk IAK (dienkripsi). Contoh: TSEL5 (Telkomsel 5K)"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"Nomor HP tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Sukses","product_name":"Telkomsel 5.000","price":"5500","admin":"0"}',"",["iosCheckAccess","iosTokenMdw"],"Cek ketersediaan dan harga produk IAK (pulsa, paket data, game voucher).")}
 
-    ${E("iak-request","POST","/api/smart/iak/request","IAK – Beli Produk",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk IAK (dienkripsi)"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"Nomor HP tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN transaksi (dienkripsi)"},{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi unik (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Transaksi Berhasil","ref_no":"IAK20240115001","sn":"SN123456789"}',"",["iosCheckAccess","iosTokenMdw","PIN validation","IAK API call"],"Pembelian pulsa/paket via IAK API. SN = serial number produk dari IAK.")}
+    ${P("iak-request","POST","/api/smart/iak/request","IAK – Beli Produk",[{name:"product_code",in:"query",type:"string",req:!0,desc:"Kode produk IAK (dienkripsi)"},{name:"customer_id",in:"query",type:"string",req:!0,desc:"Nomor HP tujuan (dienkripsi)"},{name:"account_no",in:"query",type:"string",req:!0,desc:"Rekening pembayaran (dienkripsi)"},{name:"pin",in:"query",type:"string",req:!0,desc:"PIN transaksi (dienkripsi)"},{name:"trans_no",in:"query",type:"string",req:!0,desc:"Nomor transaksi unik (dienkripsi)"},{name:"Authorization",in:"header",type:"string",req:!0,desc:"Bearer {token}"},{name:"X-Timestamp",in:"header",type:"string",req:!0,desc:"Unix timestamp"}],'{"status":"00","message":"Transaksi Berhasil","ref_no":"IAK20240115001","sn":"SN123456789"}',"",["iosCheckAccess","iosTokenMdw","PIN validation","IAK API call"],"Pembelian pulsa/paket via IAK API. SN = serial number produk dari IAK.")}
 
   </div>
 </div>
@@ -459,19 +459,19 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("atm-create-token","POST","/api/cardless/create-token","ATM – Buat Token Cardless",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening lengkap (format: PREFIX+norek, contoh: 8812341.123456)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC-SHA256 hash dari mesin ATM"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP address mesin ATM (whitelist)"}],'{"status":"00","message":"Token Berhasil.","data":"A1B2C3"}',"",["machineCheck middleware","IP whitelist","HMAC hash validation"],"Token 6 karakter, berlaku 5 menit. Disimpan di gmob_token. Digunakan untuk transaksi cardless.")}
+    ${P("atm-create-token","POST","/api/cardless/create-token","ATM – Buat Token Cardless",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening lengkap (format: PREFIX+norek, contoh: 8812341.123456)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC-SHA256 hash dari mesin ATM"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP address mesin ATM (whitelist)"}],'{"status":"00","message":"Token Berhasil.","data":"A1B2C3"}',"",["machineCheck middleware","IP whitelist","HMAC hash validation"],"Token 6 karakter, berlaku 5 menit. Disimpan di gmob_token. Digunakan untuk transaksi cardless.")}
 
-    ${E("atm-get-token","POST","/api/cardless/get-token","ATM – Validasi Token dari Mobile",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (format BPD)"},{name:"transaction_code",in:"query",type:"string",req:!0,desc:'Kode transaksi ATM (harus "39")'},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi ATM"},{name:"transaction_datetime",in:"query",type:"string",req:!0,desc:"Datetime transaksi (YYYYMMDDHHmmss)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin ATM"}],'{"transaction_code":"39","transaction_id":"TXN001","response_code":"00","token":"A1B2C3"}',"",["machineCheck middleware"],"Mesin ATM memanggil ini untuk mendapatkan token yang dibuat nasabah dari mobile. response_code: 00=OK, 12=kode salah, 14=rekening tidak aktif, 30=token expired.")}
+    ${P("atm-get-token","POST","/api/cardless/get-token","ATM – Validasi Token dari Mobile",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (format BPD)"},{name:"transaction_code",in:"query",type:"string",req:!0,desc:'Kode transaksi ATM (harus "39")'},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi ATM"},{name:"transaction_datetime",in:"query",type:"string",req:!0,desc:"Datetime transaksi (YYYYMMDDHHmmss)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin ATM"}],'{"transaction_code":"39","transaction_id":"TXN001","response_code":"00","token":"A1B2C3"}',"",["machineCheck middleware"],"Mesin ATM memanggil ini untuk mendapatkan token yang dibuat nasabah dari mobile. response_code: 00=OK, 12=kode salah, 14=rekening tidak aktif, 30=token expired.")}
 
-    ${E("atm-balance","POST","/api/cardless/check-balance","ATM – Cek Saldo",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (format BPD)"},{name:"token",in:"query",type:"string",req:!0,desc:"Token cardless 6 digit"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Sukses","saldo":"1500000","account_no":"1.123456","account_name":"I MADE BUDI"}',"",["machineCheck middleware","Token validation"],"Validasi token aktif, kembalikan saldo dari gtb_folio (sum kredit-debit).")}
+    ${P("atm-balance","POST","/api/cardless/check-balance","ATM – Cek Saldo",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening (format BPD)"},{name:"token",in:"query",type:"string",req:!0,desc:"Token cardless 6 digit"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Sukses","saldo":"1500000","account_no":"1.123456","account_name":"I MADE BUDI"}',"",["machineCheck middleware","Token validation"],"Validasi token aktif, kembalikan saldo dari gtb_folio (sum kredit-debit).")}
 
-    ${E("atm-debit","POST","/api/cardless/cash-debit","ATM – Penarikan Tunai",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"token",in:"query",type:"string",req:!0,desc:"Token cardless aktif"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal penarikan (numerik)"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi ATM unik"},{name:"transaction_datetime",in:"query",type:"string",req:!0,desc:"Datetime (YYYYMMDDHHmmss)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Penarikan Berhasil","saldo_akhir":"1400000","reference":"ATM20240115001"}',"",["machineCheck","Token validation","Saldo check","DB: gtb_folio + gak_mutasi"],"Debet rekening nasabah. Insert folio debet ke gtb_folio dan mutasi ke gak_mutasi. Token dinonaktifkan setelah transaksi.")}
+    ${P("atm-debit","POST","/api/cardless/cash-debit","ATM – Penarikan Tunai",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"token",in:"query",type:"string",req:!0,desc:"Token cardless aktif"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal penarikan (numerik)"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi ATM unik"},{name:"transaction_datetime",in:"query",type:"string",req:!0,desc:"Datetime (YYYYMMDDHHmmss)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Penarikan Berhasil","saldo_akhir":"1400000","reference":"ATM20240115001"}',"",["machineCheck","Token validation","Saldo check","DB: gtb_folio + gak_mutasi"],"Debet rekening nasabah. Insert folio debet ke gtb_folio dan mutasi ke gak_mutasi. Token dinonaktifkan setelah transaksi.")}
 
-    ${E("atm-credit","POST","/api/cardless/cash-credit","ATM – Penyetoran Tunai",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"token",in:"query",type:"string",req:!0,desc:"Token cardless aktif"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal setoran (numerik)"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi ATM unik"},{name:"transaction_datetime",in:"query",type:"string",req:!0,desc:"Datetime (YYYYMMDDHHmmss)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Setoran Berhasil","saldo_akhir":"1600000","reference":"ATM20240115002"}',"",["machineCheck","Token validation","DB: gtb_folio + gak_mutasi"],"Kredit rekening nasabah. Insert folio kredit ke gtb_folio. Token dinonaktifkan setelah transaksi.")}
+    ${P("atm-credit","POST","/api/cardless/cash-credit","ATM – Penyetoran Tunai",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"token",in:"query",type:"string",req:!0,desc:"Token cardless aktif"},{name:"amount",in:"query",type:"string",req:!0,desc:"Nominal setoran (numerik)"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi ATM unik"},{name:"transaction_datetime",in:"query",type:"string",req:!0,desc:"Datetime (YYYYMMDDHHmmss)"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Setoran Berhasil","saldo_akhir":"1600000","reference":"ATM20240115002"}',"",["machineCheck","Token validation","DB: gtb_folio + gak_mutasi"],"Kredit rekening nasabah. Insert folio kredit ke gtb_folio. Token dinonaktifkan setelah transaksi.")}
 
-    ${E("atm-rev-debit","POST","/api/cardless/reversal-debit","ATM – Batal Penarikan",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi yang akan dibatalkan"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Batal Penarikan Berhasil"}',"",["machineCheck","Transaction lookup"],"Reversal transaksi penarikan. Hapus record dari gtb_folio dan gak_mutasi berdasarkan transaction_id.")}
+    ${P("atm-rev-debit","POST","/api/cardless/reversal-debit","ATM – Batal Penarikan",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi yang akan dibatalkan"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Batal Penarikan Berhasil"}',"",["machineCheck","Transaction lookup"],"Reversal transaksi penarikan. Hapus record dari gtb_folio dan gak_mutasi berdasarkan transaction_id.")}
 
-    ${E("atm-rev-credit","POST","/api/cardless/reversal-credit","ATM – Batal Setoran",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi yang akan dibatalkan"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Batal Setoran Berhasil"}',"",["machineCheck","Transaction lookup"],"Reversal transaksi setoran. Hapus record folio kredit dari database.")}
+    ${P("atm-rev-credit","POST","/api/cardless/reversal-credit","ATM – Batal Setoran",[{name:"account_no",in:"query",type:"string",req:!0,desc:"Nomor rekening"},{name:"transaction_id",in:"query",type:"string",req:!0,desc:"ID transaksi yang akan dibatalkan"},{name:"X-Machine-Hash",in:"header",type:"string",req:!0,desc:"HMAC hash mesin"},{name:"X-Machine-IP",in:"header",type:"string",req:!0,desc:"IP mesin"}],'{"status":"00","message":"Batal Setoran Berhasil"}',"",["machineCheck","Transaction lookup"],"Reversal transaksi setoran. Hapus record folio kredit dari database.")}
 
   </div>
 </div>
@@ -491,7 +491,7 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("ppob-cb","POST","/api/ppob/callback","PPOB – Notifikasi Callback FastPay",[{name:"ref_id",in:"body",type:"string",req:!0,desc:"Reference ID transaksi dari FastPay"},{name:"product_code",in:"body",type:"string",req:!0,desc:"Kode produk"},{name:"customer_id",in:"body",type:"string",req:!0,desc:"ID pelanggan"},{name:"status",in:"body",type:"string",req:!0,desc:"Status: 00=sukses, lainnya=gagal"},{name:"amount",in:"body",type:"number",req:!0,desc:"Nominal transaksi"},{name:"timestamp",in:"body",type:"string",req:!1,desc:"Waktu callback dari FastPay"},{name:"X-FastPay-Signature",in:"header",type:"string",req:!1,desc:"Tanda tangan dari FastPay (opsional tergantung konfigurasi)"}],'{"status":"00","message":"OK"}',`{
+    ${P("ppob-cb","POST","/api/ppob/callback","PPOB – Notifikasi Callback FastPay",[{name:"ref_id",in:"body",type:"string",req:!0,desc:"Reference ID transaksi dari FastPay"},{name:"product_code",in:"body",type:"string",req:!0,desc:"Kode produk"},{name:"customer_id",in:"body",type:"string",req:!0,desc:"ID pelanggan"},{name:"status",in:"body",type:"string",req:!0,desc:"Status: 00=sukses, lainnya=gagal"},{name:"amount",in:"body",type:"number",req:!0,desc:"Nominal transaksi"},{name:"timestamp",in:"body",type:"string",req:!1,desc:"Waktu callback dari FastPay"},{name:"X-FastPay-Signature",in:"header",type:"string",req:!1,desc:"Tanda tangan dari FastPay (opsional tergantung konfigurasi)"}],'{"status":"00","message":"OK"}',`{
   "ref_id": "FP20240115001",
   "product_code": "PLN-POSTPAID",
   "customer_id": "12345678901",
@@ -953,14 +953,14 @@ document.getElementById('base-url-input').addEventListener('change', function() 
 })();
 <\/script>
 </body>
-</html>`}function E(e,a,t,s,n,i,o,d,p){const r="mb-post",g=n.map(v=>`
+</html>`}function P(e,a,t,s,n,i,r,d,p){const o="mb-post",g=n.map(v=>`
     <tr>
       <td><span class="param-name">${v.name}</span></td>
       <td><span class="param-type">${v.type}</span></td>
       <td><span class="param-in">${v.in}</span></td>
       <td><span class="${v.req?"param-req":"param-opt"}">${v.req?"required":"optional"}</span></td>
       <td style="color:#374151;font-size:12px">${v.desc}</td>
-    </tr>`).join(""),h=n.filter(v=>v.in==="header"),l=n.filter(v=>v.in==="query"),c=n.filter(v=>v.in==="body"),m=h.length?`
+    </tr>`).join(""),h=n.filter(v=>v.in==="header"),l=n.filter(v=>v.in==="query"),c=n.filter(v=>v.in==="body"),f=h.length?`
     <div class="try-label">Headers</div>
     ${h.map(v=>`
     <div class="try-row">
@@ -973,16 +973,16 @@ document.getElementById('base-url-input').addEventListener('change', function() 
     <div class="try-row">
       <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px">${v.name}${v.req?' <span style="color:red">*</span>':""}</label>
       <input class="try-input try-query-input" data-key="${v.name}" type="text" placeholder="${v.type}"/>
-    </div>`).join("")}`:"",A=c.length?`
+    </div>`).join("")}`:"",T=c.length?`
     <div class="try-label" style="margin-top:8px">Request Body (JSON)</div>
-    ${o?`<button onclick="copyExample('${e}')" style="font-size:11px;background:#f1f5f9;border:1px solid #e2e8f0;padding:3px 8px;border-radius:4px;cursor:pointer;margin-bottom:6px;color:#475569"><i class="fas fa-copy" style="margin-right:4px"></i>Isi Contoh</button>`:""}
-    <textarea id="try-body-${e}" class="try-input try-textarea" data-example="${o.replace(/"/g,"&quot;")}"
-      placeholder='${JSON.stringify(Object.fromEntries(c.map(v=>[v.name,v.type])),null,2)}'>${o}</textarea>`:"",y=d.map(v=>`<span class="mw-badge"><i class="fas fa-shield-alt"></i>${v}</span>`).join(""),u=p?`<div class="info-box ib-blue" style="margin-top:12px"><i class="fas fa-info-circle"></i><span>${p}</span></div>`:"",x=i?`
+    ${r?`<button onclick="copyExample('${e}')" style="font-size:11px;background:#f1f5f9;border:1px solid #e2e8f0;padding:3px 8px;border-radius:4px;cursor:pointer;margin-bottom:6px;color:#475569"><i class="fas fa-copy" style="margin-right:4px"></i>Isi Contoh</button>`:""}
+    <textarea id="try-body-${e}" class="try-input try-textarea" data-example="${r.replace(/"/g,"&quot;")}"
+      placeholder='${JSON.stringify(Object.fromEntries(c.map(v=>[v.name,v.type])),null,2)}'>${r}</textarea>`:"",y=d.map(v=>`<span class="mw-badge"><i class="fas fa-shield-alt"></i>${v}</span>`).join(""),u=p?`<div class="info-box ib-blue" style="margin-top:12px"><i class="fas fa-info-circle"></i><span>${p}</span></div>`:"",x=i?`
     <div class="try-label">Contoh Response 200 OK</div>
-    <div class="schema-obj">${Lt(i)}</div>`:"";return`
+    <div class="schema-obj">${Mt(i)}</div>`:"";return`
 <div class="ep-card" id="ep-${e}">
   <div class="ep-header" onclick="epToggle('${e}')">
-    <span class="method-badge ${r}">${a}</span>
+    <span class="method-badge ${o}">${a}</span>
     <span class="ep-path">${t}</span>
     <span class="ep-summary">${s}</span>
     <i class="fas fa-chevron-down ep-chevron"></i>
@@ -1027,9 +1027,9 @@ document.getElementById('base-url-input').addEventListener('change', function() 
     <!-- TRY IT OUT TAB -->
     <div class="ep-pane" id="pane-${e}-try">
       <div class="try-panel">
-        ${m}
+        ${f}
         ${b}
-        ${A}
+        ${T}
         <div style="display:flex;align-items:center;margin-top:14px;flex-wrap:wrap;gap:8px">
           <button class="try-btn" id="try-btn-${e}" data-method="${a}" data-path="${t}" onclick="tryRequest('${e}')">
             <i class="fas fa-paper-plane"></i> Send Request
@@ -1053,7 +1053,7 @@ document.getElementById('base-url-input').addEventListener('change', function() 
     </div>
 
   </div>
-</div>`}function Lt(e){try{return JSON.stringify(JSON.parse(e),null,2).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/("[\w-]+")\s*:/g,'<span class="hl-key">$1</span>:').replace(/:\s*(".*?")/g,': <span class="hl-str">$1</span>').replace(/:\s*(-?\d+\.?\d*)/g,': <span class="hl-num">$1</span>').replace(/:\s*(true|false)/g,': <span class="hl-bool">$1</span>')}catch{return e}}function Mt(){return`<!DOCTYPE html>
+</div>`}function Mt(e){try{return JSON.stringify(JSON.parse(e),null,2).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/("[\w-]+")\s*:/g,'<span class="hl-key">$1</span>:').replace(/:\s*(".*?")/g,': <span class="hl-str">$1</span>').replace(/:\s*(-?\d+\.?\d*)/g,': <span class="hl-num">$1</span>').replace(/:\s*(true|false)/g,': <span class="hl-bool">$1</span>')}catch{return e}}function Ht(){return`<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8"/>
@@ -2973,7 +2973,1253 @@ fillNow('kg-ts');
 updateLoginBanner();
 <\/script>
 </body>
-</html>`}const Oa=`-----BEGIN PRIVATE KEY-----
+</html>`}function zt(){return`<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LPD Seminyak — Admin Panel</title>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>
+<style>
+:root{--primary:#0f766e;--primary-dark:#0d5752;--secondary:#0f172a;--sidebar-w:240px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+
+/* ── SIDEBAR ── */
+#sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:#134e4a;overflow-y:auto;z-index:100;border-right:1px solid #0d3b37;display:flex;flex-direction:column}
+#sidebar .logo{padding:16px 14px 12px;background:linear-gradient(135deg,#0d3b37,#0f766e);border-bottom:1px solid #0d3b37}
+#sidebar .logo h1{font-size:14px;font-weight:800;color:#fff;letter-spacing:.5px}
+#sidebar .logo p{font-size:10px;color:#99f6e4;margin-top:2px}
+#sidebar nav{flex:1;padding:8px 0}
+#sidebar nav a{display:flex;align-items:center;gap:9px;padding:9px 14px;font-size:12px;color:#99f6e4;text-decoration:none;transition:all .15s;cursor:pointer;border-left:3px solid transparent}
+#sidebar nav a:hover,#sidebar nav a.active{color:#fff;background:rgba(20,184,166,.2);border-left-color:#14b8a6}
+#sidebar nav a i{width:16px;text-align:center;font-size:12px}
+#sidebar .nav-section{padding:10px 14px 3px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#0d6b65}
+#sidebar .sidebar-footer{padding:12px 14px;border-top:1px solid #0d3b37;font-size:10px;color:#4d9e99}
+
+/* ── MAIN ── */
+#main{margin-left:var(--sidebar-w);min-height:100vh;padding:0 0 40px}
+.topbar{background:#134e4a;border-bottom:1px solid #0d3b37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.topbar h2{font-size:15px;font-weight:700;color:#a7f3d0}
+.topbar-right{display:flex;align-items:center;gap:12px;font-size:11px;color:#5eead4}
+.section{display:none}.section.active{display:block}
+.content{padding:20px 24px}
+
+/* ── CARDS ── */
+.stat-card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px;position:relative;overflow:hidden;transition:border-color .2s}
+.stat-card:hover{border-color:#14b8a6}
+.stat-card .sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px}
+.stat-card .sc-val{font-size:26px;font-weight:800;color:#e2e8f0;line-height:1}
+.stat-card .sc-label{font-size:11px;color:#64748b;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.stat-card .sc-sub{font-size:11px;color:#14b8a6;margin-top:4px}
+
+/* ── PANEL ── */
+.panel{background:#1e293b;border:1px solid #334155;border-radius:10px;margin-bottom:16px;overflow:hidden}
+.panel-header{padding:12px 16px;background:#0f172a;border-bottom:1px solid #1e293b;display:flex;align-items:center;justify-content:space-between}
+.panel-header-left{display:flex;align-items:center;gap:8px}
+.panel-header h3{font-size:13px;font-weight:700;color:#5eead4}
+.panel-header .badge{font-size:10px;padding:2px 7px;border-radius:999px;background:#134e4a;color:#5eead4;font-weight:600}
+.panel-body{padding:16px}
+
+/* ── TABLE ── */
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{text-align:left;padding:8px 12px;background:#0f172a;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:10px;border-bottom:1px solid #1e293b;white-space:nowrap}
+.data-table td{padding:8px 12px;border-bottom:1px solid #1e293b;color:#cbd5e1;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(20,184,166,.04)}
+.data-table td.mono{font-family:'Courier New',monospace;font-size:11px;color:#67e8f9;word-break:break-all}
+.data-table td.ts{font-family:'Courier New',monospace;font-size:11px;color:#94a3b8;white-space:nowrap}
+.data-table td.url{font-family:'Courier New',monospace;font-size:10px;color:#a5b4fc;word-break:break-all;max-width:200px}
+.data-table td.status-ok{color:#34d399;font-weight:700}
+.data-table td.status-err{color:#f87171;font-weight:700}
+.data-table td.status-warn{color:#fbbf24;font-weight:700}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .15s;text-transform:uppercase;letter-spacing:.5px}
+.btn-primary{background:linear-gradient(135deg,#0f766e,#0d6b65);color:#fff}
+.btn-primary:hover{background:linear-gradient(135deg,#0d6b65,#0a5952);transform:translateY(-1px)}
+.btn-secondary{background:#1e293b;border:1px solid #334155;color:#94a3b8}
+.btn-secondary:hover{background:#334155;color:#e2e8f0}
+.btn-sm{padding:4px 10px;font-size:10px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+/* ── FORM ── */
+label{display:block;font-size:10px;font-weight:700;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+input[type=text],input[type=date],select,textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:6px;padding:8px 10px;color:#e2e8f0;font-size:12px;font-family:'Courier New',monospace;outline:none;transition:border .15s}
+input[type=text]:focus,input[type=date]:focus,select:focus,textarea:focus{border-color:#0f766e}
+select{cursor:pointer}
+
+/* ── MISC ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+@media(max-width:1100px){.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.field-row{margin-bottom:10px}
+.info-box{padding:10px 14px;border-radius:8px;font-size:12px;margin:10px 0;display:flex;gap:9px;align-items:flex-start;line-height:1.6}
+.info-box i{margin-top:2px;flex-shrink:0}
+.info-teal{background:#0d3b37;border-left:3px solid #14b8a6;color:#99f6e4}
+.info-yellow{background:#1c1200;border-left:3px solid #d97706;color:#fcd34d}
+.info-red{background:#2d0000;border-left:3px solid #dc2626;color:#fca5a5}
+.badge-pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700}
+.badge-ok{background:#022c22;color:#34d399}
+.badge-warn{background:#2c1900;color:#fbbf24}
+.badge-err{background:#2d0000;color:#f87171}
+.badge-info{background:#0d3b37;color:#5eead4}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#14b8a6;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:40px 20px;color:#475569}
+.empty-state i{font-size:36px;margin-bottom:10px;display:block}
+.log-entry{border:1px solid #1e293b;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#0a0f1a}
+.log-entry-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#0f172a;cursor:pointer;user-select:none}
+.log-entry-body{padding:12px;font-size:11px;font-family:'Courier New',monospace;color:#7dd3fc;white-space:pre-wrap;word-break:break-all;display:none;max-height:300px;overflow-y:auto;line-height:1.6}
+.log-entry-body.show{display:block}
+.method-tag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px}
+.method-post{background:#1e1b4b;color:#a78bfa}
+.method-get{background:#022c22;color:#34d399}
+.search-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.search-bar input,.search-bar select{flex:1;min-width:120px;padding:7px 10px;font-size:12px}
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:10px 0;font-size:11px;color:#64748b}
+.pagination-btns{display:flex;gap:6px}
+.chart-container{position:relative;height:180px}
+.section-title{font-size:13px;font-weight:700;color:#5eead4;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title i{font-size:14px}
+.tag{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;background:#1e293b;color:#94a3b8;margin:1px}
+.separator{height:1px;background:#1e293b;margin:12px 0}
+.truncate-cell{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:help}
+
+/* ── MOBILE ── */
+#menu-toggle{display:none;background:none;border:none;color:#5eead4;font-size:20px;cursor:pointer;padding:4px}
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99}
+#sidebar-overlay.show{display:block}
+@media(max-width:768px){
+  #menu-toggle{display:block}
+  #sidebar{transform:translateX(-100%);transition:transform .25s}
+  #sidebar.open{transform:translateX(0)}
+  #sidebar-overlay.show{display:block}
+  #main{margin-left:0}
+  .topbar{padding:10px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar overlay -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ── SIDEBAR ── -->
+<aside id="sidebar">
+  <div class="logo">
+    <h1><i class="fas fa-university mr-2"></i>LPD Seminyak</h1>
+    <p>Admin Management Panel</p>
+  </div>
+  <nav>
+    <div class="nav-section">Dashboard</div>
+    <a href="#" onclick="showSection('dashboard')" id="nav-dashboard" class="active">
+      <i class="fas fa-tachometer-alt"></i> Overview
+    </a>
+    <a href="#" onclick="showSection('activity')" id="nav-activity">
+      <i class="fas fa-chart-line"></i> Aktivitas Harian
+    </a>
+
+    <div class="nav-section">Monitoring</div>
+    <a href="#" onclick="showSection('logs-access')" id="nav-logs-access">
+      <i class="fas fa-sign-in-alt"></i> Log Akses Nasabah
+    </a>
+    <a href="#" onclick="showSection('logs-transfer')" id="nav-logs-transfer">
+      <i class="fas fa-exchange-alt"></i> Log Transfer
+    </a>
+    <a href="#" onclick="showSection('logs-tabungan')" id="nav-logs-tabungan">
+      <i class="fas fa-piggy-bank"></i> Log Tabungan
+    </a>
+    <a href="#" onclick="showSection('logs-token')" id="nav-logs-token">
+      <i class="fas fa-key"></i> Log Token / SNAP
+    </a>
+
+    <div class="nav-section">Analisis</div>
+    <a href="#" onclick="showSection('stats')" id="nav-stats">
+      <i class="fas fa-chart-bar"></i> Statistik API
+    </a>
+    <a href="#" onclick="showSection('errors')" id="nav-errors">
+      <i class="fas fa-exclamation-triangle"></i> Error Log
+    </a>
+
+    <div class="nav-section">Sistem</div>
+    <a href="#" onclick="showSection('crypto-ops')" id="nav-crypto-ops">
+      <i class="fas fa-lock"></i> Crypto Test
+    </a>
+    <a href="/crypto" target="_blank">
+      <i class="fas fa-tools"></i> Crypto Toolkit <i class="fas fa-external-link-alt ml-1" style="font-size:9px"></i>
+    </a>
+    <a href="/swagger" target="_blank">
+      <i class="fas fa-book"></i> Swagger API <i class="fas fa-external-link-alt ml-1" style="font-size:9px"></i>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div><i class="fas fa-circle" style="color:#22c55e;font-size:7px"></i> Production: lpdseminyak.biz.id</div>
+    <div style="margin-top:3px"><i class="fas fa-clock"></i> <span id="sidebar-time">—</span></div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main id="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button id="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <h2 id="topbar-title"><i class="fas fa-tachometer-alt mr-2"></i>Overview</h2>
+    </div>
+    <div class="topbar-right">
+      <span id="topbar-date" style="font-size:11px;color:#5eead4"></span>
+      <button class="btn btn-secondary btn-sm" onclick="refreshAll()"><i class="fas fa-sync-alt"></i> Refresh</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: DASHBOARD
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-dashboard" class="section active content">
+
+    <div class="grid-4" style="margin-bottom:16px" id="stat-cards">
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#0d3b37"><i class="fas fa-sign-in-alt" style="color:#14b8a6"></i></div>
+        <div class="sc-val" id="stat-total-access">—</div>
+        <div class="sc-label">Total Login Hari Ini</div>
+        <div class="sc-sub" id="stat-access-sub">memuat...</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#1e1b4b"><i class="fas fa-exchange-alt" style="color:#a78bfa"></i></div>
+        <div class="sc-val" id="stat-total-transfer">—</div>
+        <div class="sc-label">Transfer Hari Ini</div>
+        <div class="sc-sub" id="stat-transfer-sub">memuat...</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#022c22"><i class="fas fa-key" style="color:#34d399"></i></div>
+        <div class="sc-val" id="stat-total-token">—</div>
+        <div class="sc-label">Token Request Hari Ini</div>
+        <div class="sc-sub" id="stat-token-sub">memuat...</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#1c0d00"><i class="fas fa-exclamation-triangle" style="color:#f97316"></i></div>
+        <div class="sc-val" id="stat-total-errors">—</div>
+        <div class="sc-label">Error 7 Hari</div>
+        <div class="sc-sub" id="stat-error-sub">memuat...</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <h3><i class="fas fa-sign-in-alt mr-2"></i>Login Terbaru</h3>
+            <span class="badge" id="badge-recent-access">—</span>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="showSection('logs-access')">Lihat Semua</button>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="data-table">
+            <thead><tr><th>Waktu</th><th>Endpoint</th><th>Status</th></tr></thead>
+            <tbody id="recent-access-body">
+              <tr><td colspan="3" class="text-center" style="padding:16px;color:#475569">Memuat...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <h3><i class="fas fa-exchange-alt mr-2"></i>Transfer Terbaru</h3>
+            <span class="badge" id="badge-recent-transfer">—</span>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="showSection('logs-transfer')">Lihat Semua</button>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="data-table">
+            <thead><tr><th>Waktu</th><th>Endpoint</th><th>Nominal</th></tr></thead>
+            <tbody id="recent-transfer-body">
+              <tr><td colspan="3" class="text-center" style="padding:16px;color:#475569">Memuat...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h3><i class="fas fa-history mr-2"></i>File Log Tersedia</h3>
+        </div>
+      </div>
+      <div class="panel-body" id="log-files-overview">
+        <div style="color:#475569;font-size:12px">Memuat...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: AKTIVITAS HARIAN
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-activity" class="section content">
+    <div class="section-title"><i class="fas fa-chart-line"></i> Aktivitas Harian — Request per Jam</div>
+
+    <div class="panel" style="margin-bottom:16px">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h3><i class="fas fa-calendar mr-2"></i>Pilih Tanggal & Tipe Log</h3>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="loadActivity()"><i class="fas fa-search"></i> Load</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row">
+            <label>Tanggal</label>
+            <input type="date" id="act-date" />
+          </div>
+          <div class="field-row">
+            <label>Tipe Log</label>
+            <select id="act-type">
+              <option value="access">Access (Login/Logout)</option>
+              <option value="transfer-AR">Transfer Bank (AR)</option>
+              <option value="transfer-AB">Transfer LPD (AB)</option>
+              <option value="tabungan">Tabungan / Mutasi</option>
+              <option value="token">Token SNAP</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label>Filter Endpoint</label>
+            <input type="text" id="act-filter" placeholder="cth: login, transfer, inquiry" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Request Per Jam</h3><span class="badge" id="badge-act-total">0</span></div></div>
+        <div class="panel-body"><div class="chart-container"><canvas id="chart-hourly"></canvas></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Distribusi Endpoint</h3></div></div>
+        <div class="panel-body"><div class="chart-container"><canvas id="chart-endpoint"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list mr-2"></i>Log Entries</h3><span class="badge" id="badge-act-entries">0</span></div>
+      </div>
+      <div class="panel-body" style="padding:0">
+        <div id="activity-log-list" style="padding:12px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: LOG AKSES
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-logs-access" class="section content">
+    <div class="section-title"><i class="fas fa-sign-in-alt"></i> Log Akses Nasabah</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadAccessLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="acc-date"/></div>
+          <div class="field-row"><label>Sumber File</label>
+            <select id="acc-source">
+              <option value="root">Root (access-YYYY-MM-DD.txt)</option>
+              <option value="his">his/ (access-YYYY-MM-DD.txt)</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="acc-search" placeholder="endpoint, username hash, ..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-acc-count">0</span></div>
+      </div>
+      <div id="access-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: LOG TRANSFER
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-logs-transfer" class="section content">
+    <div class="section-title"><i class="fas fa-exchange-alt"></i> Log Transfer</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTransferLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="tr-date"/></div>
+          <div class="field-row"><label>Tipe Transfer</label>
+            <select id="tr-type">
+              <option value="AR">Transfer Bank Antar (AR)</option>
+              <option value="AB">Transfer LPD Antar (AB)</option>
+              <option value="in">Transfer In (Masuk)</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Sumber</label>
+            <select id="tr-source">
+              <option value="root">Root</option>
+              <option value="his">his/</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row"><label>Cari Teks</label><input type="text" id="tr-search" placeholder="endpoint, reference, ..."/></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-tr-count">0</span></div>
+      </div>
+      <div id="transfer-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: LOG TABUNGAN
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-logs-tabungan" class="section content">
+    <div class="section-title"><i class="fas fa-piggy-bank"></i> Log Tabungan & Mutasi</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTabunganLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="tab-date"/></div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="tab-search" placeholder="customer_id, endpoint..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-tab-count">0</span></div>
+      </div>
+      <div id="tabungan-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: LOG TOKEN
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-logs-token" class="section content">
+    <div class="section-title"><i class="fas fa-key"></i> Log Token / SNAP B2B</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTokenLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="tok-date"/></div>
+          <div class="field-row"><label>Tipe</label>
+            <select id="tok-type">
+              <option value="root">Root (token-YYYY-MM-DD.txt)</option>
+              <option value="token-dir">token/ (request-YYYY-MM-DD.log)</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="tok-search" placeholder="accessToken, responseCode..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-tok-count">0</span></div>
+      </div>
+      <div id="token-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: STATISTIK
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-stats" class="section content">
+    <div class="section-title"><i class="fas fa-chart-bar"></i> Statistik API</div>
+    <div class="info-box info-teal">
+      <i class="fas fa-info-circle"></i>
+      Statistik dihitung dari file log yang tersedia di storage Laravel.
+      Data diambil secara real-time dari server.
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Top Endpoints (7 Hari)</h3></div></div>
+        <div class="panel-body" id="stats-endpoints">
+          <div style="color:#475569;text-align:center;padding:20px">Memuat...</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Aktivitas Per Hari (30 Hari)</h3></div></div>
+        <div class="panel-body"><div class="chart-container"><canvas id="chart-daily"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3>Daftar File Log</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadStats()"><i class="fas fa-sync-alt"></i> Refresh</button>
+      </div>
+      <div class="panel-body" style="padding:0">
+        <table class="data-table">
+          <thead><tr><th>File</th><th>Direktori</th><th>Ukuran</th><th>Entri</th></tr></thead>
+          <tbody id="stats-files-body">
+            <tr><td colspan="4" style="text-align:center;padding:16px;color:#475569">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: ERROR LOG
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-errors" class="section content">
+    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> Error Log Laravel</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadErrors()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div class="field-row"><label>Level</label>
+            <select id="err-level">
+              <option value="all">Semua</option>
+              <option value="ERROR">ERROR</option>
+              <option value="WARNING">WARNING</option>
+              <option value="INFO">INFO</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="err-search" placeholder="SQLSTATE, Exception, ..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-bug mr-2"></i>Laravel Error Log</h3><span class="badge" id="badge-err-count">0</span></div>
+      </div>
+      <div id="error-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: CRYPTO TEST
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-crypto-ops" class="section content">
+    <div class="section-title"><i class="fas fa-lock"></i> Crypto Operations Test</div>
+    <div class="info-box info-teal">
+      <i class="fas fa-shield-alt"></i>
+      Operasi kriptografi berjalan di Cloudflare Edge menggunakan Web Crypto API.
+      Tidak ada proxy ke sandbox — semua operasi 100% edge-native.
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-clock mr-2"></i>Timestamp Jakarta</h3></div></div>
+        <div class="panel-body">
+          <button class="btn btn-primary" onclick="cryptoTest('timestamp')"><i class="fas fa-sync-alt"></i> Get Timestamp</button>
+          <div id="result-timestamp" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-key mr-2"></i>Generate AES Keys</h3></div></div>
+        <div class="panel-body">
+          <div class="field-row">
+            <label>Client ID</label>
+            <input type="text" id="cto-clientid" value="AQ3A.240912.001.01102025120205"/>
+          </div>
+          <div class="field-row">
+            <label>Timestamp</label>
+            <input type="text" id="cto-ts" placeholder="2026-04-20 11:44:20"/>
+          </div>
+          <button class="btn btn-primary" onclick="cryptoTest('keygen')"><i class="fas fa-cogs"></i> Generate Keys</button>
+          <div id="result-keygen" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-fingerprint mr-2"></i>Encode X-CLIENT-ID</h3></div></div>
+        <div class="panel-body">
+          <div class="field-row">
+            <label>Client ID Raw</label>
+            <input type="text" id="cto-did-cid" value="AQ3A.240912.001.01102025120205"/>
+          </div>
+          <div class="field-row">
+            <label>Timestamp</label>
+            <input type="text" id="cto-did-ts" placeholder="2026-04-20 11:44:20"/>
+          </div>
+          <button class="btn btn-primary" onclick="cryptoTest('did-encode')"><i class="fas fa-code"></i> Encode DID</button>
+          <div id="result-did-encode" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-signature mr-2"></i>Generate Signature</h3></div></div>
+        <div class="panel-body">
+          <div class="field-row">
+            <label>AES CS (dari keygen)</label>
+            <input type="text" id="cto-sig-cs" placeholder="EueZ6DfS18s="/>
+          </div>
+          <div class="field-row">
+            <label>Client ID Encoded</label>
+            <input type="text" id="cto-sig-cid" placeholder="U01ZU2V6G3C7CWtV..."/>
+          </div>
+          <button class="btn btn-primary" onclick="cryptoTest('signature')"><i class="fas fa-pencil-alt"></i> Generate Sig</button>
+          <div id="result-signature" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+/* ─────────────────────────────────────────────────────
+   STATE & HELPERS
+───────────────────────────────────────────────────── */
+let hourlyChart = null, endpointChart = null, dailyChart = null;
+
+function todayStr() {
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+
+function fmtTime(s) {
+  // Extract timestamp from log entry text
+  const m = s.match(/\\[(\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2})\\]/);
+  return m ? m[1] : '—';
+}
+
+function extractEndpoint(text) {
+  const m = text.match(/POST\\s+(https?:\\/\\/[^\\n]+)/);
+  if (m) {
+    const url = m[1].trim();
+    const parts = url.split('/');
+    return parts.slice(-3).join('/');
+  }
+  return '—';
+}
+
+function extractDataBody(text) {
+  const m = text.match(/DATA:\\s*([\\s\\S]*?)(?=\\[\\d{4}|$)/);
+  if (m && m[1].trim()) return m[1].trim();
+  return '';
+}
+
+function escH(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('#sidebar nav a').forEach(el => el.classList.remove('active'));
+  document.getElementById('section-' + name)?.classList.add('active');
+  document.getElementById('nav-' + name)?.classList.add('active');
+  const titles = {
+    'dashboard': '<i class="fas fa-tachometer-alt mr-2"></i>Overview',
+    'activity': '<i class="fas fa-chart-line mr-2"></i>Aktivitas Harian',
+    'logs-access': '<i class="fas fa-sign-in-alt mr-2"></i>Log Akses Nasabah',
+    'logs-transfer': '<i class="fas fa-exchange-alt mr-2"></i>Log Transfer',
+    'logs-tabungan': '<i class="fas fa-piggy-bank mr-2"></i>Log Tabungan',
+    'logs-token': '<i class="fas fa-key mr-2"></i>Log Token',
+    'stats': '<i class="fas fa-chart-bar mr-2"></i>Statistik API',
+    'errors': '<i class="fas fa-exclamation-triangle mr-2"></i>Error Log',
+    'crypto-ops': '<i class="fas fa-lock mr-2"></i>Crypto Test',
+  };
+  document.getElementById('topbar-title').innerHTML = titles[name] || name;
+  closeSidebar();
+  return false;
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+
+function updateClock() {
+  const now = new Date();
+  const wib = new Date(now.getTime() + 7*3600000);
+  const ts = wib.toISOString().replace('T',' ').slice(0,19);
+  document.getElementById('sidebar-time').textContent = ts + ' WIB';
+  document.getElementById('topbar-date').textContent = ts + ' WIB';
+}
+
+/* ─────────────────────────────────────────────────────
+   API CALLS
+───────────────────────────────────────────────────── */
+async function callAdmin(payload) {
+  const r = await fetch('/api/admin', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+  return r.json();
+}
+
+async function callCrypto(payload) {
+  const r = await fetch('/api/crypto', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+  return r.json();
+}
+
+/* ─────────────────────────────────────────────────────
+   PARSE LOG ENTRIES
+   Format: [YYYY-MM-DD HH:MM:SS] local.INFO: \\nREQUEST:\\n...
+───────────────────────────────────────────────────── */
+function parseLogEntries(text) {
+  // Split on timestamp markers
+  const chunks = text.split(/(?=\\[\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\])/);
+  return chunks.filter(c => c.trim().length > 5).map(chunk => {
+    const ts = fmtTime(chunk);
+    const endpoint = extractEndpoint(chunk);
+    const data = extractDataBody(chunk);
+    const isResponse = chunk.includes('RESPONSE');
+    const isError = chunk.toLowerCase().includes('local.error') || chunk.toLowerCase().includes('exception');
+    return { ts, endpoint, data, raw: chunk.trim(), isResponse, isError };
+  });
+}
+
+function renderLogEntries(entries, containerId, searchText = '') {
+  const el = document.getElementById(containerId);
+  if (!entries || entries.length === 0) {
+    el.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><div>Tidak ada log ditemukan</div></div>';
+    return 0;
+  }
+  const filtered = searchText
+    ? entries.filter(e => e.raw.toLowerCase().includes(searchText.toLowerCase()))
+    : entries;
+  
+  el.innerHTML = filtered.slice(0, 200).map((e, i) => {
+    const method = e.raw.includes('POST ') ? '<span class="method-tag method-post">POST</span>' :
+                   e.raw.includes('GET ') ? '<span class="method-tag method-get">GET</span>' : '';
+    const typeTag = e.isResponse
+      ? '<span class="badge-pill badge-info">RESPONSE</span>'
+      : e.isError
+        ? '<span class="badge-pill badge-err">ERROR</span>'
+        : '<span class="badge-pill badge-ok">REQUEST</span>';
+    const endpointShort = e.endpoint.length > 50 ? e.endpoint.slice(-50) : e.endpoint;
+    return \`<div class="log-entry">
+      <div class="log-entry-header" onclick="toggleLog(this)">
+        <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">
+          \${method} \${typeTag}
+          <span style="font-family:monospace;font-size:10px;color:#94a3b8;white-space:nowrap">\${e.ts}</span>
+          <span style="font-size:11px;color:#7dd3fc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">\${escH(endpointShort)}</span>
+        </div>
+        <i class="fas fa-chevron-down" style="color:#334155;font-size:10px;flex-shrink:0;margin-left:8px"></i>
+      </div>
+      <div class="log-entry-body"><pre>\${escH(e.raw)}</pre></div>
+    </div>\`;
+  }).join('');
+  return filtered.length;
+}
+
+function toggleLog(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.fa-chevron-down,.fa-chevron-up');
+  body.classList.toggle('show');
+  if (icon) {
+    icon.classList.toggle('fa-chevron-down');
+    icon.classList.toggle('fa-chevron-up');
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   DASHBOARD LOAD
+───────────────────────────────────────────────────── */
+async function loadDashboard() {
+  const today = todayStr();
+
+  // Load today's access log
+  try {
+    const accRes = await callAdmin({ op: 'read-log', path: \`access-\${today}.txt\`, dir: 'root' });
+    if (accRes.ok && accRes.content) {
+      const entries = parseLogEntries(accRes.content).filter(e => !e.isResponse);
+      document.getElementById('stat-total-access').textContent = entries.length;
+      document.getElementById('stat-access-sub').textContent = 'Login/Logout hari ini';
+      const recent = entries.slice(-5).reverse();
+      document.getElementById('badge-recent-access').textContent = entries.length;
+      document.getElementById('recent-access-body').innerHTML = recent.map(e =>
+        \`<tr><td class="ts">\${e.ts.slice(11)}</td><td class="url">\${escH(e.endpoint)}</td>
+         <td><span class="badge-pill badge-ok">OK</span></td></tr>\`
+      ).join('') || '<tr><td colspan="3" style="text-align:center;color:#475569;padding:10px">—</td></tr>';
+    } else {
+      document.getElementById('stat-total-access').textContent = '0';
+      document.getElementById('stat-access-sub').textContent = 'Belum ada log';
+    }
+  } catch(e) {
+    document.getElementById('stat-total-access').textContent = '?';
+  }
+
+  // Load today's transfer log
+  try {
+    const trRes = await callAdmin({ op: 'read-log', path: \`transfer-AB-\${today}.txt\`, dir: 'root' });
+    if (trRes.ok && trRes.content) {
+      const entries = parseLogEntries(trRes.content).filter(e => !e.isResponse);
+      document.getElementById('stat-total-transfer').textContent = entries.length;
+      document.getElementById('stat-transfer-sub').textContent = 'Transfer LPD (AB) hari ini';
+      const recent = entries.slice(-5).reverse();
+      document.getElementById('badge-recent-transfer').textContent = entries.length;
+      document.getElementById('recent-transfer-body').innerHTML = recent.map(e => {
+        const body = e.data;
+        const amtMatch = body.match(/"amount":"([^"]+)"/);
+        return \`<tr><td class="ts">\${e.ts.slice(11)}</td><td class="url">\${escH(e.endpoint)}</td>
+               <td class="mono" style="font-size:10px">\${amtMatch ? '🔒 enc' : '—'}</td></tr>\`;
+      }).join('') || '<tr><td colspan="3" style="text-align:center;color:#475569;padding:10px">—</td></tr>';
+    } else {
+      document.getElementById('stat-total-transfer').textContent = '0';
+      document.getElementById('stat-transfer-sub').textContent = 'Belum ada log';
+      document.getElementById('recent-transfer-body').innerHTML = '<tr><td colspan="3" style="text-align:center;color:#475569;padding:10px">—</td></tr>';
+    }
+  } catch(e) {
+    document.getElementById('stat-total-transfer').textContent = '?';
+  }
+
+  // Load today's token log
+  try {
+    const tokRes = await callAdmin({ op: 'read-log', path: \`token-\${today}.txt\`, dir: 'root' });
+    if (tokRes.ok && tokRes.content) {
+      const entries = parseLogEntries(tokRes.content);
+      document.getElementById('stat-total-token').textContent = entries.length;
+      document.getElementById('stat-token-sub').textContent = 'Token request hari ini';
+    } else {
+      document.getElementById('stat-total-token').textContent = '0';
+      document.getElementById('stat-token-sub').textContent = 'Belum ada log';
+    }
+  } catch(e) {
+    document.getElementById('stat-total-token').textContent = '?';
+  }
+
+  // Load log files overview
+  try {
+    const filesRes = await callAdmin({ op: 'list-logs' });
+    if (filesRes.ok) {
+      document.getElementById('stat-total-errors').textContent = filesRes.error_count || '—';
+      document.getElementById('stat-error-sub').textContent = '7 hari terakhir';
+      renderLogFilesOverview(filesRes.files);
+    }
+  } catch(e) {}
+}
+
+function renderLogFilesOverview(files) {
+  if (!files || files.length === 0) return;
+  const grouped = {};
+  files.forEach(f => {
+    const g = f.dir || 'root';
+    if (!grouped[g]) grouped[g] = [];
+    grouped[g].push(f);
+  });
+  
+  const html = Object.entries(grouped).map(([dir, flist]) => \`
+    <div style="margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#0d6b65;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">
+        <i class="fas fa-folder-open mr-1"></i> \${dir === 'root' ? 'storage/logs/' : 'storage/logs/' + dir + '/'}
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">
+        \${flist.slice(0,20).map(f => \`<span class="tag" title="\${f.name}">\${f.name}</span>\`).join('')}
+        \${flist.length > 20 ? \`<span class="tag" style="color:#64748b">+\${flist.length-20} lainnya</span>\` : ''}
+      </div>
+    </div>
+  \`).join('');
+  document.getElementById('log-files-overview').innerHTML = html;
+}
+
+/* ─────────────────────────────────────────────────────
+   ACTIVITY SECTION
+───────────────────────────────────────────────────── */
+async function loadActivity() {
+  const date = document.getElementById('act-date').value || todayStr();
+  const type = document.getElementById('act-type').value;
+  const filter = document.getElementById('act-filter').value.toLowerCase();
+
+  // Build filename
+  let filename = '';
+  let dir = 'root';
+  if (type === 'access') { filename = \`access-\${date}.txt\`; }
+  else if (type === 'transfer-AR') { filename = \`transfer-AR-\${date}.txt\`; }
+  else if (type === 'transfer-AB') { filename = \`transfer-AB-\${date}.txt\`; }
+  else if (type === 'tabungan') { filename = \`tabungan-\${date}.txt\`; }
+  else if (type === 'token') { filename = \`token-\${date}.txt\`; }
+
+  document.getElementById('activity-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span> Memuat...</div>';
+
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('activity-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-exclamation-triangle"></i> \${res.error || 'File tidak ditemukan: ' + filename}</div>\`;
+    document.getElementById('badge-act-total').textContent = '0';
+    document.getElementById('badge-act-entries').textContent = '0';
+    return;
+  }
+
+  const entries = parseLogEntries(res.content);
+  const filtered = filter ? entries.filter(e => e.raw.toLowerCase().includes(filter)) : entries;
+  document.getElementById('badge-act-total').textContent = filtered.length;
+  document.getElementById('badge-act-entries').textContent = filtered.length;
+
+  // Hourly chart
+  const hourCounts = Array(24).fill(0);
+  filtered.forEach(e => {
+    const h = parseInt(e.ts.slice(11,13));
+    if (!isNaN(h)) hourCounts[h]++;
+  });
+  renderHourlyChart(hourCounts);
+
+  // Endpoint chart
+  const epCount = {};
+  filtered.forEach(e => {
+    const ep = e.endpoint.split('/').slice(-1)[0] || 'unknown';
+    epCount[ep] = (epCount[ep] || 0) + 1;
+  });
+  renderEndpointChart(epCount);
+
+  // Log list
+  const count = renderLogEntries(filtered, 'activity-log-list', '');
+  if (filtered.length === 0) {
+    document.getElementById('activity-log-list').innerHTML = \`<div class="empty-state"><i class="fas fa-inbox"></i><div>Tidak ada log untuk \${filename}</div></div>\`;
+  }
+}
+
+function renderHourlyChart(data) {
+  const ctx = document.getElementById('chart-hourly').getContext('2d');
+  if (hourlyChart) hourlyChart.destroy();
+  hourlyChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Array.from({length:24}, (_,i) => i+'h'),
+      datasets: [{
+        data,
+        backgroundColor: 'rgba(20,184,166,.6)',
+        borderColor: '#14b8a6',
+        borderWidth: 1,
+        borderRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#475569', font: { size: 9 } }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#475569', font: { size: 9 } }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+
+function renderEndpointChart(data) {
+  const ctx = document.getElementById('chart-endpoint').getContext('2d');
+  if (endpointChart) endpointChart.destroy();
+  const sorted = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  endpointChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: sorted.map(e=>e[0]),
+      datasets: [{ data: sorted.map(e=>e[1]),
+        backgroundColor: ['#14b8a6','#a78bfa','#34d399','#fbbf24','#60a5fa','#f87171','#fb923c','#818cf8'],
+        borderWidth: 1, borderColor: '#0f172a' }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 9 }, boxWidth: 10, padding: 8 } } }
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────────────
+   ACCESS LOGS
+───────────────────────────────────────────────────── */
+async function loadAccessLogs() {
+  const date = document.getElementById('acc-date').value || todayStr();
+  const source = document.getElementById('acc-source').value;
+  const search = document.getElementById('acc-search').value;
+  
+  let filename = \`access-\${date}.txt\`;
+  let dir = source;
+  if (source === 'his') { dir = 'his'; }
+
+  document.getElementById('access-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('access-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-acc-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'access-log-list', search);
+  document.getElementById('badge-acc-count').textContent = count;
+}
+
+/* ─────────────────────────────────────────────────────
+   TRANSFER LOGS
+───────────────────────────────────────────────────── */
+async function loadTransferLogs() {
+  const date = document.getElementById('tr-date').value || todayStr();
+  const type = document.getElementById('tr-type').value;
+  const source = document.getElementById('tr-source').value;
+  const search = document.getElementById('tr-search').value;
+  
+  let filename = '';
+  if (type === 'AR') filename = \`transfer-AR-\${date}.txt\`;
+  else if (type === 'AB') filename = \`transfer-AB-\${date}.txt\`;
+  else filename = \`transfer-in-\${date}.txt\`;
+  let dir = source;
+
+  document.getElementById('transfer-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('transfer-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-tr-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'transfer-log-list', search);
+  document.getElementById('badge-tr-count').textContent = count;
+}
+
+/* ─────────────────────────────────────────────────────
+   TABUNGAN LOGS
+───────────────────────────────────────────────────── */
+async function loadTabunganLogs() {
+  const date = document.getElementById('tab-date').value || todayStr();
+  const search = document.getElementById('tab-search').value;
+  const filename = \`tabungan-\${date}.txt\`;
+
+  document.getElementById('tabungan-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir: 'root' });
+  if (!res.ok) {
+    document.getElementById('tabungan-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-tab-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'tabungan-log-list', search);
+  document.getElementById('badge-tab-count').textContent = count;
+}
+
+/* ─────────────────────────────────────────────────────
+   TOKEN LOGS
+───────────────────────────────────────────────────── */
+async function loadTokenLogs() {
+  const date = document.getElementById('tok-date').value || todayStr();
+  const type = document.getElementById('tok-type').value;
+  const search = document.getElementById('tok-search').value;
+  
+  let filename = '', dir = 'root';
+  if (type === 'root') { filename = \`token-\${date}.txt\`; dir = 'root'; }
+  else { filename = \`request-\${date}.log\`; dir = 'token'; }
+
+  document.getElementById('token-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('token-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-tok-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'token-log-list', search);
+  document.getElementById('badge-tok-count').textContent = count;
+}
+
+/* ─────────────────────────────────────────────────────
+   STATISTICS
+───────────────────────────────────────────────────── */
+async function loadStats() {
+  document.getElementById('stats-files-body').innerHTML = '<tr><td colspan="4" style="text-align:center;padding:16px"><span class="spinner"></span></td></tr>';
+  const res = await callAdmin({ op: 'list-logs' });
+  if (!res.ok) return;
+  
+  // Files table
+  const filesHtml = (res.files || []).map(f => \`
+    <tr>
+      <td class="mono">\${f.name}</td>
+      <td><span class="tag">\${f.dir}</span></td>
+      <td class="mono">\${f.size_kb ? f.size_kb + ' KB' : '—'}</td>
+      <td><span class="badge-pill badge-info">\${f.entries || '—'}</span></td>
+    </tr>
+  \`).join('');
+  document.getElementById('stats-files-body').innerHTML = filesHtml || '<tr><td colspan="4" style="text-align:center;color:#475569">Tidak ada file</td></tr>';
+
+  // Endpoint stats
+  if (res.endpoints) {
+    const sorted = Object.entries(res.endpoints).sort((a,b)=>b[1]-a[1]).slice(0,15);
+    const max = sorted[0]?.[1] || 1;
+    document.getElementById('stats-endpoints').innerHTML = sorted.map(([ep, cnt]) => \`
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px">
+        <div style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace;color:#a5b4fc" title="\${ep}">\${ep}</div>
+        <div style="background:#14b8a6;height:6px;border-radius:3px;width:\${Math.round(cnt/max*120)}px;flex-shrink:0"></div>
+        <div style="color:#5eead4;font-weight:700;min-width:30px;text-align:right">\${cnt}</div>
+      </div>
+    \`).join('') || '<div style="color:#475569;text-align:center;padding:20px">Belum ada data</div>';
+  }
+
+  // Daily chart
+  if (res.daily) renderDailyChart(res.daily);
+}
+
+function renderDailyChart(data) {
+  const ctx = document.getElementById('chart-daily').getContext('2d');
+  if (dailyChart) dailyChart.destroy();
+  const sorted = Object.entries(data).sort((a,b)=>a[0].localeCompare(b[0])).slice(-30);
+  dailyChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: sorted.map(e=>e[0].slice(5)),
+      datasets: [{
+        data: sorted.map(e=>e[1]),
+        borderColor: '#14b8a6', backgroundColor: 'rgba(20,184,166,.1)',
+        borderWidth: 2, pointRadius: 2, fill: true, tension: 0.4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#475569', font: { size: 9 }, maxRotation: 45 }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#475569', font: { size: 9 } }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────────────
+   ERROR LOGS
+───────────────────────────────────────────────────── */
+async function loadErrors() {
+  const level = document.getElementById('err-level').value;
+  const search = document.getElementById('err-search').value;
+
+  document.getElementById('error-log-list').innerHTML = '<div style="text-align:center;padding:20px"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: 'laravel.log', dir: 'root' });
+  if (!res.ok) {
+    document.getElementById('error-log-list').innerHTML = \`<div class="info-box info-red"><i class="fas fa-times-circle"></i> \${res.error || 'Gagal membaca laravel.log'}</div>\`;
+    return;
+  }
+
+  // Parse laravel log blocks (each starts with [date])
+  const raw = res.content || '';
+  const blocks = raw.split(/(?=\\[\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\])/);
+  
+  let filtered = blocks.filter(b => {
+    if (!b.trim()) return false;
+    if (level !== 'all' && !b.toLowerCase().includes('local.' + level.toLowerCase())) return false;
+    if (search && !b.toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+
+  document.getElementById('badge-err-count').textContent = filtered.length;
+  
+  if (filtered.length === 0) {
+    document.getElementById('error-log-list').innerHTML = '<div class="empty-state"><i class="fas fa-check-circle" style="color:#34d399"></i><div>Tidak ada error ditemukan</div></div>';
+    return;
+  }
+
+  document.getElementById('error-log-list').innerHTML = filtered.slice(-100).reverse().map((block, i) => {
+    const ts = fmtTime(block);
+    const isErr = block.toLowerCase().includes('local.error');
+    const isWarn = block.toLowerCase().includes('local.warning');
+    const cls = isErr ? 'badge-err' : isWarn ? 'badge-warn' : 'badge-info';
+    const levelText = isErr ? 'ERROR' : isWarn ? 'WARNING' : 'INFO';
+    const preview = block.trim().slice(0,120).replace(/\\n/g,' ');
+    return \`<div class="log-entry">
+      <div class="log-entry-header" onclick="toggleLog(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+          <span class="badge-pill \${cls}">\${levelText}</span>
+          <span style="font-family:monospace;font-size:10px;color:#94a3b8;white-space:nowrap">\${ts}</span>
+          <span style="font-size:11px;color:#cbd5e1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">\${escH(preview)}</span>
+        </div>
+        <i class="fas fa-chevron-down" style="color:#334155;font-size:10px;flex-shrink:0;margin-left:8px"></i>
+      </div>
+      <div class="log-entry-body"><pre>\${escH(block.trim())}</pre></div>
+    </div>\`;
+  }).join('');
+}
+
+/* ─────────────────────────────────────────────────────
+   CRYPTO TEST
+───────────────────────────────────────────────────── */
+async function cryptoTest(op) {
+  const resultId = 'result-' + op;
+  const el = document.getElementById(resultId);
+  el.style.display = 'block';
+  el.innerHTML = '<span class="spinner"></span> Memproses...';
+  
+  let payload = { op };
+  if (op === 'keygen') {
+    payload.clientID = document.getElementById('cto-clientid').value;
+    payload.timestamp = document.getElementById('cto-ts').value;
+    if (!payload.timestamp) {
+      const tsRes = await callCrypto({ op: 'timestamp' });
+      payload.timestamp = tsRes.timestamps?.jakarta || '';
+    }
+  } else if (op === 'did-encode') {
+    payload.clientID = document.getElementById('cto-did-cid').value;
+    payload.timestamp = document.getElementById('cto-did-ts').value;
+    if (!payload.timestamp) {
+      const tsRes = await callCrypto({ op: 'timestamp' });
+      payload.timestamp = tsRes.timestamps?.jakarta || '';
+    }
+  } else if (op === 'signature') {
+    payload.aesCs = document.getElementById('cto-sig-cs').value;
+    payload.clientIdEnc = document.getElementById('cto-sig-cid').value;
+  }
+  
+  try {
+    const res = await callCrypto(payload);
+    el.innerHTML = \`<div style="background:#020617;border:1px solid #1e293b;border-radius:6px;padding:10px;font-size:11px;font-family:monospace;color:#a5f3fc;overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto">\${JSON.stringify(res, null, 2)}</div>\`;
+  } catch(e) {
+    el.innerHTML = \`<div class="info-box info-red"><i class="fas fa-times-circle"></i> Error: \${e.message}</div>\`;
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   REFRESH ALL
+───────────────────────────────────────────────────── */
+function refreshAll() {
+  const active = document.querySelector('.section.active');
+  if (active?.id === 'section-dashboard') loadDashboard();
+  else if (active?.id === 'section-stats') loadStats();
+  else if (active?.id === 'section-errors') loadErrors();
+  else if (active?.id === 'section-activity') loadActivity();
+  else if (active?.id === 'section-logs-access') loadAccessLogs();
+  else if (active?.id === 'section-logs-transfer') loadTransferLogs();
+  else if (active?.id === 'section-logs-tabungan') loadTabunganLogs();
+  else if (active?.id === 'section-logs-token') loadTokenLogs();
+}
+
+/* ─────────────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  // Set default dates
+  const today = todayStr();
+  ['act-date','acc-date','tr-date','tab-date','tok-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = today;
+  });
+  
+  updateClock();
+  setInterval(updateClock, 10000);
+  loadDashboard();
+});
+<\/script>
+</body>
+</html>`}const qa=`-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQD3KiZu/RXRO+R/
 onutm7eR205pKykTggG7rWQyCJj/bMK6IqxESOHjO8Y4quWPnQCnO+TKwENJzrKj
 z8S91zQgoHSfYYc2mJ5Rs93bUzvO5csPbzzQ+JwKxu3aFgvjDl4UxP6qmBf+dXC1
@@ -3000,7 +4246,7 @@ o95D98dPRgX46gIQGD6CUAoVxuByEovN2//qZkjU9qECgYBTGQALqhaSSZUAyPaJ
 LIU0rIaMxiyLBc2bDtFLUSmSfvOA83BZCRN452obnM3pgQYTD5/AvultHlJwraVL
 1O9CH97AwrE9TUsc+hlrIVGGZFUHfZr2Buj5TZUFOR+/gKszBcgpvROwnqklTsId
 tZ4umdUY0ubwdxMbJQU3S2pX2A==
------END PRIVATE KEY-----`,Ht=`-----BEGIN PRIVATE KEY-----
+-----END PRIVATE KEY-----`,Kt=`-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDLhEUdMTZ3/dJz
 FEE5zvwulheeHaoLI9WxPB9Xm4tnKMWWn0aS0EtNZWyAU9HQV6VEY0JoE4f8f3g6
 hMkdMcmN37eUJ7imef3HIBenVQNUZnyABIOAdLuaetClNlWm5944+H+BZFnpudCO
@@ -3027,7 +4273,10 @@ xikLYYToWdZ4On2Bqn54ICFlI7PEdDrbzLOohGP60QKBgQDbG6zu4XXDO3EaZFr9
 VTllOVESELjc6V6OWo0mBnKXylQ4j/ps7kY9Imz7jpyi22dtLfqwzirmi/lsIERv
 MswoO11LenV8bbIamN/vBfLJKKYGen+lOerjBDSJhIWyPN1VrczVKm5Y0bGP4qgy
 Utb/zmklYi3CbDFQwlX02oS4bQ==
------END PRIVATE KEY-----`,Ve="p91wrswK";function ne(e){const a=e.replace(/-/g,"+").replace(/_/g,"/"),t=a.padEnd(a.length+(4-a.length%4)%4,"="),s=atob(t);return Uint8Array.from(s,n=>n.charCodeAt(0))}function ie(e){return btoa(String.fromCharCode(...new Uint8Array(e)))}function Ee(e){return Array.from(new Uint8Array(e)).map(a=>a.toString(16).padStart(2,"0")).join("")}function G(e){return new TextEncoder().encode(e)}function Kt(e){function a(y,u){const x=(y&65535)+(u&65535);return(y>>16)+(u>>16)+(x>>16)<<16|x&65535}function t(y,u){return y<<u|y>>>32-u}function s(y,u,x,v,C,T){return a(t(a(a(u,y),a(v,T)),C),x)}function n(y,u,x,v,C,T,k){return s(u&x|~u&v,y,u,C,T,k)}function i(y,u,x,v,C,T,k){return s(u&v|x&~v,y,u,C,T,k)}function o(y,u,x,v,C,T,k){return s(u^x^v,y,u,C,T,k)}function d(y,u,x,v,C,T,k){return s(x^(u|~v),y,u,C,T,k)}function p(y){const u=[];for(let x=0;x<y.length;x++){const v=y.charCodeAt(x);v<128?u.push(v):v<2048?u.push(v>>6|192,v&63|128):v<65536?u.push(v>>12|224,v>>6&63|128,v&63|128):u.push(v>>18|240,v>>12&63|128,v>>6&63|128,v&63|128)}return u}const r=p(e),g=r.length;for(r.push(128);r.length%64!==56;)r.push(0);const h=g*8;for(let y=0;y<8;y++)r.push(y<4?h>>>y*8&255:h/4294967296>>>y*4*8&255);let l=1732584193,c=4023233417,m=2562383102,b=271733878;for(let y=0;y<r.length;y+=64){const u=[];for(let k=0;k<16;k++)u[k]=r[y+k*4]|r[y+k*4+1]<<8|r[y+k*4+2]<<16|r[y+k*4+3]<<24;let[x,v,C,T]=[l,c,m,b];l=n(l,c,m,b,u[0],7,-680876936),b=n(b,l,c,m,u[1],12,-389564586),m=n(m,b,l,c,u[2],17,606105819),c=n(c,m,b,l,u[3],22,-1044525330),l=n(l,c,m,b,u[4],7,-176418897),b=n(b,l,c,m,u[5],12,1200080426),m=n(m,b,l,c,u[6],17,-1473231341),c=n(c,m,b,l,u[7],22,-45705983),l=n(l,c,m,b,u[8],7,1770035416),b=n(b,l,c,m,u[9],12,-1958414417),m=n(m,b,l,c,u[10],17,-42063),c=n(c,m,b,l,u[11],22,-1990404162),l=n(l,c,m,b,u[12],7,1804603682),b=n(b,l,c,m,u[13],12,-40341101),m=n(m,b,l,c,u[14],17,-1502002290),c=n(c,m,b,l,u[15],22,1236535329),l=i(l,c,m,b,u[1],5,-165796510),b=i(b,l,c,m,u[6],9,-1069501632),m=i(m,b,l,c,u[11],14,643717713),c=i(c,m,b,l,u[0],20,-373897302),l=i(l,c,m,b,u[5],5,-701558691),b=i(b,l,c,m,u[10],9,38016083),m=i(m,b,l,c,u[15],14,-660478335),c=i(c,m,b,l,u[4],20,-405537848),l=i(l,c,m,b,u[9],5,568446438),b=i(b,l,c,m,u[14],9,-1019803690),m=i(m,b,l,c,u[3],14,-187363961),c=i(c,m,b,l,u[8],20,1163531501),l=i(l,c,m,b,u[13],5,-1444681467),b=i(b,l,c,m,u[2],9,-51403784),m=i(m,b,l,c,u[7],14,1735328473),c=i(c,m,b,l,u[12],20,-1926607734),l=o(l,c,m,b,u[5],4,-378558),b=o(b,l,c,m,u[8],11,-2022574463),m=o(m,b,l,c,u[11],16,1839030562),c=o(c,m,b,l,u[14],23,-35309556),l=o(l,c,m,b,u[1],4,-1530992060),b=o(b,l,c,m,u[4],11,1272893353),m=o(m,b,l,c,u[7],16,-155497632),c=o(c,m,b,l,u[10],23,-1094730640),l=o(l,c,m,b,u[13],4,681279174),b=o(b,l,c,m,u[0],11,-358537222),m=o(m,b,l,c,u[3],16,-722521979),c=o(c,m,b,l,u[6],23,76029189),l=o(l,c,m,b,u[9],4,-640364487),b=o(b,l,c,m,u[12],11,-421815835),m=o(m,b,l,c,u[15],16,530742520),c=o(c,m,b,l,u[2],23,-995338651),l=d(l,c,m,b,u[0],6,-198630844),b=d(b,l,c,m,u[7],10,1126891415),m=d(m,b,l,c,u[14],15,-1416354905),c=d(c,m,b,l,u[5],21,-57434055),l=d(l,c,m,b,u[12],6,1700485571),b=d(b,l,c,m,u[3],10,-1894986606),m=d(m,b,l,c,u[10],15,-1051523),c=d(c,m,b,l,u[1],21,-2054922799),l=d(l,c,m,b,u[8],6,1873313359),b=d(b,l,c,m,u[15],10,-30611744),m=d(m,b,l,c,u[6],15,-1560198380),c=d(c,m,b,l,u[13],21,1309151649),l=d(l,c,m,b,u[4],6,-145523070),b=d(b,l,c,m,u[11],10,-1120210379),m=d(m,b,l,c,u[2],15,718787259),c=d(c,m,b,l,u[9],21,-343485551),l=a(l,x),c=a(c,v),m=a(m,C),b=a(b,T)}function A(y){let u="";for(let x=0;x<4;x++)u+=(y>>>x*8&255).toString(16).padStart(2,"0");return u}return A(l)+A(c)+A(m)+A(b)}async function zt(e,a){const t=a.slice(-8),s=t.split(":").map(Number),n=await crypto.subtle.importKey("raw",G(a),{name:"HMAC",hash:"SHA-512"},!1,["sign"]),i=new Uint8Array(await crypto.subtle.sign("HMAC",n,G(e))),o=i.length,d=s[0],p=Math.floor((o+s[1])/2)-16,r=Math.floor((o+s[2])/3)-8,g=ie(i.slice(d,d+32)),h=ie(i.slice(p,p+16)),l=ie(i.slice(r,r+8));return{aesKey:g,aesIv:h,aesCs:l,times:s,kStart:d,ivStart:p,csStart:r,debug:{lastEight:t,times:s,kStart:d,ivStart:p,csStart:r,keyBytesHex:Ee(i).slice(0,32)+"..."}}}async function D(e,a,t){const s=await crypto.subtle.importKey("raw",ne(a),"AES-CBC",!1,["encrypt"]),n=ne(t),i=await crypto.subtle.encrypt({name:"AES-CBC",iv:n},s,G(e));return ie(i)}async function La(e,a,t){try{const s=await crypto.subtle.importKey("raw",ne(a),"AES-CBC",!1,["decrypt"]),n=ne(t),i=await crypto.subtle.decrypt({name:"AES-CBC",iv:n},s,ne(e));return new TextDecoder().decode(i)}catch{return null}}function jt(e){const a=e.endsWith("==")?"==":e.endsWith("=")?"=":"",t=e.substring(7,13),s=parseInt(t[0])*10+t.charCodeAt(1)-64,n=100+parseInt(t[2])*10+t.charCodeAt(3)-64,i=100+parseInt(t[4])*10+t.charCodeAt(5)-64,o=e.substring(16,20),d=o.charCodeAt(0)-64,p=o.charCodeAt(1)-64,r=parseInt(o.slice(2)),g=e.substring(s,s+d)+e.substring(n,n+p)+e.substring(i,i+r),h=atob((g+a).replace(/-/g,"+").replace(/_/g,"/")),l=h.split("|");return{app:l[0]||"",clientID:l[1]||"",regTime:l[2]||"",rawDecoded:h,parts:l,debug:{col1:s,col2:n,col3:i,len1:d,len2:p,len3:r,idd:g.slice(0,20)+"..."}}}function Ut(e,a,t="Seminyak"){const s=`${t}|${e}|${a}`,n=btoa(s),i=n.endsWith("==")?"==":n.endsWith("=")?"=":"",o=n.slice(0,n.length-i.length),d=o.length,p=20,r=104,g=172,h=Math.floor(d/3),l=h,c=h,m=d-l-c,b=o.slice(0,l),A=o.slice(l,l+c),y=o.slice(l+c),u=k=>String(Math.floor(k/10))+String.fromCharCode(k%10+64),x=u(p)+u(r-100)+u(g-100),v=String.fromCharCode(l+64)+String.fromCharCode(c+64)+String(m).padStart(2,"0"),C=Math.max(g+m,200),T=new Array(C+50).fill("A");T[7]=x[0],T[8]=x[1],T[9]=x[2],T[10]=x[3],T[11]=x[4],T[12]=x[5],T[16]=v[0],T[17]=v[1],T[18]=v[2],T[19]=v[3];for(let k=0;k<b.length;k++)T[p+k]=b[k];for(let k=0;k<A.length;k++)T[r+k]=A[k];for(let k=0;k<y.length;k++)T[g+k]=y[k];return T.join("").slice(0,g+m)+i}function Xt(e){const a=e.split(".");if(a.length<2)return{error:"Bukan format JWT valid"};try{const t=JSON.parse(atob(a[0].replace(/-/g,"+").replace(/_/g,"/"))),s=JSON.parse(atob(a[1].replace(/-/g,"+").replace(/_/g,"/")));return{header:t,payload:s,signatureB64:a[2]||"",raw:{headerB64:a[0],payloadB64:a[1]}}}catch(t){return{error:t instanceof Error?t.message:String(t)}}}async function ta(e){const a=e.replace(/-----[^-]+-----/g,"").replace(/\s/g,"");return ne(a).buffer}async function Ma(e,a,t=Oa){const s=btoa(JSON.stringify({trans_no:e,alg:"RS256"})).replace(/\+/g,"-").replace(/\//g,"_").replace(/=/g,""),n=btoa(JSON.stringify({trans_time:a})).replace(/\+/g,"-").replace(/\//g,"_").replace(/=/g,""),i=`${s}.${n}`,o=await ta(t),d=await crypto.subtle.importKey("pkcs8",o,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},!1,["sign"]),p=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",d,G(i)),r=ie(p).replace(/\+/g,"-").replace(/\//g,"_").replace(/=/g,"");return`${i}.${r}`}async function sa(e,a,t){const s=ne(t),n=G(`${e}:${a}`),i=await crypto.subtle.importKey("raw",s,{name:"HMAC",hash:"SHA-512"},!1,["sign"]),o=await crypto.subtle.sign("HMAC",i,n);return ie(o)}function Gt(e){return Ee(ne(e))}async function Ha(e){const a=`%${e.fromAcc}#${e.amount}@${e.dateTime}^${e.refNo}*${e.destBank}~${e.destAcc}|${Ve}%`;return Ee(await crypto.subtle.digest("SHA-256",G(a)))}async function Ka(e){const a=`@${e.fromAcc}|${e.amount}~${e.dateTime}*${e.refNo}^${e.destBank}#${e.destAcc}(${e.destName})${Ve}@`;return Ee(await crypto.subtle.digest("SHA-256",G(a)))}async function Ft(e){const a=`{${e.nominal}*${e.norekFrom}^${e.norekTo}%${e.nameFrom}#${e.nameTo}@${Ve}}`;return Ee(await crypto.subtle.digest("SHA-256",G(a)))}async function za(e){const a=Ee(await crypto.subtle.digest("SHA-256",G(`Seminyak|${e}`))),t=await ta(Oa),s=await crypto.subtle.importKey("pkcs8",t,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},!1,["sign"]),n=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",s,G(a));return{signature:ie(n),timestamp:e,clientStamp:a}}async function ja(e,a){const t=`${e}|${a}`,s=await ta(Ht),n=await crypto.subtle.importKey("pkcs8",s,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},!1,["sign"]),i=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",n,G(t));return{signature:ie(i),clientKey:e,timestamp:a,message:t}}function ke(){const e=new Date;return new Date(e.getTime()+7*36e5).toISOString().replace("T"," ").slice(0,19)}function Re(){const e=new Date;return new Date(e.getTime()+7*36e5).toISOString().slice(0,19)+"+07:00"}function me(e="SMY"){const a=new Date(new Date().getTime()+252e5),t=a.toISOString().slice(11,19).replace(/:/g,"").slice(0,6),s=String(Math.floor(Math.random()*9e3)+1e3),n=a.toISOString().slice(0,10).replace(/-/g,"");return`${e}${t}${s}O1012${n.slice(4)}`}async function $t(e){const a=e.timestamp||ke(),t=e.refNo||me(),s=await D(e.fromAcc,e.aesKey,e.aesIv),n=await D(String(e.amount),e.aesKey,e.aesIv),i=await D(e.dateTime,e.aesKey,e.aesIv),o=await D(e.destName||"",e.aesKey,e.aesIv);let d,p,r;e.step==="posting"?(d=await Ka({...e,refNo:t}),p=await D(`${e.destBank}-${e.destAcc}`,e.aesKey,e.aesIv),r=await D(d,e.aesKey,e.aesIv)):(d=await Ha({...e,refNo:t}),p=await D(`${e.destBank}-${e.destAcc}-${d}`,e.aesKey,e.aesIv),r=null);const g=await Ma(t,Re()),h=await sa(g,a,e.aesCs),l=h,c={from_acc:s,to_acc:p,amount:n,date_time:i,to_name:o,hash_code:r||"",remark:e.remark||""};return{headers:{"Content-Type":"application/json",Authorization:g,"X-TIMESTAMP":a,"X-SIGNATURE":h,"X-PARTNER-ID":l,"X-CLIENT-ID":e.didEncoded||"","X-REFERENCE":t,"X-Forwarded-For":"34.50.74.78","X-Real-IP":"34.50.74.78"},body:c,url:`${e.baseUrl||"https://lpdseminyak.biz.id:8000"}/api/smart/transfer/bank/post`,refNo:t,ts:a,debug:{hashRaw:d,step:e.step||"check"}}}async function Yt(e,a,t){const s={};for(const[n,i]of Object.entries(e))i&&typeof i=="string"&&(s[n]=await La(i,a,t));return s}async function Vt(e){const a=e.op;try{let t;if(a==="keygen")t=await zt(e.clientID,e.timestamp);else if(a==="encrypt")t={encrypted:await D(e.plaintext,e.aesKey,e.aesIv),plaintext:e.plaintext};else if(a==="decrypt")t={decrypted:await La(e.ciphertext,e.aesKey,e.aesIv),ciphertext:e.ciphertext};else if(a==="did-decode")t=jt(e.did);else if(a==="did-encode")t={encoded:Ut(e.clientID,e.timestamp,e.appName||"Seminyak"),clientID:e.clientID,timestamp:e.timestamp};else if(a==="jwt-decode")t=Xt(e.jwt);else if(a==="hashcode"){const s=e.step||"check";let n;s==="posting"?n=await Ka(e):s==="lpd"?n=await Ft(e):n=await Ha(e);const i=Ve;t={hash:n,step:s,formula:s==="posting"?`SHA256("@"+fromAcc+"|"+amount+"~"+dateTime+"*"+refNo+"^"+destBank+"#"+destAcc+"("+destName+")${i}@")`:`SHA256("%"+fromAcc+"#"+amount+"@"+dateTime+"^"+refNo+"*"+destBank+"~"+destAcc+"|${i}%")`}}else if(a==="reference"){const s=[];for(let n=0;n<(parseInt(e.count)||3);n++)s.push(me(e.prefix||"SMY"));t={references:s}}else if(a==="signature")t={signature:await sa(e.token,e.timestamp,e.aesCs)};else if(a==="sig-decode"){const s=Gt(e.signature);t={hex:s,length:s.length}}else if(a==="ios-token-sig")t=await za(e.timestamp||ke());else if(a==="snap-token-sig")t=await ja(e.clientKey||"LPD-SEMINYAK-001",e.timestamp||Re());else if(a==="build-transfer")t=await $t({...e,timestamp:e.timestamp||ke(),refNo:e.refNo||me()});else if(a==="decrypt-body"){const s=JSON.parse(e.body||"{}");t={decrypted:await Yt(s,e.aesKey,e.aesIv)}}else if(a==="timestamp")t={jakarta:ke(),jakartaISO:Re(),utc:new Date().toISOString()};else return{ok:!1,error:`Unknown operation: ${a}`};return{ok:!0,op:a,result:t}}catch(t){return{ok:!1,op:a,error:t instanceof Error?t.message:String(t)}}}const z=new Ra;z.use("/static/*",qt({root:"./public"}));z.get("/favicon.ico",e=>e.body(null,204));z.post("/api/exec",async e=>{try{const a=await e.req.json(),s=await(await fetch("http://127.0.0.1:3001/exec",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(a)})).json();return e.json(s)}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({stdout:"",stderr:"Terminal server tidak tersedia: "+t,cwd:"/home/user",exitCode:1},500)}});z.get("/api/exec/health",async e=>{try{const t=await(await fetch("http://127.0.0.1:3001/health")).json();return e.json({ok:!0,...t})}catch{return e.json({ok:!1,error:"Terminal server tidak tersedia di production. Gunakan sandbox URL untuk operasi crypto.",sandbox_only:!0})}});z.post("/api/crypto",async e=>{try{const a=await e.req.json(),t=await Vt(a);return e.json(t)}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({ok:!1,error:"Crypto error: "+t})}});const ca="34.50.74.78";async function je(e,a,t){const s=ke(),n=Re(),i=t||me(),o=await Ma(i,n),d=await sa(o,s,e),p=me();return{jwt:o,ts:s,tsISO:n,sig:d,xref:p,headers:{"Content-Type":"application/json",Authorization:o,"X-TIMESTAMP":s,"X-SIGNATURE":d,"X-PARTNER-ID":d,"X-CLIENT-ID":a,"X-REFERENCE":p,"X-Forwarded-For":ca,"X-Real-IP":ca}}}z.post("/api/smart",async e=>{try{const a=await e.req.json(),{action:t,baseUrl:s,aesKey:n,aesIv:i,aesCs:o,clientIdEnc:d,transNo:p,...r}=a,g=(s||"https://lpdseminyak.biz.id:8000").replace(/\/+$/,""),h=c=>Kt(c),l=c=>/^[0-9a-f]{32}$/i.test(c);if(t==="login"){if(!r.user_name||!r.user_pass)throw new Error("user_name dan user_pass wajib diisi");if(!d)throw new Error("clientIdEnc (X-CLIENT-ID) wajib diisi");const c=l(r.user_name)?r.user_name:h(r.user_name),m=l(r.user_pass)?r.user_pass:h(r.user_pass),{headers:b,ts:A,xref:y,jwt:u,sig:x}=await je(o,d,p),v=g+"/api/smart/access/login",C=JSON.stringify({user_name:c,user_pass:m});let T=0,k={};try{const M=await fetch(v,{method:"POST",headers:b,body:C});T=M.status;const q=await M.text();try{k=JSON.parse(q)}catch{k={_raw:q}}}catch(M){return e.json({ok:!1,action:t,error:M.message,url:v,headers:b})}return e.json({ok:T>=200&&T<300,action:t,httpStatus:T,url:v,result:k,debug:{ts:A,xref:y,user_name_sent:c,user_pass_sent:m,jwt_preview:u.substring(0,40)+"...",sig_preview:x.substring(0,20)+"..."},requestHeaders:b,requestBody:{user_name:c,user_pass:m}})}if(t==="cek-saldo"){if(!r.no_rek)throw new Error("no_rek wajib diisi");if(!d)throw new Error("clientIdEnc wajib diisi");if(!n||!i)throw new Error("aesKey dan aesIv wajib diisi");const c=await D(r.no_rek,n,i),{headers:m,ts:b,xref:A}=await je(o,d,p),y=g+"/api/smart/account/balance",u=JSON.stringify({no_rek:c});let x=0,v={};try{const C=await fetch(y,{method:"POST",headers:m,body:u});x=C.status;const T=await C.text();try{v=JSON.parse(T)}catch{v={_raw:T}}}catch(C){return e.json({ok:!1,action:t,error:C.message})}return e.json({ok:x>=200&&x<300,action:t,httpStatus:x,url:y,result:v,debug:{ts:b,xref:A,no_rek_enc:c},requestHeaders:m})}if(t==="inquiry"){if(!r.no_rek_from||!r.no_rek_to||!r.nominal)throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");if(!d)throw new Error("clientIdEnc wajib diisi");const c=p||me(),{headers:m,ts:b,xref:A}=await je(o,d,c),[y,u,x,v]=await Promise.all([D(r.no_rek_from,n,i),D(r.no_rek_to,n,i),D(r.nominal,n,i),r.bank_dest?D(r.bank_dest,n,i):Promise.resolve("")]),C=g+"/api/smart/transfer/inquiry",T=JSON.stringify({no_rek_from:y,no_rek_to:u,nominal:x,bank_dest:v,ref_no:c});let k=0,M={};try{const q=await fetch(C,{method:"POST",headers:m,body:T});k=q.status;const H=await q.text();try{M=JSON.parse(H)}catch{M={_raw:H}}}catch(q){return e.json({ok:!1,action:t,error:q.message})}return e.json({ok:k>=200&&k<300,action:t,httpStatus:k,url:C,result:M,debug:{ts:b,xref:A,ref:c},requestHeaders:m})}if(t==="posting"){if(!r.no_rek_from||!r.no_rek_to||!r.nominal)throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");if(!d)throw new Error("clientIdEnc wajib diisi");const c=p||me(),{headers:m,ts:b,xref:A}=await je(o,d,c),[y,u,x,v,C,T]=await Promise.all([D(r.no_rek_from,n,i),D(r.no_rek_to,n,i),D(r.nominal,n,i),r.bank_dest?D(r.bank_dest,n,i):Promise.resolve(""),r.nama_dest?D(r.nama_dest,n,i):Promise.resolve(""),r.keterangan?D(r.keterangan,n,i):Promise.resolve("")]),k=g+"/api/smart/transfer/posting",M=JSON.stringify({no_rek_from:y,no_rek_to:u,nominal:x,bank_dest:v,nama_dest:C,keterangan:T,ref_no:c});let q=0,H={};try{const L=await fetch(k,{method:"POST",headers:m,body:M});q=L.status;const F=await L.text();try{H=JSON.parse(F)}catch{H={_raw:F}}}catch(L){return e.json({ok:!1,action:t,error:L.message})}return e.json({ok:q>=200&&q<300,action:t,httpStatus:q,url:k,result:H,debug:{ts:b,xref:A,ref:c},requestHeaders:m})}return e.json({ok:!1,error:"Unknown action: "+t})}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({ok:!1,error:"Smart error: "+t})}});z.post("/api/token/generate",async e=>{try{const a=await e.req.json(),{type:t,baseUrl:s,clientIdEnc:n,clientKey:i}=a;let o;if(t==="ios"){const d=ke(),p=await za(d),r=(s||"https://lpdseminyak.biz.id:8000")+"/api/smart/access/token",g={"Content-Type":"application/json","X-TIMESTAMP":d,"X-CLIENT-ID":n||"","X-SIGNATURE":p.signature,"X-Forwarded-For":"34.50.74.78","X-Real-IP":"34.50.74.78"};try{const h=await fetch(r,{method:"POST",headers:g,body:"{}"}),l=await h.text();let c;try{c=JSON.parse(l)}catch{c={_raw:l}}o={ok:h.status<400,httpStatus:h.status,result:c,debug:p}}catch(h){o={ok:!1,error:h.message}}}else if(t==="snap"){const d=Re();o={ok:!0,result:await ja(i||"LPD-SEMINYAK-001",d)}}else o={ok:!1,error:"type must be snap or ios"};return e.json(o)}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({ok:!1,error:"Token error: "+t})}});z.get("/",e=>e.redirect("/swagger"));z.get("/swagger",e=>e.html(Ot()));z.get("/crypto",e=>e.html(Mt()));z.get("/docs",e=>{const a=Jt();return e.html(a)});function Jt(){const e={installPhp:["# Ubuntu/Debian:","sudo apt-get install -y software-properties-common","sudo add-apt-repository ppa:ondrej/php","sudo apt-get update","sudo apt-get install -y php7.4 php7.4-cli php7.4-mbstring php7.4-xml \\","  php7.4-curl php7.4-zip php7.4-json php7.4-pdo php7.4-intl","","# Verifikasi:","php7.4 --version"].join(`
+-----END PRIVATE KEY-----`,Ve="p91wrswK";function ie(e){const a=e.replace(/-/g,"+").replace(/_/g,"/"),t=a.padEnd(a.length+(4-a.length%4)%4,"="),s=atob(t);return Uint8Array.from(s,n=>n.charCodeAt(0))}function re(e){return btoa(String.fromCharCode(...new Uint8Array(e)))}function Ce(e){return Array.from(new Uint8Array(e)).map(a=>a.toString(16).padStart(2,"0")).join("")}function G(e){return new TextEncoder().encode(e)}function jt(e){function a(y,u){const x=(y&65535)+(u&65535);return(y>>16)+(u>>16)+(x>>16)<<16|x&65535}function t(y,u){return y<<u|y>>>32-u}function s(y,u,x,v,C,I){return a(t(a(a(u,y),a(v,I)),C),x)}function n(y,u,x,v,C,I,k){return s(u&x|~u&v,y,u,C,I,k)}function i(y,u,x,v,C,I,k){return s(u&v|x&~v,y,u,C,I,k)}function r(y,u,x,v,C,I,k){return s(u^x^v,y,u,C,I,k)}function d(y,u,x,v,C,I,k){return s(x^(u|~v),y,u,C,I,k)}function p(y){const u=[];for(let x=0;x<y.length;x++){const v=y.charCodeAt(x);v<128?u.push(v):v<2048?u.push(v>>6|192,v&63|128):v<65536?u.push(v>>12|224,v>>6&63|128,v&63|128):u.push(v>>18|240,v>>12&63|128,v>>6&63|128,v&63|128)}return u}const o=p(e),g=o.length;for(o.push(128);o.length%64!==56;)o.push(0);const h=g*8;for(let y=0;y<8;y++)o.push(y<4?h>>>y*8&255:h/4294967296>>>y*4*8&255);let l=1732584193,c=4023233417,f=2562383102,b=271733878;for(let y=0;y<o.length;y+=64){const u=[];for(let k=0;k<16;k++)u[k]=o[y+k*4]|o[y+k*4+1]<<8|o[y+k*4+2]<<16|o[y+k*4+3]<<24;let[x,v,C,I]=[l,c,f,b];l=n(l,c,f,b,u[0],7,-680876936),b=n(b,l,c,f,u[1],12,-389564586),f=n(f,b,l,c,u[2],17,606105819),c=n(c,f,b,l,u[3],22,-1044525330),l=n(l,c,f,b,u[4],7,-176418897),b=n(b,l,c,f,u[5],12,1200080426),f=n(f,b,l,c,u[6],17,-1473231341),c=n(c,f,b,l,u[7],22,-45705983),l=n(l,c,f,b,u[8],7,1770035416),b=n(b,l,c,f,u[9],12,-1958414417),f=n(f,b,l,c,u[10],17,-42063),c=n(c,f,b,l,u[11],22,-1990404162),l=n(l,c,f,b,u[12],7,1804603682),b=n(b,l,c,f,u[13],12,-40341101),f=n(f,b,l,c,u[14],17,-1502002290),c=n(c,f,b,l,u[15],22,1236535329),l=i(l,c,f,b,u[1],5,-165796510),b=i(b,l,c,f,u[6],9,-1069501632),f=i(f,b,l,c,u[11],14,643717713),c=i(c,f,b,l,u[0],20,-373897302),l=i(l,c,f,b,u[5],5,-701558691),b=i(b,l,c,f,u[10],9,38016083),f=i(f,b,l,c,u[15],14,-660478335),c=i(c,f,b,l,u[4],20,-405537848),l=i(l,c,f,b,u[9],5,568446438),b=i(b,l,c,f,u[14],9,-1019803690),f=i(f,b,l,c,u[3],14,-187363961),c=i(c,f,b,l,u[8],20,1163531501),l=i(l,c,f,b,u[13],5,-1444681467),b=i(b,l,c,f,u[2],9,-51403784),f=i(f,b,l,c,u[7],14,1735328473),c=i(c,f,b,l,u[12],20,-1926607734),l=r(l,c,f,b,u[5],4,-378558),b=r(b,l,c,f,u[8],11,-2022574463),f=r(f,b,l,c,u[11],16,1839030562),c=r(c,f,b,l,u[14],23,-35309556),l=r(l,c,f,b,u[1],4,-1530992060),b=r(b,l,c,f,u[4],11,1272893353),f=r(f,b,l,c,u[7],16,-155497632),c=r(c,f,b,l,u[10],23,-1094730640),l=r(l,c,f,b,u[13],4,681279174),b=r(b,l,c,f,u[0],11,-358537222),f=r(f,b,l,c,u[3],16,-722521979),c=r(c,f,b,l,u[6],23,76029189),l=r(l,c,f,b,u[9],4,-640364487),b=r(b,l,c,f,u[12],11,-421815835),f=r(f,b,l,c,u[15],16,530742520),c=r(c,f,b,l,u[2],23,-995338651),l=d(l,c,f,b,u[0],6,-198630844),b=d(b,l,c,f,u[7],10,1126891415),f=d(f,b,l,c,u[14],15,-1416354905),c=d(c,f,b,l,u[5],21,-57434055),l=d(l,c,f,b,u[12],6,1700485571),b=d(b,l,c,f,u[3],10,-1894986606),f=d(f,b,l,c,u[10],15,-1051523),c=d(c,f,b,l,u[1],21,-2054922799),l=d(l,c,f,b,u[8],6,1873313359),b=d(b,l,c,f,u[15],10,-30611744),f=d(f,b,l,c,u[6],15,-1560198380),c=d(c,f,b,l,u[13],21,1309151649),l=d(l,c,f,b,u[4],6,-145523070),b=d(b,l,c,f,u[11],10,-1120210379),f=d(f,b,l,c,u[2],15,718787259),c=d(c,f,b,l,u[9],21,-343485551),l=a(l,x),c=a(c,v),f=a(f,C),b=a(b,I)}function T(y){let u="";for(let x=0;x<4;x++)u+=(y>>>x*8&255).toString(16).padStart(2,"0");return u}return T(l)+T(c)+T(f)+T(b)}async function Ut(e,a){const t=a.slice(-8),s=t.split(":").map(Number),n=await crypto.subtle.importKey("raw",G(a),{name:"HMAC",hash:"SHA-512"},!1,["sign"]),i=new Uint8Array(await crypto.subtle.sign("HMAC",n,G(e))),r=i.length,d=s[0],p=Math.floor((r+s[1])/2)-16,o=Math.floor((r+s[2])/3)-8,g=re(i.slice(d,d+32)),h=re(i.slice(p,p+16)),l=re(i.slice(o,o+8));return{aesKey:g,aesIv:h,aesCs:l,times:s,kStart:d,ivStart:p,csStart:o,debug:{lastEight:t,times:s,kStart:d,ivStart:p,csStart:o,keyBytesHex:Ce(i).slice(0,32)+"..."}}}async function B(e,a,t){const s=await crypto.subtle.importKey("raw",ie(a),"AES-CBC",!1,["encrypt"]),n=ie(t),i=await crypto.subtle.encrypt({name:"AES-CBC",iv:n},s,G(e));return re(i)}async function Ma(e,a,t){try{const s=await crypto.subtle.importKey("raw",ie(a),"AES-CBC",!1,["decrypt"]),n=ie(t),i=await crypto.subtle.decrypt({name:"AES-CBC",iv:n},s,ie(e));return new TextDecoder().decode(i)}catch{return null}}function $t(e){const a=e.endsWith("==")?"==":e.endsWith("=")?"=":"",t=e.substring(7,13),s=parseInt(t[0])*10+t.charCodeAt(1)-64,n=100+parseInt(t[2])*10+t.charCodeAt(3)-64,i=100+parseInt(t[4])*10+t.charCodeAt(5)-64,r=e.substring(16,20),d=r.charCodeAt(0)-64,p=r.charCodeAt(1)-64,o=parseInt(r.slice(2)),g=e.substring(s,s+d)+e.substring(n,n+p)+e.substring(i,i+o),h=atob((g+a).replace(/-/g,"+").replace(/_/g,"/")),l=h.split("|");return{app:l[0]||"",clientID:l[1]||"",regTime:l[2]||"",rawDecoded:h,parts:l,debug:{col1:s,col2:n,col3:i,len1:d,len2:p,len3:o,idd:g.slice(0,20)+"..."}}}function Gt(e,a,t="Seminyak"){const s=`${t}|${e}|${a}`,n=btoa(s),i=n.endsWith("==")?"==":n.endsWith("=")?"=":"",r=n.slice(0,n.length-i.length),d=r.length,p=20,o=104,g=172,h=Math.floor(d/3),l=h,c=h,f=d-l-c,b=r.slice(0,l),T=r.slice(l,l+c),y=r.slice(l+c),u=k=>String(Math.floor(k/10))+String.fromCharCode(k%10+64),x=u(p)+u(o-100)+u(g-100),v=String.fromCharCode(l+64)+String.fromCharCode(c+64)+String(f).padStart(2,"0"),C=Math.max(g+f,200),I=new Array(C+50).fill("A");I[7]=x[0],I[8]=x[1],I[9]=x[2],I[10]=x[3],I[11]=x[4],I[12]=x[5],I[16]=v[0],I[17]=v[1],I[18]=v[2],I[19]=v[3];for(let k=0;k<b.length;k++)I[p+k]=b[k];for(let k=0;k<T.length;k++)I[o+k]=T[k];for(let k=0;k<y.length;k++)I[g+k]=y[k];return I.join("").slice(0,g+f)+i}function Ft(e){const a=e.split(".");if(a.length<2)return{error:"Bukan format JWT valid"};try{const t=JSON.parse(atob(a[0].replace(/-/g,"+").replace(/_/g,"/"))),s=JSON.parse(atob(a[1].replace(/-/g,"+").replace(/_/g,"/")));return{header:t,payload:s,signatureB64:a[2]||"",raw:{headerB64:a[0],payloadB64:a[1]}}}catch(t){return{error:t instanceof Error?t.message:String(t)}}}async function sa(e){const a=e.replace(/-----[^-]+-----/g,"").replace(/\s/g,"");return ie(a).buffer}async function Ha(e,a,t=qa){const s=btoa(JSON.stringify({trans_no:e,alg:"RS256"})).replace(/\+/g,"-").replace(/\//g,"_").replace(/=/g,""),n=btoa(JSON.stringify({trans_time:a})).replace(/\+/g,"-").replace(/\//g,"_").replace(/=/g,""),i=`${s}.${n}`,r=await sa(t),d=await crypto.subtle.importKey("pkcs8",r,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},!1,["sign"]),p=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",d,G(i)),o=re(p).replace(/\+/g,"-").replace(/\//g,"_").replace(/=/g,"");return`${i}.${o}`}async function na(e,a,t){const s=ie(t),n=G(`${e}:${a}`),i=await crypto.subtle.importKey("raw",s,{name:"HMAC",hash:"SHA-512"},!1,["sign"]),r=await crypto.subtle.sign("HMAC",i,n);return re(r)}function Xt(e){return Ce(ie(e))}async function za(e){const a=`%${e.fromAcc}#${e.amount}@${e.dateTime}^${e.refNo}*${e.destBank}~${e.destAcc}|${Ve}%`;return Ce(await crypto.subtle.digest("SHA-256",G(a)))}async function Ka(e){const a=`@${e.fromAcc}|${e.amount}~${e.dateTime}*${e.refNo}^${e.destBank}#${e.destAcc}(${e.destName})${Ve}@`;return Ce(await crypto.subtle.digest("SHA-256",G(a)))}async function Yt(e){const a=`{${e.nominal}*${e.norekFrom}^${e.norekTo}%${e.nameFrom}#${e.nameTo}@${Ve}}`;return Ce(await crypto.subtle.digest("SHA-256",G(a)))}async function ja(e){const a=Ce(await crypto.subtle.digest("SHA-256",G(`Seminyak|${e}`))),t=await sa(qa),s=await crypto.subtle.importKey("pkcs8",t,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},!1,["sign"]),n=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",s,G(a));return{signature:re(n),timestamp:e,clientStamp:a}}async function Ua(e,a){const t=`${e}|${a}`,s=await sa(Kt),n=await crypto.subtle.importKey("pkcs8",s,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},!1,["sign"]),i=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",n,G(t));return{signature:re(i),clientKey:e,timestamp:a,message:t}}function xe(){const e=new Date;return new Date(e.getTime()+7*36e5).toISOString().replace("T"," ").slice(0,19)}function Le(){const e=new Date;return new Date(e.getTime()+7*36e5).toISOString().slice(0,19)+"+07:00"}function be(e="SMY"){const a=new Date(new Date().getTime()+252e5),t=a.toISOString().slice(11,19).replace(/:/g,"").slice(0,6),s=String(Math.floor(Math.random()*9e3)+1e3),n=a.toISOString().slice(0,10).replace(/-/g,"");return`${e}${t}${s}O1012${n.slice(4)}`}async function Jt(e){const a=e.timestamp||xe(),t=e.refNo||be(),s=await B(e.fromAcc,e.aesKey,e.aesIv),n=await B(String(e.amount),e.aesKey,e.aesIv),i=await B(e.dateTime,e.aesKey,e.aesIv),r=await B(e.destName||"",e.aesKey,e.aesIv);let d,p,o;e.step==="posting"?(d=await Ka({...e,refNo:t}),p=await B(`${e.destBank}-${e.destAcc}`,e.aesKey,e.aesIv),o=await B(d,e.aesKey,e.aesIv)):(d=await za({...e,refNo:t}),p=await B(`${e.destBank}-${e.destAcc}-${d}`,e.aesKey,e.aesIv),o=null);const g=await Ha(t,Le()),h=await na(g,a,e.aesCs),l=h,c={from_acc:s,to_acc:p,amount:n,date_time:i,to_name:r,hash_code:o||"",remark:e.remark||""};return{headers:{"Content-Type":"application/json",Authorization:g,"X-TIMESTAMP":a,"X-SIGNATURE":h,"X-PARTNER-ID":l,"X-CLIENT-ID":e.didEncoded||"","X-REFERENCE":t,"X-Forwarded-For":"34.50.74.78","X-Real-IP":"34.50.74.78"},body:c,url:`${e.baseUrl||"https://lpdseminyak.biz.id:8000"}/api/smart/transfer/bank/post`,refNo:t,ts:a,debug:{hashRaw:d,step:e.step||"check"}}}async function Vt(e,a,t){const s={};for(const[n,i]of Object.entries(e))i&&typeof i=="string"&&(s[n]=await Ma(i,a,t));return s}async function Wt(e){const a=e.op;try{let t;if(a==="keygen")t=await Ut(e.clientID,e.timestamp);else if(a==="encrypt")t={encrypted:await B(e.plaintext,e.aesKey,e.aesIv),plaintext:e.plaintext};else if(a==="decrypt")t={decrypted:await Ma(e.ciphertext,e.aesKey,e.aesIv),ciphertext:e.ciphertext};else if(a==="did-decode")t=$t(e.did);else if(a==="did-encode")t={encoded:Gt(e.clientID,e.timestamp,e.appName||"Seminyak"),clientID:e.clientID,timestamp:e.timestamp};else if(a==="jwt-decode")t=Ft(e.jwt);else if(a==="hashcode"){const s=e.step||"check";let n;s==="posting"?n=await Ka(e):s==="lpd"?n=await Yt(e):n=await za(e);const i=Ve;t={hash:n,step:s,formula:s==="posting"?`SHA256("@"+fromAcc+"|"+amount+"~"+dateTime+"*"+refNo+"^"+destBank+"#"+destAcc+"("+destName+")${i}@")`:`SHA256("%"+fromAcc+"#"+amount+"@"+dateTime+"^"+refNo+"*"+destBank+"~"+destAcc+"|${i}%")`}}else if(a==="reference"){const s=[];for(let n=0;n<(parseInt(e.count)||3);n++)s.push(be(e.prefix||"SMY"));t={references:s}}else if(a==="signature")t={signature:await na(e.token,e.timestamp,e.aesCs)};else if(a==="sig-decode"){const s=Xt(e.signature);t={hex:s,length:s.length}}else if(a==="ios-token-sig")t=await ja(e.timestamp||xe());else if(a==="snap-token-sig")t=await Ua(e.clientKey||"LPD-SEMINYAK-001",e.timestamp||Le());else if(a==="build-transfer")t=await Jt({...e,timestamp:e.timestamp||xe(),refNo:e.refNo||be()});else if(a==="decrypt-body"){const s=JSON.parse(e.body||"{}");t={decrypted:await Vt(s,e.aesKey,e.aesIv)}}else if(a==="timestamp")t={jakarta:xe(),jakartaISO:Le(),utc:new Date().toISOString()};else return{ok:!1,error:`Unknown operation: ${a}`};return{ok:!0,op:a,result:t}}catch(t){return{ok:!1,op:a,error:t instanceof Error?t.message:String(t)}}}const M=new La;M.use("/static/*",Ot({root:"./public"}));M.get("/favicon.ico",e=>e.body(null,204));M.post("/api/exec",async e=>{try{const a=await e.req.json(),s=await(await fetch("http://127.0.0.1:3001/exec",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(a)})).json();return e.json(s)}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({stdout:"",stderr:"Terminal server tidak tersedia: "+t,cwd:"/home/user",exitCode:1},500)}});M.get("/api/exec/health",async e=>{try{const t=await(await fetch("http://127.0.0.1:3001/health")).json();return e.json({ok:!0,...t})}catch{return e.json({ok:!1,error:"Terminal server tidak tersedia di production. Gunakan sandbox URL untuk operasi crypto.",sandbox_only:!0})}});M.post("/api/crypto",async e=>{try{const a=await e.req.json(),t=await Wt(a);return e.json(t)}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({ok:!1,error:"Crypto error: "+t})}});const pa="34.50.74.78";async function Ue(e,a,t){const s=xe(),n=Le(),i=t||be(),r=await Ha(i,n),d=await na(r,s,e),p=be();return{jwt:r,ts:s,tsISO:n,sig:d,xref:p,headers:{"Content-Type":"application/json",Authorization:r,"X-TIMESTAMP":s,"X-SIGNATURE":d,"X-PARTNER-ID":d,"X-CLIENT-ID":a,"X-REFERENCE":p,"X-Forwarded-For":pa,"X-Real-IP":pa}}}M.post("/api/smart",async e=>{try{const a=await e.req.json(),{action:t,baseUrl:s,aesKey:n,aesIv:i,aesCs:r,clientIdEnc:d,transNo:p,...o}=a,g=(s||"https://lpdseminyak.biz.id:8000").replace(/\/+$/,""),h=c=>jt(c),l=c=>/^[0-9a-f]{32}$/i.test(c);if(t==="login"){if(!o.user_name||!o.user_pass)throw new Error("user_name dan user_pass wajib diisi");if(!d)throw new Error("clientIdEnc (X-CLIENT-ID) wajib diisi");const c=l(o.user_name)?o.user_name:h(o.user_name),f=l(o.user_pass)?o.user_pass:h(o.user_pass),{headers:b,ts:T,xref:y,jwt:u,sig:x}=await Ue(r,d,p),v=g+"/api/smart/access/login",C=JSON.stringify({user_name:c,user_pass:f});let I=0,k={};try{const H=await fetch(v,{method:"POST",headers:b,body:C});I=H.status;const L=await H.text();try{k=JSON.parse(L)}catch{k={_raw:L}}}catch(H){return e.json({ok:!1,action:t,error:H.message,url:v,headers:b})}return e.json({ok:I>=200&&I<300,action:t,httpStatus:I,url:v,result:k,debug:{ts:T,xref:y,user_name_sent:c,user_pass_sent:f,jwt_preview:u.substring(0,40)+"...",sig_preview:x.substring(0,20)+"..."},requestHeaders:b,requestBody:{user_name:c,user_pass:f}})}if(t==="cek-saldo"){if(!o.no_rek)throw new Error("no_rek wajib diisi");if(!d)throw new Error("clientIdEnc wajib diisi");if(!n||!i)throw new Error("aesKey dan aesIv wajib diisi");const c=await B(o.no_rek,n,i),{headers:f,ts:b,xref:T}=await Ue(r,d,p),y=g+"/api/smart/account/balance",u=JSON.stringify({no_rek:c});let x=0,v={};try{const C=await fetch(y,{method:"POST",headers:f,body:u});x=C.status;const I=await C.text();try{v=JSON.parse(I)}catch{v={_raw:I}}}catch(C){return e.json({ok:!1,action:t,error:C.message})}return e.json({ok:x>=200&&x<300,action:t,httpStatus:x,url:y,result:v,debug:{ts:b,xref:T,no_rek_enc:c},requestHeaders:f})}if(t==="inquiry"){if(!o.no_rek_from||!o.no_rek_to||!o.nominal)throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");if(!d)throw new Error("clientIdEnc wajib diisi");const c=p||be(),{headers:f,ts:b,xref:T}=await Ue(r,d,c),[y,u,x,v]=await Promise.all([B(o.no_rek_from,n,i),B(o.no_rek_to,n,i),B(o.nominal,n,i),o.bank_dest?B(o.bank_dest,n,i):Promise.resolve("")]),C=g+"/api/smart/transfer/inquiry",I=JSON.stringify({no_rek_from:y,no_rek_to:u,nominal:x,bank_dest:v,ref_no:c});let k=0,H={};try{const L=await fetch(C,{method:"POST",headers:f,body:I});k=L.status;const z=await L.text();try{H=JSON.parse(z)}catch{H={_raw:z}}}catch(L){return e.json({ok:!1,action:t,error:L.message})}return e.json({ok:k>=200&&k<300,action:t,httpStatus:k,url:C,result:H,debug:{ts:b,xref:T,ref:c},requestHeaders:f})}if(t==="posting"){if(!o.no_rek_from||!o.no_rek_to||!o.nominal)throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");if(!d)throw new Error("clientIdEnc wajib diisi");const c=p||be(),{headers:f,ts:b,xref:T}=await Ue(r,d,c),[y,u,x,v,C,I]=await Promise.all([B(o.no_rek_from,n,i),B(o.no_rek_to,n,i),B(o.nominal,n,i),o.bank_dest?B(o.bank_dest,n,i):Promise.resolve(""),o.nama_dest?B(o.nama_dest,n,i):Promise.resolve(""),o.keterangan?B(o.keterangan,n,i):Promise.resolve("")]),k=g+"/api/smart/transfer/posting",H=JSON.stringify({no_rek_from:y,no_rek_to:u,nominal:x,bank_dest:v,nama_dest:C,keterangan:I,ref_no:c});let L=0,z={};try{const q=await fetch(k,{method:"POST",headers:f,body:H});L=q.status;const F=await q.text();try{z=JSON.parse(F)}catch{z={_raw:F}}}catch(q){return e.json({ok:!1,action:t,error:q.message})}return e.json({ok:L>=200&&L<300,action:t,httpStatus:L,url:k,result:z,debug:{ts:b,xref:T,ref:c},requestHeaders:f})}return e.json({ok:!1,error:"Unknown action: "+t})}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({ok:!1,error:"Smart error: "+t})}});M.post("/api/token/generate",async e=>{try{const a=await e.req.json(),{type:t,baseUrl:s,clientIdEnc:n,clientKey:i}=a;let r;if(t==="ios"){const d=xe(),p=await ja(d),o=(s||"https://lpdseminyak.biz.id:8000")+"/api/smart/access/token",g={"Content-Type":"application/json","X-TIMESTAMP":d,"X-CLIENT-ID":n||"","X-SIGNATURE":p.signature,"X-Forwarded-For":"34.50.74.78","X-Real-IP":"34.50.74.78"};try{const h=await fetch(o,{method:"POST",headers:g,body:"{}"}),l=await h.text();let c;try{c=JSON.parse(l)}catch{c={_raw:l}}r={ok:h.status<400,httpStatus:h.status,result:c,debug:p}}catch(h){r={ok:!1,error:h.message}}}else if(t==="snap"){const d=Le();r={ok:!0,result:await Ua(i||"LPD-SEMINYAK-001",d)}}else r={ok:!1,error:"type must be snap or ios"};return e.json(r)}catch(a){const t=a instanceof Error?a.message:String(a);return e.json({ok:!1,error:"Token error: "+t})}});const X="/home/user/webapp/lpd_seminyak/storage/logs";M.post("/api/admin",async e=>{try{const a=await e.req.json(),t=a.op;if(t==="list-logs"){const r=((await(await fetch("http://127.0.0.1:3001/exec",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({command:`find ${X} -maxdepth 2 -name "*.txt" -o -name "*.log" | sort -r | head -200`})})).json()).stdout||"").trim().split(`
+`).filter(Boolean).map(T=>{const y=T.split("/").pop()||"",u=T.replace(X+"/","").replace("/"+y,"");return{name:y,dir:u===y?"root":u,path:T}}),p=await(await fetch("http://127.0.0.1:3001/exec",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({command:`grep -c "local.ERROR" ${X}/laravel.log 2>/dev/null || echo 0`})})).json(),o=parseInt((p.stdout||"0").trim())||0,h=await(await fetch("http://127.0.0.1:3001/exec",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({command:`grep -h "POST http" ${X}/access-*.txt ${X}/transfer-*.txt ${X}/tabungan-*.txt 2>/dev/null | grep -oP '/api/[a-z/._-]+' | sort | uniq -c | sort -rn | head -20`})})).json(),l={};(h.stdout||"").trim().split(`
+`).forEach(T=>{const y=T.trim().match(/^(\d+)\s+(.+)$/);y&&(l[y[2]]=parseInt(y[1]))});const f=await(await fetch("http://127.0.0.1:3001/exec",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({command:`grep -h "REQUEST" ${X}/access-*.txt 2>/dev/null | grep -oP '\\d{4}-\\d{2}-\\d{2}' | sort | uniq -c | tail -30`})})).json(),b={};return(f.stdout||"").trim().split(`
+`).forEach(T=>{const y=T.trim().match(/^(\d+)\s+(\d{4}-\d{2}-\d{2})$/);y&&(b[y[2]]=parseInt(y[1]))}),e.json({ok:!0,files:r,error_count:o,endpoints:l,daily:b})}if(t==="read-log"){const s=(a.path||"").replace(/\.\./g,"").replace(/[^a-zA-Z0-9._\-]/g,""),n=(a.dir||"root").replace(/\.\./g,"").replace(/[^a-zA-Z0-9._\-]/g,"");let i="";n==="root"?i=`${X}/${s}`:i=`${X}/${n}/${s}`;const d=await(await fetch("http://127.0.0.1:3001/exec",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({command:`cat "${i}" 2>/dev/null | head -c 500000`})})).json();return!d.stdout||d.stdout.trim()===""?e.json({ok:!1,error:`File tidak ditemukan atau kosong: ${s}`}):e.json({ok:!0,content:d.stdout,path:i})}return e.json({ok:!1,error:"Unknown operation: "+t})}catch(a){const t=a instanceof Error?a.message:String(a);return t.includes("fetch")||t.includes("ECONNREFUSED")||t.includes("refused")?e.json({ok:!1,error:"Admin panel memerlukan sandbox environment. Di production, fitur baca log tidak tersedia karena tidak ada akses filesystem."}):e.json({ok:!1,error:"Admin error: "+t})}});M.get("/",e=>e.redirect("/admin"));M.get("/swagger",e=>e.html(qt()));M.get("/admin",e=>e.html(zt()));M.get("/crypto",e=>e.html(Ht()));M.get("/docs",e=>{const a=Qt();return e.html(a)});function Qt(){const e={installPhp:["# Ubuntu/Debian:","sudo apt-get install -y software-properties-common","sudo add-apt-repository ppa:ondrej/php","sudo apt-get update","sudo apt-get install -y php7.4 php7.4-cli php7.4-mbstring php7.4-xml \\","  php7.4-curl php7.4-zip php7.4-json php7.4-pdo php7.4-intl","","# Verifikasi:","php7.4 --version"].join(`
 `),installOdbc:["# Install ODBC Driver 17 (Ubuntu):","curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -","curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list \\","  > /etc/apt/sources.list.d/mssql-release.list","sudo apt-get update","sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev","","# Install ekstensi PHP sqlsrv:","sudo pecl install sqlsrv pdo_sqlsrv",'echo "extension=sqlsrv.so" >> /etc/php/7.4/cli/php.ini','echo "extension=pdo_sqlsrv.so" >> /etc/php/7.4/cli/php.ini'].join(`
 `),extractCode:["# Extract dari zip:","unzip lpd_seminyak.zip -d /var/www/html/","","# Atau clone dari repository (jika ada):","git clone https://your-repo.git /var/www/html/lpd_seminyak","","# Masuk ke direktori:","cd /var/www/html/lpd_seminyak"].join(`
 `),composerInstall:["# Install composer (jika belum ada):","curl -sS https://getcomposer.org/installer | php7.4","mv composer.phar /usr/local/bin/composer","","# Install dependencies:","cd /var/www/html/lpd_seminyak","COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev \\","  --no-interaction --ignore-platform-reqs","","# Jika ada error autoload, jalankan:","composer dump-autoload --no-scripts --optimize"].join(`
@@ -4686,4 +5935,4 @@ function toggleEndpoint(header) {
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 <\/script>
 </body>
-</html>`}const pa=new Ra,Wt=Object.assign({"/src/index.tsx":z});let Ua=!1;for(const[,e]of Object.entries(Wt))e&&(pa.all("*",a=>{let t;try{t=a.executionCtx}catch{}return e.fetch(a.req.raw,a.env,t)}),pa.notFound(a=>{let t;try{t=a.executionCtx}catch{}return e.fetch(a.req.raw,a.env,t)}),Ua=!0);if(!Ua)throw new Error("Can't import modules from ['/src/index.ts','/src/index.tsx','/app/server.ts']");export{pa as default};
+</html>`}const ua=new La,Zt=Object.assign({"/src/index.tsx":M});let $a=!1;for(const[,e]of Object.entries(Zt))e&&(ua.all("*",a=>{let t;try{t=a.executionCtx}catch{}return e.fetch(a.req.raw,a.env,t)}),ua.notFound(a=>{let t;try{t=a.executionCtx}catch{}return e.fetch(a.req.raw,a.env,t)}),$a=!0);if(!$a)throw new Error("Can't import modules from ['/src/index.ts','/src/index.tsx','/app/server.ts']");export{ua as default};
