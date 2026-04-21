@@ -1,0 +1,21 @@
+[2025-08-17 19:08:20] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/payment
+Content-type:application/json
+Authorization:Bearer eyJ0cmFuc19ubyI6IjE5MTcyLTA4MjE5LTI3NzE1LTQ2ODQ2IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0xN1QxOTowODoyNyswODowMCJ9.pWq9EY2yD-__kdNoVYduptD6-RWxlfXNnwoZUQFqPNUxyghFO_fj3VT1E7Kd5CQSYwae-19VMQPCBtxVgScsre8pGc_JTFUOdABWnnhqj0KpuNs5cCtahNC6ZhXcF9x_wGQ8secBCq_TpwlRKHxUsri1MWVobAxu4MGcFJg0TaU2kv7kTSj4w4dGdKVmMNMZlIlG-oNWTaFmHm-ZBEqCsJmqwZhspX4YX3fHIkZP_my0A34vFU8dBbVuyYuXyyXD2rVbzimFMxymDLP52ze74XFZpsNgUm9lMnH0J21uYWUVZ14-rNxuXFAHZ27lab6n7Wq3OmL2r9Voh_GyG5UyMg
+X-TIMESTAMP:2025-08-17T19:04:55+08:00
+X-SIGNATURE:affKLQCZdl9JoPYGHixDbuGwLtI7J+E9kiA9dqGYzWFCaXswZiNlmROvMzMBDZX/S9qRJToG6Noc5LwFGIg+DQ==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:9527486857
+CHANNEL-ID:92551
+DATA:
+{"paidAmount":{"value":"100000.00","currency":"IDR"},"additionalInfo":{"terminalType":"6011","terminalId":"ACMB9527","description":"","sourceAccountNo":"1462544213"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911001652","paymentRequestId":"9527486857","hashSourceAccountNo":"91ac784f33b0837c88759ca207a72feb","sourceBankCode":"014"}
+
+No. TUJUAN:
+9891911001652
+  
+[2025-08-17 19:08:21] local.INFO: 
+RESPONSE :
+{"responseCode":"2002500","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  989191","customerNo":"7559","virtualAccountNo":"  9891911001652","inquiryRequestId":"9527486857","virtualAccountName":"ARI ARTINI NI NYM"}}
+
+  

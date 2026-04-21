@@ -1,0 +1,45 @@
+[2025-09-01 22:16:50] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-01T22:16:58+08:00
+X-SIGNATURE:eZ+LZIxrs9jAPm+HPwzt36QEE8fHR75KnsPpicgkzrOCLzFR7K0kyamwLV+l6CWfjVbP7c4PNEdJhehjKW+C0tK+0LcuL3AOSONm9YXZK/9EbRDNsJnHXWliWkSMHAEWCb0WD3f+bwcWs7wQeFDBq3cflNDBgcc24dbM3611u7mXwT5xlW1fKdIQFLLZd3tpkAliIB5LyUItHjLtOOssSnFJeZESfSi84raFA7FEdeoCKFVDvqaIUJGL86aoLsVWFO58tz1L48goLUpcg8iy2i2IlBkssj+1NhlS0pXfNVol1hd+W+Md1ylZJk1NyV0Ab4y4akCSJLxumIJNjXwdlw==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-09-01 22:16:51] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-09-01 22:16:54] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-01T22:17:03+08:00
+X-SIGNATURE:jkiWdtaKxp5G1XLxd9dOt4X8k+OX/JlKI9jFAV0ok+2mKKDtHW9fqc/4nZ6+YPLmhjI5CyOvkPpCwxLc1YoaJZG9nc2Fw0ju+cza7FnaUgxMuNk76vq1+J91gSMoOTy9Enj6y3/Guny7OtFJq9TmR2b6tq+jSn4gZfF2hGXkhslD3zrLbWwpLmpaoNpGUCle1UAk6wh2rfTEIHUU6yjI+7tfum6phc8a7cwyKLMz36MdxlDOyszbOefuqndyegokjK3yCvbGybIaGTn38AqIj9eVljcvvo6Z2MsKg4kFNr43LIlmtgRnOX0DRQZv3UwkjI/THwoAx8+LYiCn484SbQ==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-09-01 22:16:54] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-09-01 22:17:00] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-01T22:17:09+08:00
+X-SIGNATURE:SRuxuUWXTcAqwiHcznmoMZeCFdrXvn1aLn9XBxNvd4gFdz7CbHR2ZnurvnPNN7FpHaU8xghkel6ivP7NsFxZOswGJujvgtZucVmgaqHseuxCoU7AASAnaJbM3OzKD0bax3F7k/pYs8rnWrcqWKG9IShX6UYS/5HV4uhesrW25jUjWD0h4T3SsiVzFfvhWbeEuF3xQx1//ms/DsPcBi5UByGhOxKw4+9kJS/Dv5JjP6gH6NBsPEoaMInFWqpBc+M5TWNdBuOg3T4ekWhBZi5Q9ba8CL+w4u2ks4N7ZVLVKR9lTa+HmZh0C52bZm9eH09zECLb6/vFNkYRddiN5wrV9w==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-09-01 22:17:00] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  

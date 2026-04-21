@@ -1,0 +1,21 @@
+[2025-07-30 17:07:35] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/inquiry
+Content-type:application/json
+Authorization:Bearer eyJ0cmFuc19ubyI6IjE3MTUzLTA3NTYwLTM1ODA2LTkwNzYyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wNy0zMFQxNzowNzozNSswODowMCJ9.Zppko34Pjpo0nZ7rgkF4N0AdxXJlWKm1OZU2FcQYoSOUgvXL6hv4kC2Mje_8KEq5PBDNM6npmDrmww3uACO2rYWItVDgNEri0YDWq9ALjSzeLdue8JF-4Smo-laZhYVPM-6sNutMLE9USZC6BRTFEs1uuaIVvm1i7ZSeKlVUpfO9mtmNKWnEsgsdnnaY6ear7jzJn1CnEknPtfkYi0po2MaodhBj4rTK_T0e_nQ9BzGCZjyY-nHvDKlXGs4mUP3Vl9_gjbSSlRDcXITGxW_60NJiOx-7FDL_SvLIFKBICj13DW1gZyGWHknKAfmGLAtMcXlZwnGiMLFW15qub1rk9w
+X-TIMESTAMP:2025-07-30T17:04:49+08:00
+X-SIGNATURE:g/Cs4CITfTVhBiyGDYjSS04TU6IEK2hMfp8G5wLlnZrERsNumDK9K9n3rVikdPJ6JKL6mBDbDfzybKbAmhUDxQ==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:000000295999
+CHANNEL-ID:92551
+DATA:
+{"additionalInfo":{"terminalType":"6011","terminalId":"S1ACMB95"},"amount":{"value":"100000.00","currency":"IDR"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911011037","inquiryRequestId":"000000295999","hashSourceAccountNo":"8c4ae7bc760ffdca3934366dd927ed74","sourceBankCode":"360003"}
+
+No. TUJUAN:
+9891911011037
+  
+[2025-07-30 17:07:35] local.INFO: 
+RESPONSE :
+{"responseCode":"2002400","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  989191","customerNo":"7559","virtualAccountNo":"  9891911011037","inquiryRequestId":"000000295999","virtualAccountName":"MARTINUS BAHA"}}
+
+  

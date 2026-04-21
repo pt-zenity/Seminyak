@@ -1,0 +1,28 @@
+[2025-07-19 15:01:13] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/transfer/bank/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-19 15:01:18
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:UWwJwBVPco7C4Vpr/fmebs+fsnyNfguTEX+N2zaWQ53VIPKDbtTlYpOpLmVmN412/XA8mJRl2yemf4YhCA6oNQ==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:SMY18011520250719-141
+DATA:
+{"from_acc":"rsENdMWD2GDYHwqLXRha6g==","to_acc":"HGFWZLYcuVew9yrEdq13IA==","amount":"VTnmQBlEvfEL9ajn8Wgvog==","date_time":"QR6VJkKNWH6uyifDiARRaw==","hash_code":"XyALYNBS9gqNq9uV2V/59e5aCx8N2SX6FPeQu52cHcPGLVEKKuRMofLe6vehHShHWE5bS6v1yDTxMBNjIdXkAudQpXPyAi3qDVcw/jyulJs=","remark":""}
+
+  
+[2025-07-19 15:01:52] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/transfer/bank/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-19 15:01:57
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:bQ6iJaxf0Uo+W0DrIjawC0Hab/rTTBuwucctHiLgCYPlSh2cH7rMlj2/2iNj5vkIkUtiNTHUt0r1uIpXopP1kw==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:SMY56011520250719-141
+DATA:
+{"from_acc":"rsENdMWD2GDYHwqLXRha6g==","to_acc":"HGFWZLYcuVew9yrEdq13IA==","amount":"VTnmQBlEvfEL9ajn8Wgvog==","date_time":"7ABjc/ZiB6BzUgGRUZzlwA==","hash_code":"UCrC+BrBxc2YScaFilZEklc16W6vayzIPOGTEnQ4XoC4+s1vSypjdZvbG/xjF/9ksEW4b6QoPu7iNpyII9ZP/4EpXb1a1uDHLCLIgy6VpDk=","remark":""}
+
+  

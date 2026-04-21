@@ -1,0 +1,14 @@
+[2025-07-31 07:05:56] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/transfer/lpd/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-31 07:05:57
+X-SIGNATURE:M2FiMGVjZmJhZTlkZTNlMmMxYmRiMDY5YmQ3Y2U0YzVkMmJlMTQyZmE1YjgzZmZmOWM5MDA0MTNiM2I3Mzk1ZGE0MTE4NTdlNGYxZGYyYzhjZTNkMDRmNjQ3NzNmZGMzYTllYTg5ZmY3NTBkYmNmZmVmZDcxYmQzZGU1OTc0M2I=
+X-PARTNER-ID:oO6rtszf6YDIy/OUEyahnGi02+kdkY/tyzc177331ivTu1wJ0e/ZIcwdi7le5bDPprgF/oSevpumiBwT5ai+wg==
+X-CLIENT-ID:U1AxQS4yMTA4MTIuMDE2
+X-REFERENCE:
+DATA:
+{"account_no":"hLdiID827127RtqHyd3p6w=="}
+
+  

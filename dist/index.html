@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dokumentasi LPD Seminyak API</title>
+<style>
+  :root {
+    --primary: #1a3a6b;
+    --secondary: #2563eb;
+    --accent: #f59e0b;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --code-bg: #0f172a;
+    --sidebar-w: 280px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background:var(--bg); color:var(--text); display:flex; min-height:100vh; }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--primary);
+    color: #e2e8f0;
+    position: fixed; top:0; left:0; height:100vh;
+    overflow-y: auto; z-index: 100;
+    display: flex; flex-direction: column;
+  }
+  #sidebar-header { padding:20px 16px; border-bottom:1px solid rgba(255,255,255,.1); }
+  #sidebar-header h1 { font-size:1rem; font-weight:700; color:#fff; line-height:1.3; }
+  #sidebar-header p { font-size:.72rem; color:#94a3b8; margin-top:4px; }
+  #sidebar nav { flex:1; padding:10px 0; }
+  .nav-section { padding:8px 16px 4px; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#64748b; }
+  .nav-item { display:block; padding:7px 16px; font-size:.8rem; color:#cbd5e1; text-decoration:none; border-left:3px solid transparent; transition:.2s; cursor:pointer; }
+  .nav-item:hover { background:rgba(255,255,255,.07); color:#fff; border-left-color:var(--accent); }
+  .nav-item.active { background:rgba(37,99,235,.3); color:#fff; border-left-color:var(--accent); }
+  .nav-sub { padding-left:28px; font-size:.75rem; color:#94a3b8; }
+
+  /* MAIN */
+  #main { margin-left: var(--sidebar-w); flex:1; padding:0; }
+  .page-section { display:none; padding:32px 40px; max-width:1100px; }
+  .page-section.active { display:block; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%); color:#fff; padding:48px 40px; }
+  .hero h1 { font-size:2rem; font-weight:800; margin-bottom:8px; }
+  .hero p { font-size:1rem; color:#bfdbfe; max-width:600px; line-height:1.6; }
+  .badge-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .badge { padding:4px 12px; border-radius:99px; font-size:.72rem; font-weight:600; }
+  .badge-blue  { background:rgba(37,99,235,.3); color:#93c5fd; border:1px solid rgba(147,197,253,.3); }
+  .badge-green { background:rgba(22,163,74,.3); color:#86efac; border:1px solid rgba(134,239,172,.3); }
+  .badge-yellow { background:rgba(245,158,11,.3); color:#fcd34d; border:1px solid rgba(252,211,77,.3); }
+
+  /* CARDS */
+  .section-title { font-size:1.3rem; font-weight:700; color:var(--primary); margin-bottom:6px; padding-bottom:8px; border-bottom:3px solid var(--accent); display:inline-block; }
+  .section-desc { color:var(--muted); margin-bottom:24px; font-size:.88rem; line-height:1.6; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,.04); }
+  .card-title { font-size:.95rem; font-weight:700; color:var(--primary); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+
+  /* GRID */
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+
+  /* ENDPOINT */
+  .endpoint { background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:20px; overflow:hidden; }
+  .ep-header { display:flex; align-items:center; gap:12px; padding:14px 18px; background:#f8fafc; cursor:pointer; border-bottom:1px solid var(--border); }
+  .ep-header:hover { background:#f1f5f9; }
+  .method { padding:3px 10px; border-radius:5px; font-size:.72rem; font-weight:800; letter-spacing:.04em; min-width:52px; text-align:center; }
+  .POST { background:#dbeafe; color:#1d4ed8; }
+  .GET  { background:#dcfce7; color:#15803d; }
+  .ep-path { font-family:'Courier New',monospace; font-size:.85rem; font-weight:600; color:var(--text); }
+  .ep-desc { font-size:.78rem; color:var(--muted); margin-left:auto; }
+  .ep-body { padding:18px; display:none; }
+  .ep-body.open { display:block; }
+
+  /* PARAMS TABLE */
+  table { width:100%; border-collapse:collapse; font-size:.8rem; margin:10px 0; }
+  th { background:#f1f5f9; color:var(--primary); text-align:left; padding:8px 10px; font-size:.72rem; font-weight:700; text-transform:uppercase; }
+  td { padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  .required { color:var(--danger); font-weight:700; font-size:.7rem; }
+  .optional { color:var(--muted); font-size:.7rem; }
+  .type { font-family:monospace; color:#7c3aed; font-size:.78rem; }
+
+  /* CODE */
+  pre { background:var(--code-bg); color:#e2e8f0; padding:16px; border-radius:8px; overflow-x:auto; font-size:.78rem; line-height:1.6; margin:10px 0; }
+  code { font-family:'Courier New',monospace; }
+  .inline-code { background:#f1f5f9; color:#7c3aed; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:.82em; }
+  .json-key   { color:#93c5fd; }
+  .json-str   { color:#86efac; }
+  .json-num   { color:#fcd34d; }
+  .json-bool  { color:#f9a8d4; }
+  .comment    { color:#64748b; font-style:italic; }
+
+  /* STATUS CODES */
+  .rc-table td:first-child { font-family:monospace; font-weight:700; font-size:.85rem; }
+  .rc-00 { color:var(--success); }
+  .rc-err { color:var(--danger); }
+  .rc-warn { color:var(--warning); }
+
+  /* STEPS */
+  .steps { counter-reset:step; }
+  .step { display:flex; gap:16px; margin-bottom:20px; }
+  .step-num { width:32px; height:32px; min-width:32px; background:var(--secondary); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; }
+  .step-content h4 { font-size:.9rem; font-weight:700; margin-bottom:4px; color:var(--primary); }
+  .step-content p  { font-size:.82rem; color:var(--muted); line-height:1.6; }
+
+  /* ALERT */
+  .alert { padding:12px 16px; border-radius:8px; font-size:.82rem; margin:12px 0; display:flex; gap:10px; align-items:flex-start; line-height:1.5; }
+  .alert-warn { background:#fef3c7; border-left:4px solid var(--accent); color:#92400e; }
+  .alert-info  { background:#dbeafe; border-left:4px solid var(--secondary); color:#1e40af; }
+  .alert-danger { background:#fee2e2; border-left:4px solid var(--danger); color:#991b1b; }
+  .alert-success { background:#dcfce7; border-left:4px solid var(--success); color:#14532d; }
+  .alert-icon { font-size:1rem; margin-top:1px; }
+
+  /* DB TABLE */
+  .db-table { border:1px solid var(--border); border-radius:8px; margin-bottom:16px; overflow:hidden; }
+  .db-table-header { background:var(--primary); color:#fff; padding:10px 14px; font-size:.82rem; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .db-table-body { padding:12px 14px; }
+  .db-field { display:flex; align-items:flex-start; gap:8px; padding:6px 0; border-bottom:1px solid var(--border); font-size:.78rem; }
+  .db-field:last-child { border-bottom:none; }
+  .db-fname { font-family:monospace; color:var(--secondary); min-width:170px; font-weight:600; }
+  .db-ftype { color:#7c3aed; min-width:100px; font-size:.72rem; }
+  .db-fdesc { color:var(--muted); }
+
+  /* FLOW */
+  .flow { display:flex; align-items:center; gap:0; flex-wrap:wrap; margin:12px 0; }
+  .flow-box { background:var(--secondary); color:#fff; padding:8px 14px; border-radius:6px; font-size:.75rem; font-weight:600; text-align:center; }
+  .flow-box.green { background:var(--success); }
+  .flow-box.yellow { background:var(--warning); }
+  .flow-box.red { background:var(--danger); }
+  .flow-box.gray { background:var(--muted); }
+  .flow-arrow { color:var(--muted); font-size:1.2rem; padding:0 6px; }
+
+  /* INSTALL */
+  .install-step { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:18px; margin-bottom:16px; }
+  .install-step h3 { font-size:.95rem; font-weight:700; color:var(--primary); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .install-step .num-badge { background:var(--accent); color:#fff; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:800; }
+
+  @media(max-width:900px) {
+    #sidebar { transform:translateX(-100%); }
+    #main { margin-left:0; }
+    .grid-2, .grid-3 { grid-template-columns:1fr; }
+    .page-section { padding:16px; }
+    .hero { padding:24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <h1>📋 LPD Seminyak API</h1>
+    <p>Dokumentasi Teknis Lengkap</p>
+  </div>
+  <nav>
+    <div class="nav-section">Umum</div>
+    <a class="nav-item active" onclick="showSection('overview')">🏠 Overview & Arsitektur</a>
+    <a class="nav-item" onclick="showSection('install')">⚙️ Panduan Instalasi</a>
+    <a class="nav-item" onclick="showSection('env')">🔧 Konfigurasi .env</a>
+    <a class="nav-item" onclick="showSection('db')">🗄️ Struktur Database</a>
+    <a class="nav-item" onclick="showSection('security')">🔐 Sistem Keamanan</a>
+
+    <div class="nav-section">Mobile Banking (Smart)</div>
+    <a class="nav-item" onclick="showSection('auth')">🔑 Autentikasi & Token</a>
+    <a class="nav-item nav-sub" onclick="showSection('register')">→ Register & Login</a>
+    <a class="nav-item nav-sub" onclick="showSection('tabungan')">→ Tabungan</a>
+    <a class="nav-item nav-sub" onclick="showSection('transfer-lpd')">→ Transfer Sesama LPD</a>
+    <a class="nav-item nav-sub" onclick="showSection('transfer-bank')">→ Transfer Antar Bank</a>
+    <a class="nav-item nav-sub" onclick="showSection('ppob')">→ PPOB & Tagihan</a>
+    <a class="nav-item nav-sub" onclick="showSection('iak')">→ PPOB IAK (Pulsa)</a>
+
+    <div class="nav-section">Integrasi Eksternal</div>
+    <a class="nav-item" onclick="showSection('snap')">🏦 SNAP BPD (Virtual Account)</a>
+    <a class="nav-item" onclick="showSection('atm')">🏧 Mesin ATM / Cardless</a>
+
+    <div class="nav-section">Referensi</div>
+    <a class="nav-item" onclick="showSection('respcodes')">📊 Kode Respon</a>
+    <a class="nav-item" onclick="showSection('crypto')">🔒 Enkripsi & Kriptografi</a>
+    <a class="nav-item" onclick="showSection('troubleshoot')">🛠️ Troubleshooting</a>
+  </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+
+<!-- =========== OVERVIEW =========== -->
+<section id="sec-overview" class="page-section active">
+  <div class="hero">
+    <h1>🏦 LPD Seminyak — Backend API</h1>
+    <p>Sistem backend perbankan berbasis Laravel 5.5 untuk LPD (Lembaga Perkreditan Desa) Seminyak. Menyediakan layanan Mobile Banking, Integrasi ATM Cardless, Transfer SNAP BI, dan pembayaran PPOB.</p>
+    <div class="badge-row">
+      <span class="badge badge-blue">Laravel 5.5</span>
+      <span class="badge badge-blue">PHP ≥ 7.0</span>
+      <span class="badge badge-yellow">SQL Server (SQLSRV)</span>
+      <span class="badge badge-green">REST API / JSON</span>
+      <span class="badge badge-green">JWT Auth</span>
+      <span class="badge badge-blue">SNAP BI Standard</span>
+    </div>
+  </div>
+
+  <div style="padding:32px 0 0;">
+    <div class="section-title">Arsitektur Sistem</div>
+    <p class="section-desc">Aplikasi ini adalah pure backend REST API, tidak memiliki halaman web (frontend). Semua komunikasi menggunakan HTTP POST dengan body JSON dan header khusus.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📱 Mobile Banking (iOS/Android)</div>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.6;">Endpoint <strong>/api/smart/*</strong> melayani aplikasi mobile banking nasabah. Menggunakan autentikasi berlapis: token session + AES-256 encryption + IP whitelist.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🏦 SNAP BPD (Virtual Account)</div>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.6;">Endpoint <strong>/api/v1.0/transfer-va/*</strong> mengimplementasikan standar SNAP Bank Indonesia untuk penerimaan transfer masuk via Virtual Account dari BPD Bali.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🏧 Mesin ATM / Cardless</div>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.6;">Endpoint <strong>/api/cardless/*</strong> melayani mesin ATM/CRM untuk transaksi tarik tunai dan setor tunai tanpa kartu fisik.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">⚡ PPOB (Pembayaran Tagihan)</div>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.6;">Terintegrasi dengan <strong>FastPay</strong> dan <strong>IAK</strong> untuk pembayaran listrik (PLN), PDAM, BPJS, pulsa, paket data, telepon, dll.</p>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px;">Alur Komunikasi</div>
+    <div class="card">
+      <div class="flow">
+        <div class="flow-box">Aplikasi Mobile</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box yellow">Middleware<br>iosAccessMdw</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Controller<br>/smart/*</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box green">Helper<br>iosHelper</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box gray">SQL Server<br>Giosoft_LPD</div>
+      </div>
+      <div class="flow" style="margin-top:12px;">
+        <div class="flow-box gray">BPD Bali</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box yellow">Middleware<br>SNAPCheckTransferIn</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Controller<br>SNAPTransferIn</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box green">SNAPHelper<br>Post ke Core</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box gray">SQL Server</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px;">Stack Teknologi</div>
+    <div class="grid-3">
+      <div class="card"><div class="card-title">🐘 Backend</div>
+        <ul style="font-size:.8rem;color:var(--muted);line-height:2;list-style:none;">
+          <li>• PHP ≥ 7.0</li><li>• Laravel 5.5.*</li>
+          <li>• JWT Auth (tymon)</li><li>• Guzzle HTTP ~6.0</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-title">🗄️ Database</div>
+        <ul style="font-size:.8rem;color:var(--muted);line-height:2;list-style:none;">
+          <li>• Microsoft SQL Server</li><li>• Driver: sqlsrv / pdo_sqlsrv</li>
+          <li>• Database: Giosoft_LPD</li><li>• Port: 1433</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-title">🔗 Integrasi</div>
+        <ul style="font-size:.8rem;color:var(--muted);line-height:2;list-style:none;">
+          <li>• BPD Bali (SNAP BI)</li><li>• FastPay PPOB</li>
+          <li>• IAK (pulsa/data)</li><li>• Lamanuna (token server)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== INSTALL =========== -->
+<section id="sec-install" class="page-section">
+  <div class="section-title">⚙️ Panduan Instalasi Lengkap</div>
+  <p class="section-desc">Ikuti langkah-langkah di bawah secara berurutan. Aplikasi ini dirancang berjalan di Windows dengan XAMPP, namun dapat pula dijalankan di Linux/Ubuntu server.</p>
+
+  <div class="alert alert-danger">
+    <span class="alert-icon">🚨</span>
+    <div><strong>Perhatian:</strong> Aplikasi ini memerlukan <strong>Microsoft SQL Server</strong> sebagai database. MySQL/MariaDB <em>tidak kompatibel</em>. Driver PHP <code>sqlsrv</code> dan <code>pdo_sqlsrv</code> wajib terinstall.</div>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">1</span> Persyaratan Sistem</h3>
+    <div class="grid-2">
+      <div>
+        <p style="font-size:.82rem;font-weight:600;margin-bottom:6px;">Minimum:</p>
+        <ul style="font-size:.8rem;color:var(--muted);line-height:1.9;list-style:none;">
+          <li>✅ PHP 7.0 – 7.4 (disarankan 7.4)</li>
+          <li>✅ Extension: <code>pdo_sqlsrv</code>, <code>sqlsrv</code>, <code>mbstring</code>, <code>openssl</code>, <code>json</code>, <code>tokenizer</code></li>
+          <li>✅ Microsoft SQL Server 2012+ atau Azure SQL</li>
+          <li>✅ Microsoft ODBC Driver 17 for SQL Server</li>
+          <li>✅ Composer 2.x</li>
+          <li>✅ Web Server: Apache / Nginx / PHP built-in</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:.82rem;font-weight:600;margin-bottom:6px;">Pada Windows (XAMPP):</p>
+        <ul style="font-size:.8rem;color:var(--muted);line-height:1.9;list-style:none;">
+          <li>✅ XAMPP dengan PHP 7.4</li>
+          <li>✅ Download SQLSRV driver dari Microsoft</li>
+          <li>✅ Salin <code>php_sqlsrv_74_ts_x64.dll</code> ke folder <code>ext/</code></li>
+          <li>✅ Tambahkan di <code>php.ini</code>: <code>extension=sqlsrv</code></li>
+          <li>✅ SQL Server Express (gratis) sudah cukup</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">2</span> Clone / Upload Source Code</h3>
+    <pre><code><span class="comment"># Windows (XAMPP) — salin folder ke htdocs</span>
+C:\xampp\htdocs\lpd_seminyak\
+
+<span class="comment"># Linux / Ubuntu Server</span>
+cp -r lpd_seminyak/ /var/www/html/lpd_seminyak/
+
+<span class="comment"># Atau via Git (jika tersedia repository)</span>
+git clone &lt;repo-url&gt; /var/www/html/lpd_seminyak</code></pre>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">3</span> Install Dependency via Composer</h3>
+    <pre><code><span class="comment"># Masuk ke direktori project</span>
+cd /path/to/lpd_seminyak
+
+<span class="comment"># Install semua dependency PHP (vendor/ sudah ada, tapi jalankan untuk update)</span>
+composer install --no-dev --optimize-autoloader
+
+<span class="comment"># Jika vendor/ sudah ada dan tidak perlu update:</span>
+composer dump-autoload -o</code></pre>
+    <div class="alert alert-info" style="margin-top:8px;">
+      <span class="alert-icon">ℹ️</span>
+      Folder <strong>vendor/</strong> sudah tersedia dalam paket ZIP sehingga <code>composer install</code> bersifat opsional jika koneksi internet tidak tersedia.
+    </div>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">4</span> Konfigurasi File .env</h3>
+    <pre><code><span class="comment"># Salin file contoh</span>
+cp .env.example .env
+
+<span class="comment"># Edit konfigurasi utama (lihat seksi Konfigurasi .env untuk detail)</span>
+nano .env   <span class="comment"># Linux</span>
+notepad .env  <span class="comment"># Windows</span></code></pre>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:8px;">Sesuaikan minimal: <strong>DB_HOST</strong>, <strong>DB_DATABASE</strong>, <strong>DB_USERNAME</strong>, <strong>DB_PASSWORD</strong>, <strong>APP_URL</strong>, dan path file key RSA.</p>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">5</span> Generate Application Key</h3>
+    <pre><code>php artisan key:generate
+<span class="comment"># Output: Application key set successfully.</span></code></pre>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">6</span> Atur Permissions (Linux)</h3>
+    <pre><code><span class="comment"># Berikan write permission ke folder storage dan cache</span>
+chmod -R 775 storage/
+chmod -R 775 bootstrap/cache/
+chown -R www-data:www-data storage/ bootstrap/cache/</code></pre>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">7</span> Setup Database SQL Server</h3>
+    <pre><code><span class="comment">-- Buat database baru di SQL Server Management Studio (SSMS):</span>
+CREATE DATABASE Giosoft_LPD;
+GO
+
+<span class="comment">-- Buat login SQL Server:</span>
+CREATE LOGIN sa WITH PASSWORD = '#sa?seminyak';
+GO
+
+<span class="comment">-- Atau gunakan Windows Authentication</span></code></pre>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:8px;">
+      Tabel-tabel database (gmob_nasabah, gmob_token, gtb_folio, dll.) merupakan bagian dari sistem core banking Giosoft dan <strong>tidak tersedia sebagai migrasi Laravel</strong>. Hubungi vendor Giosoft untuk mendapatkan schema database.
+    </p>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">8</span> Setup RSA Key Pair</h3>
+    <pre><code><span class="comment"># Generate RSA key pair untuk signing (jika belum ada)</span>
+openssl genrsa -out private_key_lpd.pem 2048
+openssl rsa -in private_key_lpd.pem -pubout -out public_key_lpd.pem
+
+<span class="comment"># Simpan di folder keys/ di root project</span>
+mkdir keys/
+cp public_key_lpd.pem keys/public_key.pem
+
+<span class="comment"># Update path di .env:</span>
+PUBLIC_KEY_LPD=/var/www/html/lpd_seminyak/keys/public_key.pem</code></pre>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">9</span> Konfigurasi Web Server</h3>
+    <div class="grid-2">
+      <div>
+        <p style="font-size:.82rem;font-weight:600;margin-bottom:6px;">Apache (XAMPP) — Virtual Host:</p>
+        <pre><code>&lt;VirtualHost *:80&gt;
+  DocumentRoot "C:/xampp/htdocs/lpd_seminyak/public"
+  ServerName lpd.localhost
+  &lt;Directory "C:/xampp/htdocs/lpd_seminyak/public"&gt;
+    AllowOverride All
+    Require all granted
+  &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
+      </div>
+      <div>
+        <p style="font-size:.82rem;font-weight:600;margin-bottom:6px;">Nginx (Linux):</p>
+        <pre><code>server {
+  listen 80;
+  server_name lpd.example.com;
+  root /var/www/html/lpd_seminyak/public;
+  index index.php;
+  location / {
+    try_files $uri $uri/ /index.php?$query_string;
+  }
+  location ~ \.php$ {
+    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  }
+}</code></pre>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:8px;"><strong>Penting:</strong> Document root harus mengarah ke folder <code>public/</code>, bukan root project.</p>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">10</span> Jalankan Server (Development)</h3>
+    <pre><code><span class="comment"># Menggunakan PHP built-in (development only)</span>
+cd /path/to/lpd_seminyak
+php -S 0.0.0.0:8000 -t public/
+
+<span class="comment"># Atau via artisan</span>
+php artisan serve --host=0.0.0.0 --port=8000
+
+<span class="comment"># Test endpoint (harus ada SQL Server terkoneksi)</span>
+curl -X POST http://localhost:8000/api/smart/access/token \
+  -H "Content-Type: application/json" \
+  -H "X-CLIENT-ID: &lt;encrypted_id&gt;"</code></pre>
+  </div>
+
+  <div class="install-step">
+    <h3><span class="num-badge">11</span> Verifikasi Instalasi</h3>
+    <pre><code><span class="comment"># Cek koneksi database</span>
+php artisan tinker
+&gt;&gt;&gt; DB::select('SELECT 1 as test')
+
+<span class="comment"># Cek cache dan config</span>
+php artisan config:cache
+php artisan route:list</code></pre>
+  </div>
+
+  <div class="alert alert-success">
+    <span class="alert-icon">✅</span>
+    <div>Jika semua langkah berhasil, server API siap menerima request dari aplikasi mobile dan sistem eksternal (BPD Bali, ATM).</div>
+  </div>
+</section>
+
+<!-- =========== ENV =========== -->
+<section id="sec-env" class="page-section">
+  <div class="section-title">🔧 Konfigurasi File .env</div>
+  <p class="section-desc">Semua konfigurasi runtime ada di file <code>.env</code> di root project. Jangan commit file ini ke version control.</p>
+
+  <div class="card">
+    <div class="card-title">🌐 Konfigurasi Aplikasi</div>
+    <table>
+      <tr><th>Variable</th><th>Contoh Nilai</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">APP_NAME</td><td>Laravel</td><td>Nama aplikasi</td></tr>
+      <tr><td class="inline-code">APP_ENV</td><td>local / production</td><td>Environment aplikasi</td></tr>
+      <tr><td class="inline-code">APP_KEY</td><td>base64:xxxxx</td><td>Kunci enkripsi Laravel — generate via <code>php artisan key:generate</code></td></tr>
+      <tr><td class="inline-code">APP_DEBUG</td><td>false</td><td>Set <code>false</code> di production!</td></tr>
+      <tr><td class="inline-code">APP_URL</td><td>http://localhost</td><td>URL base aplikasi</td></tr>
+      <tr><td class="inline-code">APP_STATUS</td><td>Production</td><td>Status mode (Production/Development)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🗄️ Konfigurasi Database SQL Server</div>
+    <table>
+      <tr><th>Variable</th><th>Contoh Nilai</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">DB_CONNECTION</td><td>sqlsrv</td><td>Driver wajib <strong>sqlsrv</strong> (bukan mysql)</td></tr>
+      <tr><td class="inline-code">DB_HOST</td><td>localhost</td><td>Host SQL Server</td></tr>
+      <tr><td class="inline-code">DB_PORT</td><td>1433</td><td>Port default SQL Server</td></tr>
+      <tr><td class="inline-code">DB_DATABASE</td><td>Giosoft_LPD</td><td>Nama database</td></tr>
+      <tr><td class="inline-code">DB_USERNAME</td><td>sa</td><td>Username SQL Server</td></tr>
+      <tr><td class="inline-code">DB_PASSWORD</td><td>#sa?seminyak</td><td>Password SQL Server</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📁 Path File & Key</div>
+    <table>
+      <tr><th>Variable</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">PUBLIC_KEY_LPD</td><td>Path absolut ke file <code>public_key.pem</code> milik LPD (untuk verifikasi signature mobile)</td></tr>
+      <tr><td class="inline-code">PUBLIC_KEY_BPD</td><td>Path absolut ke file <code>public_key_bpd.pem</code> milik BPD Bali</td></tr>
+      <tr><td class="inline-code">MASTER_BANK_LIST</td><td>Path ke file <code>bank.list</code> — daftar kode bank untuk transfer</td></tr>
+      <tr><td class="inline-code">MASTER_PPOB_LIST</td><td>Path ke file <code>ppob.list</code> — daftar produk PPOB</td></tr>
+      <tr><td class="inline-code">MASTER_DISPLAY_LIST</td><td>Path ke file <code>display.list</code> — konfigurasi tampilan</td></tr>
+    </table>
+    <div class="alert alert-warn" style="margin-top:8px;">
+      <span class="alert-icon">⚠️</span>
+      Path di atas menggunakan format Windows (<code>c:\/xampp\/...</code>). Ubah ke path Linux jika deploy di server Linux, contoh: <code>/var/www/html/lpd_seminyak/keys/public_key.pem</code>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔐 Keamanan & Kriptografi</div>
+    <table>
+      <tr><th>Variable</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">BPD_HASHCODE</td><td>Secret key untuk HMAC hash verifikasi transaksi dari BPD</td></tr>
+      <tr><td class="inline-code">ATM_HASHCODE</td><td>Secret key untuk hash verifikasi request ATM</td></tr>
+      <tr><td class="inline-code">CLIENT_SECRET</td><td>Secret key untuk signing token mobile banking</td></tr>
+      <tr><td class="inline-code">CLIENT_VA</td><td>Kode Virtual Account prefix LPD</td></tr>
+      <tr><td class="inline-code">JWT_SECRET</td><td>Secret JWT untuk tymon/jwt-auth</td></tr>
+      <tr><td class="inline-code">CRYPTO</td><td>Key tambahan enkripsi custom</td></tr>
+      <tr><td class="inline-code">SCRAMBLE</td><td>Salt untuk scrambling ID nasabah</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🌍 IP Whitelist</div>
+    <table>
+      <tr><th>Variable</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">BPD_STATICIP1–7</td><td>IP statis server BPD Bali yang diperbolehkan mengakses endpoint SNAP</td></tr>
+      <tr><td class="inline-code">BPD_WHITE_LIST</td><td>Format pipe: <code>|ip1|ip2|ip3|</code> — whitelist untuk request transfer BPD</td></tr>
+      <tr><td class="inline-code">GIO_WHITE_LIST</td><td>IP whitelist untuk server Giosoft (mobile app server)</td></tr>
+      <tr><td class="inline-code">ATM_WHITE_LIST</td><td>IP whitelist untuk mesin ATM</td></tr>
+      <tr><td class="inline-code">VPS_STATICIP</td><td>IP VPS server LPD</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💰 Limit Transaksi</div>
+    <table>
+      <tr><th>Variable</th><th>Default</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">SALDO_MIN</td><td>50000</td><td>Saldo minimum yang harus tersisa setelah transaksi (Rp 50.000)</td></tr>
+      <tr><td class="inline-code">MIN_TRANSFER</td><td>10000</td><td>Nominal minimum transfer (Rp 10.000)</td></tr>
+      <tr><td class="inline-code">MAX_TRANSFER</td><td>1000000</td><td>Maksimum transfer per transaksi dan per hari (Rp 1.000.000)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📦 Konfigurasi PPOB</div>
+    <table>
+      <tr><th>Variable</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">PPOB_USER</td><td>Username akun FastPay untuk pembayaran tagihan</td></tr>
+      <tr><td class="inline-code">PPOB_PIN</td><td>PIN akun FastPay</td></tr>
+      <tr><td class="inline-code">IAK_USER</td><td>Username akun IAK untuk pulsa & paket data</td></tr>
+      <tr><td class="inline-code">IAK_KEY</td><td>API Key IAK Production</td></tr>
+      <tr><td class="inline-code">IAK_KEY_DEV</td><td>API Key IAK Development</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏦 URL Endpoint BPD</div>
+    <table>
+      <tr><th>Variable</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">BPD_URL</td><td>URL production BPD Bali Virtual Account</td></tr>
+      <tr><td class="inline-code">BPD_URL_DEV</td><td>URL development/sandbox BPD</td></tr>
+      <tr><td class="inline-code">BPD_PREFIX</td><td><code>989191</code> — prefix nomor VA production LPD</td></tr>
+      <tr><td class="inline-code">BPD_PREFIX_DEV</td><td><code>989067</code> — prefix nomor VA development</td></tr>
+      <tr><td class="inline-code">LPD_URL</td><td>URL publik API LPD Seminyak</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- =========== DATABASE =========== -->
+<section id="sec-db" class="page-section">
+  <div class="section-title">🗄️ Struktur Database</div>
+  <p class="section-desc">Database <strong>Giosoft_LPD</strong> di SQL Server. Berikut tabel-tabel yang digunakan oleh aplikasi ini (dianalisis dari query dalam source code).</p>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">ℹ️</span>
+    Tabel-tabel ini adalah bagian dari sistem core banking Giosoft. Script DDL (CREATE TABLE) tidak tersedia dalam paket ini. Hubungi vendor untuk mendapatkan schema lengkap.
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">📋 gmob_nasabah — Data Nasabah Mobile Banking</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">noid</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">ID unik nasabah (format: SYXXXXX untuk nasabah baru)</span></div>
+      <div class="db-field"><span class="db-fname">username</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Username login mobile banking</span></div>
+      <div class="db-field"><span class="db-fname">pass_crypto</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Password terenkripsi</span></div>
+      <div class="db-field"><span class="db-fname">pin_crypto</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">PIN transaksi terenkripsi</span></div>
+      <div class="db-field"><span class="db-fname">nama</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nama lengkap nasabah</span></div>
+      <div class="db-field"><span class="db-fname">norek</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor rekening utama</span></div>
+      <div class="db-field"><span class="db-fname">imei_code</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode perangkat (IMEI/device ID) — digunakan sebagai client_id</span></div>
+      <div class="db-field"><span class="db-fname">status</span><span class="db-ftype">CHAR(1)</span><span class="db-fdesc">Status: R=Registered (baru), A=Active</span></div>
+      <div class="db-field"><span class="db-fname">aes_key, aes_iv, aes_cs</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kunci AES-256 unik per nasabah (base64 encoded)</span></div>
+      <div class="db-field"><span class="db-fname">max_transfer</span><span class="db-ftype">BIGINT</span><span class="db-fdesc">Limit maksimum transfer nasabah (override global limit)</span></div>
+      <div class="db-field"><span class="db-fname">version</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Versi aplikasi terakhir yang digunakan nasabah</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">🎟️ gmob_token — Session Token Mobile Banking</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">token</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Token session aktif (6 karakter random)</span></div>
+      <div class="db-field"><span class="db-fname">account_no</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor rekening / client_id pemilik token</span></div>
+      <div class="db-field"><span class="db-fname">start_time</span><span class="db-ftype">DATETIME</span><span class="db-fdesc">Waktu token dibuat</span></div>
+      <div class="db-field"><span class="db-fname">end_time</span><span class="db-ftype">DATETIME</span><span class="db-fdesc">Waktu expire token (start + 5 menit untuk ATM)</span></div>
+      <div class="db-field"><span class="db-fname">status</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Status: <code>open</code> = aktif, <code>closed</code> = tidak berlaku</span></div>
+      <div class="db-field"><span class="db-fname">date_time</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Format YmdHis dari waktu expire</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">💳 gmob_rekening — Daftar Rekening Nasabah</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">noid</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Foreign key ke gmob_nasabah.noid</span></div>
+      <div class="db-field"><span class="db-fname">notab</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor rekening tabungan</span></div>
+      <div class="db-field"><span class="db-fname">nama</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nama pada rekening</span></div>
+      <div class="db-field"><span class="db-fname">produk</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Jenis: Tabungan / Pinjaman / Takamas / Deposito / Sibarda</span></div>
+      <div class="db-field"><span class="db-fname">status</span><span class="db-ftype">CHAR(1)</span><span class="db-fdesc">Status rekening: A=Aktif</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">📒 gtb_folio — Buku Besar Tabungan</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">linker</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor rekening (format: X.XXXXXX)</span></div>
+      <div class="db-field"><span class="db-fname">debit</span><span class="db-ftype">DECIMAL</span><span class="db-fdesc">Jumlah debit (keluar)</span></div>
+      <div class="db-field"><span class="db-fname">credit</span><span class="db-ftype">DECIMAL</span><span class="db-fdesc">Jumlah kredit (masuk)</span></div>
+      <div class="db-field"><span class="db-fname">trans_date</span><span class="db-ftype">DATETIME</span><span class="db-fdesc">Tanggal transaksi</span></div>
+      <div class="db-field"><span class="db-fname">trans_code</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode jenis transaksi (M1=Setor, M2=Tarik, dll)</span></div>
+      <div class="db-field"><span class="db-fname">trans_no</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor referensi transaksi</span></div>
+      <div class="db-field"><span class="db-fname">bill_no</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor slip transaksi</span></div>
+      <div class="db-field"><span class="db-fname">remark</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Keterangan transaksi</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">🔄 gmob_transfer — Log Transfer Sesama LPD (AR)</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">trans_date</span><span class="db-ftype">DATETIME</span><span class="db-fdesc">Tanggal transaksi</span></div>
+      <div class="db-field"><span class="db-fname">from_norek / to_norek</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Rekening asal dan tujuan</span></div>
+      <div class="db-field"><span class="db-fname">from_name / to_name</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nama asal dan tujuan</span></div>
+      <div class="db-field"><span class="db-fname">amount</span><span class="db-ftype">DECIMAL</span><span class="db-fdesc">Nominal transfer</span></div>
+      <div class="db-field"><span class="db-fname">balance</span><span class="db-ftype">DECIMAL</span><span class="db-fdesc">Saldo sesudah transaksi</span></div>
+      <div class="db-field"><span class="db-fname">trans_no</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor referensi unik transaksi</span></div>
+      <div class="db-field"><span class="db-fname">status</span><span class="db-ftype">INT</span><span class="db-fdesc">2=Inquiry sukses, 3=Duplikat</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">🏦 gcore_transfer — Transfer VA / SNAP BPD</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">transfer_code</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode transaksi unik (IQIN-/TRIN-tanggal)</span></div>
+      <div class="db-field"><span class="db-fname">transfer_type</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Tipe: IQIN=Inquiry In, TRIN=Transfer In</span></div>
+      <div class="db-field"><span class="db-fname">norek</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor rekening penerima</span></div>
+      <div class="db-field"><span class="db-fname">accountNumber</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor Virtual Account</span></div>
+      <div class="db-field"><span class="db-fname">amount</span><span class="db-ftype">DECIMAL</span><span class="db-fdesc">Nominal transfer</span></div>
+      <div class="db-field"><span class="db-fname">referenceNumber</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor referensi dari BPD (harus unik)</span></div>
+      <div class="db-field"><span class="db-fname">responseCode</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode respon SNAP</span></div>
+      <div class="db-field"><span class="db-fname">serviceType</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Inquiry / Post</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">🧾 gmob_payment — Transaksi PPOB</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">trans_code</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode transaksi PPOB (format: PPOByymmddHHiiss+random)</span></div>
+      <div class="db-field"><span class="db-fname">trans_number</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">ID pelanggan (nomor meteran, nomor HP, dll)</span></div>
+      <div class="db-field"><span class="db-fname">norek</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Rekening yang didebet</span></div>
+      <div class="db-field"><span class="db-fname">product_code / product_name</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode dan nama produk PPOB</span></div>
+      <div class="db-field"><span class="db-fname">nominal</span><span class="db-ftype">DECIMAL</span><span class="db-fdesc">Total bayar (tagihan + admin)</span></div>
+      <div class="db-field"><span class="db-fname">admin</span><span class="db-ftype">DECIMAL</span><span class="db-fdesc">Biaya admin (default Rp 2.000)</span></div>
+      <div class="db-field"><span class="db-fname">customer</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nama nasabah pembayar</span></div>
+      <div class="db-field"><span class="db-fname">ref_no</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nomor referensi unik</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">📊 gmob_responcode — Master Kode Respon</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">resp_code</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode respon (00, 01, 04, 21, dst)</span></div>
+      <div class="db-field"><span class="db-fname">resp_desc</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Deskripsi pesan respon dalam Bahasa Indonesia</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-header">🏦 gcore_bankcode — Master Kode Bank</div>
+    <div class="db-table-body">
+      <div class="db-field"><span class="db-fname">bank_code</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Kode bank (sesuai BI/SKNBI)</span></div>
+      <div class="db-field"><span class="db-fname">bank_name</span><span class="db-ftype">VARCHAR</span><span class="db-fdesc">Nama bank</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== SECURITY =========== -->
+<section id="sec-security" class="page-section">
+  <div class="section-title">🔐 Sistem Keamanan</div>
+  <p class="section-desc">Aplikasi menggunakan sistem keamanan berlapis untuk melindungi setiap transaksi keuangan.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🌐 IP Whitelist</div>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">Setiap request diverifikasi IP address-nya. Hanya IP yang terdaftar di whitelist yang dapat mengakses endpoint:<br>
+      • <strong>Mobile Banking</strong>: <code>GIO_WHITE_LIST</code><br>
+      • <strong>SNAP BPD</strong>: <code>BPD_STATICIP1–7</code><br>
+      • <strong>ATM</strong>: <code>ATM_WHITE_LIST</code></p>
+    </div>
+    <div class="card">
+      <div class="card-title">🔑 AES-256-CBC Encryption</div>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">Semua parameter sensitif di-encrypt dengan AES-256-CBC. Key & IV unik per nasabah, di-generate dari kombinasi <code>client_id + timestamp</code> menggunakan HMAC-SHA512. Tersimpan di kolom <code>aes_key</code>, <code>aes_iv</code>, <code>aes_cs</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📝 RSA Signature</div>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">Setiap request ke endpoint <code>/smart/access/token</code> diverifikasi dengan RSA-SHA256. Aplikasi mobile mengirim signature yang diverifikasi menggunakan public key LPD.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🔒 Hash Verification (SHA-256)</div>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">Setiap transaksi menyertakan <code>hash_code</code> yang merupakan SHA-256 dari kombinasi parameter + secret key. Server memverifikasi ulang hash untuk mencegah tampering.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">⏰ Session Token (3 Menit)</div>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">Token session mobile banking berlaku <strong>3 menit</strong> dari waktu pembuatan. Setiap request berikutnya harus menyertakan token yang valid di header <code>Authorization</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🕐 Pembatasan Waktu</div>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">Transaksi transfer diblokir antara <strong>00:00–05:00 WITA</strong> (maintenance host bank). PPOB diblokir antara <strong>01:00–03:00 WITA</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== AUTH =========== -->
+<section id="sec-auth" class="page-section">
+  <div class="section-title">🔑 Autentikasi & Token Mobile Banking</div>
+  <p class="section-desc">Setiap request ke endpoint <code>/api/smart/*</code> memerlukan header autentikasi. Berikut alur lengkapnya.</p>
+
+  <div class="card">
+    <div class="card-title">📋 Header Wajib di Setiap Request</div>
+    <table>
+      <tr><th>Header</th><th>Keterangan</th></tr>
+      <tr><td class="inline-code">Content-Type</td><td>application/json</td></tr>
+      <tr><td class="inline-code">X-CLIENT-ID</td><td>Device ID nasabah (terenkripsi dengan format khusus Giosoft)</td></tr>
+      <tr><td class="inline-code">X-TIMESTAMP</td><td>Timestamp request (format: Y-m-d H:i:s)</td></tr>
+      <tr><td class="inline-code">X-PARTNER-ID</td><td>HMAC-SHA512 dari <code>token:timestamp</code> menggunakan <code>aes_cs</code> sebagai key (base64)</td></tr>
+      <tr><td class="inline-code">Authorization</td><td>Token session aktif (diperoleh dari endpoint /access/token)</td></tr>
+      <tr><td class="inline-code">X-REFERENCE</td><td>Nomor referensi unik untuk transaksi</td></tr>
+    </table>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/access/token</span>
+      <span class="ep-desc">Ambil token session</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px;">Mendapatkan token session baru. Dipanggil setiap kali aplikasi akan membuat request. Token berlaku <strong>3 menit</strong>. IP asal harus terdaftar di <code>GIO_WHITE_LIST</code>.</p>
+      <p style="font-size:.82rem;font-weight:600;margin-bottom:6px;">Header tambahan:</p>
+      <table>
+        <tr><th>Header</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">X-SIGNATURE</td><td>RSA-SHA256 signature dari <code>SHA256("Seminyak|" + timestamp)</code>, dienkode base64</td></tr>
+        <tr><td class="inline-code">X-CLIENT-ID</td><td>Client ID terenkripsi</td></tr>
+        <tr><td class="inline-code">X-TIMESTAMP</td><td>Timestamp saat ini</td></tr>
+      </table>
+      <p style="font-size:.82rem;font-weight:600;margin:12px 0 6px;">Response Sukses:</p>
+      <pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-str">"2007300"</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"Success"</span>,
+  <span class="json-key">"token"</span>: <span class="json-str">"a1b2c3"</span>,
+  <span class="json-key">"signature"</span>: <span class="json-str">"base64encodedSignature..."</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/access/key</span>
+      <span class="ep-desc">Update public key</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);">Endpoint admin untuk mengupdate public key RSA. Menerima konten PEM key dalam body POST field <code>key</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== REGISTER =========== -->
+<section id="sec-register" class="page-section">
+  <div class="section-title">📝 Register & Login Nasabah</div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/access/register</span>
+      <span class="ep-desc">Registrasi perangkat baru</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px;">Mendaftarkan perangkat baru untuk nasabah. Nasabah harus sudah ada di database <code>gmob_nasabah</code> dengan status <code>R</code> (Registered). Setelah sukses, status berubah ke <code>A</code> dan AES key disimpan.</p>
+      <p style="font-size:.82rem;font-weight:600;margin-bottom:6px;">Query Params (GET dari body JSON):</p>
+      <table>
+        <tr><th>Parameter</th><th>Type</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">user_name</td><td class="type">string</td><td><span class="required">WAJIB</span> Username nasabah</td></tr>
+        <tr><td class="inline-code">user_pass</td><td class="type">string</td><td><span class="required">WAJIB</span> Password (terenkripsi)</td></tr>
+      </table>
+      <p style="font-size:.82rem;font-weight:600;margin:12px 0 6px;">Response Sukses:</p>
+      <pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-str">"00"</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"Sukses"</span>,
+  <span class="json-key">"customer_id"</span>: <span class="json-str">"[encrypted ID]"</span>,
+  <span class="json-key">"customer_name"</span>: <span class="json-str">"I Wayan Budi"</span>,
+  <span class="json-key">"customer_pin"</span>: <span class="json-str">"[encrypted PIN]"</span>,
+  <span class="json-key">"account_list"</span>: <span class="json-str">"[encrypted AES daftar rekening]"</span>,
+  <span class="json-key">"bank_key"</span>: <span class="json-str">"[encrypted bank key]"</span>,
+  <span class="json-key">"bank_list"</span>: <span class="json-str">"[daftar bank dari file]"</span>,
+  <span class="json-key">"ppob_list"</span>: <span class="json-str">"[daftar produk PPOB]"</span>
+}</code></pre>
+      <div class="alert alert-info" style="margin-top:8px;">
+        <span>ℹ️</span> Format <code>account_list</code> setelah didekripsi: <code>norek&lt;&gt;nama&lt;&gt;saldo&lt;&gt;produk{#}norek&lt;&gt;...</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/access/login</span>
+      <span class="ep-desc">Login nasabah</span>
+    </div>
+    <div class="ep-body">
+      <table>
+        <tr><th>Parameter</th><th>Type</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">user_name</td><td class="type">string</td><td><span class="required">WAJIB</span></td></tr>
+        <tr><td class="inline-code">user_pass</td><td class="type">string</td><td><span class="required">WAJIB</span> Password terenkripsi</td></tr>
+      </table>
+      <p style="font-size:.82rem;color:var(--muted);margin:8px 0;">Login memverifikasi: username + password + imei_code (X-CLIENT-ID). Ketiga harus cocok di database.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/access/logout</span>
+      <span class="ep-desc">Logout & nonaktifkan token</span>
+    </div>
+    <div class="ep-body"><p style="font-size:.82rem;color:var(--muted);">Menutup session: mengubah status token di <code>gmob_token</code> menjadi <code>closed</code>.</p></div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/access/update/pass</span>
+      <span class="ep-desc">Ganti kata sandi</span>
+    </div>
+    <div class="ep-body">
+      <table>
+        <tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">pass_old</td><td>Password lama (AES encrypted)</td></tr>
+        <tr><td class="inline-code">pass_new</td><td>Password baru (AES encrypted)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/access/update/pin</span>
+      <span class="ep-desc">Ganti PIN transaksi</span>
+    </div>
+    <div class="ep-body">
+      <table>
+        <tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">pin_old</td><td>PIN lama (AES encrypted)</td></tr>
+        <tr><td class="inline-code">pin_new</td><td>PIN baru (AES encrypted)</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========== TABUNGAN =========== -->
+<section id="sec-tabungan" class="page-section">
+  <div class="section-title">💰 Informasi Tabungan</div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/tabungan/account-list</span>
+      <span class="ep-desc">Daftar rekening nasabah</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">customer_id</td><td>ID nasabah (AES encrypted)</td></tr>
+      </table>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:8px;">Response: <code>data</code> berisi AES-encrypted string daftar rekening dengan format: <code>norek&lt;&gt;nama&lt;&gt;saldo&lt;&gt;produk{#}</code></p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/tabungan/transaction-history</span>
+      <span class="ep-desc">Riwayat transaksi per rekening</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">customer_acc</td><td>Nomor rekening (AES encrypted)</td></tr>
+        <tr><td class="inline-code">start_date</td><td>Tanggal awal (format: YYYY-MM-DD)</td></tr>
+        <tr><td class="inline-code">end_date</td><td>Tanggal akhir (format: YYYY-MM-DD)</td></tr>
+      </table>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:8px;">Format data: <code>tgl&lt;&gt;trans_no&lt;&gt;debit&lt;&gt;credit&lt;&gt;keterangan{#}</code> (untuk Tabungan regular)<br>Format TabPlus/Sibarda: <code>[tgl#debval#trans_no#amount#remark]</code></p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/tabungan/mutasi-history</span>
+      <span class="ep-desc">Mutasi terbaru semua rekening</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">customer_id</td><td>ID nasabah (AES encrypted)</td></tr>
+      </table>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:8px;">Mengembalikan 10 transaksi terbaru dari semua rekening nasabah (Tabungan & Takamas). Format data terenkripsi AES.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== TRANSFER LPD =========== -->
+<section id="sec-transfer-lpd" class="page-section">
+  <div class="section-title">🔄 Transfer Sesama LPD (AR)</div>
+  <p class="section-desc">Transfer antar rekening dalam satu LPD Seminyak. Proses 3 tahap: Check → Inquiry → Posting.</p>
+
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠️</span>
+    Limit: Minimal Rp 10.000 | Maksimal Rp 1.000.000 per transaksi | Saldo minimum Rp 50.000 wajib tersisa.
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/transfer/lpd/check</span>
+      <span class="ep-desc">Cek rekening tujuan</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">account_no</td><td>Nomor rekening tujuan (AES encrypted)</td></tr>
+      </table>
+      <pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-str">"00"</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"Sukses inquiry"</span>,
+  <span class="json-key">"product_type"</span>: <span class="json-str">"Tabungan"</span>,
+  <span class="json-key">"customer_name"</span>: <span class="json-str">"Ni Ketut Sari"</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/transfer/lpd/inquiry</span>
+      <span class="ep-desc">Konfirmasi sebelum transfer</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">from_acc</td><td>Rekening asal (AES encrypted)</td></tr>
+        <tr><td class="inline-code">to_acc</td><td>Rekening tujuan (AES encrypted)</td></tr>
+        <tr><td class="inline-code">amount</td><td>Nominal (AES encrypted)</td></tr>
+        <tr><td class="inline-code">from_name</td><td>Nama pengirim (AES encrypted)</td></tr>
+        <tr><td class="inline-code">to_name</td><td>Nama penerima (AES encrypted)</td></tr>
+        <tr><td class="inline-code">remark</td><td>Keterangan + hashCode (format: keterangan&lt;&gt;hash, AES encrypted)</td></tr>
+      </table>
+      <div class="alert alert-info" style="margin-top:8px;">
+        <span>🔒</span> Hash dibuat dari: <code>SHA256("{nominal}*{from_acc}^{to_acc}%{from_name}#{to_name}@{BPD_HASHCODE}")</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/transfer/lpd/post</span>
+      <span class="ep-desc">Eksekusi transfer</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);">Parameter sama dengan inquiry. Wajib menyertakan referensi yang sama dengan inquiry sebelumnya. Sistem akan memverifikasi referensi inquiry ada dan belum diposting (anti-duplikat).</p>
+      <pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-str">"00"</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"Transfer Berhasil"</span>,
+  <span class="json-key">"transfer_date"</span>: <span class="json-str">"2025-04-21 10:30:00"</span>,
+  <span class="json-key">"balance"</span>: <span class="json-num">500000</span>
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- =========== TRANSFER BANK =========== -->
+<section id="sec-transfer-bank" class="page-section">
+  <div class="section-title">🏦 Transfer Antar Bank (via BPD)</div>
+  <p class="section-desc">Transfer ke rekening bank lain (BRI, BNI, Mandiri, dll) via jaringan BPD Bali menggunakan SNAP BI standar. Proses 3 tahap: Check → Inquiry → Posting.</p>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/transfer/bank/check</span>
+      <span class="ep-desc">Cek nama rekening bank tujuan</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">from_acc</td><td>Rekening asal (AES encrypted)</td></tr>
+        <tr><td class="inline-code">to_acc</td><td>Format: <code>kodeBank-noRek-hashCode</code> (AES encrypted)</td></tr>
+        <tr><td class="inline-code">amount</td><td>Nominal (AES encrypted)</td></tr>
+        <tr><td class="inline-code">date_time</td><td>Timestamp transaksi (AES encrypted)</td></tr>
+        <tr><td class="inline-code">hash_code</td><td>SNAP code (AES encrypted)</td></tr>
+      </table>
+      <div class="alert alert-info" style="margin-top:8px;">
+        <span>🔒</span> hashCode di dalam <code>to_acc</code>: <code>SHA256("%{from}#{amount}@{dateTime}^{refNo}*{destBank}~{destAcc}|{BPD_HASHCODE}%")</code>
+      </div>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:8px;">Melakukan inquiry ke BPD Bali via endpoint lokal: <code>http://localhost:8081/api-snap-bi/lpd-seminyak/transfer-out/mob_transfer_inquiry.php</code></p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/transfer/bank/inquiry</span>
+      <span class="ep-desc">Konfirmasi transfer antar bank</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);">Validasi saldo, cek biaya admin transfer antar bank (<code>gcore_transfer_cost</code>), dan catat log. BPD harus merespons <code>2001600</code>.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/transfer/bank/post</span>
+      <span class="ep-desc">Eksekusi transfer antar bank</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter Tambahan</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">to_name</td><td>Nama rekening tujuan (AES encrypted)</td></tr>
+      </table>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:8px;">Validasi PIN wajib. Biaya transfer mengikuti tabel biaya bank. BPD harus merespons <code>2001800</code> untuk sukses. Jika BPD gagal, data posting otomatis di-rollback.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== PPOB =========== -->
+<section id="sec-ppob" class="page-section">
+  <div class="section-title">⚡ PPOB & Pembayaran Tagihan (FastPay)</div>
+  <p class="section-desc">Pembayaran tagihan listrik, air, BPJS, telepon, dan lainnya via provider FastPay (<code>rajabiller.fastpay.co.id</code>).</p>
+
+  <div class="card">
+    <div class="card-title">📦 Produk yang Didukung</div>
+    <div class="grid-3">
+      <div><p style="font-size:.8rem;font-weight:600;">Listrik (PLN)</p><ul style="font-size:.75rem;color:var(--muted);list-style:none;line-height:1.8;"><li>• PLN Pascabayar</li><li>• PLN Prepaid (Token)</li></ul></div>
+      <div><p style="font-size:.8rem;font-weight:600;">Air & Utilitas</p><ul style="font-size:.75rem;color:var(--muted);list-style:none;line-height:1.8;"><li>• PDAM</li><li>• Telkom / IndiHome</li></ul></div>
+      <div><p style="font-size:.8rem;font-weight:600;">Asuransi & Sosial</p><ul style="font-size:.75rem;color:var(--muted);list-style:none;line-height:1.8;"><li>• BPJS Kesehatan</li><li>• HP Pascabayar</li></ul></div>
+    </div>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:8px;">Admin fee: <strong>Rp 2.000</strong> per transaksi.</p>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/ppob/check</span>
+      <span class="ep-desc">Cek tagihan & saldo</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">customer_acc</td><td>Nomor rekening (AES encrypted)</td></tr>
+        <tr><td class="inline-code">product_name</td><td>Format: <code>KODE NOMINAL</code>, contoh: <code>PLN-PASCABAYAR 150000</code></td></tr>
+      </table>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:8px;">Memvalidasi: rekening aktif, saldo cukup (saldo - nominal - admin ≥ SALDO_MIN), total transaksi hari ini belum melewati MAX_TRANSFER, saldo deposit PPOB LPD cukup.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/ppob/request</span>
+      <span class="ep-desc">Proses pembayaran tagihan</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">customer_acc</td><td>Rekening (AES encrypted)</td></tr>
+        <tr><td class="inline-code">customer_name</td><td>Nama nasabah (AES encrypted)</td></tr>
+        <tr><td class="inline-code">id_pelanggan</td><td>ID pelanggan PPOB, misal nomor meteran (AES encrypted)</td></tr>
+        <tr><td class="inline-code">product_type</td><td>Format: <code>JENIS&lt;&gt;hashCode</code> (AES encrypted). Hash: SHA256("#{acc}[{name}]&lt;{idpel}&gt;({jenis})^{produk}^#")</td></tr>
+        <tr><td class="inline-code">product_code</td><td>Kode produk FastPay (AES encrypted)</td></tr>
+        <tr><td class="inline-code">product_name</td><td>Nama produk</td></tr>
+        <tr><td class="inline-code">amount</td><td>Nominal pembayaran</td></tr>
+        <tr><td class="inline-code">method</td><td><code>cek</code> atau <code>bayar</code> (AES encrypted)</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========== IAK =========== -->
+<section id="sec-iak" class="page-section">
+  <div class="section-title">📱 PPOB IAK — Pulsa & Paket Data</div>
+  <p class="section-desc">Pembelian pulsa dan paket data melalui provider IAK (iakpay.com). Mendukung semua operator seluler Indonesia.</p>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/iak/check</span>
+      <span class="ep-desc">Cek produk & harga pulsa/data</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);">Memeriksa ketersediaan produk dan info tagihan (untuk pascabayar). Menggunakan API IAK Prepaid/Postpaid sesuai jenis produk.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/smart/iak/request</span>
+      <span class="ep-desc">Proses pembelian pulsa/data</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);">Melakukan pembelian ke IAK. Signature IAK: <code>MD5(username + apikey + ref_id)</code>. URL Production: <code>prepaid.iak.id</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== SNAP =========== -->
+<section id="sec-snap" class="page-section">
+  <div class="section-title">🏦 SNAP BPD — Transfer Virtual Account Masuk</div>
+  <p class="section-desc">Implementasi standar SNAP BI (Standar Nasional Open API Pembayaran) untuk menerima transfer masuk dari BPD Bali via Virtual Account.</p>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">ℹ️</span>
+    Endpoint ini dipanggil oleh BPD Bali, bukan oleh aplikasi mobile. Server BPD harus terdaftar di IP Whitelist.
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/v1.0/access-token/b2b</span>
+      <span class="ep-desc">Get access token SNAP</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);">BPD mendapatkan access token sebelum melakukan inquiry/payment. Verifikasi menggunakan RSA-SHA256 signature dari "Seminyak|{timestamp}".</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/v1.0/transfer-va/inquiry</span>
+      <span class="ep-desc">Inquiry Virtual Account</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px;">BPD mengirim inquiry sebelum memposting transfer. Server memverifikasi: IP whitelist, signature SNAP (HMAC-SHA512), format nomor VA, status rekening.</p>
+      <p style="font-size:.82rem;font-weight:600;margin-bottom:6px;">Body JSON (dari BPD):</p>
+      <pre><code>{
+  <span class="json-key">"partnerServiceId"</span>: <span class="json-str">"  989191"</span>,  <span class="comment">// 8 karakter dengan padding spasi</span>
+  <span class="json-key">"customerNo"</span>: <span class="json-str">"1234567"</span>,
+  <span class="json-key">"virtualAccountNo"</span>: <span class="json-str">"  9891911234567"</span>,
+  <span class="json-key">"inquiryRequestId"</span>: <span class="json-str">"unique-ref-123"</span>,
+  <span class="json-key">"amount"</span>: { <span class="json-key">"value"</span>: <span class="json-str">"500000.00"</span> },
+  <span class="json-key">"additionalInfo"</span>: {
+    <span class="json-key">"terminalType"</span>: <span class="json-str">"ATM"</span>,
+    <span class="json-key">"terminalId"</span>: <span class="json-str">"ATM001"</span>
+  }
+}</code></pre>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:8px;">Nomor VA: prefix 6 digit + nomor rekening 7 digit. Rekening diambil dari digit ke-8 VA: <code>substr(-7,1) + "." + substr(-6)</code></p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/v1.0/transfer-va/payment</span>
+      <span class="ep-desc">Posting transfer masuk</span>
+    </div>
+    <div class="ep-body">
+      <p style="font-size:.82rem;color:var(--muted);">Memposting transaksi ke rekening nasabah. Memanggil <code>SNAPHelper::Gio_PostTransferVA()</code> yang mengeksekusi stored procedure/insert ke core banking. Jika sukses, response code SNAP: <code>20025XX</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== ATM =========== -->
+<section id="sec-atm" class="page-section">
+  <div class="section-title">🏧 Mesin ATM & Cardless</div>
+  <p class="section-desc">API untuk mesin ATM/CRM LPD Seminyak. Sistem tanpa kartu fisik — menggunakan token OTP sebagai pengganti PIN kartu.</p>
+
+  <div class="alert alert-warn">
+    <span class="alert-icon">🔒</span>
+    Semua request ATM wajib: IP dari ATM_WHITE_LIST + hash_code valid. Hash ATM: <code>SHA256(ATM_HASHCODE + token + account_no + transaction_datetime)</code>
+  </div>
+
+  <div class="grid-2">
+    <div class="endpoint">
+      <div class="ep-header" onclick="toggleEp(this)">
+        <span class="method POST">POST</span>
+        <span class="ep-path">/api/cardless/create-token</span>
+        <span class="ep-desc">Buat token OTP</span>
+      </div>
+      <div class="ep-body">
+        <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+          <tr><td class="inline-code">account_no</td><td>Nomor rekening penuh (prefix+rek)</td></tr>
+        </table>
+        <p style="font-size:.78rem;color:var(--muted);margin-top:8px;">Membuat token 6 digit acak, berlaku 5 menit. Token dikirim ke nasabah via aplikasi mobile.</p>
+      </div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header" onclick="toggleEp(this)">
+        <span class="method POST">POST</span>
+        <span class="ep-path">/api/cardless/get-token</span>
+        <span class="ep-desc">Validasi token di ATM</span>
+      </div>
+      <div class="ep-body">
+        <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+          <tr><td class="inline-code">transaction_code</td><td>Harus <code>39</code></td></tr>
+          <tr><td class="inline-code">transaction_id</td><td>ID unik transaksi dari ATM</td></tr>
+          <tr><td class="inline-code">account_no</td><td>Nomor rekening</td></tr>
+          <tr><td class="inline-code">transaction_datetime</td><td>Timestamp transaksi</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/cardless/check-balance</span>
+      <span class="ep-desc">Cek saldo (transaction_code: 30)</span>
+    </div>
+    <div class="ep-body"><p style="font-size:.82rem;color:var(--muted);">Memerlukan token valid. Mengembalikan saldo dan nama nasabah.</p></div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/cardless/cash-debit</span>
+      <span class="ep-desc">Penarikan tunai (transaction_code: 01)</span>
+    </div>
+    <div class="ep-body">
+      <table><tr><th>Parameter</th><th>Keterangan</th></tr>
+        <tr><td class="inline-code">amount</td><td>Nominal penarikan</td></tr>
+        <tr><td class="inline-code">terminal_id</td><td>ID mesin ATM</td></tr>
+        <tr><td class="inline-code">token</td><td>Token OTP yang diinput nasabah</td></tr>
+      </table>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:8px;">Saldo minimum Rp 50.000 harus tetap tersisa. Menulis ke gtb_folio (kode M2) dan tabel mutasi.</p>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/cardless/cash-credit</span>
+      <span class="ep-desc">Penyetoran tunai (transaction_code: 21)</span>
+    </div>
+    <div class="ep-body"><p style="font-size:.82rem;color:var(--muted);">Setor tunai via mesin CRM. Menulis ke gtb_folio (kode M1).</p></div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/cardless/reversal-debit</span>
+      <span class="ep-desc">Batal Tarik (transaction_code: 02)</span>
+    </div>
+    <div class="ep-body"><p style="font-size:.82rem;color:var(--muted);">Membatalkan transaksi penarikan. Menghapus record di gtb_folio dan tabel mutasi berdasarkan transaction_id dan transaction_datetime.</p></div>
+  </div>
+
+  <div class="endpoint">
+    <div class="ep-header" onclick="toggleEp(this)">
+      <span class="method POST">POST</span>
+      <span class="ep-path">/api/cardless/reversal-credit</span>
+      <span class="ep-desc">Batal Setor (transaction_code: 22)</span>
+    </div>
+    <div class="ep-body"><p style="font-size:.82rem;color:var(--muted);">Membatalkan transaksi penyetoran. Sama seperti reversal-debit namun untuk transaksi setor.</p></div>
+  </div>
+</section>
+
+<!-- =========== RESP CODES =========== -->
+<section id="sec-respcodes" class="page-section">
+  <div class="section-title">📊 Kode Respon</div>
+
+  <div class="card">
+    <div class="card-title">✅ Kode Sukses</div>
+    <table class="rc-table">
+      <tr><th>Kode</th><th>Konteks</th><th>Pesan</th></tr>
+      <tr><td class="rc-00">00</td><td>Mobile Banking</td><td>Sukses</td></tr>
+      <tr><td class="rc-00">2007300</td><td>SNAP Token</td><td>Token berhasil dibuat</td></tr>
+      <tr><td class="rc-00">2001600</td><td>Transfer Out</td><td>Inquiry transfer berhasil</td></tr>
+      <tr><td class="rc-00">2001800</td><td>Transfer Out</td><td>Posting transfer berhasil</td></tr>
+      <tr><td class="rc-00">20024XX</td><td>SNAP Inquiry VA</td><td>Inquiry VA berhasil</td></tr>
+      <tr><td class="rc-00">20025XX</td><td>SNAP Payment VA</td><td>Payment VA berhasil</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">❌ Kode Error Mobile Banking</div>
+    <table class="rc-table">
+      <tr><th>Kode</th><th>Pesan / Keterangan</th></tr>
+      <tr><td class="rc-err">01</td><td>Rekening tidak aktif</td></tr>
+      <tr><td class="rc-err">02</td><td>Client ID invalid</td></tr>
+      <tr><td class="rc-err">03</td><td>Akses IP tidak valid / token kadaluarsa</td></tr>
+      <tr><td class="rc-err">04</td><td>Saldo tidak cukup (di bawah minimum)</td></tr>
+      <tr><td class="rc-err">05</td><td>Deposit PPOB tidak cukup</td></tr>
+      <tr><td class="rc-err">08</td><td>PPOB offline (maintenance 01:00–03:00 WITA)</td></tr>
+      <tr><td class="rc-err">09</td><td>Host bank offline (maintenance 00:00–05:00 WITA)</td></tr>
+      <tr><td class="rc-err">10</td><td>Registrasi gagal (nasabah tidak ditemukan)</td></tr>
+      <tr><td class="rc-warn">21</td><td>Login gagal (password salah)</td></tr>
+      <tr><td class="rc-warn">23</td><td>Nomor referensi duplikat (posting)</td></tr>
+      <tr><td class="rc-warn">24</td><td>Transaksi gagal diproses</td></tr>
+      <tr><td class="rc-warn">25</td><td>Nominal di bawah minimum (Rp 10.000)</td></tr>
+      <tr><td class="rc-warn">26</td><td>Melewati limit transaksi harian (Rp 1.000.000)</td></tr>
+      <tr><td class="rc-warn">30</td><td>Hash code tidak valid (ATM)</td></tr>
+      <tr><td class="rc-warn">31</td><td>Nomor referensi tidak ditemukan (inquiry belum ada)</td></tr>
+      <tr><td class="rc-warn">32</td><td>Nomor referensi duplikat (inquiry)</td></tr>
+      <tr><td class="rc-err">40</td><td>Saldo tidak cukup</td></tr>
+      <tr><td class="rc-warn">43</td><td>Akun diblokir / referensi tidak ditemukan</td></tr>
+      <tr><td class="rc-warn">45</td><td>Referensi duplikat</td></tr>
+      <tr><td class="rc-err">51</td><td>Saldo tidak cukup (ATM)</td></tr>
+      <tr><td class="rc-err">54</td><td>PIN salah</td></tr>
+      <tr><td class="rc-err">61</td><td>Saldo tidak cukup setelah minimum (ATM)</td></tr>
+      <tr><td class="rc-err">62/63</td><td>Hash code transfer LPD tidak valid</td></tr>
+      <tr><td class="rc-err">68</td><td>Timeout / Exception</td></tr>
+      <tr><td class="rc-err">84</td><td>Data tidak ditemukan</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏧 Kode Respon ATM (ISO 8583)</div>
+    <table class="rc-table">
+      <tr><th>Kode</th><th>Pesan</th></tr>
+      <tr><td class="rc-00">00</td><td>Approved / Sukses</td></tr>
+      <tr><td class="rc-err">06</td><td>General Error (exception)</td></tr>
+      <tr><td class="rc-err">12</td><td>Transaction code tidak valid (bukan 39)</td></tr>
+      <tr><td class="rc-err">14</td><td>Rekening tidak aktif / status bukan A</td></tr>
+      <tr><td class="rc-err">25</td><td>Reversal gagal (data tidak ditemukan)</td></tr>
+      <tr><td class="rc-err">30</td><td>Token invalid</td></tr>
+      <tr><td class="rc-err">51</td><td>Saldo tidak cukup</td></tr>
+      <tr><td class="rc-err">57</td><td>Prefix tidak sesuai BPD_PREFIX</td></tr>
+      <tr><td class="rc-err">61</td><td>Saldo kurang dari minimum setelah tarik</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- =========== CRYPTO =========== -->
+<section id="sec-crypto" class="page-section">
+  <div class="section-title">🔒 Enkripsi & Kriptografi</div>
+
+  <div class="card">
+    <div class="card-title">🔐 AES-256-CBC Encryption</div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px;">Digunakan untuk mengenkripsi semua parameter request/response sensitif.</p>
+    <pre><code><span class="comment">// Enkripsi (PHP)</span>
+$ciphertext = openssl_encrypt($plainText, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+$encryptedData = base64_encode($ciphertext);
+
+<span class="comment">// Dekripsi (PHP)</span>
+$encryptedData = base64_decode($encryptedText);
+$plaintext = openssl_decrypt($encryptedData, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+
+<span class="comment">// Key & IV dibuat dari (saat registrasi):</span>
+$keyBytes = hash_hmac("sha512", $clientID, $timeStamp, true);  <span class="comment">// 64 bytes</span>
+$key = base64_encode(substr($keyBytes, $times[0], 32));        <span class="comment">// 32 bytes → AES-256</span>
+$iv  = base64_encode(substr($keyBytes, $offset, 16));          <span class="comment">// 16 bytes → CBC IV</span>
+$cs  = base64_encode(substr($keyBytes, $offset2, 8));          <span class="comment">// 8 bytes → custom secret</span></code></pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">✍️ RSA-SHA256 Signature (Untuk Token)</div>
+    <pre><code><span class="comment">// Aplikasi mobile mengirim signature RSA dari:</span>
+$dataToSign = hash("sha256", "Seminyak|" . $timeStamp);
+$signature  = base64_encode(RSA_sign_private_key($dataToSign));
+
+<span class="comment">// Server memverifikasi dengan public key LPD:</span>
+$verifySSL = openssl_verify($clientStamp, $signor, $publicKey, OPENSSL_ALGO_SHA256);
+<span class="comment">// $verifySSL == 1 → valid, 0 → invalid, -1 → error</span></code></pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔏 HMAC-SHA512 (Untuk X-PARTNER-ID)</div>
+    <pre><code><span class="comment">// Membuat X-PARTNER-ID untuk setiap request:</span>
+$strToSign = $token . ":" . $timeStamp;
+$partnerID = base64_encode(hash_hmac("sha512", $strToSign, $aes_cs, true));
+
+<span class="comment">// Server memverifikasi:</span>
+$partner64 = base64_encode(hash_hmac("sha512", $strToSign, $GLOBALS['aes_cs'], true));
+if ($partner64 != $partnerID) → error "Partner ID invalid"</code></pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🆔 Client ID Encoding (Giosoft Custom)</div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:8px;">Client ID menggunakan encoding obfuskasi khusus. Fungsi decode: <code>Gio_DecryptDID()</code></p>
+    <pre><code><span class="comment">// Format terenkripsi: panjang tertentu dengan bagian-bagian tersebar</span>
+$col1 = 10*digit + ord(char)-64  <span class="comment">// posisi substring 1</span>
+$col2 = 100 + posisi substring 2
+$col3 = 100 + posisi substring 3
+$idd = substr($id,$col1,$len1).substr($id,$col2,$len2).substr($id,$col3,$len3);
+$decID = base64_decode($idd.$fix);  <span class="comment">// hasil: "prefix|clientID"</span>
+$clientID = explode("|", $decID)[1];</code></pre>
+  </div>
+</section>
+
+<!-- =========== TROUBLESHOOT =========== -->
+<section id="sec-troubleshoot" class="page-section">
+  <div class="section-title">🛠️ Troubleshooting</div>
+
+  <div class="card">
+    <div class="card-title">❌ Error: "could not find driver" / sqlsrv not found</div>
+    <pre><code><span class="comment"># Linux: Install driver ODBC dan PHP extension</span>
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev
+sudo pecl install sqlsrv pdo_sqlsrv
+echo "extension=sqlsrv.so" >> /etc/php/7.4/cli/php.ini
+echo "extension=pdo_sqlsrv.so" >> /etc/php/7.4/cli/php.ini</code></pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">❌ Error: 403 Forbidden / IP tidak dikenali</div>
+    <p style="font-size:.82rem;color:var(--muted);">Tambahkan IP server/client ke variabel whitelist di <code>.env</code>:</p>
+    <pre><code>GIO_WHITE_LIST=|103.66.86.234|&lt;IP_ANDA&gt;
+ATM_WHITE_LIST=|103.49.239.13|&lt;IP_ATM&gt;</code></pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">❌ Error: Storage permission denied</div>
+    <pre><code>chmod -R 775 storage/ bootstrap/cache/
+chown -R www-data:www-data storage/ bootstrap/cache/</code></pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">❌ Error: Database connection refused</div>
+    <ul style="font-size:.82rem;color:var(--muted);line-height:1.9;list-style:none;">
+      <li>✅ Pastikan SQL Server berjalan: <code>sudo systemctl status mssql-server</code></li>
+      <li>✅ Cek port 1433 tidak diblokir firewall</li>
+      <li>✅ Aktifkan SQL Server Authentication (bukan Windows-only)</li>
+      <li>✅ Enable TCP/IP di SQL Server Configuration Manager</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">❌ Error: apache_request_headers() tidak tersedia</div>
+    <p style="font-size:.82rem;color:var(--muted);">Fungsi <code>apache_request_headers()</code> hanya tersedia di Apache. Jika menggunakan Nginx/PHP-FPM, tambahkan fungsi wrapper di <code>bootstrap/app.php</code>:</p>
+    <pre><code>if (!function_exists('apache_request_headers')) {
+    function apache_request_headers() {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ','-',ucwords(strtolower(str_replace('_',' ',substr($name,5)))))] = $value;
+            }
+        }
+        return $headers;
+    }
+}</code></pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">❌ SNAP Signature Gagal (4017301)</div>
+    <ul style="font-size:.82rem;color:var(--muted);line-height:1.9;list-style:none;">
+      <li>✅ Pastikan public key RSA LPD tersimpan di path yang benar (<code>PUBLIC_KEY_LPD</code>)</li>
+      <li>✅ Pastikan format timestamp sama antara pengirim dan penerima</li>
+      <li>✅ Verifikasi IP server Giosoft ada di <code>GIO_WHITE_LIST</code></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function toggleEp(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// Auto-expand first endpoint in each section
+document.querySelectorAll('.ep-body').forEach((b, i) => {
+  if (i === 0) b.classList.add('open');
+});
+</script>
+</body>
+</html>

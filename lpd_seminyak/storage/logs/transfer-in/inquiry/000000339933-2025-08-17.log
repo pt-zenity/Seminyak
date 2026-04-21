@@ -1,0 +1,21 @@
+[2025-08-17 17:19:57] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/inquiry
+Content-type:application/json
+Authorization:Bearer
+X-TIMESTAMP:2025-08-17T17:16:32+08:00
+X-SIGNATURE:E3f5sKDtuo50yBS4Ix1aY+gsEyAfcdLtA+mrYElzyjR8LN4zFuFcUqPrgyaIB+j0yaCuf3BybtD5ORz1LGUmxA==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:000000339933
+CHANNEL-ID:92551
+DATA:
+{"additionalInfo":{"terminalType":"6011","terminalId":"S1ACMB95"},"amount":{"value":"100000.00","currency":"IDR"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911011037","inquiryRequestId":"000000339933","hashSourceAccountNo":"8c4ae7bc760ffdca3934366dd927ed74","sourceBankCode":"360003"}
+
+No. TUJUAN:
+9891911011037
+  
+[2025-08-17 17:19:57] local.INFO: 
+RESPONSE :
+{"responseCode":"4012400","responseMessage":"Invalid Partner signature"}
+
+  

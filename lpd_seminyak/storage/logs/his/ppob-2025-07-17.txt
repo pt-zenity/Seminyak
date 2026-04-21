@@ -1,0 +1,56 @@
+[2025-07-17 08:07:41] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-17 08:07:43
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:7xciW8Rp4E1k5QQqTgkWYxQKICLKRlnDHnmxuUq5kR8+D0TrPt62Yoba36ZB8UZOIizRKyS0PLWcz21/A5avTw==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"icAliCVvxxICNv731IVAHg==","customer_name":"ARDI","id_pelanggan":"Cx9n+Xb5is7XlLi6OZSpxQ==","product_type":"BPJS","product_code":"SpHjJ9yUQrzawYguWZKldw==","product_name":"BPJSKesehatan","amount":"0","method":"ecwT4EvnJIOfFFhhzyzyrg=="}
+
+  
+[2025-07-17 08:07:54] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-17 08:07:55
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:sPtRFfg6OGBiZuCNwg3s0JwNf2NKLJZwp07KVYsgGjXwL4A78GkZfLU2UruYUyuiQMFxmFMTPmZgdyTBqnA3Pg==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"icAliCVvxxICNv731IVAHg==","customer_name":"ARDI","id_pelanggan":"Cx9n+Xb5is7XlLi6OZSpxQ==","product_type":"BPJS","product_code":"SpHjJ9yUQrzawYguWZKldw==","product_name":"BPJSKesehatan","amount":"0","method":"ecwT4EvnJIOfFFhhzyzyrg=="}
+
+  
+[2025-07-17 12:15:26] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-17 12:15:27
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:UeJ2gj0DStDZTHTlHWnarso2v8qwoE4jyI18JmGzc6VUlOndPcYCgIfoR+DxFvRMMf8jWCGgEIPQ6obMOyENeQ==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"icAliCVvxxICNv731IVAHg==","customer_name":"ARDI","id_pelanggan":"Cx9n+Xb5is7XlLi6OZSpxQ==","product_type":"BPJS","product_code":"SpHjJ9yUQrzawYguWZKldw==","product_name":"BPJSKesehatan","amount":"0","method":"ecwT4EvnJIOfFFhhzyzyrg=="}
+
+  
+[2025-07-17 12:15:40] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-17 12:15:41
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:YfcCsyz6NifRyx7EDZKU+SWDPOe5SHZZIb4IqDJbEBLX+PwuyQlDUNwuMwNIafOXzXSxCZsedUd3BWQpjF1q2Q==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"icAliCVvxxICNv731IVAHg==","customer_name":"ARDI","id_pelanggan":"Cx9n+Xb5is7XlLi6OZSpxQ==","product_type":"BPJS","product_code":"SpHjJ9yUQrzawYguWZKldw==","product_name":"BPJSKesehatan","amount":"0","method":"ecwT4EvnJIOfFFhhzyzyrg=="}
+
+  

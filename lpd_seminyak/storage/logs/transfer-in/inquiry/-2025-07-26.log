@@ -1,0 +1,21 @@
+[2025-07-26 23:42:11] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/inquiry
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:
+X-SIGNATURE:
+X-PARTNER-ID:
+X-EXTERNAL-ID:
+CHANNEL-ID:
+DATA:
+
+
+No. TUJUAN:
+
+  
+[2025-07-26 23:42:11] local.INFO: 
+RESPONSE :
+{"responseCode":"4012400","responseMessage":"Invalid Partner signature"}
+
+  

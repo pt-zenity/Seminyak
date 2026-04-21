@@ -1,0 +1,42 @@
+[2025-08-01 09:57:26] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smartindo/transfer/lpd/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-08-01 09:57:28
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:9Pb1pJxEeIBbam/5NARnG0dri8zPWGEtaD2xtkutIuxNzv8b1OCpMqg92jiQ1I6lvSFm1o72uMogKj0kZyQYkg==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"account_no":"pqYH+tCQi0BOcjTUxY1XRg=="}
+
+  
+[2025-08-01 09:57:45] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smartindo/transfer/lpd/inquiry
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-08-01 09:57:48
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:O4wO1CPoXXixTOfEPXdXfX79Sm6QwIBupUVuj3y1jG3qnXENFTYwhSB6LJKjBz/y5jsfCG7Jbncxlw1GCiBZEg==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:SMY47570920250801-141
+DATA:
+{"to_acc":"pqYH+tCQi0BOcjTUxY1XRg==","to_name":"RUSMINIATININYOMAN","from_acc":"PUwvQx/rwhqpSuVL7E6FuQ==","from_name":"ARDI","amount":"jObFkr8DcqFT8AZRZShO9Q==","remark":""}
+
+  
+[2025-08-01 09:57:50] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smartindo/transfer/lpd/post
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-08-01 09:57:53
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:XPU+ybbk4vz/k2Hjmwp47FYcpgxjRE67AzlrGlG1b5NBqfCKomBZlb2MqDviAKi+BeeaEoS0MvciIObmXta58Q==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:SMY47570920250801-141
+DATA:
+{"to_acc":"pqYH+tCQi0BOcjTUxY1XRg==","to_name":"RUSMINIATININYOMAN","from_acc":"PUwvQx/rwhqpSuVL7E6FuQ==","from_name":"ARDI","amount":"jObFkr8DcqFT8AZRZShO9Q==","remark":""}
+
+  

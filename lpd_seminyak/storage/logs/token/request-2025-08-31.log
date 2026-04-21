@@ -1,0 +1,89 @@
+[2025-08-31 01:38:29] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-08-31T01:38:35+08:00
+X-SIGNATURE:YFpLkKS9HWQjRXiW7hixhwUwmx/B2G2xo14pjSdzmpfACAS8Da6FNhMkUPwW9GFt8kbCFw0W0E4rprDnsi3FyYEFKlrdwKBStaYEQSbwoQq8zn1/jD8l1GBNXkpLRgKjSjXrCaTrwAwRoT4mG7zlp8Ec/dE4vgHaqWcFvWhaZMFjbbYvZmbBkbVY7LJeiXKswMtxILJ2WRtNVirI9VdT33Irligqsc5w4nqmnAd0Vkz/4/LO5M3cd8MB/FITzz1sfFhAaclHhu1NSfX4JMbOIbp38LEbO5X3xyDMlZxWoAq9/MfXsAWsqlBdXQEbkAiagWR3JzwiLPs8vtVPxRRI6A==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-08-31 01:38:31] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-08-31 01:38:34] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-08-31T01:38:39+08:00
+X-SIGNATURE:merKffSs0OofuUBUPTE7fhF04E2RmmMybFsThSeGot2CNWVEHx0akjHvmdqnFiGw7SFSKIq5j1jSKNb+2ApUKVFVxLDAVlSRRPXrNQ3gCGfWOJV6JDas19XknR/dbAkztLz1vc88ylZI/WWY1Wgv3w37+qXAN9ggMZLNxdtM2Fa4fjTIuMGddMtK/ifvX74d113GpMUBny3PEiZg77dsYQwieFT2X48EurjeHzBg78gHrIvWTCuAUGmifYIIojLIIz1MK2HZ+tyjRGCCialbw810PbMlRtaUjOkMFAa7iEtPHUhpTPTMfZUhGGgB8w4k3+vqK8yfDUuQeMnqHfZg2w==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-08-31 01:38:35] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-08-31 01:38:36] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-08-31T01:38:41+08:00
+X-SIGNATURE:rdV+3vL/nHH+T8Qd4d8E04A3dosFu0QVo29bMxcTywQnf9I39X64eHLDfmqV+t6gUC98Db1MPeLwPmyRdEUHrgciTC6UD/vDVgEm1iKk9CsrQfUbd+UecLUDvsha6uUtEyI0RMBG2dCPVhYqerbDFEEeZJoPLXLB/igTqeIM0/b8gdEvzbcWRizRifLIUEGPxTbjo+c8fbBxPCkXvvkZc6IAAvbn+mnTyMT4Iv92jrYRjud+DPtpb3KjAhi2KJOTMqYxatntHIl4pm021e+1Xxrtgt7wH6xPb0OdixYIBy9VHfew+f56yUQ8jGMGFg7W3NiOefwsy5Sj/IBb7yccUw==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-08-31 01:38:37] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-08-31 01:38:40] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-08-31T01:38:46+08:00
+X-SIGNATURE:MrTz6F6Rk0BFTFLFU+ryBoRsThFv2qhNRkGbHQFMTQuPxFdZoq3pQfPkryb/cVeLaYAkGWY57yVpnKjIeGiuc6Ol3n2stcEj0lcta4LB8VX6WVW5hA+V5xu1Rtk7GXOywaBEAiTFXF3vD9HVBYj8W0YGAJhWbk3IX6AOpqJ4Vrt93N/0iJDs0BupmWRAWQjLJvVsuYBA1ABzMA0jk9Y5Vw0b3mGUc2MN8eC3YZVakdGP+BvEsT088n74iwNhGPKbETvqv9afZ5H8YdVIGSyJutUm1j2TivZbbA+I3aNNz3Z4LSapWWGQItALsUKIdAgOagZo8MC3EhkGrc6SPwOiqQ==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-08-31 01:38:41] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-08-31 15:28:53] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-08-31T15:28:58+08:00
+X-SIGNATURE:VOn5GdMENJlQOVJHsiudzKIwuQy8DLkwypH18lVKD67z+HBjniN089j3Ged/jeNggU9XS/WU2PS2EVIxWl620jD5LarwS91SonjnVfWM2uM93dxHU944WW6mfXrI2BP27jyzadZp4+QKMAs9EDuYW4SkXNl3zE66Pr5NtaZhvFhApv4wJ692hn/NyS7EL+Z9SRjoBvzi2/XCT0tGo0lcGv7DJUhiTBquWPmP+Wq4qR7knOfCRkI8pzP9Rn4tTKMWMirhCCCByiXpUfVCrQIOkbQE3JdmryoUyYWIA54kjp7pqCqlT/1dQCiUHLh0KLWPQAjgYqvIC4/e0ZgJBhxp7A==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-08-31 15:28:53] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-08-31 15:32:00] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-08-31T15:32:05+08:00
+X-SIGNATURE:s5j4eljNxQdqe0FDp0cidymaU4rlguQCBo+uhS27s/1JvD4EasQ9jpI0jQjFQ4s0EZsR82d8SwjGW2CcnEUHj8/Rlaz92LTSbkpNuv4seO9JrWlqHqRYfRMx/DSrs1WotDj1x0YBj20mZr/zp0V8wXU+JhKd/thuuC+UVuQ3EPlEZs6/EE9sAZxFR9FTco5vf9Tm+kISNdH6MMCJ7K7lCs3XOZsMaDh4WZwS5MxarQx1s/eb7zQM2uM6VRbZ8pDNF2YJ3JU7XSJSL8XJEyDaR5nFXgXfaj04/kmVL5jY5V0ShMkEqa0Zhut2SMZu+itu8hzfSdCfEYkgDrsuc4SkVw==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-08-31 15:32:30] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Controllers\\SNAPTokenTransferIn.php:85)
+[stacktrace]
+#0 {main}
+"} 

@@ -1,0 +1,204 @@
+[2025-07-29 03:24:32] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 02:24:41
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:cocptLn6t07Zv+oxls9wMYs96aSVaM955qCW0ftcSRX1cvYHFmvQCV0zdbi8QH0r5BTZDqwb0iv5YC+RU9Z6bA==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"wXg39Zc4L/Gqp6aCpR880A==","product_type":"GOPAY","product_code":"Zp9J3yrmJTMGhtJxYf2pXw==","product_name":"GOPAY250.000","amount":"0","method":"fcaRMHXJZSxCtl2jigHndQ=="}
+
+  
+[2025-07-29 03:54:59] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 02:55:08
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:ncQ17/taW5wZ1ZgofVKYG/W7ZPszlB9ORH4v1GhGSwzmyI8yOvBzISE/AOqHuY+g4WDRoD7xV3RqtUnXcNbseg==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"wXg39Zc4L/Gqp6aCpR880A==","product_type":"GOPAY","product_code":"WnTDw5wWaAU+6erIQOoF9Q==","product_name":"GOPAY100.000","amount":"0","method":"fcaRMHXJZSxCtl2jigHndQ=="}
+
+  
+[2025-07-29 03:55:19] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 02:55:28
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:GL2PXVMgQiafwDVLxmkmPOhQuTMChIxQsfBFCZiUX1etXSyYBfB86JZdEpi64FXOTCVXLfYZg6VdwfwQYGH5YA==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"wXg39Zc4L/Gqp6aCpR880A==","product_type":"GOPAY","product_code":"wvTF8f2IAixFTh/xMMe5EQ==","product_name":"GOPAY50.000","amount":"0","method":"fcaRMHXJZSxCtl2jigHndQ=="}
+
+  
+[2025-07-29 03:55:24] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 02:55:34
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:erxRO6KY6HIDPULV2JEtiApoNQpAcNiXSNqwjIDYzkc8Oz34PEh2867ngvgdT/dk1iA0cb/S5HtOT5//xpPiPA==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"wXg39Zc4L/Gqp6aCpR880A==","product_type":"GOPAY","product_code":"wvTF8f2IAixFTh/xMMe5EQ==","product_name":"GOPAY50.000","amount":"50000","method":"5E0v1i0k0cCVXP8DLvybzg=="}
+
+  
+[2025-07-29 03:55:25] local.ERROR: Call to undefined method App\Helpers\iosHelper::Gio_InsTransaksiPPOB() {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method App\\Helpers\\iosHelper::Gio_InsTransaksiPPOB() at C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Controllers\\iosPPOBController.php:158)
+[stacktrace]
+#0 [internal function]: App\\Http\\Controllers\\iosPPOBController->Request()
+#1 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)
+#2 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('Request', Array)
+#3 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(212): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\iosPPOBController), 'Request')
+#4 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(169): Illuminate\\Routing\\Route->runController()
+#5 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(658): Illuminate\\Routing\\Route->run()
+#6 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#7 C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Middleware\\iosAccessMdw.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#8 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): App\\Http\\Middleware\\iosAccessMdw->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#9 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#10 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(41): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#11 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#12 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(57): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 60, '1')
+#15 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#17 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(660): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(635): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(601): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(590): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(176): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(56): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#39 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#40 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#41 C:\\xampp\\htdocs\\lpd_seminyak\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#42 {main}
+"} 
+[2025-07-29 03:56:01] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 02:56:11
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:E3sciw3WBUEBcuPyv0JFCyk1Ooifmg+pzQ00gjfgqJlzryXV79W0GvDDEHokXxyov/zBLA4a6qoOhbRJaNb3kw==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"wXg39Zc4L/Gqp6aCpR880A==","product_type":"GOPAY","product_code":"wvTF8f2IAixFTh/xMMe5EQ==","product_name":"GOPAY50.000","amount":"0","method":"fcaRMHXJZSxCtl2jigHndQ=="}
+
+  
+[2025-07-29 03:56:06] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 02:56:16
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:Ug1P3WfOdn2GY6d2Uqs5Xljd5HeFCgNbQazfGx/0Do9GufDiZgeZeolAJpAToCoPc/TvYj3dcDQnI7UsflUNbw==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"wXg39Zc4L/Gqp6aCpR880A==","product_type":"GOPAY","product_code":"wvTF8f2IAixFTh/xMMe5EQ==","product_name":"GOPAY50.000","amount":"50000","method":"5E0v1i0k0cCVXP8DLvybzg=="}
+
+  
+[2025-07-29 03:56:07] local.ERROR: Call to undefined method App\Helpers\iosHelper::Gio_InsTransaksiPPOB() {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method App\\Helpers\\iosHelper::Gio_InsTransaksiPPOB() at C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Controllers\\iosPPOBController.php:158)
+[stacktrace]
+#0 [internal function]: App\\Http\\Controllers\\iosPPOBController->Request()
+#1 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)
+#2 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('Request', Array)
+#3 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(212): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\iosPPOBController), 'Request')
+#4 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(169): Illuminate\\Routing\\Route->runController()
+#5 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(658): Illuminate\\Routing\\Route->run()
+#6 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#7 C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Middleware\\iosAccessMdw.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#8 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): App\\Http\\Middleware\\iosAccessMdw->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#9 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#10 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(41): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#11 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#12 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(57): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 60, '1')
+#15 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#17 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(660): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(635): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(601): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(590): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(176): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(56): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#39 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#40 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#41 C:\\xampp\\htdocs\\lpd_seminyak\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#42 {main}
+"} 
+[2025-07-29 03:56:42] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 02:56:16
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:Ug1P3WfOdn2GY6d2Uqs5Xljd5HeFCgNbQazfGx/0Do9GufDiZgeZeolAJpAToCoPc/TvYj3dcDQnI7UsflUNbw==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"wXg39Zc4L/Gqp6aCpR880A==","product_type":"GOPAY","product_code":"wvTF8f2IAixFTh/xMMe5EQ==","product_name":"GOPAY450.000","amount":"500000","method":"5E0v1i0k0cCVXP8DLvybzg=="}
+
+  
+[2025-07-29 04:13:00] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/check
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-29 03:13:09
+X-SIGNATURE:Y2UyMGU0OWVjODQ1NmVlMjIxZTE2MzViMTQzMzdhYmEyMzNlYzM2MTE3MWEyYTIyY2I4M2RjMTc0YWQwMTE0MmY2ODlkZjA3OGIxMGQ5ODIxOGZjNGUwYjg4ODRjMTBlMjVmYWFjNWQ2NjRhZTljOTE4NGIxYmY5YzYyYzU0NDU=
+X-PARTNER-ID:iHR3twEMbLwwKy6kZsAYRkLzl9FV+est+VuWTIRkzdqtb5QA4wQvZkE8AVUVahfpoWfg+b0muS3kbc+5fiw9HA==
+X-CLIENT-ID:QVAzQS4yNDA5MDUuMDE1LkEy
+X-REFERENCE:
+DATA:
+{"customer_acc":"L2D8t5WmEuwmpg9jU/7BAw==","customer_name":"SUAMBAKETUTWARUNG","id_pelanggan":"4cly0tAJL7poAiJLydIx+g==","product_type":"PULSA-TSEL","product_code":"+OxEA+isXvVD8ni4Ghrd1A==","product_name":"TSEL100.000","amount":"0","method":"fcaRMHXJZSxCtl2jigHndQ=="}
+
+  

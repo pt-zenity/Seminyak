@@ -1,0 +1,21 @@
+[2025-08-26 12:25:30] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/inquiry
+Content-type:application/json
+Authorization:Bearer eyJ0cmFuc19ubyI6IjEyMTMzLTI1Mzc0LTQwMTM3LTk3ODcxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0yNlQxMjoyNTo0MCswODowMCJ9.KHZHdp347ZSFva0aUWib4c-pvVpEt99BlLElDJPxdX_KAHhHC99PzAwR5NwObLm6f8bzZ1l2dbQI13JdRnHKHymdqettSlZ5itLdzevEI4fRAy_fqcfe0nXFx53h344xiuf4yujDhDwdbk2ELrU6RGel7KziGS8QEF7JO3DNV5oWSOoYtzmKFaAvtddAXatd3ADM1EX24brZxEsTG3peEYRZ3TsbbB8aJMzB3so1CWVGVBK7ML56ZbESRlSLbVLxtCF-fQabeebPO5tVrHp1nqw7ZnZUKsvbHAfZFw2AIvmes4zRr9YZjxh3qEEyb3rXMNqkWc8ZU8fSOSMrrEXEyw
+X-TIMESTAMP:2025-08-26T12:21:46+08:00
+X-SIGNATURE:VgxQtzDmZFGhLWkBfxRkOhm/b9svBOemmVEtWTuwNq6dBKdCDs7hKiUEiOSCNo8c6YK84Niw9TW8khb9t1C3YQ==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:000000385077
+CHANNEL-ID:92551
+DATA:
+{"additionalInfo":{"terminalType":"6011","terminalId":"S1ACMB95"},"amount":{"value":"100000.00","currency":"IDR"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911001276","inquiryRequestId":"000000385077","hashSourceAccountNo":"8b154bdd8c7b985ae32864f4ad6257ec","sourceBankCode":"360003"}
+
+No. TUJUAN:
+9891911001276
+  
+[2025-08-26 12:25:30] local.INFO: 
+RESPONSE :
+{"responseCode":"2002400","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  989191","customerNo":"7559","virtualAccountNo":"  9891911001276","inquiryRequestId":"000000385077","virtualAccountName":"SUYADNYA I WAYAN"}}
+
+  

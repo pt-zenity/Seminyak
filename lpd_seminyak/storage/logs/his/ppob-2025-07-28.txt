@@ -1,0 +1,42 @@
+[2025-07-28 11:48:15] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-28 11:48:23
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:aFf1Bc4aH86TfEcb2iL31UdQECqMVDFaLGxYE1RVn/7GOv6c6UcMyVD1LWF14ONVd/ilX0ol/Y1yL00lEOKPHw==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"PUwvQx/rwhqpSuVL7E6FuQ==","customer_name":"ARDI","id_pelanggan":"mv6Lrs9kcLUSt2Z5bdsUEw==","product_type":"BPJS","product_code":"KnfQ76rNIfnfR6WptLIppg==","product_name":"BPJSKesehatan","amount":"0","method":"N1xL+7zgMkQ2SXcJ9aGK2Q=="}
+
+  
+[2025-07-28 12:35:26] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-28 12:35:34
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:G0GX2H+xYvS4J2saKsEOluYl3uaY3vb9YbR8wzRs3WG7P+0S5einJ7NRDHwYcF3qt74MiUJfxE2GUKXvBg6kNQ==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"PUwvQx/rwhqpSuVL7E6FuQ==","customer_name":"ARDI","id_pelanggan":"LQHgYNhsnUqrDGMgubVFpg==","product_type":"PLN-PASCA","product_code":"wSHNrMFKrQRc9EpfEJK8Aw==","product_name":"PLNPascabayar","amount":"0","method":"N1xL+7zgMkQ2SXcJ9aGK2Q=="}
+
+  
+[2025-07-28 12:35:41] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-28 12:35:48
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:C9YUZc+P2uM91mqK1Kms6RqsYYweTbP7Oul0bq5wrfmJPdjFHezw4rboMLEDjgwpboa1IpeEYoZws6yX+BouSw==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"PUwvQx/rwhqpSuVL7E6FuQ==","customer_name":"ARDI","id_pelanggan":"rZwN4s9qI8hKKqrfwzGnCQ==","product_type":"PLN-PASCA","product_code":"wSHNrMFKrQRc9EpfEJK8Aw==","product_name":"PLNPascabayar","amount":"0","method":"N1xL+7zgMkQ2SXcJ9aGK2Q=="}
+
+  

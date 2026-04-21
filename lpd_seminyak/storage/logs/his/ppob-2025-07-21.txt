@@ -1,0 +1,14 @@
+[2025-07-21 09:01:56] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/ppob/request
+Content-type:application/json
+Authorization:
+X-TIMESTAMP:2025-07-21 09:02:04
+X-SIGNATURE:NWZkOTFkZTI4M2JmM2U4NzgyNGY5NmJiNTRkNTM0ZTkwMTY0Yjk3NGY1YmI0ODM4ZTVmNzZjMDcwMWI4MWNlZGQyZjJmNzIyY2UzNDZhYmM1ZmI0ZmU5ZDFhZTBjMmNmMDkzNmQ0NjhjMTlhODU0YWQ2YzhiNDNjYTdmZDViMzQ=
+X-PARTNER-ID:Uc6iFuRBeJWh/el/RN08db8WUqoD2JxyYOL42NOBYvS1bXesTbgCG74rPOhgHS99kJSjZxNUjdxda5RuDZ2l/g==
+X-CLIENT-ID:QVEzQS4yNDA5MTIuMDAx
+X-REFERENCE:
+DATA:
+{"customer_acc":"icAliCVvxxICNv731IVAHg==","customer_name":"ARDI","id_pelanggan":"Cx9n+Xb5is7XlLi6OZSpxQ==","product_type":"BPJS","product_code":"SpHjJ9yUQrzawYguWZKldw==","product_name":"BPJSKesehatan","amount":"0","method":"ecwT4EvnJIOfFFhhzyzyrg=="}
+
+  

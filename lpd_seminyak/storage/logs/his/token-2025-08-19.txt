@@ -1,0 +1,11 @@
+[2025-08-19 23:51:20] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/token
+Content-type:application/json
+X-TIMESTAMP:2025-08-19 23:51:28
+X-CLIENT-ID:12.500845556
+X-SIGNATURE:bMKUJMNXEdJ3NMk8Ww6L+4F3XVM/guf2n260TD7ih3c9il5MRGt32M9l1E0lyGCExziD72mJPODCPChIGxnqf8Di7iiTfWRg5CCKQG5oCvYy39CdeG9j+CzlkrCV3JdHYzH9KwfxsKVG9XHqTU0GREv8xeqfayIeHtYUl9txUdeZeTWxlcB+pX4E00NKtrEclYjGOJr23itj84zZis2UfguBDmk4m03jJGkYkQqR/7c3tw/3DsmWiqZqkoRlDGFw2+H8Fd3oBpJTYNiFJfG8A/vwL91x0iGeg/uO6MPqqClKiB2+E+icJnuGy0/YEQZpb6t4gDWg6umNQYzLKGetLA==
+DATA:
+{"credential":"{get-token}"}
+
+  

@@ -1,0 +1,15 @@
+[2025-09-02 12:06:02] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-02T12:06:11+08:00
+X-SIGNATURE:Cg8Hz9HpW0Sj11dZKxmoWEaqNEeX18kxw+F3et5gDd4U83s9cyzER+6QZ/mwlwNX+UpY29RORXju73O4ffn92MjGDR3CXSA0kkCdxEQpW8W1lcu2UkVRlaypf73I3NaXggPZ0gGlAtUEZQs8ZRV3MR+dPWdduKq+ZZt+3G2hMdPzr+VECmRFz3R3L3OKhJRjsICyjg/JtiTSFkLPr38zL07MWLnDaGOesRMlwr+3bBvW04lWyLSXD+8kc7b5ESKpx0703vSdO0tZqdTEKeg/ZkPDbzjjluxvvjh8W2FP6hGcVOtPGyfwEAfktP9L5qYEwAu8as7YgYfEx2r+k+B4eA==
+X-CLIENT-KEY:VA-214
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-09-02 12:06:02] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  

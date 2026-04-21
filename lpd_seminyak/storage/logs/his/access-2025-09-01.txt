@@ -1,0 +1,710 @@
+[2025-09-01 00:49:51] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:52:31] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:52:36] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:53:03] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:55:39] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:55:41] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:55:43] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:55:45] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 00:56:00] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE2MTkyLTMxNzE4LTI0MTY0LTcxMzcwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQxNjozMToyNCswODowMCJ9.S70ltt14IVN1EQpfHKFR9dlqEJw86Ln0KP6lS0KGQa2MXeLI_x9KyLqc800lWVOHVteogO3A529Z7aRW-q2tQYGWrz0UJKXby4aNH64KNKPs4pj84Fy7RVqVUdtF6wSnZHddOn6YcbTYTjGpf8ZpaR2QdTkRif0tyuZijNBNKYVC12utnq3LzAcyONHw8ms69BGjETickr0Kdy84RqW1g_TDVqPaJI8KBK2WhXdEHedZFA0knRu6WmX28tYhCNiXDTbr0DtlNK2oGpXkxylHyX1ShjdCJ7Em_j268kBPM5HuzqLQ83CPn3Mj9au5X5_Oj_cV3VTOozqaB1vauCBA5w
+X-TIMESTAMP:2025-08-31 16:31:34
+X-SIGNATURE:ZDZlZDI3ZDIwMGU3YWQzODIyY2M4MDI3MDNmYWQ5NDdiYzhiNDc2ZmE2MDQ3ZjNlNGEwYWUyZDllM2MxNzNhMmMxODg0MmYxM2RkY2FlZTRmMjY3OWQ1OTI2Y2FlNjkwZTVjY2YxMGJhMzZiMzYxYzc5MGE0MjRlN2Y5N2RjMWE=
+X-PARTNER-ID:eOEIiCFjTBnQ+CGa0piEz+b6242KggpZH40aZMNsGe3jV5qRYT3Yh564mbGigVSPjhj8ExfPzifqQsbUIs6KzQ==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE0TFRNeElERTJPak14T2pNMDwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDgtMzEgMTY6MzE6MzQNalV0TURndE16RWdNVFk2TXpFNk16USghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T0Mwek1TQXhOam96TVRvek5IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 01:02:15] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjAxMTk5LTAyNDgwLTE3MTM4LTIyMjc5IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwMTowMjoxNyswODowMCJ9.mVE9JGRgerLkYbnIiGnuf9BDObHzTXBr26Wi7JuWtN_K1WkTQHGezTSqACuBozThEQzx56bTgUv1bNMNq-cpnDwhQzbXQk_7dd9N749rDqw0aCxbaHWsAxpmFJHyA_Z08ZbSHLdJdn2S9Eu0v1SIftNAUb1SCSo04I1BFa5k64qbzss430_n7_NSgWzXeixlvsRwXGmha6jfM_ls9UqhCTSBOlJH23EX9FojeusJoe5SZiAT5uwwKyba4AYOdayAdCJskKAPLPCzxAEtcRasnYm9pc-CDieecM6OSmZb3B5RDQzvsHSiUXyBYxuESnzGZ76hGEdOdlizgVd3oMkdgg
+X-TIMESTAMP:2025-09-01 00:02:22
+X-SIGNATURE:ZmJhNmU4MjAzNDU0OWRkNWI2YTUyMzIzMDlhMzRmNzFiMjdlZjJlYjc3NmM1NDcxZmFhYzM4MDAxNjJkZTFlMjUzOTBiNjI0MzU5ZWEyNzA2MjEyNTgxNzllNGJkNzc5ODAwNTJjMGJlYzk5OTJiMmZhNzI5ZGYyODEwMjI2YWI=
+X-PARTNER-ID:cp8i5A01F4RzT6gtg3/7I21mXFhO2UltdI/vJUHKM2EokWqTSkadRNBPh3squTIgdTld8TbSOVK2Z5XEZVH9fQ==
+X-CLIENT-ID:U01ZU2V6G3C7CWtVYO43ZkVGUU0wRXVNalF3T1RBMUxqQXhOUzVCTWk0ek1UQTRNakFU2VtaW55YWt8QVAzQS4yNDA5MQTVMVEF4SURBd09qQXlPakl5PCE+UVZBelFTNHlORDUuMDE1LkEyLjMxa0V5TGpNeE1EZ3lNREkxTWpBMMDgyMDI1MjA1MzQxfDIwMjUtMDktMDEgMDA6MDI6MjITURBNk1ESTZNakkoISlRMjl3ZVhKcFoyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F3TURvd01qb3lNbnhCVUROQkxqSTBNRGt3TlM0d01UVXVRVEl1TXpFd09ESXdNalV5TURVek5ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"b2f5ff47436671b6e533d8dc3614845d","user_pass":"b2f5ff47436671b6e533d8dc3614845d"}
+
+  
+[2025-09-01 01:05:07] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjAxOTExLTAzNzUzLTQ4OTM0LTE5NDg4IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwMTowMzo0OCswODowMCJ9.Xi-aBKVBatFs4vpq2znWsZX1MmJTawgXbG2ZmtyZoF5ooTOF3atZd7OUthgj8ARgESjo6Rm-Ar8qC_lFWG1TnTyvEs_FzLYwdmnB8iW2d8N6r4CUm7ERjlBKmUgX1PEMfpclKQWcTcPGkGdWUQQftSgHfN45eSYuk1R47aAcR-8hbz9pzm55OpW-cJ0crxxksQjK_xLYtOofc-zWuT3uVjv9qivl00ouZco-Y9Nd8bWHsQRELFBRQAcDenrRU67g9WcVwXWKRH7Rk6J2-nTqE4K0KQqMcKMiVyaM7QVprYwJP4U351cDzUijZ62hfqKEVvYPyPqIZre0PI-OR3VzwQ
+X-TIMESTAMP:2025-09-01 00:05:13
+X-SIGNATURE:YTJjYjVhODkwMTkwYWU0NjcyZmMxNDFlOWRhY2Y4NzU0Y2IxZjJmYjAzMjdkZjhmOTA3ZGM1MzFjNDM5MTJlOTQ2MjhlMTQwNzVlZTA0ZGU1NWU5OTc4NjkwMGQxZGI2NWM1MTBkNGVkYjNhMjRhYmQ5ODEyNTBiM2ZlZjY3ZTc=
+X-PARTNER-ID:6sSrWyu449sJgMEqJhxuuFAomMWXM6DTaytPWj6b8nru5d4X/H2RNEFs0Y/p0AlMM/C4XEE9ZdtfmTLKqL1Pzg==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M39ZkVGUk0wRXVNalF3T0RJNUxqQXdNeTR5TkRBNE1qQXlOVEU2VtaW55YWt8QVEzQS4yNDA4MjkXhJREF3T2pBMU9qRXo8IT5RVkV6UVM0eU5EQTRNuMDAzLjI0MDgyTBNRGd5TURJMU1EY3lNREk1ZkZOMDI1MDcyMDI5fDIwMjUtMDktMDEgMDA6MDU6MTMNRFU2TVRNKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBd01Eb3dOVG94TTN4QlVUTkJMakkwTURneU9TNHdNRE11TWpRd09ESXdNalV3TnpJd01qa1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 01:12:04] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjAxOTExLTAzNzUzLTQ4OTM0LTE5NDg4IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwMTowMzo0OCswODowMCJ9.Xi-aBKVBatFs4vpq2znWsZX1MmJTawgXbG2ZmtyZoF5ooTOF3atZd7OUthgj8ARgESjo6Rm-Ar8qC_lFWG1TnTyvEs_FzLYwdmnB8iW2d8N6r4CUm7ERjlBKmUgX1PEMfpclKQWcTcPGkGdWUQQftSgHfN45eSYuk1R47aAcR-8hbz9pzm55OpW-cJ0crxxksQjK_xLYtOofc-zWuT3uVjv9qivl00ouZco-Y9Nd8bWHsQRELFBRQAcDenrRU67g9WcVwXWKRH7Rk6J2-nTqE4K0KQqMcKMiVyaM7QVprYwJP4U351cDzUijZ62hfqKEVvYPyPqIZre0PI-OR3VzwQ
+X-TIMESTAMP:2025-09-01 00:05:13
+X-SIGNATURE:YTJjYjVhODkwMTkwYWU0NjcyZmMxNDFlOWRhY2Y4NzU0Y2IxZjJmYjAzMjdkZjhmOTA3ZGM1MzFjNDM5MTJlOTQ2MjhlMTQwNzVlZTA0ZGU1NWU5OTc4NjkwMGQxZGI2NWM1MTBkNGVkYjNhMjRhYmQ5ODEyNTBiM2ZlZjY3ZTc=
+X-PARTNER-ID:6sSrWyu449sJgMEqJhxuuFAomMWXM6DTaytPWj6b8nru5d4X/H2RNEFs0Y/p0AlMM/C4XEE9ZdtfmTLKqL1Pzg==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M39ZkVGUk0wRXVNalF3T0RJNUxqQXdNeTR5TkRBNE1qQXlOVEU2VtaW55YWt8QVEzQS4yNDA4MjkXhJREF3T2pBMU9qRXo8IT5RVkV6UVM0eU5EQTRNuMDAzLjI0MDgyTBNRGd5TURJMU1EY3lNREk1ZkZOMDI1MDcyMDI5fDIwMjUtMDktMDEgMDA6MDU6MTMNRFU2TVRNKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBd01Eb3dOVG94TTN4QlVUTkJMakkwTURneU9TNHdNRE11TWpRd09ESXdNalV3TnpJd01qa1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 01:12:22] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjAxOTExLTAzNzUzLTQ4OTM0LTE5NDg4IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwMTowMzo0OCswODowMCJ9.Xi-aBKVBatFs4vpq2znWsZX1MmJTawgXbG2ZmtyZoF5ooTOF3atZd7OUthgj8ARgESjo6Rm-Ar8qC_lFWG1TnTyvEs_FzLYwdmnB8iW2d8N6r4CUm7ERjlBKmUgX1PEMfpclKQWcTcPGkGdWUQQftSgHfN45eSYuk1R47aAcR-8hbz9pzm55OpW-cJ0crxxksQjK_xLYtOofc-zWuT3uVjv9qivl00ouZco-Y9Nd8bWHsQRELFBRQAcDenrRU67g9WcVwXWKRH7Rk6J2-nTqE4K0KQqMcKMiVyaM7QVprYwJP4U351cDzUijZ62hfqKEVvYPyPqIZre0PI-OR3VzwQ
+X-TIMESTAMP:2025-09-01 00:05:13
+X-SIGNATURE:YTJjYjVhODkwMTkwYWU0NjcyZmMxNDFlOWRhY2Y4NzU0Y2IxZjJmYjAzMjdkZjhmOTA3ZGM1MzFjNDM5MTJlOTQ2MjhlMTQwNzVlZTA0ZGU1NWU5OTc4NjkwMGQxZGI2NWM1MTBkNGVkYjNhMjRhYmQ5ODEyNTBiM2ZlZjY3ZTc=
+X-PARTNER-ID:6sSrWyu449sJgMEqJhxuuFAomMWXM6DTaytPWj6b8nru5d4X/H2RNEFs0Y/p0AlMM/C4XEE9ZdtfmTLKqL1Pzg==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M39ZkVGUk0wRXVNalF3T0RJNUxqQXdNeTR5TkRBNE1qQXlOVEU2VtaW55YWt8QVEzQS4yNDA4MjkXhJREF3T2pBMU9qRXo8IT5RVkV6UVM0eU5EQTRNuMDAzLjI0MDgyTBNRGd5TURJMU1EY3lNREk1ZkZOMDI1MDcyMDI5fDIwMjUtMDktMDEgMDA6MDU6MTMNRFU2TVRNKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBd01Eb3dOVG94TTN4QlVUTkJMakkwTURneU9TNHdNRE11TWpRd09ESXdNalV3TnpJd01qa1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 02:14:29] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjIyMTQ4LTA5MzY2LTAxMTU5LTEwNDAxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQyMjowOTowMSswODowMCJ9.bdZu4tkup-d3ptvzzMBeDWdmEbLGTrxCQKCsIRbLiaJz36Z4RRHtmSZR6GknCM3oTAaTDNv5DapGokgvt2pUnJC39IUxerOKfSJFa3VPb0Xo84k7pn4CaPOQy1kn2BoVyHOcSsqqfexYlbttEGrBpPB3t9rnXFFXBwb0Klu2zDfu30pWI4MO8gpLnkJIY2Zhl8geAio9L4ICtbrqd0qRUPPBntSr1PzKe-UxU68s-CqDR2n0WXa0OjAADtYx_y8r0eSIk4dIP8U0t8Iy2adyovZeBkDPALx89bIMs8tSfeI9IAuQPmPjFvt9vFxYKi9OYyQKt-tdwqLpOOQmyfVqXg
+X-TIMESTAMP:2025-09-01 01:14:35
+X-SIGNATURE:NDkyMjNlNWQxMjk2MzVjZTE0Mjk1YzlmOWY5MGI3YjA4ZWJjN2YyZjZhNTU0MGIxOWZiYWM0YmE5ZmUzNTg0YzcxOTljODViNjY4MzJkMWQ0YWY4MzU3ZmVmZDhkNGFlMDkzMjlhNmY2NmQ3ZTg1OWZlYTVjNTgxMDg5MzhmM2Q=
+X-PARTNER-ID:/vDqElHYlLlKGi2lEVmzUtv0KDyFFSzRiBA1FVAsSOAoAjGCqdwYOpo/jDmlHLsjnSmNacVblOgKrHpMjIZdAw==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkRVeVJEQTFPVVl4TFRJNVFqZ3RORU0zTmkxQ1JVRTFMVGhEU2VtaW55YWt8NTJEMDU5RjEESTFMVEE1TFRBeElEQXhPakUwT2pNMTwhPk5USkVNRFtMjlCOC00Qzc2LUJFQTUtOENBQjkZRVFV0T0VOQllERkEyNjNDfDIwMjUtMDktMDEgMDE6MTQ6MzUNalV0TURrdE1ERWdNREU2TVRRNk16VSghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T1Mwd01TQXdNVG94TkRvek5YdzFNa1F3TlRsR01TMHlPVUk0TFRSRE56WXRRa1ZCTlMwNFEwRkNPVVJHUVRJMk0wTVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"bc83c6a6ad100887435180816c3b8cca","user_pass":"e10adc3949ba59abbe56e057f20f883e"}
+
+  
+[2025-09-01 02:14:32] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjIyMTQ4LTA5MzY2LTAxMTU5LTEwNDAxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0zMVQyMjowOTowMSswODowMCJ9.bdZu4tkup-d3ptvzzMBeDWdmEbLGTrxCQKCsIRbLiaJz36Z4RRHtmSZR6GknCM3oTAaTDNv5DapGokgvt2pUnJC39IUxerOKfSJFa3VPb0Xo84k7pn4CaPOQy1kn2BoVyHOcSsqqfexYlbttEGrBpPB3t9rnXFFXBwb0Klu2zDfu30pWI4MO8gpLnkJIY2Zhl8geAio9L4ICtbrqd0qRUPPBntSr1PzKe-UxU68s-CqDR2n0WXa0OjAADtYx_y8r0eSIk4dIP8U0t8Iy2adyovZeBkDPALx89bIMs8tSfeI9IAuQPmPjFvt9vFxYKi9OYyQKt-tdwqLpOOQmyfVqXg
+X-TIMESTAMP:2025-09-01 01:14:39
+X-SIGNATURE:NDkyMjNlNWQxMjk2MzVjZTE0Mjk1YzlmOWY5MGI3YjA4ZWJjN2YyZjZhNTU0MGIxOWZiYWM0YmE5ZmUzNTg0YzcxOTljODViNjY4MzJkMWQ0YWY4MzU3ZmVmZDhkNGFlMDkzMjlhNmY2NmQ3ZTg1OWZlYTVjNTgxMDg5MzhmM2Q=
+X-PARTNER-ID:5bclZawxNsztKVOz0wOArspI7i2DOzbcsWbAIIAIIN0OcvYTiMFObyvLLxMQ5O+DLxV3z6kY3Al874tQWAlLfw==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkRVeVJEQTFPVVl4TFRJNVFqZ3RORU0zTmkxQ1JVRTFMVGhEU2VtaW55YWt8NTJEMDU5RjEESTFMVEE1TFRBeElEQXhPakUwT2pNNTwhPk5USkVNRFtMjlCOC00Qzc2LUJFQTUtOENBQjkZRVFV0T0VOQllERkEyNjNDfDIwMjUtMDktMDEgMDE6MTQ6MzkNalV0TURrdE1ERWdNREU2TVRRNk16ayghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T1Mwd01TQXdNVG94TkRvek9YdzFNa1F3TlRsR01TMHlPVUk0TFRSRE56WXRRa1ZCTlMwNFEwRkNPVVJHUVRJMk0wTVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"bc83c6a6ad100887435180816c3b8cca","user_pass":"e10adc3949ba59abbe56e057f20f883e"}
+
+  
+[2025-09-01 08:33:52] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjA4NjU3LTMzNzM2LTQ4MTk3LTI3MTk2IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwODozMzo0OCswODowMCJ9.fmQMz3nfd8GHbNCLCbtc98jv5n5Tfro2uL8gAzrqen3a76o0zNtAQgdYSHmVLN5AwJ-wq_RO2KBjolTjQa0XIiYPosGB9UZZ4idyFbwQbK8XRluE1Cga_vyVA_w_wzm3rsHanIaqNQinFjvTxUwc61Z6amZA9t9nl8qbT4iI3RivvhmG6JuzcPhT3wyesslPRNC9d7_UdFjLMKt0MQ45Tk4wFgrd1LDV5nwtFplIOxroNtU-QBI6syhFmfqOGPRCJ_lbL9cdaFN28wyNkhq6DMnlCrlANkpCnWLdgamkBM-r5bxIvDrhnACCgbMJiPMjYl7zAL8odvt16Bat2DYKQQ
+X-TIMESTAMP:2025-09-01 08:34:00
+X-SIGNATURE:NjVlODhiZDIxMWM1YWZlYzdjZTBhMzkwNDc3Mjc3NWEzYjRhMjgwYjhiY2EzMjI1MTg1MTRiZGViNmEwMjhlMGRjNzM0MzdkMjI0NDIyZDgwY2QyMmY4NGFhMmY2ZDNiMzEwZmM3YmQzM2I0ZWYxNGI5NzFiZTgwM2E4ZmI4NzE=
+X-PARTNER-ID:NNrJY+pBE7mhYWpZrbBLvF5o6AS4oo9Kk1GGqrothV6jgxELyoDoA+25egdw89R8u1MYe1XunCsMVjQL2kuoLg==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K39ZkVGUU0wRXVNalF3TmpFM0xqQXdPQzR5TVRBNE1qQXlOVU2VtaW55YWt8QVAzQS4yNDA2MTcuMhJREE0T2pNME9qQXc8IT5RVkF6UVM0eU5EQTJDA4LjIxMDgyxqSXhNRGd5TURJMU1URTFOREEyZkZMDI1MTE1NDA2fDIwMjUtMDktMDEgMDg6MzQ6MDAZNelE2TURBKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBd09Eb3pORG93TUh4QlVETkJMakkwTURZeE55NHdNRGd1TWpFd09ESXdNalV4TVRVME1EWVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"bc83c6a6ad100887435180816c3b8cca","user_pass":"e10adc3949ba59abbe56e057f20f883e"}
+
+  
+[2025-09-01 08:34:44] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjA4NjU3LTMzNzM2LTQ4MTk3LTI3MTk2IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwODozMzo0OCswODowMCJ9.fmQMz3nfd8GHbNCLCbtc98jv5n5Tfro2uL8gAzrqen3a76o0zNtAQgdYSHmVLN5AwJ-wq_RO2KBjolTjQa0XIiYPosGB9UZZ4idyFbwQbK8XRluE1Cga_vyVA_w_wzm3rsHanIaqNQinFjvTxUwc61Z6amZA9t9nl8qbT4iI3RivvhmG6JuzcPhT3wyesslPRNC9d7_UdFjLMKt0MQ45Tk4wFgrd1LDV5nwtFplIOxroNtU-QBI6syhFmfqOGPRCJ_lbL9cdaFN28wyNkhq6DMnlCrlANkpCnWLdgamkBM-r5bxIvDrhnACCgbMJiPMjYl7zAL8odvt16Bat2DYKQQ
+X-TIMESTAMP:2025-09-01 08:34:51
+X-SIGNATURE:NjVlODhiZDIxMWM1YWZlYzdjZTBhMzkwNDc3Mjc3NWEzYjRhMjgwYjhiY2EzMjI1MTg1MTRiZGViNmEwMjhlMGRjNzM0MzdkMjI0NDIyZDgwY2QyMmY4NGFhMmY2ZDNiMzEwZmM3YmQzM2I0ZWYxNGI5NzFiZTgwM2E4ZmI4NzE=
+X-PARTNER-ID:N6oKk5w5YYcZjqpyJoanr3+NSe2lF2PRCbLrzrIt2/9tAJolSoZVjHdC2hevxvWZhvV0kVoIyynTnu9VRP99Kg==
+X-CLIENT-ID:U01ZU2V6I3E7EWtVUS39ZkVGUU0wRXVNalF3TmpFM0xqQXdPQzR5TVRBNE1qQXlOVEV4TU2VtaW55YWt8QVAzQS4yNxUQXhJREE0T2pNME9qVXg8IT5RVkF6UVM0eU5EQTJNVGNDA2MTcuMDA4LjIxMDgyRJMU1URTFOREEyZkZObGJMDI1MTE1NDA2fDIwMjUtMDktMDEgMDg6MzQ6NTEE2TlRFKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBd09Eb3pORG8xTVh4QlVETkJMakkwTURZeE55NHdNRGd1TWpFd09ESXdNalV4TVRVME1EWVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 09:05:22] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjA5MjE0LTA1Njk1LTI4MTUyLTgwOTcxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwOTowNToyOCswODowMCJ9.mL3zOTM9yVUkV5HYQvq1YWgzJt9dfR1MJxSolr3STdBgunaHqYXote2WB3S-8YybW55rhdsWgZV6UzzhR58wajqcGLO6vL9qXdVYKcRyLD1bNxVwvpF_pO-PspXIFoAU9G9X5H_w9gjqzjrZTujlbmvTkNT2zk9uke6tX7Z7Clx2viL9OQXufH2177xp5pbB8kW44JzQnsgPlBL-OmGHcbWbkNFtwDvK6adfzodeR-A_sstGzAIuukkl8cu1t_wNcJFNiuj0_EBC30j_mwHEscW3ac8r7QlJXoJQjRSUntHI_z9ZavNNgLcFAIyq7wINa4SOVW7KMWUC2C8Qkk-50Q
+X-TIMESTAMP:2025-09-01 09:05:29
+X-SIGNATURE:ZmJlZmQ2MTMwNGY4YjFjZDMxYmY1NGQ5Y2JkOWNlMDIwMWJmMTJmMTEyZTAyODk1YzM2NmU4ZTY4Y2Y3ZTQ0ZTJjNjA0NmI1NWQzY2Q0NGNlMWFmZmNlYTY5MjFhZWM5YTJhNGYzNTAxZjZjMTY5YjcwODkxYTYxM2EwYjkwMWI=
+X-PARTNER-ID:sd22yiqLWonZcAT1MQwDUaLA3yAhh3uFhPecYLFhpMsv0bXjhOnDAqC30nBvDZlkdG9sX4hPSyuzMC3E8dnv2w==
+X-CLIENT-ID:U01ZU2V6G3C7CWtVYO19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEFU2VtaW55YWt8QVEzQS4yNDA5MelFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmRTIuMDAxfDIwMjUtREVnTURrNk1EVTZNamsoISlRMMDktMDEgMDk6MDU6MjkSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F3T1Rvd05Ub3lPWHhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"0264391c340e4d3cbba430cee7836eaf","user_pass":"82ad80c4235643f1fcff338e131850b4"}
+
+  
+[2025-09-01 09:05:59] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/iak/request
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjA5MjE0LTA1Njk1LTI4MTUyLTgwOTcxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwOTowNToyOCswODowMCJ9.mL3zOTM9yVUkV5HYQvq1YWgzJt9dfR1MJxSolr3STdBgunaHqYXote2WB3S-8YybW55rhdsWgZV6UzzhR58wajqcGLO6vL9qXdVYKcRyLD1bNxVwvpF_pO-PspXIFoAU9G9X5H_w9gjqzjrZTujlbmvTkNT2zk9uke6tX7Z7Clx2viL9OQXufH2177xp5pbB8kW44JzQnsgPlBL-OmGHcbWbkNFtwDvK6adfzodeR-A_sstGzAIuukkl8cu1t_wNcJFNiuj0_EBC30j_mwHEscW3ac8r7QlJXoJQjRSUntHI_z9ZavNNgLcFAIyq7wINa4SOVW7KMWUC2C8Qkk-50Q
+X-TIMESTAMP:2025-09-01 09:06:07
+X-SIGNATURE:ZmJlZmQ2MTMwNGY4YjFjZDMxYmY1NGQ5Y2JkOWNlMDIwMWJmMTJmMTEyZTAyODk1YzM2NmU4ZTY4Y2Y3ZTQ0ZTJjNjA0NmI1NWQzY2Q0NGNlMWFmZmNlYTY5MjFhZWM5YTJhNGYzNTAxZjZjMTY5YjcwODkxYTYxM2EwYjkwMWI=
+X-PARTNER-ID:Cjh0lvvPKmuIbYIXlElcEITs0vHx/nuaexsdK7g5Sm1XHtkgiRHCTTmci/UPya7WDHMu/2XLudieFP8GSvTSbg==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVU2VtaW55YWt8QVEzQS4yNDA5MTIuMFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJDAxfDIwMjUt1Ea3RNREVnTURrNk1EWTZNRGMoISlMDktMDEgMDk6MDY6MDctwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F3T1Rvd05qb3dOM3hCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:SMY07060942O182012509
+DATA:
+{"customer_acc":"Hp12+dps4nLnZuLi29rTlg==","customer_name":"l358EDYAE/IcPUUnzqzBJg==","id_pelanggan":"UGZPvvKlc7fmKghWxZlT1g==","product_type":"/A3dWBv2MZmrFU7ER8uzi53kYO/950ssXnGIy88lGMK1EPZERVw7ZLKjoe8BAINvNgJv9t8aJcBRjEfcqoRUyKNdlvzBIlYYsbk4OXMT/jo=","product_code":"GXMdsg545GyVSgPQRY5izg==","product_name":"BPJSKesehatan","amount":"0","method":"lUL7rj9FOQ8qbnmnzbjiMQ=="}
+
+  
+[2025-09-01 09:05:59] local.ERROR: Undefined offset: 1 {"exception":"[object] (ErrorException(code: 0): Undefined offset: 1 at C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Controllers\\iosPPOBIAKController.php:101)
+[stacktrace]
+#0 C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Controllers\\iosPPOBIAKController.php(101): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined offse...', 'C:\\\\xampp\\\\htdocs...', 101, Array)
+#1 [internal function]: App\\Http\\Controllers\\iosPPOBIAKController->Request()
+#2 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)
+#3 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('Request', Array)
+#4 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(212): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\iosPPOBIAKController), 'Request')
+#5 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(169): Illuminate\\Routing\\Route->runController()
+#6 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(658): Illuminate\\Routing\\Route->run()
+#7 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#8 C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Middleware\\iosAccessMdw.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): App\\Http\\Middleware\\iosAccessMdw->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(41): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#13 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(57): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#15 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 60, '1')
+#16 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(660): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#19 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(635): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#20 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(601): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#21 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(590): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#22 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(176): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(56): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#25 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#28 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#31 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#34 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#41 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#42 C:\\xampp\\htdocs\\lpd_seminyak\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#43 {main}
+"} 
+[2025-09-01 09:06:04] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/iak/request
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjA5MjE0LTA1Njk1LTI4MTUyLTgwOTcxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwOTowNToyOCswODowMCJ9.mL3zOTM9yVUkV5HYQvq1YWgzJt9dfR1MJxSolr3STdBgunaHqYXote2WB3S-8YybW55rhdsWgZV6UzzhR58wajqcGLO6vL9qXdVYKcRyLD1bNxVwvpF_pO-PspXIFoAU9G9X5H_w9gjqzjrZTujlbmvTkNT2zk9uke6tX7Z7Clx2viL9OQXufH2177xp5pbB8kW44JzQnsgPlBL-OmGHcbWbkNFtwDvK6adfzodeR-A_sstGzAIuukkl8cu1t_wNcJFNiuj0_EBC30j_mwHEscW3ac8r7QlJXoJQjRSUntHI_z9ZavNNgLcFAIyq7wINa4SOVW7KMWUC2C8Qkk-50Q
+X-TIMESTAMP:2025-09-01 09:06:12
+X-SIGNATURE:ZmJlZmQ2MTMwNGY4YjFjZDMxYmY1NGQ5Y2JkOWNlMDIwMWJmMTJmMTEyZTAyODk1YzM2NmU4ZTY4Y2Y3ZTQ0ZTJjNjA0NmI1NWQzY2Q0NGNlMWFmZmNlYTY5MjFhZWM5YTJhNGYzNTAxZjZjMTY5YjcwODkxYTYxM2EwYjkwMWI=
+X-PARTNER-ID:AtO9SRyV4ysYDlEV/E43YxQDyTMZdym2QnZ6BKIVgDGqIxBeT7kzUtPKbNhN8VeaVrO38ceL14CphM5eu8EgMw==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEU2VtaW55YWt8QVEzQS4yNDA5MTIlFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmuMDAxfDIwMjUt3RNREVnTURrNk1EWTZNVEkoISlRMDktMDEgMDk6MDY6MTIwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F3T1Rvd05qb3hNbnhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:SMY11060942O975012509
+DATA:
+{"customer_acc":"Hp12+dps4nLnZuLi29rTlg==","customer_name":"l358EDYAE/IcPUUnzqzBJg==","id_pelanggan":"UGZPvvKlc7fmKghWxZlT1g==","product_type":"/A3dWBv2MZmrFU7ER8uzi53kYO/950ssXnGIy88lGMK1EPZERVw7ZLKjoe8BAINvNgJv9t8aJcBRjEfcqoRUyKNdlvzBIlYYsbk4OXMT/jo=","product_code":"GXMdsg545GyVSgPQRY5izg==","product_name":"BPJSKesehatan","amount":"0","method":"lUL7rj9FOQ8qbnmnzbjiMQ=="}
+
+  
+[2025-09-01 09:06:04] local.ERROR: Undefined offset: 1 {"exception":"[object] (ErrorException(code: 0): Undefined offset: 1 at C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Controllers\\iosPPOBIAKController.php:101)
+[stacktrace]
+#0 C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Controllers\\iosPPOBIAKController.php(101): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined offse...', 'C:\\\\xampp\\\\htdocs...', 101, Array)
+#1 [internal function]: App\\Http\\Controllers\\iosPPOBIAKController->Request()
+#2 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)
+#3 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('Request', Array)
+#4 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(212): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\iosPPOBIAKController), 'Request')
+#5 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(169): Illuminate\\Routing\\Route->runController()
+#6 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(658): Illuminate\\Routing\\Route->run()
+#7 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#8 C:\\xampp\\htdocs\\lpd_seminyak\\app\\Http\\Middleware\\iosAccessMdw.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#9 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): App\\Http\\Middleware\\iosAccessMdw->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(41): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#13 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(57): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#15 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 60, '1')
+#16 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(660): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#19 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(635): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#20 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(601): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#21 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(590): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#22 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(176): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#23 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#24 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\fideloper\\proxy\\src\\TrustProxies.php(56): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#25 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#28 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#31 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#34 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode.php(46): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(149): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#41 C:\\xampp\\htdocs\\lpd_seminyak\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#42 C:\\xampp\\htdocs\\lpd_seminyak\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#43 {main}
+"} 
+[2025-09-01 09:09:05] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjA5MjE0LTA1Njk1LTI4MTUyLTgwOTcxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQwOTowNToyOCswODowMCJ9.mL3zOTM9yVUkV5HYQvq1YWgzJt9dfR1MJxSolr3STdBgunaHqYXote2WB3S-8YybW55rhdsWgZV6UzzhR58wajqcGLO6vL9qXdVYKcRyLD1bNxVwvpF_pO-PspXIFoAU9G9X5H_w9gjqzjrZTujlbmvTkNT2zk9uke6tX7Z7Clx2viL9OQXufH2177xp5pbB8kW44JzQnsgPlBL-OmGHcbWbkNFtwDvK6adfzodeR-A_sstGzAIuukkl8cu1t_wNcJFNiuj0_EBC30j_mwHEscW3ac8r7QlJXoJQjRSUntHI_z9ZavNNgLcFAIyq7wINa4SOVW7KMWUC2C8Qkk-50Q
+X-TIMESTAMP:2025-09-01 09:09:12
+X-SIGNATURE:ZmJlZmQ2MTMwNGY4YjFjZDMxYmY1NGQ5Y2JkOWNlMDIwMWJmMTJmMTEyZTAyODk1YzM2NmU4ZTY4Y2Y3ZTQ0ZTJjNjA0NmI1NWQzY2Q0NGNlMWFmZmNlYTY5MjFhZWM5YTJhNGYzNTAxZjZjMTY5YjcwODkxYTYxM2EwYjkwMWI=
+X-PARTNER-ID:WaU9+HK40o8S75gA7awevw/k/N2rPBqj3/VDq1S+cjv07tsgiwO7p2rXTdr8PAI6QSEiPe1xDY8dTWhOxCi8tA==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEU2VtaW55YWt8QVEzQS4yNDA5MTIlFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmuMDAxfDIwMjUt3RNREVnTURrNk1EazZNVEkoISlRMDktMDEgMDk6MDk6MTIwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F3T1Rvd09Ub3hNbnhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 10:30:05] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjEwMTM4LTMwOTQ4LTAyNjQyLTg4NDUxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMDozMDowMiswODowMCJ9.FvNDMuqrMapGVuxQNr8SECaZPRAjHCe9jtDbGxuNig_luA7En72DGkgNhCnm_hBZ7t8PktbpnK5Wo9WNtYRoLN_kJZsj9UHMRRhn-9gExWWtN5s07FsrAPYBFBaPIDKBUodfpI-6VDRJRPXsOeBmYhFAVwvexCjVhj1NdnN0bu9TF7pFbyP4VYb_qvw2G0Xc1hXEH_2a8QUIcQYVw1agdTTznhAMbpnPTPh06KYs1dfTiK2naGUoAPTqRok5P8qAV8aLWgSq4yCvyOCRfIIuypv31PEdyKIsOzjbcd79iUB0AcnujJ-aE5ekL_UjDOIxxbX6NRv_Vz-qEb3VNo9J_Q
+X-TIMESTAMP:2025-09-01 10:30:13
+X-SIGNATURE:YjE2NzM1OTExYzk4YmE5MmU2ZjM5NDUwODg0ZDIxMTA2YzRlMzk4ZGRhNjFlNzViNmI2NGZiZGY3MzE2ZGZiN2Y5YWM0MzJiMmE5YmQ4ZThjMDk3YzRhYTU5ZDkwOWJlNjU2MTdiYmE1NGEwZTc3NzJkOWM3ZDFiNzdmYmFhMDE=
+X-PARTNER-ID:Vpi30yIqfNrKGxNLLQ6gdoBdSEhk9AhjjvYG4HteeebgAQAhvDw98LeMghR2MEfxbh7ZFwY++SVLu5bKT2iAwA==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEU2VtaW55YWt8QVEzQS4yNDA5MTIlFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmuMDAxfDIwMjUt3RNREVnTVRBNk16QTZNVE0oISlRMDktMDEgMTA6MzA6MTMwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TURvek1Eb3hNM3hCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"0264391c340e4d3cbba430cee7836eaf","user_pass":"82ad80c4235643f1fcff338e131850b4"}
+
+  
+[2025-09-01 10:33:03] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjEwMTM4LTMwOTQ4LTAyNjQyLTg4NDUxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMDozMDowMiswODowMCJ9.FvNDMuqrMapGVuxQNr8SECaZPRAjHCe9jtDbGxuNig_luA7En72DGkgNhCnm_hBZ7t8PktbpnK5Wo9WNtYRoLN_kJZsj9UHMRRhn-9gExWWtN5s07FsrAPYBFBaPIDKBUodfpI-6VDRJRPXsOeBmYhFAVwvexCjVhj1NdnN0bu9TF7pFbyP4VYb_qvw2G0Xc1hXEH_2a8QUIcQYVw1agdTTznhAMbpnPTPh06KYs1dfTiK2naGUoAPTqRok5P8qAV8aLWgSq4yCvyOCRfIIuypv31PEdyKIsOzjbcd79iUB0AcnujJ-aE5ekL_UjDOIxxbX6NRv_Vz-qEb3VNo9J_Q
+X-TIMESTAMP:2025-09-01 10:33:10
+X-SIGNATURE:YjE2NzM1OTExYzk4YmE5MmU2ZjM5NDUwODg0ZDIxMTA2YzRlMzk4ZGRhNjFlNzViNmI2NGZiZGY3MzE2ZGZiN2Y5YWM0MzJiMmE5YmQ4ZThjMDk3YzRhYTU5ZDkwOWJlNjU2MTdiYmE1NGEwZTc3NzJkOWM3ZDFiNzdmYmFhMDE=
+X-PARTNER-ID:l4zSQDpMLNQwmvROJSGy9okRJ593FTLItuJToCC7ZCIq6Gk2lT4ffWdTLO701Jjh+XzxJ9+OqHjG/Sbk5kRV3Q==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVU2VtaW55YWt8QVEzQS4yNDA5MTIuMFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJDAxfDIwMjUt1Ea3RNREVnTVRBNk16TTZNVEEoISlMDktMDEgMTA6MzM6MTAtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TURvek16b3hNSHhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 10:33:04] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjEwMTM4LTMwOTQ4LTAyNjQyLTg4NDUxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMDozMDowMiswODowMCJ9.FvNDMuqrMapGVuxQNr8SECaZPRAjHCe9jtDbGxuNig_luA7En72DGkgNhCnm_hBZ7t8PktbpnK5Wo9WNtYRoLN_kJZsj9UHMRRhn-9gExWWtN5s07FsrAPYBFBaPIDKBUodfpI-6VDRJRPXsOeBmYhFAVwvexCjVhj1NdnN0bu9TF7pFbyP4VYb_qvw2G0Xc1hXEH_2a8QUIcQYVw1agdTTznhAMbpnPTPh06KYs1dfTiK2naGUoAPTqRok5P8qAV8aLWgSq4yCvyOCRfIIuypv31PEdyKIsOzjbcd79iUB0AcnujJ-aE5ekL_UjDOIxxbX6NRv_Vz-qEb3VNo9J_Q
+X-TIMESTAMP:2025-09-01 10:33:12
+X-SIGNATURE:YjE2NzM1OTExYzk4YmE5MmU2ZjM5NDUwODg0ZDIxMTA2YzRlMzk4ZGRhNjFlNzViNmI2NGZiZGY3MzE2ZGZiN2Y5YWM0MzJiMmE5YmQ4ZThjMDk3YzRhYTU5ZDkwOWJlNjU2MTdiYmE1NGEwZTc3NzJkOWM3ZDFiNzdmYmFhMDE=
+X-PARTNER-ID:7qsDYw0rZQnscTQxO4dcs3Z8IrqaCmQ0a0tZzh9MOxIluJRVGNmO/Q7wlZvG33acBHxEuXcd95jNy+tAH40jBw==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEU2VtaW55YWt8QVEzQS4yNDA5MTIlFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmuMDAxfDIwMjUt3RNREVnTVRBNk16TTZNVEkoISlRMDktMDEgMTA6MzM6MTIwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TURvek16b3hNbnhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 11:06:34] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjExMTg5LTA2NzU3LTM1MTQzLTM4NTY0IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMTowNjozNSswODowMCJ9.HyBpqUjiMRAcrR6tXy_D5lJhCofjmil0H1eGXvAeRYZ0EDDT7KFxvJZC4Nh0tv-b1S138ttw2O2QJZLDzYPB68xgdk_sbZKKviGhUhM2l6iGIS13tSofnG1nqDRNUNeXfynecWKLZLDfxvbROZsYWDkEPCAqw9a7_bR4ej0SyP1MPHkCEIkOG53QPlazEm76EgSSKA3F0J0ysZRqa1_hfFHeeEeXCIDY0GJZHP5_RXK8Ei57NaZAApNBQoCnKK_hMDGBFLA3Bxp1pTgZX8yFVHcX7_uXTOWk7Tf0dxV3wutFLr0e3TuFPzihOJSpfWwKw2T1FKCQ3IfrgczK4t13zQ
+X-TIMESTAMP:2025-09-01 11:06:40
+X-SIGNATURE:MmFmOGZjYTZjYzAwN2JlZWEyY2JiYTc5YTI3NjNlZWRjNjFlMmZlNThlY2RkMTU3NmZkZGZlZTMxNjkxMDc1MzEyY2NlNzVmYjQ1YmUxM2QwMmJkNTdiODdkNjFkMmUyYTUwMzI3MGVhYzI2YmUwNzk2NTljYWIyNDQ1ZGNhMmM=
+X-PARTNER-ID:4450iSNRM8jNuAvmoDB73Sp9wo+LBkfWIwfzeSloVKsBh6ZfjYsVyJ6dTWAUWnbIsRn1LEl+Xdcpy4zt5Wtv7g==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkVRNFJqTTFPVEUzTFRsQ056VXRORVpET0MxQ09Ea3lMVVkxU2VtaW55YWt8RDhGMzU5MTcESTFMVEE1TFRBeElERXhPakEyT2pRdzwhPlJEaEdNeltOUI3NS00RkM4LUI4OTItRjU3RjTRPVEl0UmpVM1c0QzY0Q0E4fDIwMjUtMDktMDEgMTE6MDY6NDANalV0TURrdE1ERWdNVEU2TURZNk5EQSghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T1Mwd01TQXhNVG93TmpvME1IeEVPRVl6TlRreE55MDVRamMxTFRSR1F6Z3RRamc1TWkxR05UZEdOelJETmpSRFFUZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"5882985c8b1e2dce2763072d56a1d6e5","user_pass":"71f55003c9a36b40c4a094908f11fb77"}
+
+  
+[2025-09-01 11:23:50] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjExNjE1LTIzMTE2LTAyMTY2LTU1NjUyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMToyMzowMiswODowMCJ9.Z4C1GXbEghxH3TYtqi-eEpU--KwzkzsY9osqNcOnSKqkwXcxHQ_eChTRiNkz8FXJOi4fuCumNSsXZ8v4HyOhBYgJB8grhZRE8ZwIpTesjbIS-5nqy0jBG_J7scwaDsFdUjWSkLKIYUIuiL2b8-SWAVlBaJrGWiGJ0NwTNPh-d3wEsHucLyMJVLrNteKm11omYtTKGQ7MWI5QCxkXmCiWZYSrv-MroFzBvCXvYFPu1xhoPOAkFQnarl7iqAQpOgsBV-2xOt9H9uvFqdnyd5bhB5XWNV51WS8-VXP6AYixZaeShVOKaRrBFl6axIHMN5rlDbSbLYIreIGiRlGbfqe3bw
+X-TIMESTAMP:2025-09-01 11:23:58
+X-SIGNATURE:MzkwYzZjYjVkYzNkOWQ4MmYxODIzMDkxYjA4MWFmMzE1MGZlNmQ1MTk0NjE1ZDUwZTIwZTlmODlhYmMzNDBlY2E5ZjcxNzljMDQ0MTg4ZjVhZTliZjQyZGM4OWQ2M2QyMWI1NTcxM2YyNDFhMmM4Y2IyZTU4MTU4ZmU0Y2RiZTg=
+X-PARTNER-ID:fCItiWsiF3Z1F1GqLjVZUFy5HEK8atJ1nXxJ9YQo1VEkiv2Ruq+TiRUe8iptI7fYEEenV8dAobhzOFwBfgCdIQ==
+X-CLIENT-ID:U01ZU2V6I3E7EWtVUS19ZkVGUU0wRXVNalF3TmpFM0xqQXdPSHd5TURJMUxUQTVMVEF4SU2VtaW55YWt8QVAzQS4yNZBelFTNHlOREEyTVRjdU1EQTRmRk5sYldsdWVXRnJmRElDA2MTcuMDA4fDIwMjUtRFNk1qTTZOVGcoISlRMjlMDktMDEgMTE6MjM6NTgRJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TVRveU16bzFPSHhCVUROQkxqSTBNRFl4Tnk0d01EZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"c1797558be55a1e206955ead0051388b","user_pass":"e3b185318be7db0eab24af210ce51444"}
+
+  
+[2025-09-01 11:24:12] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjExNjE1LTIzMTE2LTAyMTY2LTU1NjUyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMToyMzowMiswODowMCJ9.Z4C1GXbEghxH3TYtqi-eEpU--KwzkzsY9osqNcOnSKqkwXcxHQ_eChTRiNkz8FXJOi4fuCumNSsXZ8v4HyOhBYgJB8grhZRE8ZwIpTesjbIS-5nqy0jBG_J7scwaDsFdUjWSkLKIYUIuiL2b8-SWAVlBaJrGWiGJ0NwTNPh-d3wEsHucLyMJVLrNteKm11omYtTKGQ7MWI5QCxkXmCiWZYSrv-MroFzBvCXvYFPu1xhoPOAkFQnarl7iqAQpOgsBV-2xOt9H9uvFqdnyd5bhB5XWNV51WS8-VXP6AYixZaeShVOKaRrBFl6axIHMN5rlDbSbLYIreIGiRlGbfqe3bw
+X-TIMESTAMP:2025-09-01 11:24:20
+X-SIGNATURE:MzkwYzZjYjVkYzNkOWQ4MmYxODIzMDkxYjA4MWFmMzE1MGZlNmQ1MTk0NjE1ZDUwZTIwZTlmODlhYmMzNDBlY2E5ZjcxNzljMDQ0MTg4ZjVhZTliZjQyZGM4OWQ2M2QyMWI1NTcxM2YyNDFhMmM4Y2IyZTU4MTU4ZmU0Y2RiZTg=
+X-PARTNER-ID:XhPN5ZIHVDnbYyPWN6Nnf+rZ0a5bzxjW8GFs95JuNidEhbfrUb+DDu+uzqBCFzjOPDzjmi4Kbg4hUOp8VTo1+w==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M19ZkVGUU0wRXVNalF3TmpFM0xqQXdPSHd5TURJMUxUQTVMVEU2VtaW55YWt8QVAzQS4yNDA2MTclFTNHlOREEyTVRjdU1EQTRmRk5sYldsdWVXRnJmuMDA4fDIwMjUt3RNREVnTVRFNk1qUTZNakEoISlRMDktMDEgMTE6MjQ6MjAwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TVRveU5Eb3lNSHhCVUROQkxqSTBNRFl4Tnk0d01EZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"57080659299cd961397ac2433d444801","user_pass":"c6d174062a70a908e8d981e35670a853"}
+
+  
+[2025-09-01 11:24:28] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjExNjE1LTIzMTE2LTAyMTY2LTU1NjUyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMToyMzowMiswODowMCJ9.Z4C1GXbEghxH3TYtqi-eEpU--KwzkzsY9osqNcOnSKqkwXcxHQ_eChTRiNkz8FXJOi4fuCumNSsXZ8v4HyOhBYgJB8grhZRE8ZwIpTesjbIS-5nqy0jBG_J7scwaDsFdUjWSkLKIYUIuiL2b8-SWAVlBaJrGWiGJ0NwTNPh-d3wEsHucLyMJVLrNteKm11omYtTKGQ7MWI5QCxkXmCiWZYSrv-MroFzBvCXvYFPu1xhoPOAkFQnarl7iqAQpOgsBV-2xOt9H9uvFqdnyd5bhB5XWNV51WS8-VXP6AYixZaeShVOKaRrBFl6axIHMN5rlDbSbLYIreIGiRlGbfqe3bw
+X-TIMESTAMP:2025-09-01 11:24:36
+X-SIGNATURE:MzkwYzZjYjVkYzNkOWQ4MmYxODIzMDkxYjA4MWFmMzE1MGZlNmQ1MTk0NjE1ZDUwZTIwZTlmODlhYmMzNDBlY2E5ZjcxNzljMDQ0MTg4ZjVhZTliZjQyZGM4OWQ2M2QyMWI1NTcxM2YyNDFhMmM4Y2IyZTU4MTU4ZmU0Y2RiZTg=
+X-PARTNER-ID:1vS1BaWB3eS/iPF51tbSh95L/tTqN0pu3QiXFikzWJR3lDtOQKNiEoucScwMGZEIRVn1XodtfujoFaTFF3RaLw==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[09ZkVGUU0wRXVNalF3TmpFM0xqQXdPSHd5TURJMUxUQTVMVEF4U2VtaW55YWt8QVAzQS4yNDABelFTNHlOREEyTVRjdU1EQTRmRk5sYldsdWVXRnJmRE2MTcuMDA4fDIwMjUtMDktMDEgMTTZNelkoISlRMjE6MjQ6MzYyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TVRveU5Eb3pObnhCVUROQkxqSTBNRFl4Tnk0d01EZ1shXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"57080659299cd961397ac2433d444801","user_pass":"e3b185318be7db0eab24af210ce51444"}
+
+  
+[2025-09-01 12:11:08] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjEyMTM2LTEwNDUzLTQyMTAwLTcwMTAwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMjoxMDo0MiswODowMCJ9.RH-3OmAf0bUVAQRRaeusEbLcrOeL0ypq6o9Z8TjYfvgFErrsVZnz-9irzn4qoNuOltrabOvYBZN7ITD65jnamyVjGtnfdWFfYOqTgD7a_3yegcPgOkRwKwmx60BYipTig6-bnXtC1wRyRl1_vUkjTc9kuzaTRXRbhn9US_mdsoEknJNNSweH6qs9GxlZCjanY-QCHd-rPs46-0y6gWKPKYgzZELlchiXNTBCJqP-iecQwVoL3rqjIgAuo6mrLO6iQiJcJ2mb4VtN8jyUbRDGXAEnJg_GsFvX76IZ_-X2-TP0khiGN0AynXWsxOeQyu2kkAAaooZamGMInESOarKqTA
+X-TIMESTAMP:2025-09-01 12:11:16
+X-SIGNATURE:ODIzNDFkMzBlZDVlNTZmNWYyNDNmZDZmMTVmYTEzNjFiOWM5NDEwZTk5ODVjNjkwYzM3MzlkZDM1YThhNzMzMTY0MmY4ZGMzYjNkNWE4ZmUyYTI4YThiY2FkMzgyZjBmYjM1YWQ3Y2EzZWUwOWFjM2EwMWI5ZDk4NzcxZDU1MTQ=
+X-PARTNER-ID:fi4bkc42mRZLMWb5C3VMUamiD0kPB8WKM4yH92JpAYsaAJPqt0ZfPIgL/IHTtrm42G1WuhUzflx4kIrxUxf5PQ==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M39ZkVGUU0wRXVNalF3TmpFM0xqQXdPQzR3TVRBNU1qQXlOVEU2VtaW55YWt8QVAzQS4yNDA2MTcXhJREV5T2pFeE9qRTI8IT5RVkF6UVM0eU5EQTJNuMDA4LjAxMDkyXhNRGt5TURJMU1USXhNRFF3ZkZOMDI1MTIxMDQwfDIwMjUtMDktMDEgMTI6MTE6MTYNVEU2TVRZKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBeE1qb3hNVG94Tm54QlVETkJMakkwTURZeE55NHdNRGd1TURFd09USXdNalV4TWpFd05EQVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"fd9fcbe08ae82c34b5764e69973548ec","user_pass":"07a5bc75fde477a71644b3bbce0e075a"}
+
+  
+[2025-09-01 12:12:27] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjEyMTE2LTA0MTkyLTA4MzIyLTg3MTMzIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMjowNDowOCswODowMCJ9.gd8rlsBplj3d4gzh4To5EJUlITgERwtFwpvwcJ5z6KSoCMZJ22cYgss8fgQ7xyq9tZTAb4CDsTk_7JCFZqCldETwm8NzceA8n1XW6by7LCFZe3I4ZYg33n_xfbKmRkEvuTc1pcec_g0h6Eq9eCEhrWdqXjy8D60cNybsKW-5cD0XM0up8YWzgQ-zTD5GgjqesuB-kDxrcgtI-UbYUpQhd16uts5y92KzqEF5whWfF9DySPpBqLKhvi_gS2ujgzJiqky0SmTLNJt36TBKIBruP1DvdQ72KPXTfM1XQC50GkkDgoMYEtArlKSZ2_k-NFjS7dVLYmEmQUrrlzeq8cmpoA
+X-TIMESTAMP:2025-09-01 12:12:35
+X-SIGNATURE:NzczMzNiMmJjNmU3OWY4YWI3ZjNhMTU3MmFhODc0ZDQwYzJkMTRkMzRmNmZlOTNmMTZlYzlkNjdhNTg5ZTBiMGI5NTY1Yjk3YmNiNTNhM2I1MzIyNjZkY2JmZTA5MTMyNDVkMjJlNzA0OGU0ZjAwZjJjNGNlN2I0MDU3YzM3ZGU=
+X-PARTNER-ID:pJX8td9B2a1iH++1IusGaCET8UnmdXZBCqXq+VtEuGh5qygSCCwihDVley6rxvu4ufSABic6opiN8Mf+8pukGg==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[37ZkRZd01EQXpOa0V3TFVJME9ERXRORFEyTWkxQk1UTXdMVVE1U2VtaW55YWt8NjAwMDM2QTAESTFMVEE1TFRBeElERXlPakV5T2pNMTwhPk5qQXdNREtQjQ4MS00NDYyLUExMzAtRDk3RTXhNekF0UkRrM1UxQkQ1NDBFfDIwMjUtMDktMDEgMTI6MTI6MzUNalV0TURrdE1ERWdNVEk2TVRJNk16VSghKVEyOXdlWEpwWjJoMElNS3BJREl3TWpVZ1VGUWdSMmx2YzI5bWRDQlRiV0Z5ZEhCeWJ5QkpibVJ2Ym1WemFXRWdDbFpsY25OcGIyNGdNUzR4TGpCOE1qQXlOUzB3T1Mwd01TQXhNam94TWpvek5YdzJNREF3TXpaQk1DMUNORGd4TFRRME5qSXRRVEV6TUMxRU9UZEZOVEZDUkRVME1FVVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMS4w=
+X-REFERENCE:
+DATA:
+{"user_name":"f6f4deb7dad1c2e5e0b4d6569dc3c1c5","user_pass":"39a00ab8a671d34d17e23ff109ec0039"}
+
+  
+[2025-09-01 12:13:52] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjEyMTM2LTEwNDUzLTQyMTAwLTcwMTAwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxMjoxMDo0MiswODowMCJ9.RH-3OmAf0bUVAQRRaeusEbLcrOeL0ypq6o9Z8TjYfvgFErrsVZnz-9irzn4qoNuOltrabOvYBZN7ITD65jnamyVjGtnfdWFfYOqTgD7a_3yegcPgOkRwKwmx60BYipTig6-bnXtC1wRyRl1_vUkjTc9kuzaTRXRbhn9US_mdsoEknJNNSweH6qs9GxlZCjanY-QCHd-rPs46-0y6gWKPKYgzZELlchiXNTBCJqP-iecQwVoL3rqjIgAuo6mrLO6iQiJcJ2mb4VtN8jyUbRDGXAEnJg_GsFvX76IZ_-X2-TP0khiGN0AynXWsxOeQyu2kkAAaooZamGMInESOarKqTA
+X-TIMESTAMP:2025-09-01 12:14:00
+X-SIGNATURE:ODIzNDFkMzBlZDVlNTZmNWYyNDNmZDZmMTVmYTEzNjFiOWM5NDEwZTk5ODVjNjkwYzM3MzlkZDM1YThhNzMzMTY0MmY4ZGMzYjNkNWE4ZmUyYTI4YThiY2FkMzgyZjBmYjM1YWQ3Y2EzZWUwOWFjM2EwMWI5ZDk4NzcxZDU1MTQ=
+X-PARTNER-ID:57An/Tj+5oJv/pW93knzi3iPhDBLGU7UpxCKftvDohQ/Yd4IC/6qCbaNrP4M2hm2+12S9X15x2uxI/Lx5TxK9w==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K39ZkVGUU0wRXVNalF3TmpFM0xqQXdPQzR3TVRBNU1qQXlOVU2VtaW55YWt8QVAzQS4yNDA2MTcuMhJREV5T2pFME9qQXc8IT5RVkF6UVM0eU5EQTJDA4LjAxMDkyxqQXhNRGt5TURJMU1USXhNRFF3ZkZMDI1MTIxMDQwfDIwMjUtMDktMDEgMTI6MTQ6MDAZNVFE2TURBKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBeE1qb3hORG93TUh4QlVETkJMakkwTURZeE55NHdNRGd1TURFd09USXdNalV4TWpFd05EQVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 14:43:00] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE0MTUyLTQzMTgyLTAwMTI5LTI1NjUwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxNDo0MzowMCswODowMCJ9.PmIMihXqPp3AIIC9NVptvmL2dwUogEqafVtoN8O7-PYudn7SgZ4VyXBDIhCpm_S0Y3y03lEgzjienaCjbzuFZUEHDVTOmnoJOxAnFHmhENLhTfyxI_Kl1PDKC9kXamsvlOcV0yX7HalJdcmlPZcjDo04J1IdGu_oI7DWzq9LA-tcKZkPlnX1wCwbNci-ir2snvYPdXxJZsM5YcOM6Tbz064xFa7H8_HzYA83Zl0x9wyKxLZxwpIyfqGqnNd6e0g-Z3yn3kg5whH4Z3sHy5WJF8DTLyPMNxq29JixfM2-v1yrsPNy6VupEly71qC81bBrtqNeM_EFkeU2HKh17X6ERA
+X-TIMESTAMP:2025-09-01 14:43:08
+X-SIGNATURE:NDBkODNkNzlhYTIwMDU5NTU5OWJjYTZhZmJkNjhjY2JmODU2NjExYjZhOGM4MWU3YzM5ZjkwMjI5MDYxMzk1YTY1NWUzNmViNzU4MTUyNzcwODBjY2M3ZTJlZjdkODc1MWJlN2Y4Y2M5MjcyMjEzOWIwYTY1Mzg2ZWY5ZTdiYjQ=
+X-PARTNER-ID:Ov1hrBxxQIvsWgBuhDi2zytDiffz+yG35xjulL4NSwklc9zLYWx8UDv3+l66B8q4TsEscYL1O4zinkGAI00Tjg==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVU2VtaW55YWt8QVEzQS4yNDA5MTIuMFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJDAxfDIwMjUt1Ea3RNREVnTVRRNk5ETTZNRGcoISlMDktMDEgMTQ6NDM6MDgtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TkRvME16b3dPSHhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"0264391c340e4d3cbba430cee7836eaf","user_pass":"82ad80c4235643f1fcff338e131850b4"}
+
+  
+[2025-09-01 14:44:42] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE0MTUyLTQzMTgyLTAwMTI5LTI1NjUwIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxNDo0MzowMCswODowMCJ9.PmIMihXqPp3AIIC9NVptvmL2dwUogEqafVtoN8O7-PYudn7SgZ4VyXBDIhCpm_S0Y3y03lEgzjienaCjbzuFZUEHDVTOmnoJOxAnFHmhENLhTfyxI_Kl1PDKC9kXamsvlOcV0yX7HalJdcmlPZcjDo04J1IdGu_oI7DWzq9LA-tcKZkPlnX1wCwbNci-ir2snvYPdXxJZsM5YcOM6Tbz064xFa7H8_HzYA83Zl0x9wyKxLZxwpIyfqGqnNd6e0g-Z3yn3kg5whH4Z3sHy5WJF8DTLyPMNxq29JixfM2-v1yrsPNy6VupEly71qC81bBrtqNeM_EFkeU2HKh17X6ERA
+X-TIMESTAMP:2025-09-01 14:44:50
+X-SIGNATURE:NDBkODNkNzlhYTIwMDU5NTU5OWJjYTZhZmJkNjhjY2JmODU2NjExYjZhOGM4MWU3YzM5ZjkwMjI5MDYxMzk1YTY1NWUzNmViNzU4MTUyNzcwODBjY2M3ZTJlZjdkODc1MWJlN2Y4Y2M5MjcyMjEzOWIwYTY1Mzg2ZWY5ZTdiYjQ=
+X-PARTNER-ID:cCgnvTYkuI8SZYZqT/ZsaPqBFS3EJXZNn5fVC+kv1IZqAgNFRiyV2jH30txG4QQwdK59oycPawqFkeKdHAfM7g==
+X-CLIENT-ID:U01ZU2V6I3E7EWtVUS19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEF4SU2VtaW55YWt8QVEzQS4yNZFelFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmRElDA5MTIuMDAxfDIwMjUtRRNk5EUTZOVEEoISlRMjlMDktMDEgMTQ6NDQ6NTARJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4TkRvME5EbzFNSHhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 15:28:16] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE1MTA5LTI4NjY3LTE1MjgzLTg3MTMxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxNToyODoxNSswODowMCJ9.ABpAbQ74JxkPFIPtvuuBxp16IZSWyi37ICFMAsP-AOYmV4VvC3lIEyGzKOpzBT3_mHROd9GRxHcjyf-WH0aRXcjuDZVS5Z6eCXmoT3eCh4Q_yyPz4ihHLlF5a57X-4l7a16khdSJK-8z-oFqKYvyQX0oN4Ln7U2hSRlnCxhZMxMOTaJEAynKkmILEzxo4kYqPufvytk-cByJ4Q7XhDHURyePYAAkfxTCH1Tx4uEkYmXGZHGXxLo3SEJlD0oKPul0nqhEoWENRTHeFj2DkAuC35MKQZjx-f_zNU9DWwqnZTVh4fn4YbOnhfJkjWR9o4hiR_ljZHRJkNiIki5ENwcq1Q
+X-TIMESTAMP:2025-09-01 15:28:24
+X-SIGNATURE:Zjk5OTQyZjA2Y2EzMzc5NTkyMTI1MTIwYzMyNTc1ODU2MTEwZTkyM2QzYjNmZjJjZGQ1YzQ2YzZhM2UzM2I4MjRkY2Y3Y2VhNDBjM2ZkZjQyMTk4ZTAwNjkwMjI3OTA5ZWQ4OWFiMjFkNDljNTZjMGU3NWUyZjAzZjYzM2Y0MjU=
+X-PARTNER-ID:TvCN9g0C0aZgn0pBF7KZdknJfyMV8LggL4rmiVFEKJnRtFECUkCZpUagcXDm7NriJnHeNTV2GgulBTIoPV6U0Q==
+X-CLIENT-ID:U01ZU2V6G3C7CWtVYO39ZkVGUU0wRXVNalF3TmpFM0xqQXdPQzR5TVRBNE1qQXlOVEVU2VtaW55YWt8QVAzQS4yNDA2MQXhJREUxT2pJNE9qSTA8IT5RVkF6UVM0eU5EQTJNVTcuMDA4LjIxMDgyRGd5TURJMU1URTFOREEyZkZObMDI1MTE1NDA2fDIwMjUtMDktMDEgMTU6Mjg6MjQamc2TWpRKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBeE5Ub3lPRG95Tkh4QlVETkJMakkwTURZeE55NHdNRGd1TWpFd09ESXdNalV4TVRVME1EWVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"bc83c6a6ad100887435180816c3b8cca","user_pass":"e10adc3949ba59abbe56e057f20f883e"}
+
+  
+[2025-09-01 15:30:38] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE1MTA5LTI4NjY3LTE1MjgzLTg3MTMxIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxNToyODoxNSswODowMCJ9.ABpAbQ74JxkPFIPtvuuBxp16IZSWyi37ICFMAsP-AOYmV4VvC3lIEyGzKOpzBT3_mHROd9GRxHcjyf-WH0aRXcjuDZVS5Z6eCXmoT3eCh4Q_yyPz4ihHLlF5a57X-4l7a16khdSJK-8z-oFqKYvyQX0oN4Ln7U2hSRlnCxhZMxMOTaJEAynKkmILEzxo4kYqPufvytk-cByJ4Q7XhDHURyePYAAkfxTCH1Tx4uEkYmXGZHGXxLo3SEJlD0oKPul0nqhEoWENRTHeFj2DkAuC35MKQZjx-f_zNU9DWwqnZTVh4fn4YbOnhfJkjWR9o4hiR_ljZHRJkNiIki5ENwcq1Q
+X-TIMESTAMP:2025-09-01 15:30:46
+X-SIGNATURE:Zjk5OTQyZjA2Y2EzMzc5NTkyMTI1MTIwYzMyNTc1ODU2MTEwZTkyM2QzYjNmZjJjZGQ1YzQ2YzZhM2UzM2I4MjRkY2Y3Y2VhNDBjM2ZkZjQyMTk4ZTAwNjkwMjI3OTA5ZWQ4OWFiMjFkNDljNTZjMGU3NWUyZjAzZjYzM2Y0MjU=
+X-PARTNER-ID:gH7vxDdbgIwQ5WyDiPJUDz3Jv/Unkq85f80P09n4XvbNibmU8CUkZSW4DIR2cjCWjpzmDZFdlXvlxepyIe1juw==
+X-CLIENT-ID:U01ZU2V6I3E7EWtVUS39ZkVGUU0wRXVNalF3TmpFM0xqQXdPQzR5TVRBNE1qQXlOVEV4TU2VtaW55YWt8QVAzQS4yNxUQXhJREUxT2pNd09qUTI8IT5RVkF6UVM0eU5EQTJNVGNDA2MTcuMDA4LjIxMDgyRJMU1URTFOREEyZkZObGJMDI1MTE1NDA2fDIwMjUtMDktMDEgMTU6MzA6NDYE2TkRZKCEpUTI5d2VYSnBaMmgwSU1LcElESXdNalVnVUZRZ1IybHZjMjltZENCVGJXRnlkSEJ5YnlCSmJtUnZibVZ6YVdFZ0NsWmxjbk5wYjI0Z01TNHdMalI4TWpBeU5TMHdPUzB3TVNBeE5Ub3pNRG8wTm54QlVETkJMakkwTURZeE55NHdNRGd1TWpFd09ESXdNalV4TVRVME1EWVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 18:43:59] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE4MTEzLTQ0NDkwLTAxNTAyLTc5MTk1IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxODo0NDowMSswODowMCJ9.NFlARkF3A6HTzxBYxSFvrMDM-aekfcjguVz1mYfG3Vde79Y34xcejHEipf8yA9-a8eW6-PXMso8rBp6ZtydgYiiXh__eY7MlBwKe1icQkQA72dr068AdKB0yhgTBtkl385Wp4tsnHuzIA1VXujDW46NmIo-x5KQWD1XIB0xBhcRU-yega3Wmzlbg5WN-xCXxWwgwdsgb7XfD0uMQHRoJrsS7S3oKMQehavbOsE5x3Blr_Mf-2zGA2mZ-5ZR15WWZGWxhaydlWJXCcW0VKK-IZFygmRSINQNQTHpMc9lOQgnXSGKOunOGgQXP_qY-AFpDRClL2t791mo9qUWQcjStTw
+X-TIMESTAMP:2025-09-01 18:44:07
+X-SIGNATURE:ZGMwYWEyODEzY2Q2MjI2ZDFkODI3OGQyNWJiYTQ3ZTdkODZkNTYzNzllNzJhMWU5YzFkZjFjZjg2ODg2MWI0NDAyZWFhM2FjNGEyNDAwYzAwZWNmOWI4NzZhODdhMTA2YWIyY2NkNGFjZjhhZWRhYmMwY2ZmNDkyMTY5MjYzMDE=
+X-PARTNER-ID:5t/utYDCveMg3/jQVTRxH3d9kIVZcnyV8O3j1MyuK8I0kmmSTbtN78ipzmIRo5CzLm629q0xD/xT2NRl5puxQg==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVU2VtaW55YWt8QVEzQS4yNDA5MTIuMFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJDAxfDIwMjUt1Ea3RNREVnTVRnNk5EUTZNRGMoISlMDktMDEgMTg6NDQ6MDctwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T0RvME5Eb3dOM3hCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"0264391c340e4d3cbba430cee7836eaf","user_pass":"82ad80c4235643f1fcff338e131850b4"}
+
+  
+[2025-09-01 18:44:28] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE4MTEzLTQ0NDkwLTAxNTAyLTc5MTk1IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxODo0NDowMSswODowMCJ9.NFlARkF3A6HTzxBYxSFvrMDM-aekfcjguVz1mYfG3Vde79Y34xcejHEipf8yA9-a8eW6-PXMso8rBp6ZtydgYiiXh__eY7MlBwKe1icQkQA72dr068AdKB0yhgTBtkl385Wp4tsnHuzIA1VXujDW46NmIo-x5KQWD1XIB0xBhcRU-yega3Wmzlbg5WN-xCXxWwgwdsgb7XfD0uMQHRoJrsS7S3oKMQehavbOsE5x3Blr_Mf-2zGA2mZ-5ZR15WWZGWxhaydlWJXCcW0VKK-IZFygmRSINQNQTHpMc9lOQgnXSGKOunOGgQXP_qY-AFpDRClL2t791mo9qUWQcjStTw
+X-TIMESTAMP:2025-09-01 18:44:36
+X-SIGNATURE:ZGMwYWEyODEzY2Q2MjI2ZDFkODI3OGQyNWJiYTQ3ZTdkODZkNTYzNzllNzJhMWU5YzFkZjFjZjg2ODg2MWI0NDAyZWFhM2FjNGEyNDAwYzAwZWNmOWI4NzZhODdhMTA2YWIyY2NkNGFjZjhhZWRhYmMwY2ZmNDkyMTY5MjYzMDE=
+X-PARTNER-ID:BXrJGOaOE752zNV1ZEcB+U6nbCiuaWNd3rV6yy0TJuznUBMCiIMaXrAcXQiOWdptVeYmuDf7WjbiYNlFfIR+xA==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[09ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEF4U2VtaW55YWt8QVEzQS4yNDAFelFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmRE5MTIuMDAxfDIwMjUtMDktMDEgMTTZNelkoISlRMjg6NDQ6MzYyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T0RvME5Eb3pObnhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"0264391c340e4d3cbba430cee7836eaf","user_pass":"82ad80c4235643f1fcff338e131850b4"}
+
+  
+[2025-09-01 18:45:07] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE4MjAwLTQ1MzMxLTA1MTAwLTQ3NzA0IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxODo0NTowNSswODowMCJ9.iygTyaSsxNoRGB3pePL6PZhnQLaeVnp6rvNmvO6i15Qt0xZeWaGJJHETPIWATDBQkULm8XmSI4rwVqO0dwnfM2yDum_kNQiqD--uaahIQCSzV12jdg5HxsqKovp5_8BC7Po5dIzPAMX6M3uiRId2CkshuALhIpiaDSnen2_0biQRzTZw6IoWxuD9UtzKM__Z74ZZ32TgN9xwBIk-NhzdXKyddh9-d_3hRetscyj1YQFD2ErGRe-KJZPqsh1nUZnVt-TFknHQ_dZKvzIcsRwGikiYcetKdDw56Exgc7Hl4TBJiA9WSFIjEAAMx_HW93YHf19lRt6_7XeK4deYbNVIdg
+X-TIMESTAMP:2025-09-01 18:45:15
+X-SIGNATURE:OGQ0NGRhZTcxMTc3NjVjMDJkMjQzNzA5Zjk0MDFiMDc5MDMxOGZmZmUzMjM3Y2IwZjc5NzYyOGI4NTQ0YTA5NjdmY2QxZDBhYTRjY2FhYjBlZGQ0NWQ5MWEwZjExNTA3NmNkYjRlNDAyNTc5MTExNTQzZWEwZWM1OTQ2MzQyMTI=
+X-PARTNER-ID:GnoaNExC/tOu+LV89RNq3xQNtyf16GFAwZ8aWa4htAH7VNIE1eGlklVfF+ADW5/HzYmkYLWlP4X3u/FfT4oGpQ==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVEU2VtaW55YWt8QVEzQS4yNDA5MTIlFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJmuMDAxfDIwMjUt3RNREVnTVRnNk5EVTZNVFUoISlRMDktMDEgMTg6NDU6MTUwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T0RvME5Ub3hOWHhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"0264391c340e4d3cbba430cee7836eaf","user_pass":"82ad80c4235643f1fcff338e131850b4"}
+
+  
+[2025-09-01 18:45:52] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/logout
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE4MjAwLTQ1MzMxLTA1MTAwLTQ3NzA0IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxODo0NTowNSswODowMCJ9.iygTyaSsxNoRGB3pePL6PZhnQLaeVnp6rvNmvO6i15Qt0xZeWaGJJHETPIWATDBQkULm8XmSI4rwVqO0dwnfM2yDum_kNQiqD--uaahIQCSzV12jdg5HxsqKovp5_8BC7Po5dIzPAMX6M3uiRId2CkshuALhIpiaDSnen2_0biQRzTZw6IoWxuD9UtzKM__Z74ZZ32TgN9xwBIk-NhzdXKyddh9-d_3hRetscyj1YQFD2ErGRe-KJZPqsh1nUZnVt-TFknHQ_dZKvzIcsRwGikiYcetKdDw56Exgc7Hl4TBJiA9WSFIjEAAMx_HW93YHf19lRt6_7XeK4deYbNVIdg
+X-TIMESTAMP:2025-09-01 18:46:00
+X-SIGNATURE:OGQ0NGRhZTcxMTc3NjVjMDJkMjQzNzA5Zjk0MDFiMDc5MDMxOGZmZmUzMjM3Y2IwZjc5NzYyOGI4NTQ0YTA5NjdmY2QxZDBhYTRjY2FhYjBlZGQ0NWQ5MWEwZjExNTA3NmNkYjRlNDAyNTc5MTExNTQzZWEwZWM1OTQ2MzQyMTI=
+X-PARTNER-ID:vFX7a2KsXHvx1sVIpf6+IOGd4Y4jBZSeghZKdMFwbLZueegGSZhIAgUgxhBwSRRcgzuZWj3Ysb5gHraFZ9RRHg==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K19ZkVGUk0wRXVNalF3T1RFeUxqQXdNWHd5TURJMUxUQTVMVU2VtaW55YWt8QVEzQS4yNDA5MTIuMFTNHlOREE1TVRJdU1EQXhmRk5sYldsdWVXRnJDAxfDIwMjUt1Ea3RNREVnTVRnNk5EWTZNREEoISlMDktMDEgMTg6NDY6MDAtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T0RvME5qb3dNSHhCVVROQkxqSTBNRGt4TWk0d01ERVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+
+
+  
+[2025-09-01 20:00:34] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjE5NTExLTU1MTM1LTM0MTk5LTg2NDc1IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQxOTo1NTozNCswODowMCJ9.kyIuGTTLQrXT5evkpT4U5Y7SfUd-Jyt36qZ6n0Eaurb_sEK2gbA7iatdEZ-p4Cj4j9hsEXIeciwS7b9YejlRVyZJa7gkoOP0YuwgUT86pd4fW1RhQlCKjQfFqS7UdC58L1TaXto-K-EjCNZePighVAv2RyJqSyAGye0MwD7mpYmuUBN7ONMBVnYSp6LG6WzU_wxGn6kuFLnEaMcZKXFasfzYJYEU-0wee2KtiEX0NxlkJNuAn2k-XA7J6tLRKaP-n30IS13bogaz9grvDBTMFWNx6rgxnkgdqnbD9lganSWIFOUyXvgtWbhSS2L2HusNeg7-4cv2wGrzv7oizaysQQ
+X-TIMESTAMP:2025-09-01 19:00:42
+X-SIGNATURE:MGEzNmQwYTljZmRmYjgyNGIyNmNiMjg5YTMxNDE5NTRlZTA5OTAzMjVjMjg1NTY3MjUxMDhhOGVjM2U3YmU1OGNhOTc1Mzc2ZGEzM2I3OWRhNDNmYWVjNTBiZGJlZGUxOTgwZmEzYzQwMWRlMTlkYzY0MTkxNDkzM2JlY2E3YTc=
+X-PARTNER-ID:8m4HY60uUQDydgG2XPwwUP06OOVJRm3jA7Ur4YaWSE4rIOVtfd4VbNRB+RvfelAdp6xqdHW9KjF7ZWAv+PGlBA==
+X-CLIENT-ID:U01ZU2V6I3E7EWtVUS43ZkVGUU0wRXVNalF3T1RBMUxqQXhOUzVCTWk0d01UQTVNakF5TU2VtaW55YWt8QVAzQS4yNxUQTVMVEF4SURFNU9qQXdPalF5PCE+UVZBelFTNHlOREEDA5MDUuMDE1LkEyLjAxpBeE1Ea3lNREkxTVRnMU5MDkyMDI1MTg1NTMzfDIwMjUtMDktMDEgMTk6MDA6NDIRrNk1EQTZOREkoISlRMjl3ZVhKcFoyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T1Rvd01EbzBNbnhCVUROQkxqSTBNRGt3TlM0d01UVXVRVEl1TURFd09USXdNalV4T0RVMU16TVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"c0ba88b8bca79ca3b50b96abdf431766","user_pass":"c0ba88b8bca79ca3b50b96abdf431766"}
+
+  
+[2025-09-01 20:23:57] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjIwMTY3LTIxNDUwLTQxMzkyLTQzMjEyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQyMDoyMTo0MSswODowMCJ9.pZw56i60wLAQFATfgdxso1I8Pf-ms-NdhZD9KEmf1sdymNWdIVQQ5uYgE6LANK7kgCrDz5dsgjvVveL_m2d0UqXglT9LvRdge--ug9RgIgf-LiHdvr1WiAXgmECRswLp-R6vOLsN_IKoAnKbuUQuOxAUuqaxJW8MNhuL3IEf87Jc5M9uyHpUkTD2lGjvQ08CTJyy4c8VkE3tJy9wjoHdcbVR36WHNiWmkbDXqAlJmQAcVp1M3UWqLznzuUzIsdU3nyCHGsNSAgdAO48-YZMP52BQhmC1l-DMTB9F-5E4Ixn4xp0jQA7NB2jBUjsEu-CZQSZtrMlyrbuSdoFcRbHH4g
+X-TIMESTAMP:2025-09-01 19:24:06
+X-SIGNATURE:ZGE4Y2IxYmNjZTgyODlhZTIxYzg3MWRiZDBlMTRkY2JkZDAwMDhkMjgyZjk0MGNiNjUxYjc0NWU5NjY4OWUxOGE1MjM2ZWFhOTQxZjc0ZTBiZjhkNGJlODIxNTk5N2IwN2Y1ODM1MzMzMWUxZDM0ZWQyNTk4OTkyYmY1ODYxN2Q=
+X-PARTNER-ID:Lo/x1BIT4qbz/kRA/s20bqujFAVfxXE6ogkFhgxUfWMMTkpaesQeu5rAq7qXfYPVjPV+N9OpXPXTpLLKfa2UHQ==
+X-CLIENT-ID:U01ZU2V6E3A7AWtV]K43ZkVGUU0wRXVNalF3T1RBMUxqQXhOUzVCTWk0d01UQTVNaU2VtaW55YWt8QVAzQS4yNDA5MDUuMVMVEF4SURFNU9qSTBPakEyPCE+UVZBelFTNHlDE1LkEyLjAx1ERTFMa0V5TGpBeE1Ea3lNREkxTVRMDkyMDI1MTg1NTMzfDIwMjUtMDktMDEgMTk6MjQ6MDYVnTVRrNk1qUTZNRFkoISlRMjl3ZVhKcFoyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T1RveU5Eb3dObnhCVUROQkxqSTBNRGt3TlM0d01UVXVRVEl1TURFd09USXdNalV4T0RVMU16TVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"5ebd0e956c4407399d62912110c342f2","user_pass":"14e1b600b1fd579f47433b88e8d85291"}
+
+  
+[2025-09-01 20:24:11] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjIwMTY3LTIxNDUwLTQxMzkyLTQzMjEyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQyMDoyMTo0MSswODowMCJ9.pZw56i60wLAQFATfgdxso1I8Pf-ms-NdhZD9KEmf1sdymNWdIVQQ5uYgE6LANK7kgCrDz5dsgjvVveL_m2d0UqXglT9LvRdge--ug9RgIgf-LiHdvr1WiAXgmECRswLp-R6vOLsN_IKoAnKbuUQuOxAUuqaxJW8MNhuL3IEf87Jc5M9uyHpUkTD2lGjvQ08CTJyy4c8VkE3tJy9wjoHdcbVR36WHNiWmkbDXqAlJmQAcVp1M3UWqLznzuUzIsdU3nyCHGsNSAgdAO48-YZMP52BQhmC1l-DMTB9F-5E4Ixn4xp0jQA7NB2jBUjsEu-CZQSZtrMlyrbuSdoFcRbHH4g
+X-TIMESTAMP:2025-09-01 19:24:20
+X-SIGNATURE:ZGE4Y2IxYmNjZTgyODlhZTIxYzg3MWRiZDBlMTRkY2JkZDAwMDhkMjgyZjk0MGNiNjUxYjc0NWU5NjY4OWUxOGE1MjM2ZWFhOTQxZjc0ZTBiZjhkNGJlODIxNTk5N2IwN2Y1ODM1MzMzMWUxZDM0ZWQyNTk4OTkyYmY1ODYxN2Q=
+X-PARTNER-ID:y726QWE1XZ8IvQJ39xG/5moJ2Yi44WDzSLnxWs1VXSHJjpSv9hxtnrjDCDZ8LT+u4g22qKeP1pfzUucFKgqTfQ==
+X-CLIENT-ID:U01ZU2V6F3B7BWtV[M43ZkVGUU0wRXVNalF3T1RBMUxqQXhOUzVCTWk0d01UQTVNakU2VtaW55YWt8QVAzQS4yNDA5MDUTVMVEF4SURFNU9qSTBPakl3PCE+UVZBelFTNHlOuMDE1LkEyLjAxTFMa0V5TGpBeE1Ea3lNREkxTVRnMDkyMDI1MTg1NTMzfDIwMjUtMDktMDEgMTk6MjQ6MjAnTVRrNk1qUTZNakEoISlRMjl3ZVhKcFoyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T1RveU5Eb3lNSHhCVUROQkxqSTBNRGt3TlM0d01UVXVRVEl1TURFd09USXdNalV4T0RVMU16TVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"bc83c6a6ad100887435180816c3b8cca","user_pass":"e10adc3949ba59abbe56e057f20f883e"}
+
+  
+[2025-09-01 20:24:30] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjIwMTY3LTIxNDUwLTQxMzkyLTQzMjEyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQyMDoyMTo0MSswODowMCJ9.pZw56i60wLAQFATfgdxso1I8Pf-ms-NdhZD9KEmf1sdymNWdIVQQ5uYgE6LANK7kgCrDz5dsgjvVveL_m2d0UqXglT9LvRdge--ug9RgIgf-LiHdvr1WiAXgmECRswLp-R6vOLsN_IKoAnKbuUQuOxAUuqaxJW8MNhuL3IEf87Jc5M9uyHpUkTD2lGjvQ08CTJyy4c8VkE3tJy9wjoHdcbVR36WHNiWmkbDXqAlJmQAcVp1M3UWqLznzuUzIsdU3nyCHGsNSAgdAO48-YZMP52BQhmC1l-DMTB9F-5E4Ixn4xp0jQA7NB2jBUjsEu-CZQSZtrMlyrbuSdoFcRbHH4g
+X-TIMESTAMP:2025-09-01 19:24:39
+X-SIGNATURE:ZGE4Y2IxYmNjZTgyODlhZTIxYzg3MWRiZDBlMTRkY2JkZDAwMDhkMjgyZjk0MGNiNjUxYjc0NWU5NjY4OWUxOGE1MjM2ZWFhOTQxZjc0ZTBiZjhkNGJlODIxNTk5N2IwN2Y1ODM1MzMzMWUxZDM0ZWQyNTk4OTkyYmY1ODYxN2Q=
+X-PARTNER-ID:v3Zck30oHuLp61vHxDazWuO1ZJa5cZsNl5bLQAWNsL3aJdigUQOQTDEvt4E4AMh5t9TPN0ZX/ebigS3zUJkqJg==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[33ZkVGUU0wRXVNalF3T1RBMUxqQXhOUzVCTWk0d01UQTVNakF5U2VtaW55YWt8QVAzQS4yNDAUQTVMVEF4SURFNU9qSTBPak01PCE+UVZBelFTNHlORE5MDUuMDE1LkEyLjAxMDkyMDI1MT3lNREkxTVRnMUg1NTMzfDIwMjUtMDktMDEgMTk6MjQ6MzkEa3RNREVnTVRrNk1qUTZNemsoISlRMjl3ZVhKcFoyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T1RveU5Eb3pPWHhCVUROQkxqSTBNRGt3TlM0d01UVXVRVEl1TURFd09USXdNalV4T0RVMU16TVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"bc83c6a6ad100887435180816c3b8cca","user_pass":"e10adc3949ba59abbe56e057f20f883e"}
+
+  
+[2025-09-01 20:25:15] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smart/access/login
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjIwMTY3LTIxNDUwLTQxMzkyLTQzMjEyIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wMVQyMDoyMTo0MSswODowMCJ9.pZw56i60wLAQFATfgdxso1I8Pf-ms-NdhZD9KEmf1sdymNWdIVQQ5uYgE6LANK7kgCrDz5dsgjvVveL_m2d0UqXglT9LvRdge--ug9RgIgf-LiHdvr1WiAXgmECRswLp-R6vOLsN_IKoAnKbuUQuOxAUuqaxJW8MNhuL3IEf87Jc5M9uyHpUkTD2lGjvQ08CTJyy4c8VkE3tJy9wjoHdcbVR36WHNiWmkbDXqAlJmQAcVp1M3UWqLznzuUzIsdU3nyCHGsNSAgdAO48-YZMP52BQhmC1l-DMTB9F-5E4Ixn4xp0jQA7NB2jBUjsEu-CZQSZtrMlyrbuSdoFcRbHH4g
+X-TIMESTAMP:2025-09-01 19:24:39
+X-SIGNATURE:ZGE4Y2IxYmNjZTgyODlhZTIxYzg3MWRiZDBlMTRkY2JkZDAwMDhkMjgyZjk0MGNiNjUxYjc0NWU5NjY4OWUxOGE1MjM2ZWFhOTQxZjc0ZTBiZjhkNGJlODIxNTk5N2IwN2Y1ODM1MzMzMWUxZDM0ZWQyNTk4OTkyYmY1ODYxN2Q=
+X-PARTNER-ID:v3Zck30oHuLp61vHxDazWuO1ZJa5cZsNl5bLQAWNsL3aJdigUQOQTDEvt4E4AMh5t9TPN0ZX/ebigS3zUJkqJg==
+X-CLIENT-ID:U01ZU2V6H3D7DWtVW[33ZkVGUU0wRXVNalF3T1RBMUxqQXhOUzVCTWk0d01UQTVNakF5U2VtaW55YWt8QVAzQS4yNDAUQTVMVEF4SURFNU9qSTBPak01PCE+UVZBelFTNHlORE5MDUuMDE1LkEyLjAxMDkyMDI1MT3lNREkxTVRnMUg1NTMzfDIwMjUtMDktMDEgMTk6MjQ6MzkEa3RNREVnTVRrNk1qUTZNemsoISlRMjl3ZVhKcFoyaDBJTUtwSURJd01qVWdVRlFnUjJsdmMyOW1kQ0JUYldGeWRIQnlieUJKYm1SdmJtVnphV0VnQ2xabGNuTnBiMjRnTVM0d0xqUjhNakF5TlMwd09TMHdNU0F4T1RveU5Eb3pPWHhCVUROQkxqSTBNRGt3TlM0d01UVXVRVEl1TURFd09USXdNalV4T0RVMU16TVshXUNvcHlyaWdodCDCqSAyMDI1IFBUIEdpb3NvZnQgU21hcnRwcm8gSW5kb25lc2lhIApWZXJzaW9uIDEuMC40=
+X-REFERENCE:
+DATA:
+{"user_name":"bc83c6a6ad100887435180816c3b8cca","user_pass":"e10adc3949ba59abbe56e057f20f883e"}
+
+  

@@ -1,0 +1,21 @@
+[2025-09-08 12:13:34] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/payment
+Content-type:application/json
+Authorization:Bearer eyJ0cmFuc19ubyI6IjEyMjQyLTEzMjU0LTQyNjY5LTEzNTQ2IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wOFQxMjoxMzo0MiswODowMCJ9.Afphfc7iSygscWF_GypPY3a8kzWPtJBqS1UvzYyZfgDstv3rw1VL6xivXoTruQSMz3cCPveRf_M1sDuR8qv0YraA05KCb_0uGCQKcJEH8OZs4DN8rU_zn6ze1lMO6gYBNnb-SouGd-dUuh9VnAXMp0idOG23EDYk7oSTc_M939hd3l6Y9YGkI3sMdJl6pG3twwD2QiYT4aKg7izbyvfcvHJGGUpqtIx61bgL2iaJefGLqLWzUO6hRpawSOfdzObfQtqBwUKSgCapCglz4MbvFnJ_jqevPfG_cz84tZj03835pKzF-vZdme6I1kSsCGjFgU_befvnbMY2hBzs9iCCAQ
+X-TIMESTAMP:2025-09-08T12:09:15+08:00
+X-SIGNATURE:60kLlidDVOk0rlPiJrIIasSviVTyF6wX45ac3C7Sa0i7EiQc5gp5+jc8lQkVvENjNKowyKK+wIVL96NpT8A3SQ==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:MB95801894
+CHANNEL-ID:92551
+DATA:
+{"paidAmount":{"value":"2000000.00","currency":"IDR"},"additionalInfo":{"terminalType":"6011","terminalId":"S1ACMB95","description":"Nabung","sourceAccountNo":"7700498730"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911011685","paymentRequestId":"MB95801894","hashSourceAccountNo":"1b7c456607827714b08af18964665bd8","sourceBankCode":"003"}
+
+No. TUJUAN:
+9891911011685
+  
+[2025-09-08 12:13:35] local.INFO: 
+RESPONSE :
+{"responseCode":"2002500","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  989191","customerNo":"7559","virtualAccountNo":"  9891911011685","inquiryRequestId":"MB95801894","virtualAccountName":"SARJANA I KOMANG"}}
+
+  

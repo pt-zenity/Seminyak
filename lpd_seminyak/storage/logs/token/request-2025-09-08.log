@@ -1,0 +1,75 @@
+[2025-09-08 04:28:40] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-08T04:28:47+08:00
+X-SIGNATURE:QbfGwSkml7i94aP8Nk/mdW9HFbr0ten7pVi7ILQlXhHxi5b5HtUgVM8SyZ/A+AJwP3uZVCQsBfUzJbGnRAzpNG6akUJEu8h81kXokm8gfXZXbG/n6UriLRdIXi17tAEM57YefXTgubzypWCUR36GL5rK5Hpy4NX2RQEHJlqty4N9zLMx9j3fiXPlkTYgrk1hfHrusFbkFTyAH+XKLdqhx8Zp38Om8XFHNarFw3ueKu+JY6K+GbWyiYf0UYH3Puic2LEeIyIuVjMoG/0FW/bHATcgFo4BZURZKfGfbaTK7IL4FWQ+VESXK4+cYAXC+TEYx1fyxy6HvRi5fCFI03nJ9Q==
+X-CLIENT-KEY:VA-325
+DATA:
+{"grantType":"client_credentials","additionalInfo":{}}
+  
+[2025-09-08 04:28:41] local.INFO: 
+RESPONSE :
+{"responseCode":"4017301","responseMessage":"Invalid access Token"}
+
+  
+[2025-09-08 12:12:28] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-08T12:08:09+08:00
+X-SIGNATURE:c1Ov2AtnmuFTzn1ocCEblBdJq9Nr+Yt4z4WN3uU6Wn6/G5YNHnmMEcLpH/drHi0GqeQbbIVGkZfxlGzc55gQg+xPU2Hfu8F423m0X1hBCmF8OcSl+1gtEYuIwqJw6AbD8NF45KEHpAL5/UHSwVK2uQAzuvC5eFpALtJKz/pTDe+tBW62wfSTQPlvNd8pPeokOLu36VUTAwsX791w7x10ujzTvuX5NwE15TOobOy/bE0ctBrase1mN70u/2nHYEQU7dN0qJnXvBGhB2uxyj53vnGGcOqiZ+Iyq0LBXkPQPJJkmNXkByYMfFrxHzAJ7GgoVfyGkYtXJm1IgbgkBMvelA==
+X-CLIENT-KEY:VA-325
+DATA:
+{"grant_type":"client_credentials","User-Agent":"Mozilla/5.0(WindowsNT6.1;WOW64)AppleWebKit/537.11(KHTML,likeGecko)Chrome/23.0.1271.95Safari/537.11"}
+  
+[2025-09-08 12:12:28] local.INFO: 
+RESPONSE :
+{"responseCode":"2007300","responseMessage":"Success","accessToken":"eyJ0cmFuc19ubyI6IjEyMTQyLTEyNzExLTM2MzEyLTMyMTA1IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wOFQxMjoxMjozNiswODowMCJ9.RLgngfEIvkkknKeKMnJ0sXSPBk35o8Arw_t5QZ_jbgzcAQpDnGN_pKLQ1WppCMeW7WgObvUZ19vmty3h7lnw7NNSPKCiru-XRzLite7aMHxgc5GLvMYUVbGLx_ih1P2b3Ni9YDDx5Xs1F-N_Ti393gkDacawDkEXB3hbx0H4y5s9Lp9P6OcVForH-ZMIZbFA-DEh7dao4QwzzAWbnHryvvMLyIuJIukY4V-zQa8hEC03A_-uBp6kAlaRtuejJdZx_-ZyGbO392FKxUY_4l3jSpN6XY6cy5prxyjBnl-cyqvOZiNjvFfv36jZ7mE52eVv3-GneyqAS6rb7uwbq3k0EA","tokenType":"Bearer","expiresIn":"180"}
+
+  
+[2025-09-08 12:12:39] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-08T12:08:20+08:00
+X-SIGNATURE:YQNvc4kcYUWpyQpZEalAF89lLGhlXOs9ZB4OSksrTZMNar7o5R2WFeOEZqyZpKE2QAgjAzBdBO2eqlOvyxkChnNCt2MoSIOVyiBGu0+ut7taFzRIiKX90C8LyYS/nfoIFLZ/XuUZ2T+h2noCPzDCtlbiqvec7+ySffW7S9NDxaLfhqY/GFw1INKfPeMCRI6nR9LGnndFzWQ6zIYm2zkrePPmcXxw8FNXPh2BWQIIwe5Aeqxpcp3nwyOxKAleJ0RfqF3oAt2F88CjdJ6Qm0u4raBCn6IUcNo+ZdcilpawnZIDU4qJGn9g+CZJwx2XlG2WlBYBmiEng8UvOMRH0wFlSw==
+X-CLIENT-KEY:VA-325
+DATA:
+{"grant_type":"client_credentials","User-Agent":"Mozilla/5.0(WindowsNT6.1;WOW64)AppleWebKit/537.11(KHTML,likeGecko)Chrome/23.0.1271.95Safari/537.11"}
+  
+[2025-09-08 12:12:40] local.INFO: 
+RESPONSE :
+{"responseCode":"2007300","responseMessage":"Success","accessToken":"eyJ0cmFuc19ubyI6IjEyMTIzLTEyOTAzLTQ4NjY0LTQwNDU1IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wOFQxMjoxMjo0OCswODowMCJ9.ZNxsLhXvOH8bDlOq0bdWmLwFC6cCH-Tc5yXM1nc2-1tdYDTN945KAIQcOevhEue-kzj8ncjYOVO162-K-fdT7HpxyYwe4nyv-GmhUuvWz2c--L27b-WGvU23l3c2BBhUjfOYySklOu5sCYPoom9ROJvNHLjbTuc99WC98FikSKNfbcMuhf_Px_EC6IbBOAWyB2EBGiLSzzqkgC_Il3HoRqdow85nOYmBqAZsm0Gw_o4qX4iyGlCzyO5xcn6-3LFaQ0bPfxYZqm9uIh7mQY2VAgfh1IdiJqplC8uWtH3hMxWQJad2Ec0gpjF4LpZxvFJxAhLX4nwV0nlcyEJB4oN9YQ","tokenType":"Bearer","expiresIn":"180"}
+
+  
+[2025-09-08 12:13:26] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-08T12:09:07+08:00
+X-SIGNATURE:BvipqP1JCNW1yOtRmyZ6vkASU0m3KOsqHc2ymeKBo3m9exSS7Ej50QdDhS1SVsGgTHJ1CtAp1aAKMHj8txzE8SkbG6OfQvCJp6l3ZYosfBw1etDomPKo/EsG0SfkYL1H6h7md5pEfNzEyBmYXmD7zd3AIzR4fiJKXFOvMdPCRtsSbeQQ4pPPr8NoMnzXla4wMXrvjn56atf1hQLKdOLVPgwXUjMInvcXYh1Hv/eVFST0KpHeYg8soyTklj72AgkN4+g/yTh184T2XOV86362sUByzC5Opomv3KIfJvAC0IoV8OwHqsYCpWWHVwKIt8+oSTyFLIXZjZALXbgCEK1hhA==
+X-CLIENT-KEY:VA-325
+DATA:
+{"grant_type":"client_credentials","User-Agent":"Mozilla/5.0(WindowsNT6.1;WOW64)AppleWebKit/537.11(KHTML,likeGecko)Chrome/23.0.1271.95Safari/537.11"}
+  
+[2025-09-08 12:13:26] local.INFO: 
+RESPONSE :
+{"responseCode":"2007300","responseMessage":"Success","accessToken":"eyJ0cmFuc19ubyI6IjEyMTQ3LTEzNzQ2LTM0NjY5LTA1MTY4IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wOFQxMjoxMzozNCswODowMCJ9.SOKVg4hV7if_SDkx0BDR8QsgyWJmCpN6dp3ulhifNyOA16U3934L-geC_hFmaeaUjLGgWFrzyb_wrNLg8Tz6lM6QJBZ6D-rX0iUGGxLxfOd3dmNeT4a-DuB2t0MVz93MEJD9x0uDol6shNNtPR29sx7CjeXReWdCTVnLfm4IekuzZ7pUZn6JngrIYh0QUzXh5AcmZMdf6Bwggm8ZDkm1__gZz0KhwKNqi167wEQc3VzPuKosbx-4Qqot1ExcV0JsZWCCzVkFKEkcNx99hXhUgcEj8VqyHxHqgAPZ50RbCQvBWVbtEU7Teltxv1gzvI5--_fhy6YiWbGgqBbvRiOPFA","tokenType":"Bearer","expiresIn":"180"}
+
+  
+[2025-09-08 12:13:33] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/access-token/b2b
+Content-type:application/json
+X-TIMESTAMP:2025-09-08T12:09:14+08:00
+X-SIGNATURE:Gx4kQYUXd/1YM7ahOw0YFzzMPxbe3V7jTKj53N6q7Bu6he3bNSgIFFLW0kGV7XOWtE9LGtOk0vWmZqiLI3Do2nwPgk+ucgvY0CCNyxjmGQF2FpMEOWV1BuoSdy990tFeyRgxZMsSe5jYGtl7zeSbmQfDFJWAjhCiEHmvXLhmnoutkBLGhOahT9Z19SjykGSpDBeuVMAaCpzkmvWrKvgaZewC726gMK3VJGzPHePZErM8BCw9BxHoheCmc3ROUwe6o3kMmdDk/fg9BRBlp4KlXQJsHZrC4huJNT3vDSkI498x138l0VHRRPZFMtGOWHWyv6jm5DdHrmhWT3ScCAl/8w==
+X-CLIENT-KEY:VA-325
+DATA:
+{"grant_type":"client_credentials","User-Agent":"Mozilla/5.0(WindowsNT6.1;WOW64)AppleWebKit/537.11(KHTML,likeGecko)Chrome/23.0.1271.95Safari/537.11"}
+  
+[2025-09-08 12:13:34] local.INFO: 
+RESPONSE :
+{"responseCode":"2007300","responseMessage":"Success","accessToken":"eyJ0cmFuc19ubyI6IjEyMjQyLTEzMjU0LTQyNjY5LTEzNTQ2IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOS0wOFQxMjoxMzo0MiswODowMCJ9.Afphfc7iSygscWF_GypPY3a8kzWPtJBqS1UvzYyZfgDstv3rw1VL6xivXoTruQSMz3cCPveRf_M1sDuR8qv0YraA05KCb_0uGCQKcJEH8OZs4DN8rU_zn6ze1lMO6gYBNnb-SouGd-dUuh9VnAXMp0idOG23EDYk7oSTc_M939hd3l6Y9YGkI3sMdJl6pG3twwD2QiYT4aKg7izbyvfcvHJGGUpqtIx61bgL2iaJefGLqLWzUO6hRpawSOfdzObfQtqBwUKSgCapCglz4MbvFnJ_jqevPfG_cz84tZj03835pKzF-vZdme6I1kSsCGjFgU_befvnbMY2hBzs9iCCAQ","tokenType":"Bearer","expiresIn":"180"}
+
+  

@@ -1,0 +1,63 @@
+[2025-09-05 00:13:02] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/inquiry
+Content-type:application/json
+Authorization:Bearer eyJ0cmFuc19ubyI6IjA5MzExLTIxNTU2LTE3NjA0LTE2MTUzIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0yMVQwOToyMToxNyswODowMCJ9.BI5gPrS7tHnD5PVg6UjZxW8d1T_J_0Wz5vahQSKUuLfxcVp3nd7Fu5XdFZdaOLIRvM5wHkJoMUhAnDseuf1SAjyl7o08vHULiEy9-XJelmFPORu9hBTimyI7rAgrcaa_ahcXT9UJZMw64I8jMAcI4Hv3D-RlYfUE1G71IEOp9xzmIrQrr2qy_J6OwnHH0wxlQfKVjyqVux6ZBB7yWUWXJlDXLoOg925bUKA0yeRZgEP5wGW9NhyjkjNLR-0x4Q2lBMHSEtgSGS9BL4S6i0GTroxfZvqyYuFLCbgC4L1tROjgV_hlvLoFepSqVelPuLWysN9QE6rQIMUlOKCuex9zdw
+X-TIMESTAMP:2025-08-21T09:17:36+08:00
+X-SIGNATURE:g2CgWIENYqldjLH3HqyHpZaC7ORPTTNe7TtUNJiAZLjyBMBhUh5tnl5EE5Tnumagn7sEsT1kylmPEjoO0OMeUw==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:000000106270
+CHANNEL-ID:92551
+DATA:
+{"additionalInfo":{"terminalType":"6011","terminalId":"94866585"},"amount":{"value":"100000.00","currency":"IDR"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911011012","inquiryRequestId":"000000106270","hashSourceAccountNo":"d41d8cd98f00b204e9800998ecf8427e","sourceBankCode":"013"}
+
+No. TUJUAN:
+9891911011012
+  
+[2025-09-05 00:13:02] local.INFO: 
+RESPONSE :
+{"responseCode":"4032401","responseMessage":"Feature Not Allowed at this time [IP TIDAK DIKENAL]"}
+
+  
+[2025-09-05 00:20:07] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/inquiry
+Content-type:application/json
+Authorization:Bearer eyJ0cmFuc19ubyI6IjA5MzExLTIxNTU2LTE3NjA0LTE2MTUzIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0yMVQwOToyMToxNyswODowMCJ9.BI5gPrS7tHnD5PVg6UjZxW8d1T_J_0Wz5vahQSKUuLfxcVp3nd7Fu5XdFZdaOLIRvM5wHkJoMUhAnDseuf1SAjyl7o08vHULiEy9-XJelmFPORu9hBTimyI7rAgrcaa_ahcXT9UJZMw64I8jMAcI4Hv3D-RlYfUE1G71IEOp9xzmIrQrr2qy_J6OwnHH0wxlQfKVjyqVux6ZBB7yWUWXJlDXLoOg925bUKA0yeRZgEP5wGW9NhyjkjNLR-0x4Q2lBMHSEtgSGS9BL4S6i0GTroxfZvqyYuFLCbgC4L1tROjgV_hlvLoFepSqVelPuLWysN9QE6rQIMUlOKCuex9zdw
+X-TIMESTAMP:2025-08-21T09:17:36+08:00
+X-SIGNATURE:g2CgWIENYqldjLH3HqyHpZaC7ORPTTNe7TtUNJiAZLjyBMBhUh5tnl5EE5Tnumagn7sEsT1kylmPEjoO0OMeUw==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:000000106270
+CHANNEL-ID:92551
+DATA:
+{"additionalInfo":{"terminalType":"6011","terminalId":"94866585"},"amount":{"value":"100000.00","currency":"IDR"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911011012","inquiryRequestId":"000000106270","hashSourceAccountNo":"d41d8cd98f00b204e9800998ecf8427e","sourceBankCode":"013"}
+
+No. TUJUAN:
+9891911011012
+  
+[2025-09-05 00:20:07] local.INFO: 
+RESPONSE :
+{"responseCode":"4032401","responseMessage":"Feature Not Allowed at this time [IP TIDAK DIKENAL]"}
+
+  
+[2025-09-05 00:20:11] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/v1.0/transfer-va/inquiry
+Content-type:application/json
+Authorization:Bearer eyJ0cmFuc19ubyI6IjA5MzExLTIxNTU2LTE3NjA0LTE2MTUzIiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0yMVQwOToyMToxNyswODowMCJ9.BI5gPrS7tHnD5PVg6UjZxW8d1T_J_0Wz5vahQSKUuLfxcVp3nd7Fu5XdFZdaOLIRvM5wHkJoMUhAnDseuf1SAjyl7o08vHULiEy9-XJelmFPORu9hBTimyI7rAgrcaa_ahcXT9UJZMw64I8jMAcI4Hv3D-RlYfUE1G71IEOp9xzmIrQrr2qy_J6OwnHH0wxlQfKVjyqVux6ZBB7yWUWXJlDXLoOg925bUKA0yeRZgEP5wGW9NhyjkjNLR-0x4Q2lBMHSEtgSGS9BL4S6i0GTroxfZvqyYuFLCbgC4L1tROjgV_hlvLoFepSqVelPuLWysN9QE6rQIMUlOKCuex9zdw
+X-TIMESTAMP:2025-08-21T09:17:36+08:00
+X-SIGNATURE:g2CgWIENYqldjLH3HqyHpZaC7ORPTTNe7TtUNJiAZLjyBMBhUh5tnl5EE5Tnumagn7sEsT1kylmPEjoO0OMeUw==
+X-PARTNER-ID:VA-325
+X-EXTERNAL-ID:000000106270
+CHANNEL-ID:92551
+DATA:
+{"additionalInfo":{"terminalType":"6011","terminalId":"94866585"},"amount":{"value":"100000.00","currency":"IDR"},"partnerServiceId":"989191","customerNo":"7559","virtualAccountNo":"9891911011012","inquiryRequestId":"000000106270","hashSourceAccountNo":"d41d8cd98f00b204e9800998ecf8427e","sourceBankCode":"013"}
+
+No. TUJUAN:
+9891911011012
+  
+[2025-09-05 00:20:11] local.INFO: 
+RESPONSE :
+{"responseCode":"4032401","responseMessage":"Feature Not Allowed at this time [IP TIDAK DIKENAL]"}
+
+  

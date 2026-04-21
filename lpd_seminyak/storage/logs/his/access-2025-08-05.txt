@@ -1,0 +1,17 @@
+[2025-08-05 23:23:14] local.INFO: 
+REQUEST : 
+POST https://lpdseminyak.biz.id:8000/api/smartindo/access/register
+Content-type:application/json
+Authorization:eyJ0cmFuc19ubyI6IjIyMTA0LTA2NzY5LTIxMzg2LTU5ODg3IiwiYWxnIjoiUlMyNTYifQ.eyJ0cmFuc190aW1lIjoiMjAyNS0wOC0wNVQyMjowNjoyMSswODowMCJ9.Uf_VU0nY6vyaDB9QfWIO8fWIQ97rF4G3FXDZqzAKtr9WZ0ThBtPnx5kQRjpXa9t9IsiBcN7NPxy_Pu3nXZLFew2y7vUK8qZXpLlqciZ5Vckywo2X0VXZ6-qsPO5RzE3s9i9px_0sxo9WYMF1pUG1ULsQkhskeUzTrT4sExdPQC1vLe9xtQ1JjGxckqNaHTZxLXDLN_DfTmUFDe0KocuPJ-zTJYPR6XvkwDl4IpaAIleO6LBAQKTKBc1sNccHHfzSyixNARN6zGCpSu0zu3R5RpPDRek-IFF-NeK4BVexUGPD3yROU87BjblGvmwhAE1dxOhVrpX9aRVTfQio_fVpjw
+X-TIMESTAMP:2025-08-05 23:23:22
+X-SIGNATURE:NmFhNzkxYzMzZTMxMjBiNWIwYjViYjcxN2RiZWM1ODRjNzFiY2YxYjNhNzMzZmFlNjQyMmJlYjM1M2E0YmZiZjkxMjZjM2Y0NTIxNjE5NmYzYWRhM2YzZmJlOTBlYmFjY2Y4OTQ1NDAzMTI0OTg1NzcxYjYxNDBjMjM5ZDA0OTk=
+X-PARTNER-ID:vYfRbS8r8HDCLD6YZVtZCMaEC/oCsubWARbdNBP6Kenr54e2hBOOm0mct4JJgF6OH7bZTP9KNZTb5t7Ed1ZOVA==
+X-CLIENT-ID:SP1A.210812.016
+X-REFERENCE:
+DATA:
+{"user_name":"6194e572d0688b5a999e546766307b52","user_pass":"54a7826dff55fa672451f066c5289d27"}
+
+  
+[2025-08-05 23:23:14] local.ERROR: SQLSTATE[IMSSP]: An error occurred translating string for input param 3 to UCS-2: No mapping for the Unicode character exists in the target multi-byte code page.
+ (SQL: insert into gmob_request (no_ip, request_url,
+			client_id, time_stamp, request_data) values (103.66.86.234,/api/smartindo/access/register,Hý@Û]<×m5,2025-08-05 23:23:22,{"user_name":"6194e572d0688b5a999e546766307b52","user_pass":"54a7826dff55fa672451f066c5289d27"})) null 
