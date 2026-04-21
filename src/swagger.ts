@@ -36,10 +36,26 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 #base-url-input:focus{border-color:#3b82f6}
 .url-badge{background:#065f46;color:#d1fae5;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
 
+/* TOKEN TOOLBAR */
+#token-toolbar{background:#0f172a;border-bottom:2px solid #1e293b;padding:8px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px}
+#token-toolbar .tt-label{color:#64748b;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
+.token-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;font-family:monospace;background:#1e293b;color:#64748b;border:1px solid #334155;min-width:180px;transition:.2s}
+.auto-token-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:.15s}
+.auto-token-btn.snap-btn{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff}
+.auto-token-btn.snap-btn:hover{background:linear-gradient(135deg,#8b5cf6,#6d28d9);transform:translateY(-1px)}
+.auto-token-btn.ios-btn{background:linear-gradient(135deg,#059669,#065f46);color:#fff}
+.auto-token-btn.ios-btn:hover{background:linear-gradient(135deg,#10b981,#047857);transform:translateY(-1px)}
+.auto-token-btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.xfwd-toggle{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;background:#1e293b;border:1px solid #334155;color:#94a3b8;font-size:11px;cursor:pointer;user-select:none;transition:.15s;white-space:nowrap}
+.xfwd-toggle:hover{border-color:#f59e0b;color:#fbbf24}
+.xfwd-toggle input[type=checkbox]{accent-color:#f59e0b;width:13px;height:13px;cursor:pointer}
+.xfwd-toggle.active{border-color:#f59e0b;background:rgba(245,158,11,.08);color:#fbbf24}
+.tt-sep{width:1px;height:24px;background:#1e293b;flex-shrink:0}
+
 /* LAYOUT */
-#layout{display:flex;min-height:calc(100vh - 84px)}
+#layout{display:flex;min-height:calc(100vh - 128px)}
 #sidebar{width:260px;flex-shrink:0;background:#fff;border-right:1px solid var(--border);
-  position:sticky;top:84px;height:calc(100vh - 84px);overflow-y:auto}
+  position:sticky;top:128px;height:calc(100vh - 128px);overflow-y:auto}
 #main-content{flex:1;padding:24px;max-width:960px}
 
 /* SIDEBAR */
@@ -181,6 +197,43 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   <input id="base-url-input" type="text" value="https://lpdseminyak.biz.id:8000" placeholder="https://your-api-host.com"/>
   <span class="url-badge">LIVE</span>
   <span style="color:#64748b;font-size:11px;margin-left:8px">· Ubah URL untuk mengarahkan request ke server Anda</span>
+</div>
+
+<!-- TOKEN TOOLBAR -->
+<div id="token-toolbar">
+  <span class="tt-label"><i class="fas fa-key" style="margin-right:4px;color:#f59e0b"></i>Auth Tokens</span>
+  <div class="tt-sep"></div>
+
+  <!-- SNAP Token -->
+  <button id="btn-snap-token" class="auto-token-btn snap-btn" onclick="autoToken('snap')">
+    <i class="fas fa-bolt"></i> Auto Token SNAP
+  </button>
+  <span id="snap-token-badge" class="token-badge">
+    <i class="fas fa-circle" style="font-size:7px;color:#475569"></i>
+    <span>SNAP – Belum ada token</span>
+  </span>
+
+  <div class="tt-sep"></div>
+
+  <!-- iOS Token -->
+  <button id="btn-ios-token" class="auto-token-btn ios-btn" onclick="autoToken('ios')">
+    <i class="fas fa-mobile-alt"></i> Auto Token iOS
+  </button>
+  <span id="ios-token-badge" class="token-badge">
+    <i class="fas fa-circle" style="font-size:7px;color:#475569"></i>
+    <span>iOS – Belum ada token</span>
+  </span>
+
+  <div class="tt-sep"></div>
+
+  <!-- X-Forwarded-For Toggle -->
+  <label class="xfwd-toggle active" id="xfwd-label" onclick="toggleXFwd(this)">
+    <input type="checkbox" id="chk-xforward" checked onchange="updateXFwdStyle()"/>
+    <i class="fas fa-shield-alt" style="color:#f59e0b"></i>
+    X-Forwarded-For: <code style="color:#fbbf24;margin-left:2px">34.50.74.78</code>
+  </label>
+
+  <span style="color:#334155;font-size:10px;margin-left:4px">· IP whitelist otomatis diinjeksi ke setiap request</span>
 </div>
 
 <div id="layout">
@@ -865,10 +918,139 @@ function scrollTo(id) {
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ─── Global token store ───────────────────────────────────────────────────────
+var _tokens = { snap: null, ios: null, snapHeaders: {}, iosHeaders: {} };
+var WHITELIST_IP = '34.50.74.78';
+
+function toggleXFwd(label) {
+  var chk = document.getElementById('chk-xforward');
+  // If the click came from the label (not directly on checkbox), toggle manually
+  if (event && event.target !== chk) {
+    chk.checked = !chk.checked;
+    event.preventDefault();
+  }
+  updateXFwdStyle();
+}
+function updateXFwdStyle() {
+  var chk = document.getElementById('chk-xforward');
+  var lbl = document.getElementById('xfwd-label');
+  if (!lbl) return;
+  if (chk && chk.checked) {
+    lbl.classList.add('active');
+  } else {
+    lbl.classList.remove('active');
+  }
+}
+
 function getBaseUrl() {
   return (document.getElementById('base-url-input').value || '').replace(/\\/+$/, '');
 }
 
+// ─── Auto Token ───────────────────────────────────────────────────────────────
+function autoToken(type) {
+  var btn = document.getElementById('btn-' + type + '-token');
+  var origHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Generating...';
+  fetch('/api/token/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: type, baseUrl: getBaseUrl() })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (!d.ok) { showTokenToast(type, d); return; }
+    if (type === 'snap') {
+      _tokens.snap = d.token;
+      _tokens.snapHeaders = d.headers || {};
+      updateTokenBadge('snap', d.token);
+      injectSnapHeaders(d.headers, d.token);
+    } else {
+      _tokens.ios = d.token;
+      _tokens.iosHeaders = d.headers || {};
+      updateTokenBadge('ios', d.token);
+      injectIosHeaders(d.headers, d.token);
+    }
+    if (d.token) localStorage.setItem('lpd_'+type+'_token', d.token);
+    showTokenToast(type, d);
+  })
+  .catch(function(e){ alert('Fetch error: ' + e.message); })
+  .finally(function(){ btn.disabled = false; btn.innerHTML = origHtml; });
+}
+
+function updateTokenBadge(type, token) {
+  var el = document.getElementById(type + '-token-badge');
+  if (!el) return;
+  var dot = el.querySelector('i');
+  var txt = el.querySelector('span');
+  if (token) {
+    el.style.background   = type === 'snap' ? 'rgba(91,33,182,.25)' : 'rgba(6,95,70,.25)';
+    el.style.color        = '#e2e8f0';
+    el.style.borderColor  = type === 'snap' ? '#7c3aed' : '#059669';
+    if (dot) { dot.style.color = type === 'snap' ? '#a78bfa' : '#34d399'; }
+    if (txt) txt.textContent  = type.toUpperCase() + ' \u2713 ' + token.substring(0,16) + '...';
+  } else {
+    el.style.background  = 'rgba(127,29,29,.2)';
+    el.style.color       = '#fca5a5';
+    el.style.borderColor = '#7f1d1d';
+    if (dot) dot.style.color = '#ef4444';
+    if (txt) txt.textContent = type.toUpperCase() + ' \u2013 No Token';
+  }
+}
+
+function setHeaderInput(epId, key, value) {
+  if (!value) return;
+  var inp = document.querySelector('#ep-' + epId + ' .try-header-input[data-key="' + key + '"]');
+  if (inp) inp.value = value;
+}
+
+function injectSnapHeaders(headers, token) {
+  ['snap-token','snap-inquiry','snap-payment'].forEach(function(id) {
+    setHeaderInput(id, 'X-TIMESTAMP',  headers['X-TIMESTAMP']);
+    setHeaderInput(id, 'X-CLIENT-KEY', headers['X-CLIENT-KEY']);
+    setHeaderInput(id, 'X-SIGNATURE',  headers['X-SIGNATURE']);
+    if (token) setHeaderInput(id, 'Authorization', 'Bearer ' + token);
+  });
+}
+
+function injectIosHeaders(headers, token) {
+  // Inject into all non-SNAP, non-callback cards
+  document.querySelectorAll('.ep-card').forEach(function(card) {
+    var id = card.id.replace('ep-','');
+    if (id && !id.startsWith('snap') && id !== 'ppob-cb') {
+      setHeaderInput(id, 'X-TIMESTAMP', headers['X-TIMESTAMP']);
+      setHeaderInput(id, 'X-CLIENT-ID', headers['X-CLIENT-ID']);
+      setHeaderInput(id, 'X-SIGNATURE', headers['X-SIGNATURE']);
+      if (token) setHeaderInput(id, 'Authorization', 'Bearer ' + token);
+    }
+  });
+}
+
+function showTokenToast(type, d) {
+  var toast = document.getElementById('token-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'token-toast';
+    toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1e293b;color:#e2e8f0;padding:14px 18px;border-radius:10px;font-size:13px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:420px;border-left:4px solid #22c55e';
+    document.body.appendChild(toast);
+  }
+  if (d.token) {
+    toast.style.borderLeftColor = '#22c55e';
+    toast.innerHTML = '<b style="color:#4ade80"><i class="fas fa-check-circle"></i> ' + type.toUpperCase() + ' Token OK</b><br>'
+      + '<code style="color:#94a3b8;font-size:10px">' + d.token.substring(0,40) + '...</code><br>'
+      + '<span style="color:#60a5fa;font-size:11px"><i class="fas fa-magic"></i> X-TIMESTAMP, X-SIGNATURE, Authorization diisi otomatis.</span><br>'
+      + '<span style="color:#f59e0b;font-size:10px"><i class="fas fa-shield-alt"></i> X-Forwarded-For: 34.50.74.78 akan diinjeksi ke setiap request.</span>';
+  } else {
+    toast.style.borderLeftColor = '#ef4444';
+    toast.innerHTML = '<b style="color:#f87171"><i class="fas fa-exclamation-circle"></i> ' + type.toUpperCase() + ' Token Gagal</b><br>'
+      + '<span style="color:#94a3b8;font-size:11px">' + (d.error || d.responseMessage || d.message || 'Cek Base URL & koneksi server') + '</span>';
+  }
+  toast.style.display = 'block';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(function(){ toast.style.display='none'; }, 7000);
+}
+
+// ─── Try Request (+ X-Forwarded-For otomatis) ────────────────────────────────
 function tryRequest(epId) {
   var btn = document.getElementById('try-btn-'+epId);
   var method = btn.getAttribute('data-method');
@@ -876,8 +1058,17 @@ function tryRequest(epId) {
   var baseUrl = getBaseUrl();
   var url = baseUrl + path;
 
-  // Collect headers
   var headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+
+  // Inject X-Forwarded-For jika checkbox aktif (default: aktif)
+  var chk = document.getElementById('chk-xforward');
+  var xfwdOn = chk ? chk.checked : true;  // default on jika elemen tidak ada
+  if (xfwdOn) {
+    headers['X-Forwarded-For'] = WHITELIST_IP;
+    headers['X-Real-IP']       = WHITELIST_IP;
+  }
+
+  // Collect header inputs
   document.querySelectorAll('#ep-'+epId+' .try-header-input').forEach(function(inp) {
     var k = inp.getAttribute('data-key');
     var v = inp.value.trim();
@@ -893,11 +1084,9 @@ function tryRequest(epId) {
   });
   if (queryParams.length) url += '?' + queryParams.join('&');
 
-  // Body
   var bodyEl = document.getElementById('try-body-'+epId);
   var bodyStr = bodyEl ? bodyEl.value.trim() : '';
 
-  // Show loading
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Sending...';
   document.getElementById('resp-'+epId).style.display = 'none';
@@ -907,20 +1096,17 @@ function tryRequest(epId) {
     try { JSON.parse(bodyStr); fetchOpts.body = bodyStr; } catch(e) {}
   }
 
+  var reqInfo = method + ' ' + url;
   var t0 = Date.now();
   fetch(url, fetchOpts)
     .then(function(r) {
       var ms = Date.now() - t0;
-      var status = r.status;
-      return r.text().then(function(text) {
-        return { status: status, text: text, ms: ms, headers: r.headers };
-      });
+      return r.text().then(function(text){ return { status: r.status, text: text, ms: ms }; });
     })
-    .then(function(d) {
-      showResponse(epId, d.status, d.text, d.ms);
-    })
+    .then(function(d){ showResponse(epId, d.status, d.text, d.ms, reqInfo); })
     .catch(function(err) {
-      showResponse(epId, 0, 'Network Error: ' + err.message + '\\n\\nPastikan:\\n1. Base URL benar\\n2. Server berjalan\\n3. CORS diizinkan', Date.now()-t0);
+      var NL = String.fromCharCode(10);
+      showResponse(epId, 0, 'Network Error: ' + err.message + NL + NL + 'Pastikan:' + NL + '1. Base URL benar' + NL + '2. Server berjalan' + NL + '3. CORS diizinkan', Date.now()-t0, reqInfo);
     })
     .finally(function() {
       btn.disabled = false;
@@ -928,25 +1114,25 @@ function tryRequest(epId) {
     });
 }
 
-function showResponse(epId, status, text, ms) {
+function showResponse(epId, status, text, ms, reqInfo) {
   var box = document.getElementById('resp-'+epId);
   var codeEl = document.getElementById('resp-status-'+epId);
   var timeEl = document.getElementById('resp-time-'+epId);
   var bodyEl = document.getElementById('resp-body-'+epId);
+  var reqEl  = document.getElementById('resp-req-'+epId);
 
   box.style.display = 'block';
   timeEl.textContent = ms + ' ms';
+  if (reqEl && reqInfo) reqEl.textContent = reqInfo;
 
   var cls = status >= 200 && status < 300 ? 'status-2xx' : status >= 400 && status < 500 ? 'status-4xx' : 'status-5xx';
   if (status === 0) cls = 'status-5xx';
   codeEl.className = 'status-code ' + cls;
   codeEl.textContent = status || 'ERR';
 
-  var pretty = text;
   try {
     var parsed = JSON.parse(text);
-    pretty = syntaxHighlight(JSON.stringify(parsed, null, 2));
-    bodyEl.innerHTML = pretty;
+    bodyEl.innerHTML = syntaxHighlight(JSON.stringify(parsed, null, 2));
   } catch(e) {
     bodyEl.textContent = text;
   }
@@ -973,13 +1159,18 @@ function copyExample(epId) {
   if (el && ex) { el.value = ex; }
 }
 
-// Base URL change -> save to localStorage
+// Base URL change -> persist
 document.getElementById('base-url-input').addEventListener('change', function() {
   localStorage.setItem('lpd_base_url', this.value);
 });
 (function(){
   var saved = localStorage.getItem('lpd_base_url');
   if (saved) document.getElementById('base-url-input').value = saved;
+  // Restore token badges dari localStorage
+  var st = localStorage.getItem('lpd_snap_token');
+  var it = localStorage.getItem('lpd_ios_token');
+  if (st) { _tokens.snap = st; updateTokenBadge('snap', st); }
+  if (it) { _tokens.ios = it; updateTokenBadge('ios', it); }
 })();
 </script>
 </body>

@@ -6,7 +6,112 @@
 import { createServer } from 'http'
 import { exec, spawn } from 'child_process'
 import { promisify } from 'util'
+import crypto from 'crypto'
+import fs from 'fs'
 import os from 'os'
+
+// ─── Path ke private keys LPD Seminyak ───────────────────────────────────────
+const LPD_DIR    = '/home/user/webapp/lpd_seminyak'
+const PRIV_BPD   = LPD_DIR + '/private_bpd_003.pem'   // untuk SNAP token
+const PRIV_LPD   = LPD_DIR + '/private_key_lpd.pem'   // untuk iOS token
+const WHITELIST_IP = '34.50.74.78'                      // IP yang diizinkan di GIO_WHITE_LIST
+
+// ─── Helper: ISO timestamp Jakarta (UTC+7) ────────────────────────────────────
+function isoTimestampJKT() {
+  const now = new Date()
+  // Offset +07:00
+  const offset = 7 * 60
+  const local = new Date(now.getTime() + offset * 60000)
+  const iso = local.toISOString().replace('Z', '')
+  return iso + '+07:00'
+}
+
+// ─── Generate SNAP Token (BPD private key) ───────────────────────────────────
+// Alur: X-TIMESTAMP + X-CLIENT-KEY → sign SHA256withRSA → X-SIGNATURE
+// POST /v1.0/access-token/b2b  {"grantType":"client_credentials"}
+async function generateSnapToken(baseUrl) {
+  const privKey = fs.readFileSync(PRIV_BPD, 'utf8')
+  const ts       = isoTimestampJKT()
+  const clientKey = 'LPD-SEMINYAK-001'  // X-CLIENT-KEY (partner ID)
+  const msg      = clientKey + '|' + ts
+  const sig      = crypto.sign('SHA256', Buffer.from(msg), {
+    key: privKey, padding: crypto.constants.RSA_PKCS1_PADDING
+  })
+  const signature = sig.toString('base64')
+
+  const url = baseUrl.replace(/\/+$/, '') + '/v1.0/access-token/b2b'
+  const headers = {
+    'Content-Type':    'application/json',
+    'X-TIMESTAMP':     ts,
+    'X-CLIENT-KEY':    clientKey,
+    'X-SIGNATURE':     signature,
+    'X-Forwarded-For': WHITELIST_IP,
+  }
+  const body = JSON.stringify({ grantType: 'client_credentials' })
+
+  const res  = await fetchWithTimeout(url, { method: 'POST', headers, body }, 15000)
+  const data = await res.json()
+  return {
+    ok: true, type: 'snap',
+    token: data.accessToken || null,
+    responseCode: data.responseCode,
+    responseMessage: data.responseMessage,
+    headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-KEY': clientKey, 'X-SIGNATURE': signature },
+    raw: data,
+  }
+}
+
+// ─── Generate iOS Token (LPD private key) ────────────────────────────────────
+// Alur: X-TIMESTAMP → sign SHA256withRSA(hash("Seminyak|<ts>")) → X-SIGNATURE
+// X-CLIENT-ID = encrypted device ID (kita pakai format dummy)
+// POST /smart/access/token
+async function generateIosToken(baseUrl, clientIdEnc) {
+  const privKey = fs.readFileSync(PRIV_LPD, 'utf8')
+  const ts      = isoTimestampJKT()
+
+  // Buat hash yang sama persis seperti di PHP:
+  // $clientStamp = hash("sha256", "Seminyak|". $timeStamp)
+  const clientStamp = crypto.createHash('sha256')
+    .update('Seminyak|' + ts)
+    .digest('hex')
+
+  const sig = crypto.sign('SHA256', Buffer.from(clientStamp), {
+    key: privKey, padding: crypto.constants.RSA_PKCS1_PADDING
+  })
+  const signature = sig.toString('base64')
+
+  const url = baseUrl.replace(/\/+$/, '') + '/smart/access/token'
+  const headers = {
+    'Content-Type':    'application/json',
+    'X-TIMESTAMP':     ts,
+    'X-CLIENT-ID':     clientIdEnc || '',
+    'X-SIGNATURE':     signature,
+    'X-Forwarded-For': WHITELIST_IP,
+  }
+
+  const res  = await fetchWithTimeout(url, { method: 'POST', headers, body: '' }, 15000)
+  const data = await res.json()
+  return {
+    ok: true, type: 'ios',
+    token: data.token || null,
+    status: data.status,
+    message: data.message,
+    headers: { 'X-TIMESTAMP': ts, 'X-CLIENT-ID': clientIdEnc || '', 'X-SIGNATURE': signature },
+    raw: data,
+  }
+}
+
+// ─── Fetch with timeout ───────────────────────────────────────────────────────
+async function fetchWithTimeout(url, opts, ms) {
+  const { default: fetch } = await import('node-fetch').catch(() => ({ default: globalThis.fetch }))
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), ms)
+  try {
+    return await fetch(url, { ...opts, signal: controller.signal })
+  } finally {
+    clearTimeout(timer)
+  }
+}
 
 const execAsync = promisify(exec)
 const PORT = 3001
@@ -153,6 +258,33 @@ const server = createServer(async (req, res) => {
       } catch (parseErr) {
         res.writeHead(400, corsHeaders())
         res.end(JSON.stringify({ error: 'Invalid JSON' }))
+      }
+    })
+    return
+  }
+
+  // ── Token generator endpoint ──────────────────────────────────────────────
+  if (url.pathname === '/token-generate' && req.method === 'POST') {
+    let body = ''
+    req.on('data', chunk => { body += chunk })
+    req.on('end', async () => {
+      try {
+        const { type, baseUrl, clientIdEnc } = JSON.parse(body)
+        let result
+        if (type === 'snap') {
+          result = await generateSnapToken(baseUrl || 'https://lpdseminyak.biz.id:8000')
+        } else if (type === 'ios') {
+          result = await generateIosToken(baseUrl || 'https://lpdseminyak.biz.id:8000', clientIdEnc || '')
+        } else {
+          res.writeHead(400, corsHeaders())
+          res.end(JSON.stringify({ ok: false, error: 'type must be snap or ios' }))
+          return
+        }
+        res.writeHead(200, corsHeaders())
+        res.end(JSON.stringify(result))
+      } catch (e) {
+        res.writeHead(200, corsHeaders())
+        res.end(JSON.stringify({ ok: false, error: e.message, stack: e.stack?.split('\n').slice(0,3).join(' | ') }))
       }
     })
     return

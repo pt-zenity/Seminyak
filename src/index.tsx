@@ -34,6 +34,23 @@ app.get('/api/exec/health', async (c) => {
     return c.json({ ok: false, error: 'Terminal server offline' }, 503)
   }
 })
+// ── Token Generator proxy ────────────────────────────────────────────────────
+// Generate SNAP / iOS token dengan RSA signature, forward ke terminal-server
+app.post('/api/token/generate', async (c) => {
+  try {
+    const body = await c.req.json() as Record<string, string>
+    const resp = await fetch('http://127.0.0.1:3001/token-generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    const data = await resp.json() as Record<string, unknown>
+    return c.json(data)
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e)
+    return c.json({ ok: false, error: 'Token server error: ' + msg }, 500)
+  }
+})
 // ────────────────────────────────────────────────────────────────────────────
 
 app.get('/', (c) => {
