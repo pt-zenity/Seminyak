@@ -169,7 +169,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="runOp('keygen')"><i class="fas fa-play"></i> Derive Keys</button>
+      <button class="btn btn-primary" onclick="runOp(event,'keygen')"><i class="fas fa-play"></i> Derive Keys</button>
       <button class="btn btn-secondary" onclick="fillNow('kg-ts')"><i class="fas fa-clock"></i> Sekarang (Jakarta)</button>
     </div>
     <div id="result-keygen" class="result-box"></div>
@@ -201,7 +201,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <i class="fas fa-info-circle"></i>
       <div>Menghasilkan timestamp waktu Jakarta sekarang dalam dua format: <b>YYYY-MM-DD HH:MM:SS</b> (untuk iOS API) dan <b>ISO8601+07:00</b> (untuk SNAP API).</div>
     </div>
-    <button class="btn btn-green" onclick="runOp('timestamp')"><i class="fas fa-sync"></i> Get Timestamp Sekarang</button>
+    <button class="btn btn-green" onclick="runOp(event,'timestamp')"><i class="fas fa-sync"></i> Get Timestamp Sekarang</button>
     <div id="result-timestamp" class="result-box"></div>
     <div class="divider"></div>
     <div class="quick-ref">
@@ -239,7 +239,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
         <input type="number" id="ref-count" placeholder="5" value="5" min="1" max="10"/>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="runOp('reference')"><i class="fas fa-random"></i> Generate References</button>
+    <button class="btn btn-primary" onclick="runOp(event,'reference')"><i class="fas fa-dice"></i> Generate References</button>
     <div id="result-reference" class="result-box"></div>
     <div class="divider"></div>
     <div class="info-box info-red">
@@ -280,7 +280,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-primary" onclick="runOp('encrypt')"><i class="fas fa-lock"></i> Encrypt</button>
+      <button class="btn btn-primary" onclick="runOp(event,'encrypt')"><i class="fas fa-lock"></i> Encrypt</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('enc-key','enc-iv')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
     <div id="result-encrypt" class="result-box"></div>
@@ -323,7 +323,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-orange" onclick="runOp('decrypt')"><i class="fas fa-unlock"></i> Decrypt</button>
+      <button class="btn btn-orange" onclick="runOp(event,'decrypt')"><i class="fas fa-unlock"></i> Decrypt</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('dec-key','dec-iv')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
     <div id="result-decrypt" class="result-box"></div>
@@ -366,7 +366,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-orange" onclick="runOp('decrypt-body')"><i class="fas fa-box-open"></i> Decrypt Body</button>
+      <button class="btn btn-orange" onclick="runOp(event,'decrypt-body')"><i class="fas fa-box-open"></i> Decrypt Body</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('db-key','db-iv')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
       <button class="btn btn-secondary" onclick="fillSampleBody()"><i class="fas fa-fill"></i> Contoh dari curl Real</button>
     </div>
@@ -395,7 +395,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <textarea id="did-decode-val" style="min-height:100px;font-size:10px" placeholder="U01ZU2V6F3B7BWtV[M39ZkVGUk0wRXVNalF3T1RFeUxqQXdNUzR3TVRFd01qQXlOVEU2VtaW55YWt8..."></textarea>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="runOp('did-decode')"><i class="fas fa-unlock-alt"></i> Decode DID</button>
+      <button class="btn btn-primary" onclick="runOp(event,'did-decode')"><i class="fas fa-unlock-alt"></i> Decode DID</button>
       <button class="btn btn-secondary" onclick="fillSampleDID()"><i class="fas fa-fill"></i> Contoh DID Real</button>
     </div>
     <div id="result-did-decode" class="result-box"></div>
@@ -438,7 +438,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <input type="text" id="die-app" placeholder="Seminyak" value="Seminyak"/>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-green" onclick="runOp('did-encode')"><i class="fas fa-lock"></i> Encode DID</button>
+      <button class="btn btn-green" onclick="runOp(event,'did-encode')"><i class="fas fa-lock"></i> Encode DID</button>
       <button class="btn btn-secondary" onclick="fillNow('die-ts')"><i class="fas fa-clock"></i> Timestamp Sekarang</button>
     </div>
     <div id="result-did-encode" class="result-box"></div>
@@ -466,7 +466,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <textarea id="jwt-val" style="min-height:100px;font-size:10px" placeholder="eyJ0cmFuc19ubyI6IjExMTIzLTQzNTI0..."></textarea>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="runOp('jwt-decode')"><i class="fas fa-decode"></i> Decode JWT</button>
+      <button class="btn btn-primary" onclick="runOp(event,'jwt-decode')"><i class="fas fa-code"></i> Decode JWT</button>
       <button class="btn btn-secondary" onclick="fillSampleJWT()"><i class="fas fa-fill"></i> Contoh JWT Real</button>
     </div>
     <div id="result-jwt-decode" class="result-box"></div>
@@ -498,7 +498,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <label>X-SIGNATURE atau X-PARTNER-ID (base64)</label>
       <textarea id="sigd-val" placeholder="N2E2Y2VhNGNlZDgyYWQ3NT..."></textarea>
     </div>
-    <button class="btn btn-primary" onclick="runOp('sig-decode')"><i class="fas fa-search"></i> Decode Signature</button>
+    <button class="btn btn-primary" onclick="runOp(event,'sig-decode')"><i class="fas fa-search"></i> Decode Signature</button>
     <div id="result-sig-decode" class="result-box"></div>
     <div class="divider"></div>
     <div class="quick-ref">
@@ -539,8 +539,8 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="runOp('signature')"><i class="fas fa-pen"></i> Generate Signature</button>
-      <button class="btn btn-secondary" onclick="pasteFromKeygenCS('sig-cs');pasteFromKeygenTS('sig-ts')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
+      <button class="btn btn-primary" onclick="runOp(event,'signature')"><i class="fas fa-pen"></i> Generate Signature</button>
+      <button class="btn btn-secondary" onclick="pasteFromKeygenCS('sig-cs');fillNow('sig-ts')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
     <div id="result-signature" class="result-box"></div>
     <div class="divider"></div>
@@ -572,7 +572,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <input type="text" id="ios-ts" placeholder="Kosongkan untuk timestamp sekarang (Jakarta)"/>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-primary" onclick="runOp('ios-token-sig')"><i class="fas fa-mobile-alt"></i> Generate iOS Sig</button>
+      <button class="btn btn-primary" onclick="runOp(event,'ios-token-sig')"><i class="fas fa-mobile-alt"></i> Generate iOS Sig</button>
       <button class="btn btn-secondary" onclick="fillNow('ios-ts')"><i class="fas fa-clock"></i> Timestamp Sekarang</button>
     </div>
     <div id="result-ios-token-sig" class="result-box"></div>
@@ -613,7 +613,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="runOp('snap-token-sig')"><i class="fas fa-plug"></i> Generate SNAP Sig</button>
+      <button class="btn btn-primary" onclick="runOp(event,'snap-token-sig')"><i class="fas fa-plug"></i> Generate SNAP Sig</button>
       <button class="btn btn-secondary" onclick="fillNowISO('snap-ts')"><i class="fas fa-clock"></i> Timestamp Sekarang</button>
     </div>
     <div id="result-snap-token-sig" class="result-box"></div>
@@ -640,9 +640,9 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
   </div>
   <div class="panel-body">
     <div class="tab-bar">
-      <div class="tab active" onclick="switchSubTab('hash','check')">Check/Inquiry</div>
-      <div class="tab" onclick="switchSubTab('hash','posting')">Posting</div>
-      <div class="tab" onclick="switchSubTab('hash','lpd')">LPD Internal</div>
+      <div class="tab active" onclick="switchSubTab(this,'hash','check')">Check/Inquiry</div>
+      <div class="tab" onclick="switchSubTab(this,'hash','posting')">Posting</div>
+      <div class="tab" onclick="switchSubTab(this,'hash','lpd')">LPD Internal</div>
     </div>
     <div id="hash-check" class="tab-panel active">
       <div class="info-box info-purple">
@@ -722,7 +722,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       </div>
     </div>
 
-    <button class="btn btn-primary" onclick="runOp('hashcode')"><i class="fas fa-fingerprint"></i> Generate Hash Code</button>
+    <button class="btn btn-primary" onclick="runOp(event,'hashcode')"><i class="fas fa-fingerprint"></i> Generate Hash Code</button>
     <div id="result-hashcode" class="result-box"></div>
     <div class="divider"></div>
     <div class="info-box info-yellow">
@@ -754,9 +754,9 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
     </div>
 
     <div class="tab-bar">
-      <div class="tab active" onclick="switchSubTab('bt','check')">Check</div>
-      <div class="tab" onclick="switchSubTab('bt','inquiry')">Inquiry</div>
-      <div class="tab" onclick="switchSubTab('bt','posting')">Posting</div>
+      <div class="tab active" onclick="switchSubTab(this,'bt','check')">Check</div>
+      <div class="tab" onclick="switchSubTab(this,'bt','inquiry')">Inquiry</div>
+      <div class="tab" onclick="switchSubTab(this,'bt','posting')">Posting</div>
     </div>
     <input type="hidden" id="bt-step" value="check"/>
 
@@ -816,7 +816,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
     </div>
 
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="runOp('build-transfer')"><i class="fas fa-hammer"></i> Build Request</button>
+      <button class="btn btn-primary" onclick="runOp(event,'build-transfer')"><i class="fas fa-hammer"></i> Build Request</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('bt-key','bt-iv');pasteFromKeygenCS('bt-cs')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
     <div id="result-build-transfer" class="result-box"></div>
@@ -893,10 +893,11 @@ function showTab(name) {
   if (nav) nav.classList.add('active');
 }
 
-function switchSubTab(group, tab) {
-  document.querySelectorAll('#tab-' + (group === 'hash' ? 'hashcode' : 'build-transfer') + ' .tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('#tab-' + (group === 'hash' ? 'hashcode' : 'build-transfer') + ' .tab-panel').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
+function switchSubTab(el, group, tab) {
+  const container = document.getElementById('tab-' + (group === 'hash' ? 'hashcode' : 'build-transfer'));
+  container.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
   const panel = document.getElementById(group + '-' + tab);
   if (panel) panel.classList.add('active');
   if (group === 'hash') {
@@ -1006,8 +1007,8 @@ function fillSampleBody() {
 }
 
 // ── Main op dispatcher ────────────────────────────────────────────────────────
-async function runOp(opName) {
-  const btn = event.currentTarget;
+async function runOp(e, opName) {
+  const btn = e.currentTarget;
   setLoading(btn, true);
   try {
     let payload = { op: opName };
@@ -1103,7 +1104,7 @@ async function runOp(opName) {
         const curlLines = buildCurl(res);
         showResult('build-transfer', curlLines, true);
       } else if (opName === 'reference' && r.result && r.result.references) {
-        showResult('reference', r.result.references.join('\\n'), true);
+        showResult('reference', r.result.references.join(String.fromCharCode(10)), true);
       } else {
         showResult(opName === 'decrypt-body' ? 'decrypt-body' : opName, r.result, true);
       }
@@ -1118,26 +1119,31 @@ async function runOp(opName) {
 }
 
 function buildCurl(res) {
-  const h = res.headers || {};
-  const b = res.body || {};
-  const lines = [
-    '# ═══ CURL COMMAND ═══',
-    'curl -X POST "' + res.url + '" \\\\',
-    Object.entries(h).map(([k,v]) => \`  -H "\${k}: \${v}" \\\\\`).join('\\n'),
-    '  -d \'' + JSON.stringify(b, null, 2).replace(/'/g, "'\\\\''") + "'",
-    '',
-    '# ═══ HEADERS ═══',
-    JSON.stringify(h, null, 2),
-    '',
-    '# ═══ BODY (encrypted) ═══',
-    JSON.stringify(b, null, 2),
-    '',
-    '# ═══ DEBUG ═══',
-    'refNo: ' + res.refNo,
-    'timestamp: ' + res.ts,
-    'hashRaw: ' + (res.debug && res.debug.hashRaw ? res.debug.hashRaw : 'N/A'),
-  ].join('\\n');
-  return lines;
+  var h = res.headers || {};
+  var b = res.body || {};
+  var BS = String.fromCharCode(92);
+  var lines = [];
+  lines.push('# curl command siap pakai:');
+  lines.push('curl -X POST "' + (res.url || '') + '" ' + BS);
+  Object.keys(h).forEach(function(k) {
+    lines.push('  -H "' + k + ': ' + h[k] + '" ' + BS);
+  });
+  var bodyStr = JSON.stringify(b, null, 2);
+  var sq = String.fromCharCode(39);
+  var safeBody = bodyStr.replace(/'/g, sq + BS + sq + sq);
+  lines.push("  -d " + sq + safeBody + sq);
+  lines.push('');
+  lines.push('# === HEADERS ===');
+  lines.push(JSON.stringify(h, null, 2));
+  lines.push('');
+  lines.push('# === BODY (encrypted) ===');
+  lines.push(bodyStr);
+  lines.push('');
+  lines.push('# === DEBUG ===');
+  lines.push('refNo    : ' + (res.refNo || ''));
+  lines.push('timestamp: ' + (res.ts || ''));
+  lines.push('hashRaw  : ' + (res.debug && res.debug.hashRaw ? res.debug.hashRaw : 'N/A'));
+  return lines.join(String.fromCharCode(10));
 }
 
 // Init
