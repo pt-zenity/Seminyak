@@ -93,10 +93,55 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 .badge-rsa{background:#1e1b4b;color:#a78bfa}
 .badge-sha{background:#022c22;color:#6ee7b7}
 .nav-back{padding:10px 14px;border-top:1px solid #312e81;position:sticky;bottom:0;background:#1e1b4b}
+
+/* ── MOBILE HAMBURGER & OVERLAY ── */
+#menu-toggle{display:none;background:none;border:none;color:#a5b4fc;font-size:22px;cursor:pointer;padding:4px 8px;line-height:1}
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;backdrop-filter:blur(2px)}
+#sidebar-overlay.show{display:block}
+
+/* ── TOPBAR RESPONSIVE ── */
+.topbar{flex-wrap:wrap;gap:8px}
+.topbar-badges{display:flex;gap:6px;flex-wrap:wrap}
+
+/* ── BUTTON GROUPS ── */
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.btn-group .btn{flex:1;min-width:120px;justify-content:center}
+
+/* ── MOBILE BREAKPOINT ── */
+@media(max-width:768px){
+  :root{--sidebar-w:280px}
+  #sidebar{transform:translateX(-100%);transition:transform .25s ease;box-shadow:4px 0 20px rgba(0,0,0,.5)}
+  #sidebar.open{transform:translateX(0)}
+  #menu-toggle{display:inline-flex;align-items:center}
+  #main{margin-left:0!important}
+  .topbar{padding:10px 14px}
+  .topbar h2{font-size:13px}
+  .content{padding:14px 12px}
+  .panel-body{padding:12px}
+  .panel-header{padding:10px 14px}
+  .grid-2,.grid-3{grid-template-columns:1fr!important}
+  .topbar-badges span{font-size:9px;padding:2px 7px}
+  pre.result{font-size:10.5px;max-height:280px}
+  .stat-key{min-width:100px;font-size:11px}
+  .stat-val{font-size:11px}
+  .btn{padding:10px 14px;font-size:11px}
+  .quick-ref{font-size:10px}
+  textarea{min-height:70px}
+}
+
+@media(max-width:480px){
+  .topbar h2 span.hide-xs{display:none}
+  .btn-group .btn{min-width:100%;flex:1 1 100%}
+  .tab{padding:7px 10px;font-size:11px}
+  .info-box{font-size:11px}
+  label{font-size:10px}
+  input[type=text],input[type=number],textarea,select{font-size:12px;padding:8px 10px}
+}
 </style>
 </head>
 <body>
 
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
 <aside id="sidebar">
 <div class="logo">
   <h1><i class="fas fa-lock mr-1"></i> LPD Crypto Toolkit</h1>
@@ -133,8 +178,11 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 
 <div id="main">
 <div class="topbar">
-  <h2><i class="fas fa-lock mr-2"></i>LPD Seminyak — Crypto Toolkit</h2>
-  <div style="display:flex;gap:6px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button id="menu-toggle" onclick="toggleSidebar()" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <h2><i class="fas fa-lock" style="margin-right:6px"></i><span>LPD Seminyak</span> <span class="hide-xs">— Crypto Toolkit</span></h2>
+  </div>
+  <div class="topbar-badges">
     <span style="background:#312e81;color:#a5b4fc;font-size:10px;padding:3px 9px;border-radius:999px;font-weight:700">AES-256-CBC</span>
     <span style="background:#1c1200;color:#fcd34d;font-size:10px;padding:3px 9px;border-radius:999px;font-weight:700">HMAC-SHA512</span>
     <span style="background:#022c22;color:#6ee7b7;font-size:10px;padding:3px 9px;border-radius:999px;font-weight:700">RSA-SHA256</span>
@@ -168,7 +216,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
         <input type="text" id="kg-ts" placeholder="2026-04-20 11:44:20" value="2026-04-20 11:44:20"/>
       </div>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'keygen')"><i class="fas fa-play"></i> Derive Keys</button>
       <button class="btn btn-secondary" onclick="fillNow('kg-ts')"><i class="fas fa-clock"></i> Sekarang (Jakarta)</button>
     </div>
@@ -279,7 +327,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
         <input type="text" id="enc-iv" placeholder="ZLrWcBiRrq+egQkyb8Pf0g=="/>
       </div>
     </div>
-    <div style="display:flex;gap:8px">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'encrypt')"><i class="fas fa-lock"></i> Encrypt</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('enc-key','enc-iv')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
@@ -322,7 +370,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
         <input type="text" id="dec-iv" placeholder="ZLrWcBiRrq+egQkyb8Pf0g=="/>
       </div>
     </div>
-    <div style="display:flex;gap:8px">
+    <div class="btn-group">
       <button class="btn btn-orange" onclick="runOp(event,'decrypt')"><i class="fas fa-unlock"></i> Decrypt</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('dec-key','dec-iv')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
@@ -365,7 +413,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
         <input type="text" id="db-iv" placeholder="ZLrWcBiRrq+egQkyb8Pf0g=="/>
       </div>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div class="btn-group">
       <button class="btn btn-orange" onclick="runOp(event,'decrypt-body')"><i class="fas fa-box-open"></i> Decrypt Body</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('db-key','db-iv')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
       <button class="btn btn-secondary" onclick="fillSampleBody()"><i class="fas fa-fill"></i> Contoh dari curl Real</button>
@@ -394,7 +442,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <label>X-CLIENT-ID (encoded DID, biasanya 400–600 karakter)</label>
       <textarea id="did-decode-val" style="min-height:100px;font-size:10px" placeholder="U01ZU2V6F3B7BWtV[M39ZkVGUk0wRXVNalF3T1RFeUxqQXdNUzR3TVRFd01qQXlOVEU2VtaW55YWt8..."></textarea>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'did-decode')"><i class="fas fa-unlock-alt"></i> Decode DID</button>
       <button class="btn btn-secondary" onclick="fillSampleDID()"><i class="fas fa-fill"></i> Contoh DID Real</button>
     </div>
@@ -437,7 +485,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <label>App Name (default: Seminyak)</label>
       <input type="text" id="die-app" placeholder="Seminyak" value="Seminyak"/>
     </div>
-    <div style="display:flex;gap:8px">
+    <div class="btn-group">
       <button class="btn btn-green" onclick="runOp(event,'did-encode')"><i class="fas fa-lock"></i> Encode DID</button>
       <button class="btn btn-secondary" onclick="fillNow('die-ts')"><i class="fas fa-clock"></i> Timestamp Sekarang</button>
     </div>
@@ -465,7 +513,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <label>JWT Token (Authorization header value)</label>
       <textarea id="jwt-val" style="min-height:100px;font-size:10px" placeholder="eyJ0cmFuc19ubyI6IjExMTIzLTQzNTI0..."></textarea>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'jwt-decode')"><i class="fas fa-code"></i> Decode JWT</button>
       <button class="btn btn-secondary" onclick="fillSampleJWT()"><i class="fas fa-fill"></i> Contoh JWT Real</button>
     </div>
@@ -538,7 +586,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
         <input type="text" id="sig-cs" placeholder="1O7pFHEDJ0k="/>
       </div>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'signature')"><i class="fas fa-pen"></i> Generate Signature</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygenCS('sig-cs');fillNow('sig-ts')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
@@ -571,7 +619,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <label>Timestamp (YYYY-MM-DD HH:MM:SS) — kosongkan untuk otomatis</label>
       <input type="text" id="ios-ts" placeholder="Kosongkan untuk timestamp sekarang (Jakarta)"/>
     </div>
-    <div style="display:flex;gap:8px">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'ios-token-sig')"><i class="fas fa-mobile-alt"></i> Generate iOS Sig</button>
       <button class="btn btn-secondary" onclick="fillNow('ios-ts')"><i class="fas fa-clock"></i> Timestamp Sekarang</button>
     </div>
@@ -612,7 +660,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
         <input type="text" id="snap-ts" placeholder="2026-04-21T10:30:00+07:00"/>
       </div>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'snap-token-sig')"><i class="fas fa-plug"></i> Generate SNAP Sig</button>
       <button class="btn btn-secondary" onclick="fillNowISO('snap-ts')"><i class="fas fa-clock"></i> Timestamp Sekarang</button>
     </div>
@@ -815,7 +863,7 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
       <input type="text" id="bt-ref" placeholder="Generate otomatis (SMY...)"/>
     </div>
 
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div class="btn-group">
       <button class="btn btn-primary" onclick="runOp(event,'build-transfer')"><i class="fas fa-hammer"></i> Build Request</button>
       <button class="btn btn-secondary" onclick="pasteFromKeygen('bt-key','bt-iv');pasteFromKeygenCS('bt-cs')"><i class="fas fa-paste"></i> Paste dari Keygen</button>
     </div>
@@ -891,7 +939,33 @@ function showTab(name) {
   if (sec) sec.classList.add('active');
   const nav = document.getElementById('nav-' + name);
   if (nav) nav.classList.add('active');
+  // Auto-close sidebar on mobile after nav click
+  if (window.innerWidth <= 768) closeSidebar();
 }
+
+// ── Mobile Sidebar ─────────────────────────────────────────────────────────
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebar-overlay');
+  if (sb.classList.contains('open')) {
+    closeSidebar();
+  } else {
+    sb.classList.add('open');
+    ov.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// Close sidebar on resize to desktop
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 768) closeSidebar();
+});
 
 function switchSubTab(el, group, tab) {
   const container = document.getElementById('tab-' + (group === 'hash' ? 'hashcode' : 'build-transfer'));
