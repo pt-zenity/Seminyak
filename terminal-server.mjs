@@ -71,21 +71,26 @@ const server = createServer(async (req, res) => {
         // Update working dir jika dikirim
         if (workdir) cwd = workdir
 
-        // Handle perintah cd khusus
-        const cdMatch = command.trim().match(/^cd\s+(.+)$/)
-        if (cdMatch) {
+        // Handle perintah "cd <path>" TUNGGAL (tanpa && | ; dll)
+        // Jika ada operator shell, biarkan bash yang handle via execAsync
+        const isSingleCd = /^cd(\s+\S+)?$/.test(command.trim())
+        if (isSingleCd) {
           const { execSync } = await import('child_process')
           try {
-            const target = cdMatch[1].replace(/^~/, process.env.HOME || '/home/user')
-            // Resolusi path relatif
+            const afterCd = command.trim().slice(2).trim()
+            const target = (afterCd || process.env.HOME || '/home/user')
+              .replace(/^~(?=\/|$)/, process.env.HOME || '/home/user')
             const newPath = target.startsWith('/') ? target : `${cwd}/${target}`
-            const resolved = execSync(`cd "${newPath}" && pwd`, { encoding: 'utf8' }).trim()
+            const resolved = execSync(`cd "${newPath.replace(/"/g, '\\"')}" && pwd`, {
+              encoding: 'utf8', cwd
+            }).trim()
             cwd = resolved
             res.writeHead(200, corsHeaders())
             res.end(JSON.stringify({ stdout: '', stderr: '', cwd, exitCode: 0 }))
           } catch (e) {
+            const target = command.trim().slice(2).trim() || '~'
             res.writeHead(200, corsHeaders())
-            res.end(JSON.stringify({ stdout: '', stderr: `bash: cd: ${cdMatch[1]}: No such file or directory`, cwd, exitCode: 1 }))
+            res.end(JSON.stringify({ stdout: '', stderr: `bash: cd: ${target}: No such file or directory`, cwd, exitCode: 1 }))
           }
           return
         }
@@ -97,20 +102,35 @@ const server = createServer(async (req, res) => {
           return
         }
 
-        // Jalankan perintah
+        // Jalankan perintah — append "&&pwd" tersembunyi untuk track cwd
+        // Dipisahkan dengan sentinel agar bisa di-parse
+        const SENTINEL = '__CWD_SENTINEL__'
+        const wrappedCmd = `(${command}) && printf '\\n${SENTINEL}' && pwd`
+
         const startTime = Date.now()
         try {
-          const { stdout, stderr } = await Promise.race([
-            execAsync(command, {
+          const { stdout: rawOut, stderr } = await Promise.race([
+            execAsync(wrappedCmd, {
               cwd,
               timeout: TIMEOUT_MS,
               maxBuffer: 1024 * 1024 * 2, // 2MB
               env: { ...process.env, TERM: 'xterm-256color', COLORTERM: 'truecolor' },
+              shell: '/bin/bash',
             }),
             new Promise((_, reject) =>
               setTimeout(() => reject(new Error('TIMEOUT')), TIMEOUT_MS)
             )
           ])
+
+          // Ekstrak stdout asli & cwd baru
+          let stdout = rawOut
+          const sentinelIdx = rawOut.lastIndexOf('\n' + SENTINEL)
+          if (sentinelIdx !== -1) {
+            stdout = rawOut.slice(0, sentinelIdx)
+            const newCwd = rawOut.slice(sentinelIdx + SENTINEL.length + 1).trim()
+            if (newCwd) cwd = newCwd
+          }
+
           const duration = Date.now() - startTime
           res.writeHead(200, corsHeaders())
           res.end(JSON.stringify({ stdout, stderr, cwd, exitCode: 0, duration }))
