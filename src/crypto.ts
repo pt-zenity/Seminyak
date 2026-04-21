@@ -107,6 +107,29 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 .btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .btn-group .btn{flex:1;min-width:120px;justify-content:center}
 
+/* ── SMART / TRANSAKSI ── */
+.session-box{background:#0c1a0c;border:1px solid #166534;border-radius:10px;padding:12px 16px;margin-bottom:16px}
+.session-box .session-title{font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.session-field{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11px}
+.session-field .sf-label{color:#6ee7b7;min-width:90px;font-family:monospace}
+.session-field .sf-val{color:#a7f3d0;font-family:monospace;word-break:break-all;flex:1}
+.session-field .sf-copy{background:none;border:1px solid #166534;color:#4ade80;border-radius:4px;padding:1px 7px;font-size:10px;cursor:pointer}
+.badge-live{display:inline-flex;align-items:center;gap:5px;background:#052e16;border:1px solid #166534;color:#4ade80;font-size:10px;font-weight:700;padding:2px 9px;border-radius:999px}
+.badge-live .dot{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.badge-offline{display:inline-flex;align-items:center;gap:5px;background:#1f1f1f;border:1px solid #374151;color:#6b7280;font-size:10px;font-weight:700;padding:2px 9px;border-radius:999px}
+.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:18px;flex-wrap:wrap;gap:4px}
+.step{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;background:#1e293b;color:#64748b;border:1px solid #334155}
+.step.done{background:#052e16;color:#4ade80;border-color:#166534}
+.step.active{background:#312e81;color:#a78bfa;border-color:#4c1d95}
+.step-arrow{color:#334155;font-size:10px}
+.amount-input{font-size:20px!important;font-weight:700!important;color:#fbbf24!important;text-align:right}
+.confirm-box{background:#1c1200;border:1px solid #92400e;border-radius:10px;padding:14px;margin:12px 0}
+.confirm-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #292524;font-size:12px}
+.confirm-row:last-child{border-bottom:none}
+.confirm-label{color:#78716c}
+.confirm-value{color:#fbbf24;font-weight:700;font-family:monospace}
+
 /* ── MOBILE BREAKPOINT ── */
 @media(max-width:768px){
   :root{--sidebar-w:280px}
@@ -170,6 +193,10 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
   <a href="#" onclick="showTab('build-transfer');return false" id="nav-build-transfer"><i class="fas fa-hammer"></i> Build Transfer Request</a>
   <div class="nav-section">Referensi</div>
   <a href="#" onclick="showTab('quick-ref');return false" id="nav-quick-ref"><i class="fas fa-book"></i> Referensi Cepat</a>
+  <div class="nav-section" style="color:#f59e0b">Transaksi</div>
+  <a href="#" onclick="showTab('smart-login');return false" id="nav-smart-login"><i class="fas fa-sign-in-alt"></i> Login Nasabah</a>
+  <a href="#" onclick="showTab('smart-saldo');return false" id="nav-smart-saldo"><i class="fas fa-wallet"></i> Cek Saldo</a>
+  <a href="#" onclick="showTab('smart-transfer');return false" id="nav-smart-transfer"><i class="fas fa-exchange-alt"></i> Transfer</a>
 </nav>
 <div class="nav-back">
   <a href="/swagger" style="display:flex;align-items:center;gap:7px;font-size:11px;color:#6d28d9;text-decoration:none"><i class="fas fa-flask"></i> Buka API Explorer</a>
@@ -873,6 +900,263 @@ pre.result{background:#020617;border:1px solid #1e293b;border-radius:8px;padding
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SMART: LOGIN NASABAH -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="tab-smart-login" class="section">
+
+<!-- Session status bar (ditampilkan di semua smart tabs) -->
+<div id="smart-session-bar" style="display:none" class="content" style="padding-bottom:0">
+<div class="session-box">
+  <div class="session-title"><span class="badge-live"><span class="dot"></span>Sesi Aktif</span> &nbsp; Nasabah Login</div>
+  <div class="session-field"><span class="sf-label">Token</span><span class="sf-val" id="ss-token-preview">—</span><button class="sf-copy" onclick="copyRaw(document.getElementById('ss-token-full').value)">Salin</button><input type="hidden" id="ss-token-full"/></div>
+  <div class="session-field"><span class="sf-label">AES Key</span><span class="sf-val" id="ss-key">—</span><button class="sf-copy" onclick="copyRaw(this.previousElementSibling.textContent)">Salin</button></div>
+  <div class="session-field"><span class="sf-label">AES IV</span><span class="sf-val" id="ss-iv">—</span><button class="sf-copy" onclick="copyRaw(this.previousElementSibling.textContent)">Salin</button></div>
+  <div class="session-field"><span class="sf-label">AES CS</span><span class="sf-val" id="ss-cs">—</span><button class="sf-copy" onclick="copyRaw(this.previousElementSibling.textContent)">Salin</button></div>
+  <div class="session-field"><span class="sf-label">X-CLIENT-ID</span><span class="sf-val" id="ss-did">—</span><button class="sf-copy" onclick="copyRaw(this.previousElementSibling.textContent)">Salin</button></div>
+  <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn btn-red" style="font-size:10px;padding:5px 12px" onclick="smartLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <button class="btn btn-secondary" style="font-size:10px;padding:5px 12px" onclick="showTab('smart-saldo')"><i class="fas fa-wallet"></i> Cek Saldo</button>
+    <button class="btn btn-secondary" style="font-size:10px;padding:5px 12px" onclick="showTab('smart-transfer')"><i class="fas fa-exchange-alt"></i> Transfer</button>
+  </div>
+</div>
+</div>
+
+<div class="content">
+<div class="panel">
+  <div class="panel-header">
+    <i class="fas fa-sign-in-alt" style="color:#fbbf24"></i>
+    <h3>Login Nasabah</h3>
+    <span class="badge" style="background:#1c1200;color:#fbbf24">POST /api/smart/access/login</span>
+  </div>
+  <div class="panel-body">
+
+    <div class="info-box info-yellow">
+      <i class="fas fa-info-circle"></i>
+      <div>Login akan mengenkripsi <code>user_name</code> &amp; <code>user_pass</code> dengan AES-256-CBC, membuat JWT + X-SIGNATURE otomatis dari private key LPD, lalu POST ke server. Token yang diterima disimpan untuk Cek Saldo &amp; Transfer.</div>
+    </div>
+
+    <!-- Step indicator -->
+    <div class="step-indicator">
+      <div class="step active"><i class="fas fa-key"></i> 1. Isi AES Key</div>
+      <span class="step-arrow">›</span>
+      <div class="step"><i class="fas fa-user"></i> 2. Isi Kredensial</div>
+      <span class="step-arrow">›</span>
+      <div class="step"><i class="fas fa-sign-in-alt"></i> 3. Login</div>
+      <span class="step-arrow">›</span>
+      <div class="step"><i class="fas fa-check"></i> 4. Dapat Token</div>
+    </div>
+
+    <!-- AES Keys (dari Keygen) -->
+    <h4 style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px"><i class="fas fa-key"></i> Kunci AES & Client ID</h4>
+    <div class="grid-2">
+      <div class="field-row">
+        <label>AES Key (base64, 32 bytes)</label>
+        <input type="text" id="sl-key" placeholder="dari Derive AES Keys"/>
+      </div>
+      <div class="field-row">
+        <label>AES IV (base64, 16 bytes)</label>
+        <input type="text" id="sl-iv" placeholder="dari Derive AES Keys"/>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="field-row">
+        <label>AES CS (base64, 8 bytes)</label>
+        <input type="text" id="sl-cs" placeholder="dari Derive AES Keys"/>
+      </div>
+      <div class="field-row">
+        <label>X-CLIENT-ID (encoded)</label>
+        <input type="text" id="sl-did" placeholder="dari Encode X-CLIENT-ID"/>
+      </div>
+    </div>
+    <div class="btn-group" style="margin-bottom:16px">
+      <button class="btn btn-secondary" onclick="slPasteKeygen()"><i class="fas fa-paste"></i> Paste dari Keygen</button>
+    </div>
+    <div class="divider"></div>
+
+    <!-- Kredensial -->
+    <h4 style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px"><i class="fas fa-user-lock"></i> Kredensial Nasabah</h4>
+    <div class="grid-2">
+      <div class="field-row">
+        <label>Username (plaintext / MD5)</label>
+        <input type="text" id="sl-user" placeholder="c70225c9408df9a1ebacc16870f6e7d1"/>
+      </div>
+      <div class="field-row">
+        <label>Password (plaintext / MD5)</label>
+        <input type="password" id="sl-pass" placeholder="2b481940af1d3458913abd25b114745c"/>
+      </div>
+    </div>
+    <div class="field-row">
+      <label>Base URL Server</label>
+      <input type="text" id="sl-url" value="https://lpdseminyak.biz.id:8000"/>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" style="background:linear-gradient(135deg,#d97706,#b45309)" id="sl-btn" onclick="smartLogin(this)"><i class="fas fa-sign-in-alt"></i> Login Sekarang</button>
+    </div>
+    <div id="result-smart-login" class="result-box"></div>
+
+    <div class="divider"></div>
+    <div class="quick-ref">
+      <span class="comment"># Flow otomatis yang dilakukan:</span><br>
+      <span class="cmd">1. aesEncrypt(user_name, key, iv)  →  user_name terenkripsi</span><br>
+      <span class="cmd">2. aesEncrypt(user_pass, key, iv)  →  user_pass terenkripsi</span><br>
+      <span class="cmd">3. createJWT(refNo, tsISO, priv_lpd)  →  Authorization header</span><br>
+      <span class="cmd">4. generateSignature(jwt, ts, cs)  →  X-SIGNATURE & X-PARTNER-ID</span><br>
+      <span class="cmd">5. POST /api/smart/access/login  →  dapat token</span><br>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SMART: CEK SALDO -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="tab-smart-saldo" class="section">
+<div class="content">
+<div id="smart-saldo-session" class="session-box" style="display:none">
+  <div class="session-title"><span class="badge-live"><span class="dot"></span>Sesi Aktif</span></div>
+  <div class="session-field"><span class="sf-label">Token</span><span class="sf-val" id="saldo-token-preview">—</span></div>
+</div>
+<div id="smart-saldo-noauth" class="info-box info-red">
+  <i class="fas fa-exclamation-triangle"></i>
+  <div>Belum login. Silakan <a href="#" onclick="showTab('smart-login');return false" style="color:#fca5a5;font-weight:700">Login Nasabah</a> terlebih dahulu untuk mendapatkan token.</div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <i class="fas fa-wallet" style="color:#34d399"></i>
+    <h3>Cek Saldo</h3>
+    <span class="badge" style="background:#022c22;color:#6ee7b7">POST /api/smart/account/balance</span>
+  </div>
+  <div class="panel-body">
+    <div class="info-box info-green">
+      <i class="fas fa-info-circle"></i>
+      <div>Nomor rekening akan dienkripsi AES-256-CBC sebelum dikirim. JWT &amp; signature dibuat ulang otomatis dari private key LPD tiap request.</div>
+    </div>
+    <div class="field-row">
+      <label>Nomor Rekening</label>
+      <input type="text" id="sb-norek" placeholder="0100001234"/>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-green" id="sb-btn" onclick="smartSaldo(this)"><i class="fas fa-search"></i> Cek Saldo</button>
+    </div>
+    <div id="result-smart-saldo" class="result-box"></div>
+    <div class="divider"></div>
+    <div class="quick-ref">
+      <span class="comment"># Endpoint:</span><br>
+      <span class="cmd">POST /api/smart/account/balance</span><br>
+      <span class="cmd">Body: { no_rek: aesEncrypt(norek) }</span><br>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SMART: TRANSFER -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="tab-smart-transfer" class="section">
+<div class="content">
+<div id="smart-tf-session" class="session-box" style="display:none">
+  <div class="session-title"><span class="badge-live"><span class="dot"></span>Sesi Aktif</span></div>
+  <div class="session-field"><span class="sf-label">Token</span><span class="sf-val" id="tf-token-preview">—</span></div>
+</div>
+<div id="smart-tf-noauth" class="info-box info-red">
+  <i class="fas fa-exclamation-triangle"></i>
+  <div>Belum login. Silakan <a href="#" onclick="showTab('smart-login');return false" style="color:#fca5a5;font-weight:700">Login Nasabah</a> terlebih dahulu.</div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <i class="fas fa-exchange-alt" style="color:#f59e0b"></i>
+    <h3>Transfer Antar Rekening</h3>
+    <span class="badge" style="background:#1c1200;color:#fbbf24">Inquiry → Posting</span>
+  </div>
+  <div class="panel-body">
+
+    <!-- Transfer steps -->
+    <div class="step-indicator" id="tf-step-indicator">
+      <div class="step active" id="tf-step1"><i class="fas fa-search"></i> 1. Inquiry</div>
+      <span class="step-arrow">›</span>
+      <div class="step" id="tf-step2"><i class="fas fa-check-circle"></i> 2. Konfirmasi</div>
+      <span class="step-arrow">›</span>
+      <div class="step" id="tf-step3"><i class="fas fa-paper-plane"></i> 3. Posting</div>
+    </div>
+
+    <!-- Panel inquiry -->
+    <div id="tf-panel-inquiry">
+      <h4 style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:12px"><i class="fas fa-search"></i> Inquiry Transfer</h4>
+      <div class="info-box info-yellow">
+        <i class="fas fa-info-circle"></i>
+        <div>Inquiry untuk mengecek ketersediaan rekening tujuan dan nominal. Semua field dienkripsi sebelum dikirim.</div>
+      </div>
+      <div class="grid-2">
+        <div class="field-row">
+          <label>No. Rekening Asal</label>
+          <input type="text" id="tf-from" placeholder="0100001234"/>
+        </div>
+        <div class="field-row">
+          <label>No. Rekening Tujuan</label>
+          <input type="text" id="tf-to" placeholder="0100005678"/>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field-row">
+          <label>Nominal (angka, tanpa titik/koma)</label>
+          <input type="number" id="tf-nominal" class="amount-input" placeholder="500000" min="1"/>
+        </div>
+        <div class="field-row">
+          <label>Kode Bank Tujuan (opsional)</label>
+          <input type="text" id="tf-bank" placeholder="008 (Mandiri), kosong jika intrabank"/>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" style="background:linear-gradient(135deg,#d97706,#b45309)" id="tf-inquiry-btn" onclick="smartInquiry(this)"><i class="fas fa-search"></i> Inquiry</button>
+      </div>
+      <div id="result-smart-inquiry" class="result-box"></div>
+    </div>
+
+    <!-- Panel konfirmasi (tampil setelah inquiry berhasil) -->
+    <div id="tf-panel-confirm" style="display:none">
+      <div class="divider"></div>
+      <h4 style="font-size:12px;font-weight:700;color:#f59e0b;margin-bottom:12px"><i class="fas fa-check-circle"></i> Konfirmasi Transfer</h4>
+      <div class="confirm-box">
+        <div class="confirm-row"><span class="confirm-label">Dari Rekening</span><span class="confirm-value" id="cf-from">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Ke Rekening</span><span class="confirm-value" id="cf-to">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Nominal</span><span class="confirm-value" id="cf-nominal" style="font-size:16px;color:#fbbf24">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Bank Tujuan</span><span class="confirm-value" id="cf-bank">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Ref. Inquiry</span><span class="confirm-value" id="cf-ref">—</span></div>
+      </div>
+      <div class="field-row">
+        <label>Nama Penerima (opsional)</label>
+        <input type="text" id="tf-nama-dest" placeholder="Nama rekening tujuan"/>
+      </div>
+      <div class="field-row">
+        <label>Keterangan / Berita Transfer (opsional)</label>
+        <input type="text" id="tf-ket" placeholder="Pembayaran tagihan, dll"/>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="tfReset()"><i class="fas fa-arrow-left"></i> Ubah Data</button>
+        <button class="btn btn-primary" style="background:linear-gradient(135deg,#dc2626,#b91c1c)" id="tf-posting-btn" onclick="smartPosting(this)"><i class="fas fa-paper-plane"></i> Posting Transfer</button>
+      </div>
+      <div id="result-smart-posting" class="result-box"></div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="quick-ref">
+      <span class="comment"># Flow Transfer:</span><br>
+      <span class="cmd">1. POST /api/smart/transfer/inquiry   →  cek rekening &amp; saldo</span><br>
+      <span class="cmd">2. Konfirmasi data oleh user</span><br>
+      <span class="cmd">3. POST /api/smart/transfer/posting   →  eksekusi transfer</span><br>
+      <span class="comment"># Semua field dienkripsi AES-256-CBC, JWT &amp; signature otomatis</span><br>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
 <!-- QUICK REF -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="tab-quick-ref" class="section">
@@ -1171,6 +1455,7 @@ async function runOp(e, opName) {
       // Save keygen result for paste helpers
       if (opName === 'keygen') {
         lastKeygen = r.result;
+        window._lastKeygen = r.result; // also for smart login
       }
       // Special formatting for build-transfer: show curl command
       if (opName === 'build-transfer' && r.result) {
@@ -1220,6 +1505,254 @@ function buildCurl(res) {
   return lines.join(String.fromCharCode(10));
 }
 
+// ── SMART STATE ────────────────────────────────────────────────────────────────
+var smartSession = null; // { token, aesKey, aesIv, aesCs, clientIdEnc, baseUrl }
+var tfInquiryData = null; // simpan data inquiry untuk posting
+
+// ── SMART HELPERS ───────────────────────────────────────────────────────────
+function getSmartSession() { return smartSession; }
+
+function updateSessionUI() {
+  var has = !!smartSession;
+  // Login page session bar
+  var bar = document.getElementById('smart-session-bar');
+  if (bar) bar.style.display = has ? 'block' : 'none';
+  // Saldo page
+  var salEl = document.getElementById('smart-saldo-session');
+  var salNo = document.getElementById('smart-saldo-noauth');
+  if (salEl) salEl.style.display = has ? 'block' : 'none';
+  if (salNo) salNo.style.display = has ? 'none' : 'flex';
+  // Transfer page
+  var tfEl = document.getElementById('smart-tf-session');
+  var tfNo = document.getElementById('smart-tf-noauth');
+  if (tfEl) tfEl.style.display = has ? 'block' : 'none';
+  if (tfNo) tfNo.style.display = has ? 'none' : 'flex';
+
+  if (has) {
+    var preview = smartSession.token.substring(0, 30) + '...';
+    var els = ['ss-token-preview','saldo-token-preview','tf-token-preview'];
+    els.forEach(function(id) {
+      var e = document.getElementById(id);
+      if (e) e.textContent = preview;
+    });
+    var full = document.getElementById('ss-token-full');
+    if (full) full.value = smartSession.token;
+    var ssKey = document.getElementById('ss-key');
+    if (ssKey) ssKey.textContent = smartSession.aesKey || '—';
+    var ssIv = document.getElementById('ss-iv');
+    if (ssIv) ssIv.textContent = smartSession.aesIv || '—';
+    var ssCs = document.getElementById('ss-cs');
+    if (ssCs) ssCs.textContent = smartSession.aesCs || '—';
+    var ssDid = document.getElementById('ss-did');
+    if (ssDid) ssDid.textContent = (smartSession.clientIdEnc || '—').substring(0,40) + '...';
+    // Update nav badge
+    var navLogin = document.getElementById('nav-smart-login');
+    if (navLogin) navLogin.innerHTML = '<i class="fas fa-check-circle" style="color:#4ade80"></i> Login ✓';
+  } else {
+    var navLogin2 = document.getElementById('nav-smart-login');
+    if (navLogin2) navLogin2.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login Nasabah';
+  }
+}
+
+function smartLogout() {
+  smartSession = null;
+  tfInquiryData = null;
+  updateSessionUI();
+  showResult('smart-login', 'Logout berhasil. Session dihapus.', true);
+}
+
+function copyRaw(text) {
+  if (!text) return;
+  navigator.clipboard.writeText(text).catch(function(){});
+}
+
+// Paste AES keys dari keygen session ke form login
+function slPasteKeygen() {
+  if (window._lastKeygen) {
+    var k = window._lastKeygen;
+    var el; 
+    el = document.getElementById('sl-key'); if (el && k.aesKey) el.value = k.aesKey;
+    el = document.getElementById('sl-iv');  if (el && k.aesIv)  el.value = k.aesIv;
+    el = document.getElementById('sl-cs');  if (el && k.aesCs)  el.value = k.aesCs;
+  } else {
+    alert('Belum ada data Keygen. Silakan jalankan Derive AES Keys terlebih dahulu.');
+  }
+}
+
+// Panggil API /api/smart
+async function callSmart(payload) {
+  var resp = await fetch('/api/smart', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  return resp.json();
+}
+
+// ── SMART LOGIN ─────────────────────────────────────────────────────────────
+async function smartLogin(btn) {
+  var aesKey  = val('sl-key');
+  var aesIv   = val('sl-iv');
+  var aesCs   = val('sl-cs');
+  var did     = val('sl-did');
+  var user    = val('sl-user');
+  var pass    = val('sl-pass');
+  var baseUrl = val('sl-url') || 'https://lpdseminyak.biz.id:8000';
+
+  if (!aesKey || !aesIv) { alert('AES Key dan IV wajib diisi!'); return; }
+  if (!user || !pass)    { alert('Username dan Password wajib diisi!'); return; }
+
+  setLoading(btn, true);
+  try {
+    var r = await callSmart({
+      action: 'login', baseUrl: baseUrl,
+      aesKey: aesKey, aesIv: aesIv, aesCs: aesCs,
+      clientIdEnc: did,
+      user_name: user, user_pass: pass,
+    });
+
+    if (r.ok && r.result && (r.result.token || r.result.data)) {
+      var token = r.result.token || (r.result.data && r.result.data.token) || JSON.stringify(r.result);
+      smartSession = { token: token, aesKey: aesKey, aesIv: aesIv, aesCs: aesCs, clientIdEnc: did, baseUrl: baseUrl };
+      updateSessionUI();
+      showResult('smart-login', r, true);
+    } else {
+      showResult('smart-login', r, false);
+    }
+  } catch(e) {
+    showResult('smart-login', 'Error: ' + e.message, false);
+  } finally {
+    setLoading(btn, false);
+  }
+}
+
+// ── CEK SALDO ────────────────────────────────────────────────────────────────
+async function smartSaldo(btn) {
+  var s = getSmartSession();
+  if (!s) { alert('Belum login! Silakan login dulu.'); showTab('smart-login'); return; }
+  var noRek = val('sb-norek');
+  if (!noRek) { alert('Nomor rekening wajib diisi!'); return; }
+
+  setLoading(btn, true);
+  try {
+    var r = await callSmart({
+      action: 'cek-saldo', baseUrl: s.baseUrl,
+      token: s.token, aesKey: s.aesKey, aesIv: s.aesIv, aesCs: s.aesCs,
+      clientIdEnc: s.clientIdEnc,
+      no_rek: noRek,
+    });
+    showResult('smart-saldo', r, r.ok);
+  } catch(e) {
+    showResult('smart-saldo', 'Error: ' + e.message, false);
+  } finally {
+    setLoading(btn, false);
+  }
+}
+
+// ── TRANSFER INQUIRY ─────────────────────────────────────────────────────────
+async function smartInquiry(btn) {
+  var s = getSmartSession();
+  if (!s) { alert('Belum login!'); showTab('smart-login'); return; }
+
+  var from    = val('tf-from');
+  var to      = val('tf-to');
+  var nominal = val('tf-nominal');
+  var bank    = val('tf-bank');
+
+  if (!from || !to || !nominal) { alert('No. rekening asal, tujuan, dan nominal wajib diisi!'); return; }
+
+  setLoading(btn, true);
+  try {
+    var r = await callSmart({
+      action: 'inquiry', baseUrl: s.baseUrl,
+      token: s.token, aesKey: s.aesKey, aesIv: s.aesIv, aesCs: s.aesCs,
+      clientIdEnc: s.clientIdEnc,
+      no_rek_from: from, no_rek_to: to, nominal: nominal, bank_dest: bank,
+    });
+
+    showResult('smart-inquiry', r, r.ok);
+
+    if (r.ok) {
+      // Simpan data inquiry untuk posting
+      tfInquiryData = { from: from, to: to, nominal: nominal, bank: bank,
+                        ref: (r.debug && r.debug.ref) || '', inquiryResult: r.result };
+      // Update confirmation box
+      document.getElementById('cf-from').textContent    = from;
+      document.getElementById('cf-to').textContent      = to;
+      document.getElementById('cf-nominal').textContent = 'Rp ' + Number(nominal).toLocaleString('id-ID');
+      document.getElementById('cf-bank').textContent    = bank || 'Intrabank (LPD)';
+      document.getElementById('cf-ref').textContent     = tfInquiryData.ref || '—';
+      // Show confirm panel & update steps
+      document.getElementById('tf-panel-confirm').style.display = 'block';
+      document.getElementById('tf-step1').className = 'step done';
+      document.getElementById('tf-step2').className = 'step active';
+      // Scroll to confirm
+      document.getElementById('tf-panel-confirm').scrollIntoView({ behavior: 'smooth' });
+    }
+  } catch(e) {
+    showResult('smart-inquiry', 'Error: ' + e.message, false);
+  } finally {
+    setLoading(btn, false);
+  }
+}
+
+// ── TRANSFER POSTING ─────────────────────────────────────────────────────────
+async function smartPosting(btn) {
+  var s = getSmartSession();
+  if (!s) { alert('Belum login!'); return; }
+  if (!tfInquiryData) { alert('Lakukan Inquiry terlebih dahulu!'); return; }
+
+  var namaDest = val('tf-nama-dest');
+  var ket      = val('tf-ket');
+
+  if (!confirm('Konfirmasi transfer Rp ' + Number(tfInquiryData.nominal).toLocaleString('id-ID') + ' ke rekening ' + tfInquiryData.to + '?')) return;
+
+  setLoading(btn, true);
+  try {
+    var r = await callSmart({
+      action: 'posting', baseUrl: s.baseUrl,
+      token: s.token, aesKey: s.aesKey, aesIv: s.aesIv, aesCs: s.aesCs,
+      clientIdEnc: s.clientIdEnc,
+      no_rek_from: tfInquiryData.from,
+      no_rek_to:   tfInquiryData.to,
+      nominal:     tfInquiryData.nominal,
+      bank_dest:   tfInquiryData.bank,
+      nama_dest:   namaDest,
+      keterangan:  ket,
+      transNo:     tfInquiryData.ref,
+    });
+
+    showResult('smart-posting', r, r.ok);
+
+    if (r.ok) {
+      document.getElementById('tf-step2').className = 'step done';
+      document.getElementById('tf-step3').className = 'step done';
+      document.getElementById('result-smart-posting').scrollIntoView({ behavior: 'smooth' });
+    }
+  } catch(e) {
+    showResult('smart-posting', 'Error: ' + e.message, false);
+  } finally {
+    setLoading(btn, false);
+  }
+}
+
+// Reset transfer form
+function tfReset() {
+  tfInquiryData = null;
+  document.getElementById('tf-panel-confirm').style.display = 'none';
+  document.getElementById('tf-step1').className = 'step active';
+  document.getElementById('tf-step2').className = 'step';
+  document.getElementById('tf-step3').className = 'step';
+  var r = document.getElementById('result-smart-inquiry');
+  if (r) r.className = 'result-box';
+}
+
+// ── PATCH: simpan keygen result ke _lastKeygen ──────────────────────────────
+var _origCallCrypto = callCrypto;
+// Override runOp to intercept keygen result
+var _origRunOp = typeof runOp === 'function' ? runOp : null;
+
+// Init
 // Init
 fillNow('kg-ts');
 </script>

@@ -9,6 +9,9 @@ import { promisify } from 'util'
 import crypto from 'crypto'
 import fs from 'fs'
 import os from 'os'
+import { createRequire } from 'module'
+const _require = createRequire(import.meta.url)
+const crypto2  = _require('/home/user/webapp/lpd-crypto.cjs')
 
 // ─── Path ke private keys LPD Seminyak ───────────────────────────────────────
 const LPD_DIR    = '/home/user/webapp/lpd_seminyak'
@@ -463,6 +466,24 @@ const server = createServer(async (req, res) => {
     return
   }
 
+  // ── /smart  — Login & Transaksi ───────────────────────────────────────────
+  if (url.pathname === '/smart' && req.method === 'POST') {
+    let body = ''
+    req.on('data', d => { body += d })
+    req.on('end', async () => {
+      try {
+        const parsed = JSON.parse(body)
+        const result = await handleSmart(parsed)
+        res.writeHead(200, corsHeaders())
+        res.end(JSON.stringify(result))
+      } catch (e) {
+        res.writeHead(200, corsHeaders())
+        res.end(JSON.stringify({ ok: false, error: e.message, stack: e.stack?.split('\n').slice(0,3).join(' | ') }))
+      }
+    })
+    return
+  }
+
   res.writeHead(404, corsHeaders())
   res.end(JSON.stringify({ error: 'Not found' }))
 })
@@ -476,3 +497,207 @@ server.on('error', (err) => {
   console.error('Server error:', err)
   process.exit(1)
 })
+
+// ═══════════════════════════════════════════════════════════════════════════
+// /smart  — Login & Transaksi LPD Seminyak
+// Semua request butuh: token (JWT), aesKey, aesIv, aesCs, clientIdEnc, baseUrl
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Helper: buat header standar untuk setiap request smart
+function buildSmartHeaders(token, aesCs, clientIdEnc, transNo) {
+  const ts    = crypto2.nowJakarta()
+  const tsISO = crypto2.nowJakartaISO()
+
+  // Authorization JWT
+  const privLpd = fs.readFileSync(PRIV_LPD, 'utf8')
+  const jwt     = crypto2.createJWT(transNo || crypto2.generateReference(), tsISO, privLpd)
+
+  // X-SIGNATURE & X-PARTNER-ID = HMAC-SHA512(jwt:ts, aesCs)
+  const sig       = crypto2.generateSignature(jwt, ts, aesCs)
+  const partnerId = sig   // same value
+
+  // X-REFERENCE
+  const xref = crypto2.generateReference()
+
+  return {
+    jwt, ts, tsISO, sig, partnerId, xref,
+    headers: {
+      'Content-Type':    'application/json',
+      'Authorization':   jwt,
+      'X-TIMESTAMP':     ts,
+      'X-SIGNATURE':     sig,
+      'X-PARTNER-ID':    partnerId,
+      'X-CLIENT-ID':     clientIdEnc,
+      'X-REFERENCE':     xref,
+      'X-Forwarded-For': WHITELIST_IP,
+      'X-Real-IP':       WHITELIST_IP,
+    }
+  }
+}
+
+// Handler utama /smart
+async function handleSmart(body) {
+  const { action, baseUrl: rawBase, token, aesKey, aesIv, aesCs,
+          clientIdEnc, transNo, ...params } = body
+
+  const base = (rawBase || 'https://lpdseminyak.biz.id:8000').replace(/\/+$/, '')
+
+  // ── LOGIN ───────────────────────────────────────────────────────────────────
+  if (action === 'login') {
+    const { user_name, user_pass } = params
+    if (!user_name || !user_pass) throw new Error('user_name dan user_pass wajib diisi')
+    if (!aesKey || !aesIv)        throw new Error('aesKey dan aesIv wajib diisi')
+
+    // Enkripsi kredensial
+    const encUser = crypto2.aesEncrypt(user_name, aesKey, aesIv)
+    const encPass = crypto2.aesEncrypt(user_pass, aesKey, aesIv)
+
+    const { headers, ts, jwt, sig, partnerId, xref } = buildSmartHeaders(token, aesCs, clientIdEnc, transNo)
+    const url  = base + '/api/smart/access/login'
+    const data = JSON.stringify({ user_name: encUser, user_pass: encPass })
+
+    let httpStatus, raw, parsed
+    try {
+      const r = await fetchWithTimeout(url, { method: 'POST', headers, body: data }, 15000)
+      httpStatus = r.status
+      raw        = await r.text()
+      try { parsed = JSON.parse(raw) } catch(_) { parsed = { _raw: raw } }
+    } catch(e) {
+      return { ok: false, action, error: e.message, url, headers }
+    }
+
+    return {
+      ok: httpStatus >= 200 && httpStatus < 300,
+      action, httpStatus, url,
+      result: parsed,
+      debug: {
+        ts, xref,
+        user_name_enc: encUser,
+        user_pass_enc: encPass,
+        jwt_preview:   jwt.substring(0, 40) + '...',
+        sig_preview:   sig.substring(0, 20) + '...',
+        partnerId_preview: partnerId.substring(0, 20) + '...',
+      },
+      requestHeaders: headers,
+      requestBody: { user_name: encUser, user_pass: encPass },
+    }
+  }
+
+  // ── CEK SALDO ────────────────────────────────────────────────────────────────
+  if (action === 'cek-saldo') {
+    const { no_rek } = params
+    if (!no_rek)  throw new Error('no_rek wajib diisi')
+    if (!token)   throw new Error('token (JWT dari login) wajib diisi')
+    if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+
+    const encNoRek = crypto2.aesEncrypt(no_rek, aesKey, aesIv)
+
+    const { headers, ts, xref } = buildSmartHeaders(token, aesCs, clientIdEnc, transNo)
+    const url  = base + '/api/smart/account/balance'
+    const data = JSON.stringify({ no_rek: encNoRek })
+
+    let httpStatus, raw, parsed
+    try {
+      const r = await fetchWithTimeout(url, { method: 'POST', headers, body: data }, 15000)
+      httpStatus = r.status
+      raw        = await r.text()
+      try { parsed = JSON.parse(raw) } catch(_) { parsed = { _raw: raw } }
+    } catch(e) {
+      return { ok: false, action, error: e.message, url, headers }
+    }
+
+    return {
+      ok: httpStatus >= 200 && httpStatus < 300,
+      action, httpStatus, url,
+      result: parsed,
+      debug: { ts, xref, no_rek_enc: encNoRek },
+      requestHeaders: headers,
+      requestBody: { no_rek: encNoRek },
+    }
+  }
+
+  // ── INQUIRY TRANSFER ─────────────────────────────────────────────────────────
+  if (action === 'inquiry') {
+    const { no_rek_from, no_rek_to, nominal, bank_dest } = params
+    if (!no_rek_from || !no_rek_to || !nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
+    if (!token)   throw new Error('token wajib diisi')
+    if (!aesKey || !aesIv || !aesCs) throw new Error('aesKey, aesIv, aesCs wajib diisi')
+
+    const ref = transNo || crypto2.generateReference()
+    const { headers, ts, xref } = buildSmartHeaders(token, aesCs, clientIdEnc, ref)
+
+    const encFrom   = crypto2.aesEncrypt(no_rek_from, aesKey, aesIv)
+    const encTo     = crypto2.aesEncrypt(no_rek_to, aesKey, aesIv)
+    const encNom    = crypto2.aesEncrypt(nominal, aesKey, aesIv)
+    const encBank   = bank_dest ? crypto2.aesEncrypt(bank_dest, aesKey, aesIv) : ''
+
+    const url  = base + '/api/smart/transfer/inquiry'
+    const reqBody = { no_rek_from: encFrom, no_rek_to: encTo, nominal: encNom, bank_dest: encBank, ref_no: ref }
+    const data = JSON.stringify(reqBody)
+
+    let httpStatus, raw, parsed
+    try {
+      const r = await fetchWithTimeout(url, { method: 'POST', headers, body: data }, 15000)
+      httpStatus = r.status
+      raw        = await r.text()
+      try { parsed = JSON.parse(raw) } catch(_) { parsed = { _raw: raw } }
+    } catch(e) {
+      return { ok: false, action, error: e.message, url, headers }
+    }
+
+    return {
+      ok: httpStatus >= 200 && httpStatus < 300,
+      action, httpStatus, url,
+      result: parsed,
+      debug: { ts, xref, ref, no_rek_from_enc: encFrom, no_rek_to_enc: encTo, nominal_enc: encNom },
+      requestHeaders: headers,
+      requestBody: reqBody,
+    }
+  }
+
+  // ── POSTING TRANSFER ─────────────────────────────────────────────────────────
+  if (action === 'posting') {
+    const { no_rek_from, no_rek_to, nominal, bank_dest, nama_dest, keterangan } = params
+    if (!no_rek_from || !no_rek_to || !nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
+    if (!token)   throw new Error('token wajib diisi')
+    if (!aesKey || !aesIv || !aesCs) throw new Error('aesKey, aesIv, aesCs wajib diisi')
+
+    const ref = transNo || crypto2.generateReference()
+    const { headers, ts, xref } = buildSmartHeaders(token, aesCs, clientIdEnc, ref)
+
+    const encFrom   = crypto2.aesEncrypt(no_rek_from, aesKey, aesIv)
+    const encTo     = crypto2.aesEncrypt(no_rek_to, aesKey, aesIv)
+    const encNom    = crypto2.aesEncrypt(nominal, aesKey, aesIv)
+    const encBank   = bank_dest  ? crypto2.aesEncrypt(bank_dest, aesKey, aesIv)  : ''
+    const encNama   = nama_dest  ? crypto2.aesEncrypt(nama_dest, aesKey, aesIv)  : ''
+    const encKet    = keterangan ? crypto2.aesEncrypt(keterangan, aesKey, aesIv) : ''
+
+    const url  = base + '/api/smart/transfer/posting'
+    const reqBody = {
+      no_rek_from: encFrom, no_rek_to: encTo, nominal: encNom,
+      bank_dest: encBank, nama_dest: encNama, keterangan: encKet, ref_no: ref,
+    }
+    const data = JSON.stringify(reqBody)
+
+    let httpStatus, raw, parsed
+    try {
+      const r = await fetchWithTimeout(url, { method: 'POST', headers, body: data }, 15000)
+      httpStatus = r.status
+      raw        = await r.text()
+      try { parsed = JSON.parse(raw) } catch(_) { parsed = { _raw: raw } }
+    } catch(e) {
+      return { ok: false, action, error: e.message, url, headers }
+    }
+
+    return {
+      ok: httpStatus >= 200 && httpStatus < 300,
+      action, httpStatus, url,
+      result: parsed,
+      debug: { ts, xref, ref },
+      requestHeaders: headers,
+      requestBody: reqBody,
+    }
+  }
+
+  throw new Error('action tidak dikenal: ' + action + '. Gunakan: login, cek-saldo, inquiry, posting')
+}
