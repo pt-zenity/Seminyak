@@ -128,7 +128,7 @@ async function generateIosToken(baseUrl, clientIdEnc) {
         ok: false, type: 'ios',
         error: 'Server returned HTTP ' + httpStatus + ' (non-JSON response)',
         hint: httpStatus === 500
-          ? 'Server error – kemungkinan koneksi database production bermasalah. Signature sudah benar.'
+          ? 'Server error HTTP 500 – Koneksi database SQL Server production bermasalah (bukan masalah signature). Public key sudah terdaftar di server via /api/smart/access/key.'
           : 'Cek Base URL dan endpoint.',
         httpStatus, url, timestamp: ts,
         signaturePreview: signature.substring(0, 20) + '...',

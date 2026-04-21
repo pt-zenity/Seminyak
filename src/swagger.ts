@@ -1138,9 +1138,9 @@ function showTokenDetail(type, d) {
       + '</div>';
   } else if (!isSnap && d.httpStatus === 500) {
     noteHtml = '<div style="padding:10px 0 4px;color:#fbbf24;font-size:11px;line-height:1.7;border-top:1px solid #1e293b;margin-top:8px">'
-      + '<i class="fas fa-database"></i> <b>HTTP 500</b> = Server error internal.<br>'
-      + 'Kemungkinan koneksi database SQL Server di server production bermasalah.<br>'
-      + '<span style="color:#94a3b8">Signature iOS sudah digenerate dengan benar menggunakan <b>private_key_lpd.pem</b>.</span><br><br>'
+      + '<i class="fas fa-database"></i> <b>HTTP 500</b> = Server error internal (koneksi SQL Server production bermasalah).<br>'
+      + '<i class="fas fa-key" style="color:#22c55e"></i> <b style="color:#22c55e">Public key sudah terdaftar</b> di server via <code style="color:#94a3b8">/api/smart/access/key</code>.<br>'
+      + '<span style="color:#94a3b8">Signature iOS sudah benar menggunakan <b>private_key_lpd.pem</b>. Masalah ada di sisi DB server production.</span><br><br>'
       + '<i class="fas fa-check" style="color:#22c55e"></i> Headers (X-TIMESTAMP + X-SIGNATURE) <b>sudah diisi otomatis</b> di form endpoint.'
       + '</div>';
   } else {
