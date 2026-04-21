@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { getSwaggerHTML } from './swagger'
 import { getCryptoHTML } from './crypto'
+import { handleCryptoOp } from './edge-crypto'
 
 const app = new Hono()
 
@@ -37,56 +38,202 @@ app.get('/api/exec/health', async (c) => {
     return c.json({ ok: false, error: 'Terminal server tidak tersedia di production. Gunakan sandbox URL untuk operasi crypto.', sandbox_only: true })
   }
 })
-// ── Crypto operations proxy ──────────────────────────────────────────────────
-// Forward crypto operations ke terminal-server (Node.js yang punya akses fs/crypto)
+// ── Crypto operations — Edge-native (Web Crypto API, no proxy needed) ───────
 app.post('/api/crypto', async (c) => {
   try {
-    const body = await c.req.json()
-    const resp = await fetch('http://127.0.0.1:3001/crypto', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    const data = await resp.json() as Record<string, unknown>
-    return c.json(data)
+    const body = await c.req.json() as Record<string, string>
+    const result = await handleCryptoOp(body)
+    return c.json(result)
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
-    return c.json({ ok: false, error: 'Crypto server error: ' + msg + '. Pastikan menggunakan sandbox URL untuk operasi crypto.', sandbox_only: true })
+    return c.json({ ok: false, error: 'Crypto error: ' + msg })
   }
 })
 
-// ── Token Generator proxy ────────────────────────────────────────────────────
-// Generate SNAP / iOS token dengan RSA signature, forward ke terminal-server
-// Forward smart actions (login, cek-saldo, inquiry, posting) ke terminal-server
+// ── Smart API — Edge-native (builds JWT+headers on-edge, calls LPD server directly) ──
+// Untuk /api/smart kita perlu: createJWT, generateSignature, generateReference, aesEncrypt
+// Semua tersedia di edge-crypto.ts — tidak perlu proxy ke sandbox lagi
+import {
+  createJWT as edgeCreateJWT,
+  generateSignature as edgeGenSig,
+  generateReference as edgeGenRef,
+  aesEncrypt as edgeAesEnc,
+  nowJakarta as edgeNowJkt,
+  nowJakartaISO as edgeNowISO,
+  generateIosTokenSig as edgeIosSig,
+  generateSnapTokenSig as edgeSnapSig,
+  md5 as edgeMd5,
+} from './edge-crypto'
+
+const WHITELIST_IP = '34.50.74.78'
+
+async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: string) {
+  const ts    = edgeNowJkt()
+  const tsISO = edgeNowISO()
+  const ref   = transNo || edgeGenRef()
+  const jwt   = await edgeCreateJWT(ref, tsISO)
+  const sig   = await edgeGenSig(jwt, ts, aesCs)
+  const xref  = edgeGenRef()
+  return {
+    jwt, ts, tsISO, sig, xref,
+    headers: {
+      'Content-Type':    'application/json',
+      'Authorization':   jwt,
+      'X-TIMESTAMP':     ts,
+      'X-SIGNATURE':     sig,
+      'X-PARTNER-ID':    sig,
+      'X-CLIENT-ID':     clientIdEnc,
+      'X-REFERENCE':     xref,
+      'X-Forwarded-For': WHITELIST_IP,
+      'X-Real-IP':       WHITELIST_IP,
+    } as Record<string, string>
+  }
+}
+
 app.post('/api/smart', async (c) => {
   try {
-    const body = await c.req.json() as Record<string, unknown>
-    const resp = await fetch('http://127.0.0.1:3001/smart', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    const data = await resp.json() as Record<string, unknown>
-    return c.json(data)
+    const body = await c.req.json() as Record<string, string>
+    const { action, baseUrl: rawBase, aesKey, aesIv, aesCs, clientIdEnc, transNo, ...params } = body
+    const base = (rawBase || 'https://lpdseminyak.biz.id:8000').replace(/\/+$/, '')
+    const md5 = (s: string) => edgeMd5(s)
+    const isMd5 = (s: string) => /^[0-9a-f]{32}$/i.test(s)
+
+    if (action === 'login') {
+      if (!params.user_name || !params.user_pass) throw new Error('user_name dan user_pass wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc (X-CLIENT-ID) wajib diisi')
+      const finalUser = isMd5(params.user_name) ? params.user_name : md5(params.user_name)
+      const finalPass = isMd5(params.user_pass) ? params.user_pass : md5(params.user_pass)
+      const { headers, ts, xref, jwt, sig } = await buildSmartHeaders(aesCs, clientIdEnc, transNo)
+      const url  = base + '/api/smart/access/login'
+      const data = JSON.stringify({ user_name: finalUser, user_pass: finalPass })
+      let httpStatus = 0, parsed: unknown = {}
+      try {
+        const r = await fetch(url, { method: 'POST', headers, body: data })
+        httpStatus = r.status
+        const raw = await r.text()
+        try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message, url, headers }) }
+      return c.json({
+        ok: httpStatus >= 200 && httpStatus < 300, action, httpStatus, url, result: parsed,
+        debug: { ts, xref, user_name_sent: finalUser, user_pass_sent: finalPass,
+          jwt_preview: jwt.substring(0,40)+'...', sig_preview: sig.substring(0,20)+'...' },
+        requestHeaders: headers, requestBody: { user_name: finalUser, user_pass: finalPass },
+      })
+    }
+
+    if (action === 'cek-saldo') {
+      if (!params.no_rek) throw new Error('no_rek wajib diisi')
+      if (!clientIdEnc)   throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const encNoRek = await edgeAesEnc(params.no_rek, aesKey, aesIv)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, transNo)
+      const url  = base + '/api/smart/account/balance'
+      const reqBody = JSON.stringify({ no_rek: encNoRek })
+      let httpStatus = 0, parsed: unknown = {}
+      try {
+        const r = await fetch(url, { method: 'POST', headers, body: reqBody })
+        httpStatus = r.status
+        const raw = await r.text()
+        try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+      return c.json({ ok: httpStatus >= 200 && httpStatus < 300, action, httpStatus, url,
+        result: parsed, debug: { ts, xref, no_rek_enc: encNoRek }, requestHeaders: headers })
+    }
+
+    if (action === 'inquiry') {
+      if (!params.no_rek_from || !params.no_rek_to || !params.nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      const ref = transNo || edgeGenRef()
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref)
+      const [encFrom, encTo, encNom, encBank] = await Promise.all([
+        edgeAesEnc(params.no_rek_from, aesKey, aesIv),
+        edgeAesEnc(params.no_rek_to,   aesKey, aesIv),
+        edgeAesEnc(params.nominal,      aesKey, aesIv),
+        params.bank_dest ? edgeAesEnc(params.bank_dest, aesKey, aesIv) : Promise.resolve(''),
+      ])
+      const url = base + '/api/smart/transfer/inquiry'
+      const reqBody = JSON.stringify({ no_rek_from: encFrom, no_rek_to: encTo, nominal: encNom, bank_dest: encBank, ref_no: ref })
+      let httpStatus = 0, parsed: unknown = {}
+      try {
+        const r = await fetch(url, { method: 'POST', headers, body: reqBody })
+        httpStatus = r.status
+        const raw = await r.text()
+        try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+      return c.json({ ok: httpStatus >= 200 && httpStatus < 300, action, httpStatus, url,
+        result: parsed, debug: { ts, xref, ref }, requestHeaders: headers })
+    }
+
+    if (action === 'posting') {
+      if (!params.no_rek_from || !params.no_rek_to || !params.nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      const ref = transNo || edgeGenRef()
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref)
+      const [encFrom, encTo, encNom, encBank, encNama, encKet] = await Promise.all([
+        edgeAesEnc(params.no_rek_from,      aesKey, aesIv),
+        edgeAesEnc(params.no_rek_to,        aesKey, aesIv),
+        edgeAesEnc(params.nominal,           aesKey, aesIv),
+        params.bank_dest  ? edgeAesEnc(params.bank_dest,  aesKey, aesIv) : Promise.resolve(''),
+        params.nama_dest  ? edgeAesEnc(params.nama_dest,  aesKey, aesIv) : Promise.resolve(''),
+        params.keterangan ? edgeAesEnc(params.keterangan, aesKey, aesIv) : Promise.resolve(''),
+      ])
+      const url = base + '/api/smart/transfer/posting'
+      const reqBody = JSON.stringify({ no_rek_from: encFrom, no_rek_to: encTo, nominal: encNom,
+        bank_dest: encBank, nama_dest: encNama, keterangan: encKet, ref_no: ref })
+      let httpStatus = 0, parsed: unknown = {}
+      try {
+        const r = await fetch(url, { method: 'POST', headers, body: reqBody })
+        httpStatus = r.status
+        const raw = await r.text()
+        try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+      return c.json({ ok: httpStatus >= 200 && httpStatus < 300, action, httpStatus, url,
+        result: parsed, debug: { ts, xref, ref }, requestHeaders: headers })
+    }
+
+    return c.json({ ok: false, error: 'Unknown action: ' + action })
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
-    return c.json({ ok: false, error: 'Smart server error: ' + msg + '. Pastikan menggunakan sandbox URL untuk operasi crypto.', sandbox_only: true })
+    return c.json({ ok: false, error: 'Smart error: ' + msg })
   }
 })
 
 app.post('/api/token/generate', async (c) => {
   try {
     const body = await c.req.json() as Record<string, string>
-    const resp = await fetch('http://127.0.0.1:3001/token-generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    const data = await resp.json() as Record<string, unknown>
-    return c.json(data)
+    const { type, baseUrl, clientIdEnc, clientKey } = body
+    let result: unknown
+    if (type === 'ios') {
+      // iOS token: get sig, then POST to /api/smart/access/token
+      const ts  = edgeNowJkt()
+      const sig = await edgeIosSig(ts)
+      const url = (baseUrl || 'https://lpdseminyak.biz.id:8000') + '/api/smart/access/token'
+      const headers = {
+        'Content-Type':    'application/json',
+        'X-TIMESTAMP':     ts,
+        'X-CLIENT-ID':     clientIdEnc || '',
+        'X-SIGNATURE':     sig.signature,
+        'X-Forwarded-For': '34.50.74.78',
+        'X-Real-IP':       '34.50.74.78',
+      }
+      try {
+        const r   = await fetch(url, { method: 'POST', headers, body: '{}' })
+        const raw = await r.text()
+        let parsed: unknown
+        try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+        result = { ok: r.status < 400, httpStatus: r.status, result: parsed, debug: sig }
+      } catch(e: unknown) { result = { ok: false, error: (e as Error).message } }
+    } else if (type === 'snap') {
+      const ts  = edgeNowISO()
+      const sig = await edgeSnapSig(clientKey || 'LPD-SEMINYAK-001', ts)
+      result = { ok: true, result: sig }
+    } else {
+      result = { ok: false, error: 'type must be snap or ios' }
+    }
+    return c.json(result)
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
-    return c.json({ ok: false, error: 'Token server error: ' + msg }, 500)
+    return c.json({ ok: false, error: 'Token error: ' + msg })
   }
 })
 // ────────────────────────────────────────────────────────────────────────────
