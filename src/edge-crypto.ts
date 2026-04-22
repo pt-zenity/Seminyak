@@ -70,11 +70,16 @@ const BPD_HASHCODE = 'p91wrswK'
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function b64ToBytes(b64: string): Uint8Array {
+  if (!b64 || typeof b64 !== 'string') return new Uint8Array(0)
   // handle base64url too
   const std = b64.replace(/-/g, '+').replace(/_/g, '/')
   const pad = std.padEnd(std.length + (4 - std.length % 4) % 4, '=')
-  const bin = atob(pad)
-  return Uint8Array.from(bin, c => c.charCodeAt(0))
+  try {
+    const bin = atob(pad)
+    return Uint8Array.from(bin, c => c.charCodeAt(0))
+  } catch {
+    return new Uint8Array(0)
+  }
 }
 
 function bytesToB64(buf: ArrayBuffer): string {
@@ -283,8 +288,10 @@ export async function createJWT(transNo: string, transTime: string, pemKey = PRI
 // ── § 7 — X-SIGNATURE / X-PARTNER-ID (HMAC-SHA512) ─────────────────────────
 export async function generateSignature(token: string, timeStamp: string, aesCsB64: string): Promise<string> {
   const cs  = b64ToBytes(aesCsB64)
+  // If aesCs is empty/invalid, use a zeroed 8-byte key (produces deterministic but non-functional sig)
+  const keyMat = cs.length >= 8 ? cs : new Uint8Array(8)
   const msg = strToBytes(`${token}:${timeStamp}`)
-  const key = await crypto.subtle.importKey('raw', cs, { name: 'HMAC', hash: 'SHA-512' }, false, ['sign'])
+  const key = await crypto.subtle.importKey('raw', keyMat, { name: 'HMAC', hash: 'SHA-512' }, false, ['sign'])
   const sig = await crypto.subtle.sign('HMAC', key, msg)
   return bytesToB64(sig)
 }

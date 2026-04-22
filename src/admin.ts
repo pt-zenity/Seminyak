@@ -1196,14 +1196,14 @@ async function cryptoTest(op) {
     payload.timestamp = document.getElementById('cto-ts').value;
     if (!payload.timestamp) {
       const tsRes = await callCrypto({ op: 'timestamp' });
-      payload.timestamp = tsRes.timestamps?.jakarta || '';
+      payload.timestamp = tsRes.result?.jakarta || '';
     }
   } else if (op === 'did-encode') {
     payload.clientID = document.getElementById('cto-did-cid').value;
     payload.timestamp = document.getElementById('cto-did-ts').value;
     if (!payload.timestamp) {
       const tsRes = await callCrypto({ op: 'timestamp' });
-      payload.timestamp = tsRes.timestamps?.jakarta || '';
+      payload.timestamp = tsRes.result?.jakarta || '';
     }
   } else if (op === 'signature') {
     payload.aesCs = document.getElementById('cto-sig-cs').value;

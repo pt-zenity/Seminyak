@@ -69,11 +69,12 @@ import {
 const WHITELIST_IP = '34.50.74.78'
 
 async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: string) {
+  if (!clientIdEnc) throw new Error('X-CLIENT-ID (clientIdEnc) wajib diisi — jalankan Derive AES Keys terlebih dahulu')
   const ts    = edgeNowJkt()
   const tsISO = edgeNowISO()
   const ref   = transNo || edgeGenRef()
   const jwt   = await edgeCreateJWT(ref, tsISO)
-  const sig   = await edgeGenSig(jwt, ts, aesCs)
+  const sig   = await edgeGenSig(jwt, ts, aesCs || '')
   const xref  = edgeGenRef()
   return {
     jwt, ts, tsISO, sig, xref,
@@ -254,7 +255,7 @@ app.post('/api/admin', async (c) => {
       const execRes = await fetch('http://127.0.0.1:3001/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ command: `find ${LOG_BASE} -maxdepth 2 -name "*.txt" -o -name "*.log" | sort -r | head -200` })
+        body: JSON.stringify({ command: `find ${LOG_BASE} -maxdepth 2 \\( -name "*.txt" -o -name "*.log" \\) | sort -r | head -200` })
       })
       const execData = await execRes.json() as { stdout?: string; stderr?: string }
       const lines = (execData.stdout || '').trim().split('\n').filter(Boolean)
