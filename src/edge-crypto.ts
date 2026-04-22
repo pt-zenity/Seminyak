@@ -219,6 +219,10 @@ export function decodeDID(did: string) {
 }
 
 // ── § 5 — DID Encode ────────────────────────────────────────────────────────
+// Reproduces the real LPD iOS app DID encoding scheme.
+// col1=69, col2=135, col3=175 — same fixed positions as the real iOS app.
+// All col/len metadata chars are valid base64 chars (no '@').
+// The DID is a long string with the IMEI b64 embedded at the 3 fixed positions.
 export function encodeDID(clientID: string, timestamp: string, appName = 'Seminyak'): string {
   const plain  = `${appName}|${clientID}|${timestamp}`
   const b64raw = btoa(plain)
@@ -226,7 +230,9 @@ export function encodeDID(clientID: string, timestamp: string, appName = 'Seminy
   const b64    = b64raw.slice(0, b64raw.length - fix.length)
   const b64Len = b64.length
 
-  const col1 = 20, col2 = 104, col3 = 172
+  // Use same fixed positions as real iOS app: col1=69, col2=135, col3=175
+  // These positions ensure all metadata chars are valid base64 chars (not '@')
+  const col1 = 69, col2 = 135, col3 = 175
   const partLen = Math.floor(b64Len / 3)
   const len1 = partLen, len2 = partLen, len3 = b64Len - len1 - len2
 
@@ -234,16 +240,22 @@ export function encodeDID(clientID: string, timestamp: string, appName = 'Seminy
   const seg2 = b64.slice(len1, len1 + len2)
   const seg3 = b64.slice(len1 + len2)
 
+  // encCol: v -> digit + chr(remainder+64), all results are printable ASCII (no '@')
   const encCol = (v: number) => String(Math.floor(v / 10)) + String.fromCharCode((v % 10) + 64)
   const colStr = encCol(col1) + encCol(col2 - 100) + encCol(col3 - 100)
   const lenStr = String.fromCharCode(len1 + 64) + String.fromCharCode(len2 + 64) + String(len3).padStart(2, '0')
 
-  const totalLen = Math.max(col3 + len3, 200)
-  const out = new Array(totalLen + 50).fill('A')
+  // Fill with valid base64 filler chars (use the backbone chars from real DID)
+  // The backbone chars between segments are taken from a real DID to match the server's expectations.
+  // Positions that are NOT overwritten by seg1/seg2/seg3 or metadata use 'A' as filler (safe for b64).
+  const totalLen = col3 + len3 + 200  // extra space for suffix
+  const out = new Array(totalLen + 100).fill('A')
 
+  // Set col/len metadata
   out[7]=colStr[0]; out[8]=colStr[1]; out[9]=colStr[2]; out[10]=colStr[3]; out[11]=colStr[4]; out[12]=colStr[5]
   out[16]=lenStr[0]; out[17]=lenStr[1]; out[18]=lenStr[2]; out[19]=lenStr[3]
 
+  // Embed the 3 IMEI b64 segments at fixed positions
   for (let i = 0; i < seg1.length; i++) out[col1 + i] = seg1[i]
   for (let i = 0; i < seg2.length; i++) out[col2 + i] = seg2[i]
   for (let i = 0; i < seg3.length; i++) out[col3 + i] = seg3[i]

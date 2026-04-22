@@ -1,26 +1,20 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
-// .wrangler/tmp/pages-0dd3vj/bundledWorker-0.23293180769929944.mjs
-import { Writable } from "node:stream";
-import { EventEmitter } from "node:events";
-var __defProp2 = Object.defineProperty;
-var __name2 = /* @__PURE__ */ __name((target, value) => __defProp2(target, "name", { value, configurable: true }), "__name");
+// ../node_modules/unenv/dist/runtime/_internal/utils.mjs
 // @__NO_SIDE_EFFECTS__
 function createNotImplementedError(name) {
   return new Error(`[unenv] ${name} is not implemented yet!`);
 }
 __name(createNotImplementedError, "createNotImplementedError");
-__name2(createNotImplementedError, "createNotImplementedError");
 // @__NO_SIDE_EFFECTS__
 function notImplemented(name) {
-  const fn = /* @__PURE__ */ __name2(() => {
+  const fn = /* @__PURE__ */ __name(() => {
     throw /* @__PURE__ */ createNotImplementedError(name);
   }, "fn");
   return Object.assign(fn, { __unenv__: true });
 }
 __name(notImplemented, "notImplemented");
-__name2(notImplemented, "notImplemented");
 // @__NO_SIDE_EFFECTS__
 function notImplementedClass(name) {
   return class {
@@ -31,7 +25,8 @@ function notImplementedClass(name) {
   };
 }
 __name(notImplementedClass, "notImplementedClass");
-__name2(notImplementedClass, "notImplementedClass");
+
+// ../node_modules/unenv/dist/runtime/node/internal/perf_hooks/performance.mjs
 var _timeOrigin = globalThis.performance?.timeOrigin ?? Date.now();
 var _performanceNow = globalThis.performance?.now ? globalThis.performance.now.bind(globalThis.performance) : () => Date.now() - _timeOrigin;
 var nodeTiming = {
@@ -60,9 +55,6 @@ var PerformanceEntry = class {
   static {
     __name(this, "PerformanceEntry");
   }
-  static {
-    __name2(this, "PerformanceEntry");
-  }
   __unenv__ = true;
   detail;
   entryType = "event";
@@ -88,10 +80,7 @@ var PerformanceEntry = class {
 };
 var PerformanceMark = class PerformanceMark2 extends PerformanceEntry {
   static {
-    __name(this, "PerformanceMark2");
-  }
-  static {
-    __name2(this, "PerformanceMark");
+    __name(this, "PerformanceMark");
   }
   entryType = "mark";
   constructor() {
@@ -105,17 +94,11 @@ var PerformanceMeasure = class extends PerformanceEntry {
   static {
     __name(this, "PerformanceMeasure");
   }
-  static {
-    __name2(this, "PerformanceMeasure");
-  }
   entryType = "measure";
 };
 var PerformanceResourceTiming = class extends PerformanceEntry {
   static {
     __name(this, "PerformanceResourceTiming");
-  }
-  static {
-    __name2(this, "PerformanceResourceTiming");
   }
   entryType = "resource";
   serverTiming = [];
@@ -144,9 +127,6 @@ var PerformanceObserverEntryList = class {
   static {
     __name(this, "PerformanceObserverEntryList");
   }
-  static {
-    __name2(this, "PerformanceObserverEntryList");
-  }
   __unenv__ = true;
   getEntries() {
     return [];
@@ -162,9 +142,6 @@ var Performance = class {
   static {
     __name(this, "Performance");
   }
-  static {
-    __name2(this, "Performance");
-  }
   __unenv__ = true;
   timeOrigin = _timeOrigin;
   eventCounts = /* @__PURE__ */ new Map();
@@ -173,7 +150,7 @@ var Performance = class {
   navigation = void 0;
   timing = void 0;
   timerify(_fn, _options) {
-    throw /* @__PURE__ */ createNotImplementedError("Performance.timerify");
+    throw createNotImplementedError("Performance.timerify");
   }
   get nodeTiming() {
     return nodeTiming;
@@ -238,13 +215,13 @@ var Performance = class {
     this._resourceTimingBufferSize = maxSize;
   }
   addEventListener(type, listener, options) {
-    throw /* @__PURE__ */ createNotImplementedError("Performance.addEventListener");
+    throw createNotImplementedError("Performance.addEventListener");
   }
   removeEventListener(type, listener, options) {
-    throw /* @__PURE__ */ createNotImplementedError("Performance.removeEventListener");
+    throw createNotImplementedError("Performance.removeEventListener");
   }
   dispatchEvent(event) {
-    throw /* @__PURE__ */ createNotImplementedError("Performance.dispatchEvent");
+    throw createNotImplementedError("Performance.dispatchEvent");
   }
   toJSON() {
     return this;
@@ -253,9 +230,6 @@ var Performance = class {
 var PerformanceObserver = class {
   static {
     __name(this, "PerformanceObserver");
-  }
-  static {
-    __name2(this, "PerformanceObserver");
   }
   __unenv__ = true;
   static supportedEntryTypes = [];
@@ -267,10 +241,10 @@ var PerformanceObserver = class {
     return [];
   }
   disconnect() {
-    throw /* @__PURE__ */ createNotImplementedError("PerformanceObserver.disconnect");
+    throw createNotImplementedError("PerformanceObserver.disconnect");
   }
   observe(options) {
-    throw /* @__PURE__ */ createNotImplementedError("PerformanceObserver.observe");
+    throw createNotImplementedError("PerformanceObserver.observe");
   }
   bind(fn) {
     return fn;
@@ -289,6 +263,8 @@ var PerformanceObserver = class {
   }
 };
 var performance = globalThis.performance && "addEventListener" in globalThis.performance ? globalThis.performance : new Performance();
+
+// ../node_modules/@cloudflare/unenv-preset/dist/runtime/polyfill/performance.mjs
 if (!("__unenv__" in performance)) {
   const proto = Performance.prototype;
   for (const key of Object.getOwnPropertyNames(proto)) {
@@ -308,8 +284,15 @@ globalThis.PerformanceMeasure = PerformanceMeasure;
 globalThis.PerformanceObserver = PerformanceObserver;
 globalThis.PerformanceObserverEntryList = PerformanceObserverEntryList;
 globalThis.PerformanceResourceTiming = PerformanceResourceTiming;
+
+// ../node_modules/unenv/dist/runtime/node/console.mjs
+import { Writable } from "node:stream";
+
+// ../node_modules/unenv/dist/runtime/mock/noop.mjs
 var noop_default = Object.assign(() => {
 }, { __unenv__: true });
+
+// ../node_modules/unenv/dist/runtime/node/console.mjs
 var _console = globalThis.console;
 var _ignoreErrors = true;
 var _stderr = new Writable();
@@ -340,6 +323,8 @@ var Console = _console?.Console ?? /* @__PURE__ */ notImplementedClass("console.
 var _times = /* @__PURE__ */ new Map();
 var _stdoutErrorHandler = noop_default;
 var _stderrErrorHandler = noop_default;
+
+// ../node_modules/@cloudflare/unenv-preset/dist/runtime/node/console.mjs
 var workerdConsole = globalThis["console"];
 var {
   assert,
@@ -379,8 +364,12 @@ Object.assign(workerdConsole, {
   _times
 });
 var console_default = workerdConsole;
+
+// ../node_modules/wrangler/_virtual_unenv_global_polyfill-@cloudflare-unenv-preset-node-console
 globalThis.console = console_default;
-var hrtime = /* @__PURE__ */ Object.assign(/* @__PURE__ */ __name2(/* @__PURE__ */ __name(function hrtime2(startTime) {
+
+// ../node_modules/unenv/dist/runtime/node/internal/process/hrtime.mjs
+var hrtime = /* @__PURE__ */ Object.assign(/* @__PURE__ */ __name(function hrtime2(startTime) {
   const now = Date.now();
   const seconds = Math.trunc(now / 1e3);
   const nanos = now % 1e3 * 1e6;
@@ -394,15 +383,17 @@ var hrtime = /* @__PURE__ */ Object.assign(/* @__PURE__ */ __name2(/* @__PURE__ 
     return [diffSeconds, diffNanos];
   }
   return [seconds, nanos];
-}, "hrtime2"), "hrtime"), { bigint: /* @__PURE__ */ __name2(/* @__PURE__ */ __name(function bigint() {
+}, "hrtime"), { bigint: /* @__PURE__ */ __name(function bigint() {
   return BigInt(Date.now() * 1e6);
-}, "bigint"), "bigint") });
+}, "bigint") });
+
+// ../node_modules/unenv/dist/runtime/node/internal/process/process.mjs
+import { EventEmitter } from "node:events";
+
+// ../node_modules/unenv/dist/runtime/node/internal/tty/read-stream.mjs
 var ReadStream = class {
   static {
     __name(this, "ReadStream");
-  }
-  static {
-    __name2(this, "ReadStream");
   }
   fd;
   isRaw = false;
@@ -415,12 +406,11 @@ var ReadStream = class {
     return this;
   }
 };
+
+// ../node_modules/unenv/dist/runtime/node/internal/tty/write-stream.mjs
 var WriteStream = class {
   static {
     __name(this, "WriteStream");
-  }
-  static {
-    __name2(this, "WriteStream");
   }
   fd;
   columns = 80;
@@ -466,13 +456,14 @@ var WriteStream = class {
     return false;
   }
 };
+
+// ../node_modules/unenv/dist/runtime/node/internal/process/node-version.mjs
 var NODE_VERSION = "22.14.0";
+
+// ../node_modules/unenv/dist/runtime/node/internal/process/process.mjs
 var Process = class _Process extends EventEmitter {
   static {
-    __name(this, "_Process");
-  }
-  static {
-    __name2(this, "Process");
+    __name(this, "Process");
   }
   env;
   hrtime;
@@ -585,58 +576,58 @@ var Process = class _Process extends EventEmitter {
   }
   // --- unimplemented methods ---
   umask() {
-    throw /* @__PURE__ */ createNotImplementedError("process.umask");
+    throw createNotImplementedError("process.umask");
   }
   getBuiltinModule() {
     return void 0;
   }
   getActiveResourcesInfo() {
-    throw /* @__PURE__ */ createNotImplementedError("process.getActiveResourcesInfo");
+    throw createNotImplementedError("process.getActiveResourcesInfo");
   }
   exit() {
-    throw /* @__PURE__ */ createNotImplementedError("process.exit");
+    throw createNotImplementedError("process.exit");
   }
   reallyExit() {
-    throw /* @__PURE__ */ createNotImplementedError("process.reallyExit");
+    throw createNotImplementedError("process.reallyExit");
   }
   kill() {
-    throw /* @__PURE__ */ createNotImplementedError("process.kill");
+    throw createNotImplementedError("process.kill");
   }
   abort() {
-    throw /* @__PURE__ */ createNotImplementedError("process.abort");
+    throw createNotImplementedError("process.abort");
   }
   dlopen() {
-    throw /* @__PURE__ */ createNotImplementedError("process.dlopen");
+    throw createNotImplementedError("process.dlopen");
   }
   setSourceMapsEnabled() {
-    throw /* @__PURE__ */ createNotImplementedError("process.setSourceMapsEnabled");
+    throw createNotImplementedError("process.setSourceMapsEnabled");
   }
   loadEnvFile() {
-    throw /* @__PURE__ */ createNotImplementedError("process.loadEnvFile");
+    throw createNotImplementedError("process.loadEnvFile");
   }
   disconnect() {
-    throw /* @__PURE__ */ createNotImplementedError("process.disconnect");
+    throw createNotImplementedError("process.disconnect");
   }
   cpuUsage() {
-    throw /* @__PURE__ */ createNotImplementedError("process.cpuUsage");
+    throw createNotImplementedError("process.cpuUsage");
   }
   setUncaughtExceptionCaptureCallback() {
-    throw /* @__PURE__ */ createNotImplementedError("process.setUncaughtExceptionCaptureCallback");
+    throw createNotImplementedError("process.setUncaughtExceptionCaptureCallback");
   }
   hasUncaughtExceptionCaptureCallback() {
-    throw /* @__PURE__ */ createNotImplementedError("process.hasUncaughtExceptionCaptureCallback");
+    throw createNotImplementedError("process.hasUncaughtExceptionCaptureCallback");
   }
   initgroups() {
-    throw /* @__PURE__ */ createNotImplementedError("process.initgroups");
+    throw createNotImplementedError("process.initgroups");
   }
   openStdin() {
-    throw /* @__PURE__ */ createNotImplementedError("process.openStdin");
+    throw createNotImplementedError("process.openStdin");
   }
   assert() {
-    throw /* @__PURE__ */ createNotImplementedError("process.assert");
+    throw createNotImplementedError("process.assert");
   }
   binding() {
-    throw /* @__PURE__ */ createNotImplementedError("process.binding");
+    throw createNotImplementedError("process.binding");
   }
   // --- attached interfaces ---
   permission = { has: /* @__PURE__ */ notImplemented("process.permission.has") };
@@ -662,7 +653,7 @@ var Process = class _Process extends EventEmitter {
     external: 0,
     heapTotal: 0,
     heapUsed: 0
-  }), { rss: /* @__PURE__ */ __name2(() => 0, "rss") });
+  }), { rss: /* @__PURE__ */ __name(() => 0, "rss") });
   // --- undefined props ---
   mainModule = void 0;
   domain = void 0;
@@ -703,6 +694,8 @@ var Process = class _Process extends EventEmitter {
   _send = void 0;
   _linkedBinding = void 0;
 };
+
+// ../node_modules/@cloudflare/unenv-preset/dist/runtime/node/process.mjs
 var globalProcess = globalThis["process"];
 var getBuiltinModule = globalProcess.getBuiltinModule;
 var workerdProcess = getBuiltinModule("node:process");
@@ -931,257 +924,255 @@ var _process = {
   _linkedBinding
 };
 var process_default = _process;
+
+// ../node_modules/wrangler/_virtual_unenv_global_polyfill-@cloudflare-unenv-preset-node-process
 globalThis.process = process_default;
-var Xa = Object.defineProperty;
-var na = /* @__PURE__ */ __name2((e) => {
+
+// _worker.js
+var $t = Object.defineProperty;
+var dt = /* @__PURE__ */ __name((e) => {
   throw TypeError(e);
-}, "na");
-var Ga = /* @__PURE__ */ __name2((e, a, t) => a in e ? Xa(e, a, { enumerable: true, configurable: true, writable: true, value: t }) : e[a] = t, "Ga");
-var w = /* @__PURE__ */ __name2((e, a, t) => Ga(e, typeof a != "symbol" ? a + "" : a, t), "w");
-var We = /* @__PURE__ */ __name2((e, a, t) => a.has(e) || na("Cannot " + t), "We");
-var f = /* @__PURE__ */ __name2((e, a, t) => (We(e, a, "read from private field"), t ? t.call(e) : a.get(e)), "f");
-var I = /* @__PURE__ */ __name2((e, a, t) => a.has(e) ? na("Cannot add the same private member more than once") : a instanceof WeakSet ? a.add(e) : a.set(e, t), "I");
-var S = /* @__PURE__ */ __name2((e, a, t, s) => (We(e, a, "write to private field"), s ? s.call(e, t) : a.set(e, t), t), "S");
-var P = /* @__PURE__ */ __name2((e, a, t) => (We(e, a, "access private method"), t), "P");
-var ia = /* @__PURE__ */ __name2((e, a, t, s) => ({ set _(n) {
-  S(e, a, n, t);
+}, "dt");
+var Ft = /* @__PURE__ */ __name((e, t, a) => t in e ? $t(e, t, { enumerable: true, configurable: true, writable: true, value: a }) : e[t] = a, "Ft");
+var A = /* @__PURE__ */ __name((e, t, a) => Ft(e, typeof t != "symbol" ? t + "" : t, a), "A");
+var Ze = /* @__PURE__ */ __name((e, t, a) => t.has(e) || dt("Cannot " + a), "Ze");
+var f = /* @__PURE__ */ __name((e, t, a) => (Ze(e, t, "read from private field"), a ? a.call(e) : t.get(e)), "f");
+var P = /* @__PURE__ */ __name((e, t, a) => t.has(e) ? dt("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, a), "P");
+var E = /* @__PURE__ */ __name((e, t, a, s) => (Ze(e, t, "write to private field"), s ? s.call(e, a) : t.set(e, a), a), "E");
+var R = /* @__PURE__ */ __name((e, t, a) => (Ze(e, t, "access private method"), a), "R");
+var lt = /* @__PURE__ */ __name((e, t, a, s) => ({ set _(i) {
+  E(e, t, i, a);
 }, get _() {
-  return f(e, a, s);
-} }), "ia");
-var ra = /* @__PURE__ */ __name2((e, a, t) => (s, n) => {
-  let i = -1;
-  return o(0);
-  async function o(d) {
-    if (d <= i) throw new Error("next() called multiple times");
-    i = d;
-    let p, r = false, g;
-    if (e[d] ? (g = e[d][0][0], s.req.routeIndex = d) : g = d === e.length && n || void 0, g) try {
-      p = await g(s, () => o(d + 1));
-    } catch (h) {
-      if (h instanceof Error && a) s.error = h, p = await a(h, s), r = true;
-      else throw h;
+  return f(e, t, s);
+} }), "lt");
+var ct = /* @__PURE__ */ __name((e, t, a) => (s, i) => {
+  let n = -1;
+  return r(0);
+  async function r(o) {
+    if (o <= n) throw new Error("next() called multiple times");
+    n = o;
+    let l, u = false, b;
+    if (e[o] ? (b = e[o][0][0], s.req.routeIndex = o) : b = o === e.length && i || void 0, b) try {
+      l = await b(s, () => r(o + 1));
+    } catch (d) {
+      if (d instanceof Error && t) s.error = d, l = await t(d, s), u = true;
+      else throw d;
     }
-    else s.finalized === false && t && (p = await t(s));
-    return p && (s.finalized === false || r) && (s.res = p), s;
+    else s.finalized === false && a && (l = await a(s));
+    return l && (s.finalized === false || u) && (s.res = l), s;
   }
-  __name(o, "o");
-  __name2(o, "o");
-}, "ra");
-var Fa = /* @__PURE__ */ Symbol();
-var $a = /* @__PURE__ */ __name2(async (e, a = /* @__PURE__ */ Object.create(null)) => {
-  const { all: t = false, dot: s = false } = a, i = (e instanceof Ta ? e.raw.headers : e.headers).get("Content-Type");
-  return i != null && i.startsWith("multipart/form-data") || i != null && i.startsWith("application/x-www-form-urlencoded") ? Ya(e, { all: t, dot: s }) : {};
-}, "$a");
-async function Ya(e, a) {
-  const t = await e.formData();
-  return t ? Va(t, a) : {};
+  __name(r, "r");
+}, "ct");
+var Gt = /* @__PURE__ */ Symbol();
+var Yt = /* @__PURE__ */ __name(async (e, t = /* @__PURE__ */ Object.create(null)) => {
+  const { all: a = false, dot: s = false } = t, n = (e instanceof At ? e.raw.headers : e.headers).get("Content-Type");
+  return n != null && n.startsWith("multipart/form-data") || n != null && n.startsWith("application/x-www-form-urlencoded") ? Jt(e, { all: a, dot: s }) : {};
+}, "Yt");
+async function Jt(e, t) {
+  const a = await e.formData();
+  return a ? Vt(a, t) : {};
 }
-__name(Ya, "Ya");
-__name2(Ya, "Ya");
-function Va(e, a) {
-  const t = /* @__PURE__ */ Object.create(null);
-  return e.forEach((s, n) => {
-    a.all || n.endsWith("[]") ? Ja(t, n, s) : t[n] = s;
-  }), a.dot && Object.entries(t).forEach(([s, n]) => {
-    s.includes(".") && (Wa(t, s, n), delete t[s]);
-  }), t;
+__name(Jt, "Jt");
+function Vt(e, t) {
+  const a = /* @__PURE__ */ Object.create(null);
+  return e.forEach((s, i) => {
+    t.all || i.endsWith("[]") ? Wt(a, i, s) : a[i] = s;
+  }), t.dot && Object.entries(a).forEach(([s, i]) => {
+    s.includes(".") && (Qt(a, s, i), delete a[s]);
+  }), a;
 }
-__name(Va, "Va");
-__name2(Va, "Va");
-var Ja = /* @__PURE__ */ __name2((e, a, t) => {
-  e[a] !== void 0 ? Array.isArray(e[a]) ? e[a].push(t) : e[a] = [e[a], t] : a.endsWith("[]") ? e[a] = [t] : e[a] = t;
-}, "Ja");
-var Wa = /* @__PURE__ */ __name2((e, a, t) => {
-  if (/(?:^|\.)__proto__\./.test(a)) return;
+__name(Vt, "Vt");
+var Wt = /* @__PURE__ */ __name((e, t, a) => {
+  e[t] !== void 0 ? Array.isArray(e[t]) ? e[t].push(a) : e[t] = [e[t], a] : t.endsWith("[]") ? e[t] = [a] : e[t] = a;
+}, "Wt");
+var Qt = /* @__PURE__ */ __name((e, t, a) => {
+  if (/(?:^|\.)__proto__\./.test(t)) return;
   let s = e;
-  const n = a.split(".");
-  n.forEach((i, o) => {
-    o === n.length - 1 ? s[i] = t : ((!s[i] || typeof s[i] != "object" || Array.isArray(s[i]) || s[i] instanceof File) && (s[i] = /* @__PURE__ */ Object.create(null)), s = s[i]);
+  const i = t.split(".");
+  i.forEach((n, r) => {
+    r === i.length - 1 ? s[n] = a : ((!s[n] || typeof s[n] != "object" || Array.isArray(s[n]) || s[n] instanceof File) && (s[n] = /* @__PURE__ */ Object.create(null)), s = s[n]);
   });
-}, "Wa");
-var va = /* @__PURE__ */ __name2((e) => {
-  const a = e.split("/");
-  return a[0] === "" && a.shift(), a;
-}, "va");
-var Qa = /* @__PURE__ */ __name2((e) => {
-  const { groups: a, path: t } = Za(e), s = va(t);
-  return et(s, a);
-}, "Qa");
-var Za = /* @__PURE__ */ __name2((e) => {
-  const a = [];
-  return e = e.replace(/\{[^}]+\}/g, (t, s) => {
-    const n = `@${s}`;
-    return a.push([n, t]), n;
-  }), { groups: a, path: e };
-}, "Za");
-var et = /* @__PURE__ */ __name2((e, a) => {
-  for (let t = a.length - 1; t >= 0; t--) {
-    const [s] = a[t];
-    for (let n = e.length - 1; n >= 0; n--) if (e[n].includes(s)) {
-      e[n] = e[n].replace(s, a[t][1]);
+}, "Qt");
+var xt = /* @__PURE__ */ __name((e) => {
+  const t = e.split("/");
+  return t[0] === "" && t.shift(), t;
+}, "xt");
+var Zt = /* @__PURE__ */ __name((e) => {
+  const { groups: t, path: a } = ea(e), s = xt(a);
+  return ta(s, t);
+}, "Zt");
+var ea = /* @__PURE__ */ __name((e) => {
+  const t = [];
+  return e = e.replace(/\{[^}]+\}/g, (a, s) => {
+    const i = `@${s}`;
+    return t.push([i, a]), i;
+  }), { groups: t, path: e };
+}, "ea");
+var ta = /* @__PURE__ */ __name((e, t) => {
+  for (let a = t.length - 1; a >= 0; a--) {
+    const [s] = t[a];
+    for (let i = e.length - 1; i >= 0; i--) if (e[i].includes(s)) {
+      e[i] = e[i].replace(s, t[a][1]);
       break;
     }
   }
   return e;
-}, "et");
-var ze = {};
-var at = /* @__PURE__ */ __name2((e, a) => {
+}, "ta");
+var Xe = {};
+var aa = /* @__PURE__ */ __name((e, t) => {
   if (e === "*") return "*";
-  const t = e.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);
-  if (t) {
-    const s = `${e}#${a}`;
-    return ze[s] || (t[2] ? ze[s] = a && a[0] !== ":" && a[0] !== "*" ? [s, t[1], new RegExp(`^${t[2]}(?=/${a})`)] : [e, t[1], new RegExp(`^${t[2]}$`)] : ze[s] = [e, t[1], true]), ze[s];
+  const a = e.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);
+  if (a) {
+    const s = `${e}#${t}`;
+    return Xe[s] || (a[2] ? Xe[s] = t && t[0] !== ":" && t[0] !== "*" ? [s, a[1], new RegExp(`^${a[2]}(?=/${t})`)] : [e, a[1], new RegExp(`^${a[2]}$`)] : Xe[s] = [e, a[1], true]), Xe[s];
   }
   return null;
-}, "at");
-var aa = /* @__PURE__ */ __name2((e, a) => {
+}, "aa");
+var st = /* @__PURE__ */ __name((e, t) => {
   try {
-    return a(e);
+    return t(e);
   } catch {
-    return e.replace(/(?:%[0-9A-Fa-f]{2})+/g, (t) => {
+    return e.replace(/(?:%[0-9A-Fa-f]{2})+/g, (a) => {
       try {
-        return a(t);
+        return t(a);
       } catch {
-        return t;
+        return a;
       }
     });
   }
-}, "aa");
-var ya = /* @__PURE__ */ __name2((e) => aa(e, decodeURI), "ya");
-var ka = /* @__PURE__ */ __name2((e) => {
-  const a = e.url, t = a.indexOf("/", a.indexOf(":") + 4);
-  let s = t;
-  for (; s < a.length; s++) {
-    const n = a.charCodeAt(s);
-    if (n === 37) {
-      const i = a.indexOf("?", s), o = a.indexOf("#", s), d = i === -1 ? o === -1 ? void 0 : o : o === -1 ? i : Math.min(i, o), p = a.slice(t, d);
-      return ya(p.includes("%25") ? p.replace(/%25/g, "%2525") : p);
-    } else if (n === 63 || n === 35) break;
+}, "st");
+var wt = /* @__PURE__ */ __name((e) => st(e, decodeURI), "wt");
+var St = /* @__PURE__ */ __name((e) => {
+  const t = e.url, a = t.indexOf("/", t.indexOf(":") + 4);
+  let s = a;
+  for (; s < t.length; s++) {
+    const i = t.charCodeAt(s);
+    if (i === 37) {
+      const n = t.indexOf("?", s), r = t.indexOf("#", s), o = n === -1 ? r === -1 ? void 0 : r : r === -1 ? n : Math.min(n, r), l = t.slice(a, o);
+      return wt(l.includes("%25") ? l.replace(/%25/g, "%2525") : l);
+    } else if (i === 63 || i === 35) break;
   }
-  return a.slice(t, s);
-}, "ka");
-var tt = /* @__PURE__ */ __name2((e) => {
-  const a = ka(e);
-  return a.length > 1 && a.at(-1) === "/" ? a.slice(0, -1) : a;
-}, "tt");
-var he = /* @__PURE__ */ __name2((e, a, ...t) => (t.length && (a = he(a, ...t)), `${(e == null ? void 0 : e[0]) === "/" ? "" : "/"}${e}${a === "/" ? "" : `${(e == null ? void 0 : e.at(-1)) === "/" ? "" : "/"}${(a == null ? void 0 : a[0]) === "/" ? a.slice(1) : a}`}`), "he");
-var xa = /* @__PURE__ */ __name2((e) => {
+  return t.slice(a, s);
+}, "St");
+var sa = /* @__PURE__ */ __name((e) => {
+  const t = St(e);
+  return t.length > 1 && t.at(-1) === "/" ? t.slice(0, -1) : t;
+}, "sa");
+var we = /* @__PURE__ */ __name((e, t, ...a) => (a.length && (t = we(t, ...a)), `${(e == null ? void 0 : e[0]) === "/" ? "" : "/"}${e}${t === "/" ? "" : `${(e == null ? void 0 : e.at(-1)) === "/" ? "" : "/"}${(t == null ? void 0 : t[0]) === "/" ? t.slice(1) : t}`}`), "we");
+var Tt = /* @__PURE__ */ __name((e) => {
   if (e.charCodeAt(e.length - 1) !== 63 || !e.includes(":")) return null;
-  const a = e.split("/"), t = [];
+  const t = e.split("/"), a = [];
   let s = "";
-  return a.forEach((n) => {
-    if (n !== "" && !/\:/.test(n)) s += "/" + n;
-    else if (/\:/.test(n)) if (/\?/.test(n)) {
-      t.length === 0 && s === "" ? t.push("/") : t.push(s);
-      const i = n.replace("?", "");
-      s += "/" + i, t.push(s);
-    } else s += "/" + n;
-  }), t.filter((n, i, o) => o.indexOf(n) === i);
-}, "xa");
-var Qe = /* @__PURE__ */ __name2((e) => /[%+]/.test(e) ? (e.indexOf("+") !== -1 && (e = e.replace(/\+/g, " ")), e.indexOf("%") !== -1 ? aa(e, wa) : e) : e, "Qe");
-var Sa = /* @__PURE__ */ __name2((e, a, t) => {
+  return t.forEach((i) => {
+    if (i !== "" && !/\:/.test(i)) s += "/" + i;
+    else if (/\:/.test(i)) if (/\?/.test(i)) {
+      a.length === 0 && s === "" ? a.push("/") : a.push(s);
+      const n = i.replace("?", "");
+      s += "/" + n, a.push(s);
+    } else s += "/" + i;
+  }), a.filter((i, n, r) => r.indexOf(i) === n);
+}, "Tt");
+var et = /* @__PURE__ */ __name((e) => /[%+]/.test(e) ? (e.indexOf("+") !== -1 && (e = e.replace(/\+/g, " ")), e.indexOf("%") !== -1 ? st(e, Et) : e) : e, "et");
+var It = /* @__PURE__ */ __name((e, t, a) => {
   let s;
-  if (!t && a && !/[%+]/.test(a)) {
-    let o = e.indexOf("?", 8);
-    if (o === -1) return;
-    for (e.startsWith(a, o + 1) || (o = e.indexOf(`&${a}`, o + 1)); o !== -1; ) {
-      const d = e.charCodeAt(o + a.length + 1);
-      if (d === 61) {
-        const p = o + a.length + 2, r = e.indexOf("&", p);
-        return Qe(e.slice(p, r === -1 ? void 0 : r));
-      } else if (d == 38 || isNaN(d)) return "";
-      o = e.indexOf(`&${a}`, o + 1);
+  if (!a && t && !/[%+]/.test(t)) {
+    let r = e.indexOf("?", 8);
+    if (r === -1) return;
+    for (e.startsWith(t, r + 1) || (r = e.indexOf(`&${t}`, r + 1)); r !== -1; ) {
+      const o = e.charCodeAt(r + t.length + 1);
+      if (o === 61) {
+        const l = r + t.length + 2, u = e.indexOf("&", l);
+        return et(e.slice(l, u === -1 ? void 0 : u));
+      } else if (o == 38 || isNaN(o)) return "";
+      r = e.indexOf(`&${t}`, r + 1);
     }
     if (s = /[%+]/.test(e), !s) return;
   }
-  const n = {};
+  const i = {};
   s ?? (s = /[%+]/.test(e));
-  let i = e.indexOf("?", 8);
-  for (; i !== -1; ) {
-    const o = e.indexOf("&", i + 1);
-    let d = e.indexOf("=", i);
-    d > o && o !== -1 && (d = -1);
-    let p = e.slice(i + 1, d === -1 ? o === -1 ? void 0 : o : d);
-    if (s && (p = Qe(p)), i = o, p === "") continue;
-    let r;
-    d === -1 ? r = "" : (r = e.slice(d + 1, o === -1 ? void 0 : o), s && (r = Qe(r))), t ? (n[p] && Array.isArray(n[p]) || (n[p] = []), n[p].push(r)) : n[p] ?? (n[p] = r);
+  let n = e.indexOf("?", 8);
+  for (; n !== -1; ) {
+    const r = e.indexOf("&", n + 1);
+    let o = e.indexOf("=", n);
+    o > r && r !== -1 && (o = -1);
+    let l = e.slice(n + 1, o === -1 ? r === -1 ? void 0 : r : o);
+    if (s && (l = et(l)), n = r, l === "") continue;
+    let u;
+    o === -1 ? u = "" : (u = e.slice(o + 1, r === -1 ? void 0 : r), s && (u = et(u))), a ? (i[l] && Array.isArray(i[l]) || (i[l] = []), i[l].push(u)) : i[l] ?? (i[l] = u);
   }
-  return a ? n[a] : n;
-}, "Sa");
-var st = Sa;
-var nt = /* @__PURE__ */ __name2((e, a) => Sa(e, a, true), "nt");
-var wa = decodeURIComponent;
-var oa = /* @__PURE__ */ __name2((e) => aa(e, wa), "oa");
-var xe;
-var K;
-var W;
-var Ia;
-var Aa;
-var ea;
-var Q;
-var ua;
-var Ta = (ua = class {
+  return t ? i[t] : i;
+}, "It");
+var na = It;
+var ia = /* @__PURE__ */ __name((e, t) => It(e, t, true), "ia");
+var Et = decodeURIComponent;
+var pt = /* @__PURE__ */ __name((e) => st(e, Et), "pt");
+var Ie;
+var F;
+var se;
+var Pt;
+var Ct;
+var at;
+var ie;
+var gt;
+var At = (gt = class {
   static {
-    __name(this, "ua");
+    __name(this, "gt");
   }
-  static {
-    __name2(this, "ua");
-  }
-  constructor(e, a = "/", t = [[]]) {
-    I(this, W);
-    w(this, "raw");
-    I(this, xe);
-    I(this, K);
-    w(this, "routeIndex", 0);
-    w(this, "path");
-    w(this, "bodyCache", {});
-    I(this, Q, (e2) => {
-      const { bodyCache: a2, raw: t2 } = this, s = a2[e2];
+  constructor(e, t = "/", a = [[]]) {
+    P(this, se);
+    A(this, "raw");
+    P(this, Ie);
+    P(this, F);
+    A(this, "routeIndex", 0);
+    A(this, "path");
+    A(this, "bodyCache", {});
+    P(this, ie, (e2) => {
+      const { bodyCache: t2, raw: a2 } = this, s = t2[e2];
       if (s) return s;
-      const n = Object.keys(a2)[0];
-      return n ? a2[n].then((i) => (n === "json" && (i = JSON.stringify(i)), new Response(i)[e2]())) : a2[e2] = t2[e2]();
+      const i = Object.keys(t2)[0];
+      return i ? t2[i].then((n) => (i === "json" && (n = JSON.stringify(n)), new Response(n)[e2]())) : t2[e2] = a2[e2]();
     });
-    this.raw = e, this.path = a, S(this, K, t), S(this, xe, {});
+    this.raw = e, this.path = t, E(this, F, a), E(this, Ie, {});
   }
   param(e) {
-    return e ? P(this, W, Ia).call(this, e) : P(this, W, Aa).call(this);
+    return e ? R(this, se, Pt).call(this, e) : R(this, se, Ct).call(this);
   }
   query(e) {
-    return st(this.url, e);
+    return na(this.url, e);
   }
   queries(e) {
-    return nt(this.url, e);
+    return ia(this.url, e);
   }
   header(e) {
     if (e) return this.raw.headers.get(e) ?? void 0;
-    const a = {};
-    return this.raw.headers.forEach((t, s) => {
-      a[s] = t;
-    }), a;
+    const t = {};
+    return this.raw.headers.forEach((a, s) => {
+      t[s] = a;
+    }), t;
   }
   async parseBody(e) {
-    return $a(this, e);
+    return Yt(this, e);
   }
   json() {
-    return f(this, Q).call(this, "text").then((e) => JSON.parse(e));
+    return f(this, ie).call(this, "text").then((e) => JSON.parse(e));
   }
   text() {
-    return f(this, Q).call(this, "text");
+    return f(this, ie).call(this, "text");
   }
   arrayBuffer() {
-    return f(this, Q).call(this, "arrayBuffer");
+    return f(this, ie).call(this, "arrayBuffer");
   }
   blob() {
-    return f(this, Q).call(this, "blob");
+    return f(this, ie).call(this, "blob");
   }
   formData() {
-    return f(this, Q).call(this, "formData");
+    return f(this, ie).call(this, "formData");
   }
-  addValidatedData(e, a) {
-    f(this, xe)[e] = a;
+  addValidatedData(e, t) {
+    f(this, Ie)[e] = t;
   }
   valid(e) {
-    return f(this, xe)[e];
+    return f(this, Ie)[e];
   }
   get url() {
     return this.raw.url;
@@ -1189,796 +1180,760 @@ var Ta = (ua = class {
   get method() {
     return this.raw.method;
   }
-  get [Fa]() {
-    return f(this, K);
+  get [Gt]() {
+    return f(this, F);
   }
   get matchedRoutes() {
-    return f(this, K)[0].map(([[, e]]) => e);
+    return f(this, F)[0].map(([[, e]]) => e);
   }
   get routePath() {
-    return f(this, K)[0].map(([[, e]]) => e)[this.routeIndex].path;
+    return f(this, F)[0].map(([[, e]]) => e)[this.routeIndex].path;
   }
-}, xe = /* @__PURE__ */ new WeakMap(), K = /* @__PURE__ */ new WeakMap(), W = /* @__PURE__ */ new WeakSet(), Ia = /* @__PURE__ */ __name2(function(e) {
-  const a = f(this, K)[0][this.routeIndex][1][e], t = P(this, W, ea).call(this, a);
-  return t && /\%/.test(t) ? oa(t) : t;
-}, "Ia"), Aa = /* @__PURE__ */ __name2(function() {
-  const e = {}, a = Object.keys(f(this, K)[0][this.routeIndex][1]);
-  for (const t of a) {
-    const s = P(this, W, ea).call(this, f(this, K)[0][this.routeIndex][1][t]);
-    s !== void 0 && (e[t] = /\%/.test(s) ? oa(s) : s);
+}, Ie = /* @__PURE__ */ new WeakMap(), F = /* @__PURE__ */ new WeakMap(), se = /* @__PURE__ */ new WeakSet(), Pt = /* @__PURE__ */ __name(function(e) {
+  const t = f(this, F)[0][this.routeIndex][1][e], a = R(this, se, at).call(this, t);
+  return a && /\%/.test(a) ? pt(a) : a;
+}, "Pt"), Ct = /* @__PURE__ */ __name(function() {
+  const e = {}, t = Object.keys(f(this, F)[0][this.routeIndex][1]);
+  for (const a of t) {
+    const s = R(this, se, at).call(this, f(this, F)[0][this.routeIndex][1][a]);
+    s !== void 0 && (e[a] = /\%/.test(s) ? pt(s) : s);
   }
   return e;
-}, "Aa"), ea = /* @__PURE__ */ __name2(function(e) {
-  return f(this, K)[1] ? f(this, K)[1][e] : e;
-}, "ea"), Q = /* @__PURE__ */ new WeakMap(), ua);
-var it = { Stringify: 1 };
-var Pa = /* @__PURE__ */ __name2(async (e, a, t, s, n) => {
+}, "Ct"), at = /* @__PURE__ */ __name(function(e) {
+  return f(this, F)[1] ? f(this, F)[1][e] : e;
+}, "at"), ie = /* @__PURE__ */ new WeakMap(), gt);
+var ra = { Stringify: 1 };
+var _t = /* @__PURE__ */ __name(async (e, t, a, s, i) => {
   typeof e == "object" && !(e instanceof String) && (e instanceof Promise || (e = e.toString()), e instanceof Promise && (e = await e));
-  const i = e.callbacks;
-  return i != null && i.length ? (n ? n[0] += e : n = [e], Promise.all(i.map((d) => d({ phase: a, buffer: n, context: s }))).then((d) => Promise.all(d.filter(Boolean).map((p) => Pa(p, a, false, s, n))).then(() => n[0]))) : Promise.resolve(e);
-}, "Pa");
-var rt = "text/plain; charset=UTF-8";
-var Ze = /* @__PURE__ */ __name2((e, a) => ({ "Content-Type": e, ...a }), "Ze");
-var _e = /* @__PURE__ */ __name2((e, a) => new Response(e, a), "_e");
-var qe;
-var Oe;
-var $;
-var Se;
-var Y;
-var O;
-var Le;
-var we;
-var Te;
-var de;
+  const n = e.callbacks;
+  return n != null && n.length ? (i ? i[0] += e : i = [e], Promise.all(n.map((o) => o({ phase: t, buffer: i, context: s }))).then((o) => Promise.all(o.filter(Boolean).map((l) => _t(l, t, false, s, i))).then(() => i[0]))) : Promise.resolve(e);
+}, "_t");
+var oa = "text/plain; charset=UTF-8";
+var tt = /* @__PURE__ */ __name((e, t) => ({ "Content-Type": e, ...t }), "tt");
+var De = /* @__PURE__ */ __name((e, t) => new Response(e, t), "De");
 var Me;
 var He;
 var Z;
-var ve;
-var fa;
-var ot = (fa = class {
+var Ee;
+var ee;
+var K;
+var je;
+var Ae;
+var Pe;
+var ge;
+var ze;
+var Ke;
+var re;
+var Se;
+var bt;
+var da = (bt = class {
   static {
-    __name(this, "fa");
+    __name(this, "bt");
   }
-  static {
-    __name2(this, "fa");
-  }
-  constructor(e, a) {
-    I(this, Z);
-    I(this, qe);
-    I(this, Oe);
-    w(this, "env", {});
-    I(this, $);
-    w(this, "finalized", false);
-    w(this, "error");
-    I(this, Se);
-    I(this, Y);
-    I(this, O);
-    I(this, Le);
-    I(this, we);
-    I(this, Te);
-    I(this, de);
-    I(this, Me);
-    I(this, He);
-    w(this, "render", (...e2) => (f(this, we) ?? S(this, we, (a2) => this.html(a2)), f(this, we).call(this, ...e2)));
-    w(this, "setLayout", (e2) => S(this, Le, e2));
-    w(this, "getLayout", () => f(this, Le));
-    w(this, "setRenderer", (e2) => {
-      S(this, we, e2);
+  constructor(e, t) {
+    P(this, re);
+    P(this, Me);
+    P(this, He);
+    A(this, "env", {});
+    P(this, Z);
+    A(this, "finalized", false);
+    A(this, "error");
+    P(this, Ee);
+    P(this, ee);
+    P(this, K);
+    P(this, je);
+    P(this, Ae);
+    P(this, Pe);
+    P(this, ge);
+    P(this, ze);
+    P(this, Ke);
+    A(this, "render", (...e2) => (f(this, Ae) ?? E(this, Ae, (t2) => this.html(t2)), f(this, Ae).call(this, ...e2)));
+    A(this, "setLayout", (e2) => E(this, je, e2));
+    A(this, "getLayout", () => f(this, je));
+    A(this, "setRenderer", (e2) => {
+      E(this, Ae, e2);
     });
-    w(this, "header", (e2, a2, t) => {
-      this.finalized && S(this, O, _e(f(this, O).body, f(this, O)));
-      const s = f(this, O) ? f(this, O).headers : f(this, de) ?? S(this, de, new Headers());
-      a2 === void 0 ? s.delete(e2) : t != null && t.append ? s.append(e2, a2) : s.set(e2, a2);
+    A(this, "header", (e2, t2, a) => {
+      this.finalized && E(this, K, De(f(this, K).body, f(this, K)));
+      const s = f(this, K) ? f(this, K).headers : f(this, ge) ?? E(this, ge, new Headers());
+      t2 === void 0 ? s.delete(e2) : a != null && a.append ? s.append(e2, t2) : s.set(e2, t2);
     });
-    w(this, "status", (e2) => {
-      S(this, Se, e2);
+    A(this, "status", (e2) => {
+      E(this, Ee, e2);
     });
-    w(this, "set", (e2, a2) => {
-      f(this, $) ?? S(this, $, /* @__PURE__ */ new Map()), f(this, $).set(e2, a2);
+    A(this, "set", (e2, t2) => {
+      f(this, Z) ?? E(this, Z, /* @__PURE__ */ new Map()), f(this, Z).set(e2, t2);
     });
-    w(this, "get", (e2) => f(this, $) ? f(this, $).get(e2) : void 0);
-    w(this, "newResponse", (...e2) => P(this, Z, ve).call(this, ...e2));
-    w(this, "body", (e2, a2, t) => P(this, Z, ve).call(this, e2, a2, t));
-    w(this, "text", (e2, a2, t) => !f(this, de) && !f(this, Se) && !a2 && !t && !this.finalized ? new Response(e2) : P(this, Z, ve).call(this, e2, a2, Ze(rt, t)));
-    w(this, "json", (e2, a2, t) => P(this, Z, ve).call(this, JSON.stringify(e2), a2, Ze("application/json", t)));
-    w(this, "html", (e2, a2, t) => {
-      const s = /* @__PURE__ */ __name2((n) => P(this, Z, ve).call(this, n, a2, Ze("text/html; charset=UTF-8", t)), "s");
-      return typeof e2 == "object" ? Pa(e2, it.Stringify, false, {}).then(s) : s(e2);
+    A(this, "get", (e2) => f(this, Z) ? f(this, Z).get(e2) : void 0);
+    A(this, "newResponse", (...e2) => R(this, re, Se).call(this, ...e2));
+    A(this, "body", (e2, t2, a) => R(this, re, Se).call(this, e2, t2, a));
+    A(this, "text", (e2, t2, a) => !f(this, ge) && !f(this, Ee) && !t2 && !a && !this.finalized ? new Response(e2) : R(this, re, Se).call(this, e2, t2, tt(oa, a)));
+    A(this, "json", (e2, t2, a) => R(this, re, Se).call(this, JSON.stringify(e2), t2, tt("application/json", a)));
+    A(this, "html", (e2, t2, a) => {
+      const s = /* @__PURE__ */ __name((i) => R(this, re, Se).call(this, i, t2, tt("text/html; charset=UTF-8", a)), "s");
+      return typeof e2 == "object" ? _t(e2, ra.Stringify, false, {}).then(s) : s(e2);
     });
-    w(this, "redirect", (e2, a2) => {
-      const t = String(e2);
-      return this.header("Location", /[^\x00-\xFF]/.test(t) ? encodeURI(t) : t), this.newResponse(null, a2 ?? 302);
+    A(this, "redirect", (e2, t2) => {
+      const a = String(e2);
+      return this.header("Location", /[^\x00-\xFF]/.test(a) ? encodeURI(a) : a), this.newResponse(null, t2 ?? 302);
     });
-    w(this, "notFound", () => (f(this, Te) ?? S(this, Te, () => _e()), f(this, Te).call(this, this)));
-    S(this, qe, e), a && (S(this, Y, a.executionCtx), this.env = a.env, S(this, Te, a.notFoundHandler), S(this, He, a.path), S(this, Me, a.matchResult));
+    A(this, "notFound", () => (f(this, Pe) ?? E(this, Pe, () => De()), f(this, Pe).call(this, this)));
+    E(this, Me, e), t && (E(this, ee, t.executionCtx), this.env = t.env, E(this, Pe, t.notFoundHandler), E(this, Ke, t.path), E(this, ze, t.matchResult));
   }
   get req() {
-    return f(this, Oe) ?? S(this, Oe, new Ta(f(this, qe), f(this, He), f(this, Me))), f(this, Oe);
+    return f(this, He) ?? E(this, He, new At(f(this, Me), f(this, Ke), f(this, ze))), f(this, He);
   }
   get event() {
-    if (f(this, Y) && "respondWith" in f(this, Y)) return f(this, Y);
+    if (f(this, ee) && "respondWith" in f(this, ee)) return f(this, ee);
     throw Error("This context has no FetchEvent");
   }
   get executionCtx() {
-    if (f(this, Y)) return f(this, Y);
+    if (f(this, ee)) return f(this, ee);
     throw Error("This context has no ExecutionContext");
   }
   get res() {
-    return f(this, O) || S(this, O, _e(null, { headers: f(this, de) ?? S(this, de, new Headers()) }));
+    return f(this, K) || E(this, K, De(null, { headers: f(this, ge) ?? E(this, ge, new Headers()) }));
   }
   set res(e) {
-    if (f(this, O) && e) {
-      e = _e(e.body, e);
-      for (const [a, t] of f(this, O).headers.entries()) if (a !== "content-type") if (a === "set-cookie") {
-        const s = f(this, O).headers.getSetCookie();
+    if (f(this, K) && e) {
+      e = De(e.body, e);
+      for (const [t, a] of f(this, K).headers.entries()) if (t !== "content-type") if (t === "set-cookie") {
+        const s = f(this, K).headers.getSetCookie();
         e.headers.delete("set-cookie");
-        for (const n of s) e.headers.append("set-cookie", n);
-      } else e.headers.set(a, t);
+        for (const i of s) e.headers.append("set-cookie", i);
+      } else e.headers.set(t, a);
     }
-    S(this, O, e), this.finalized = true;
+    E(this, K, e), this.finalized = true;
   }
   get var() {
-    return f(this, $) ? Object.fromEntries(f(this, $)) : {};
+    return f(this, Z) ? Object.fromEntries(f(this, Z)) : {};
   }
-}, qe = /* @__PURE__ */ new WeakMap(), Oe = /* @__PURE__ */ new WeakMap(), $ = /* @__PURE__ */ new WeakMap(), Se = /* @__PURE__ */ new WeakMap(), Y = /* @__PURE__ */ new WeakMap(), O = /* @__PURE__ */ new WeakMap(), Le = /* @__PURE__ */ new WeakMap(), we = /* @__PURE__ */ new WeakMap(), Te = /* @__PURE__ */ new WeakMap(), de = /* @__PURE__ */ new WeakMap(), Me = /* @__PURE__ */ new WeakMap(), He = /* @__PURE__ */ new WeakMap(), Z = /* @__PURE__ */ new WeakSet(), ve = /* @__PURE__ */ __name2(function(e, a, t) {
-  const s = f(this, O) ? new Headers(f(this, O).headers) : f(this, de) ?? new Headers();
-  if (typeof a == "object" && "headers" in a) {
-    const i = a.headers instanceof Headers ? a.headers : new Headers(a.headers);
-    for (const [o, d] of i) o.toLowerCase() === "set-cookie" ? s.append(o, d) : s.set(o, d);
+}, Me = /* @__PURE__ */ new WeakMap(), He = /* @__PURE__ */ new WeakMap(), Z = /* @__PURE__ */ new WeakMap(), Ee = /* @__PURE__ */ new WeakMap(), ee = /* @__PURE__ */ new WeakMap(), K = /* @__PURE__ */ new WeakMap(), je = /* @__PURE__ */ new WeakMap(), Ae = /* @__PURE__ */ new WeakMap(), Pe = /* @__PURE__ */ new WeakMap(), ge = /* @__PURE__ */ new WeakMap(), ze = /* @__PURE__ */ new WeakMap(), Ke = /* @__PURE__ */ new WeakMap(), re = /* @__PURE__ */ new WeakSet(), Se = /* @__PURE__ */ __name(function(e, t, a) {
+  const s = f(this, K) ? new Headers(f(this, K).headers) : f(this, ge) ?? new Headers();
+  if (typeof t == "object" && "headers" in t) {
+    const n = t.headers instanceof Headers ? t.headers : new Headers(t.headers);
+    for (const [r, o] of n) r.toLowerCase() === "set-cookie" ? s.append(r, o) : s.set(r, o);
   }
-  if (t) for (const [i, o] of Object.entries(t)) if (typeof o == "string") s.set(i, o);
+  if (a) for (const [n, r] of Object.entries(a)) if (typeof r == "string") s.set(n, r);
   else {
-    s.delete(i);
-    for (const d of o) s.append(i, d);
+    s.delete(n);
+    for (const o of r) s.append(n, o);
   }
-  const n = typeof a == "number" ? a : (a == null ? void 0 : a.status) ?? f(this, Se);
-  return _e(e, { status: n, headers: s });
-}, "ve"), fa);
-var _ = "ALL";
-var dt = "all";
-var lt = ["get", "post", "put", "delete", "options", "patch"];
-var Ea = "Can not add a route since the matcher is already built.";
-var Ca = class extends Error {
+  const i = typeof t == "number" ? t : (t == null ? void 0 : t.status) ?? f(this, Ee);
+  return De(e, { status: i, headers: s });
+}, "Se"), bt);
+var M = "ALL";
+var la = "all";
+var ca = ["get", "post", "put", "delete", "options", "patch"];
+var Bt = "Can not add a route since the matcher is already built.";
+var Rt = class extends Error {
   static {
-    __name(this, "Ca");
-  }
-  static {
-    __name2(this, "Ca");
+    __name(this, "Rt");
   }
 };
-var ct = "__COMPOSED_HANDLER";
-var pt = /* @__PURE__ */ __name2((e) => e.text("404 Not Found", 404), "pt");
-var da = /* @__PURE__ */ __name2((e, a) => {
+var pa = "__COMPOSED_HANDLER";
+var ua = /* @__PURE__ */ __name((e) => e.text("404 Not Found", 404), "ua");
+var ut = /* @__PURE__ */ __name((e, t) => {
   if ("getResponse" in e) {
-    const t = e.getResponse();
-    return a.newResponse(t.body, t);
+    const a = e.getResponse();
+    return t.newResponse(a.body, a);
   }
-  return console.error(e), a.text("Internal Server Error", 500);
-}, "da");
-var j;
-var N;
-var _a;
-var U;
-var re;
-var Ue;
-var Xe;
-var Ie;
-var ut = (Ie = class {
+  return console.error(e), t.text("Internal Server Error", 500);
+}, "ut");
+var G;
+var H;
+var Dt;
+var Y;
+var fe;
+var $e;
+var Fe;
+var Ce;
+var fa = (Ce = class {
   static {
-    __name(this, "Ie");
+    __name(this, "Ce");
   }
-  static {
-    __name2(this, "Ie");
-  }
-  constructor(a = {}) {
-    I(this, N);
-    w(this, "get");
-    w(this, "post");
-    w(this, "put");
-    w(this, "delete");
-    w(this, "options");
-    w(this, "patch");
-    w(this, "all");
-    w(this, "on");
-    w(this, "use");
-    w(this, "router");
-    w(this, "getPath");
-    w(this, "_basePath", "/");
-    I(this, j, "/");
-    w(this, "routes", []);
-    I(this, U, pt);
-    w(this, "errorHandler", da);
-    w(this, "onError", (a2) => (this.errorHandler = a2, this));
-    w(this, "notFound", (a2) => (S(this, U, a2), this));
-    w(this, "fetch", (a2, ...t) => P(this, N, Xe).call(this, a2, t[1], t[0], a2.method));
-    w(this, "request", (a2, t, s2, n2) => a2 instanceof Request ? this.fetch(t ? new Request(a2, t) : a2, s2, n2) : (a2 = a2.toString(), this.fetch(new Request(/^https?:\/\//.test(a2) ? a2 : `http://localhost${he("/", a2)}`, t), s2, n2)));
-    w(this, "fire", () => {
-      addEventListener("fetch", (a2) => {
-        a2.respondWith(P(this, N, Xe).call(this, a2.request, a2, void 0, a2.request.method));
+  constructor(t = {}) {
+    P(this, H);
+    A(this, "get");
+    A(this, "post");
+    A(this, "put");
+    A(this, "delete");
+    A(this, "options");
+    A(this, "patch");
+    A(this, "all");
+    A(this, "on");
+    A(this, "use");
+    A(this, "router");
+    A(this, "getPath");
+    A(this, "_basePath", "/");
+    P(this, G, "/");
+    A(this, "routes", []);
+    P(this, Y, ua);
+    A(this, "errorHandler", ut);
+    A(this, "onError", (t2) => (this.errorHandler = t2, this));
+    A(this, "notFound", (t2) => (E(this, Y, t2), this));
+    A(this, "fetch", (t2, ...a) => R(this, H, Fe).call(this, t2, a[1], a[0], t2.method));
+    A(this, "request", (t2, a, s2, i2) => t2 instanceof Request ? this.fetch(a ? new Request(t2, a) : t2, s2, i2) : (t2 = t2.toString(), this.fetch(new Request(/^https?:\/\//.test(t2) ? t2 : `http://localhost${we("/", t2)}`, a), s2, i2)));
+    A(this, "fire", () => {
+      addEventListener("fetch", (t2) => {
+        t2.respondWith(R(this, H, Fe).call(this, t2.request, t2, void 0, t2.request.method));
       });
     });
-    [...lt, dt].forEach((i) => {
-      this[i] = (o, ...d) => (typeof o == "string" ? S(this, j, o) : P(this, N, re).call(this, i, f(this, j), o), d.forEach((p) => {
-        P(this, N, re).call(this, i, f(this, j), p);
+    [...ca, la].forEach((n) => {
+      this[n] = (r, ...o) => (typeof r == "string" ? E(this, G, r) : R(this, H, fe).call(this, n, f(this, G), r), o.forEach((l) => {
+        R(this, H, fe).call(this, n, f(this, G), l);
       }), this);
-    }), this.on = (i, o, ...d) => {
-      for (const p of [o].flat()) {
-        S(this, j, p);
-        for (const r of [i].flat()) d.map((g) => {
-          P(this, N, re).call(this, r.toUpperCase(), f(this, j), g);
+    }), this.on = (n, r, ...o) => {
+      for (const l of [r].flat()) {
+        E(this, G, l);
+        for (const u of [n].flat()) o.map((b) => {
+          R(this, H, fe).call(this, u.toUpperCase(), f(this, G), b);
         });
       }
       return this;
-    }, this.use = (i, ...o) => (typeof i == "string" ? S(this, j, i) : (S(this, j, "*"), o.unshift(i)), o.forEach((d) => {
-      P(this, N, re).call(this, _, f(this, j), d);
+    }, this.use = (n, ...r) => (typeof n == "string" ? E(this, G, n) : (E(this, G, "*"), r.unshift(n)), r.forEach((o) => {
+      R(this, H, fe).call(this, M, f(this, G), o);
     }), this);
-    const { strict: s, ...n } = a;
-    Object.assign(this, n), this.getPath = s ?? true ? a.getPath ?? ka : tt;
+    const { strict: s, ...i } = t;
+    Object.assign(this, i), this.getPath = s ?? true ? t.getPath ?? St : sa;
   }
-  route(a, t) {
-    const s = this.basePath(a);
-    return t.routes.map((n) => {
-      var o;
-      let i;
-      t.errorHandler === da ? i = n.handler : (i = /* @__PURE__ */ __name2(async (d, p) => (await ra([], t.errorHandler)(d, () => n.handler(d, p))).res, "i"), i[ct] = n.handler), P(o = s, N, re).call(o, n.method, n.path, i);
+  route(t, a) {
+    const s = this.basePath(t);
+    return a.routes.map((i) => {
+      var r;
+      let n;
+      a.errorHandler === ut ? n = i.handler : (n = /* @__PURE__ */ __name(async (o, l) => (await ct([], a.errorHandler)(o, () => i.handler(o, l))).res, "n"), n[pa] = i.handler), R(r = s, H, fe).call(r, i.method, i.path, n);
     }), this;
   }
-  basePath(a) {
-    const t = P(this, N, _a).call(this);
-    return t._basePath = he(this._basePath, a), t;
+  basePath(t) {
+    const a = R(this, H, Dt).call(this);
+    return a._basePath = we(this._basePath, t), a;
   }
-  mount(a, t, s) {
-    let n, i;
-    s && (typeof s == "function" ? i = s : (i = s.optionHandler, s.replaceRequest === false ? n = /* @__PURE__ */ __name2((p) => p, "n") : n = s.replaceRequest));
-    const o = i ? (p) => {
-      const r = i(p);
-      return Array.isArray(r) ? r : [r];
-    } : (p) => {
-      let r;
+  mount(t, a, s) {
+    let i, n;
+    s && (typeof s == "function" ? n = s : (n = s.optionHandler, s.replaceRequest === false ? i = /* @__PURE__ */ __name((l) => l, "i") : i = s.replaceRequest));
+    const r = n ? (l) => {
+      const u = n(l);
+      return Array.isArray(u) ? u : [u];
+    } : (l) => {
+      let u;
       try {
-        r = p.executionCtx;
+        u = l.executionCtx;
       } catch {
       }
-      return [p.env, r];
+      return [l.env, u];
     };
-    n || (n = (() => {
-      const p = he(this._basePath, a), r = p === "/" ? 0 : p.length;
-      return (g) => {
-        const h = new URL(g.url);
-        return h.pathname = h.pathname.slice(r) || "/", new Request(h, g);
+    i || (i = (() => {
+      const l = we(this._basePath, t), u = l === "/" ? 0 : l.length;
+      return (b) => {
+        const d = new URL(b.url);
+        return d.pathname = d.pathname.slice(u) || "/", new Request(d, b);
       };
     })());
-    const d = /* @__PURE__ */ __name2(async (p, r) => {
-      const g = await t(n(p.req.raw), ...o(p));
-      if (g) return g;
-      await r();
-    }, "d");
-    return P(this, N, re).call(this, _, he(a, "*"), d), this;
+    const o = /* @__PURE__ */ __name(async (l, u) => {
+      const b = await a(i(l.req.raw), ...r(l));
+      if (b) return b;
+      await u();
+    }, "o");
+    return R(this, H, fe).call(this, M, we(t, "*"), o), this;
   }
-}, j = /* @__PURE__ */ new WeakMap(), N = /* @__PURE__ */ new WeakSet(), _a = /* @__PURE__ */ __name2(function() {
-  const a = new Ie({ router: this.router, getPath: this.getPath });
-  return a.errorHandler = this.errorHandler, S(a, U, f(this, U)), a.routes = this.routes, a;
-}, "_a"), U = /* @__PURE__ */ new WeakMap(), re = /* @__PURE__ */ __name2(function(a, t, s) {
-  a = a.toUpperCase(), t = he(this._basePath, t);
-  const n = { basePath: this._basePath, path: t, method: a, handler: s };
-  this.router.add(a, t, [s, n]), this.routes.push(n);
-}, "re"), Ue = /* @__PURE__ */ __name2(function(a, t) {
-  if (a instanceof Error) return this.errorHandler(a, t);
-  throw a;
-}, "Ue"), Xe = /* @__PURE__ */ __name2(function(a, t, s, n) {
-  if (n === "HEAD") return (async () => new Response(null, await P(this, N, Xe).call(this, a, t, s, "GET")))();
-  const i = this.getPath(a, { env: s }), o = this.router.match(n, i), d = new ot(a, { path: i, matchResult: o, env: s, executionCtx: t, notFoundHandler: f(this, U) });
-  if (o[0].length === 1) {
-    let r;
+}, G = /* @__PURE__ */ new WeakMap(), H = /* @__PURE__ */ new WeakSet(), Dt = /* @__PURE__ */ __name(function() {
+  const t = new Ce({ router: this.router, getPath: this.getPath });
+  return t.errorHandler = this.errorHandler, E(t, Y, f(this, Y)), t.routes = this.routes, t;
+}, "Dt"), Y = /* @__PURE__ */ new WeakMap(), fe = /* @__PURE__ */ __name(function(t, a, s) {
+  t = t.toUpperCase(), a = we(this._basePath, a);
+  const i = { basePath: this._basePath, path: a, method: t, handler: s };
+  this.router.add(t, a, [s, i]), this.routes.push(i);
+}, "fe"), $e = /* @__PURE__ */ __name(function(t, a) {
+  if (t instanceof Error) return this.errorHandler(t, a);
+  throw t;
+}, "$e"), Fe = /* @__PURE__ */ __name(function(t, a, s, i) {
+  if (i === "HEAD") return (async () => new Response(null, await R(this, H, Fe).call(this, t, a, s, "GET")))();
+  const n = this.getPath(t, { env: s }), r = this.router.match(i, n), o = new da(t, { path: n, matchResult: r, env: s, executionCtx: a, notFoundHandler: f(this, Y) });
+  if (r[0].length === 1) {
+    let u;
     try {
-      r = o[0][0][0][0](d, async () => {
-        d.res = await f(this, U).call(this, d);
+      u = r[0][0][0][0](o, async () => {
+        o.res = await f(this, Y).call(this, o);
       });
-    } catch (g) {
-      return P(this, N, Ue).call(this, g, d);
+    } catch (b) {
+      return R(this, H, $e).call(this, b, o);
     }
-    return r instanceof Promise ? r.then((g) => g || (d.finalized ? d.res : f(this, U).call(this, d))).catch((g) => P(this, N, Ue).call(this, g, d)) : r ?? f(this, U).call(this, d);
+    return u instanceof Promise ? u.then((b) => b || (o.finalized ? o.res : f(this, Y).call(this, o))).catch((b) => R(this, H, $e).call(this, b, o)) : u ?? f(this, Y).call(this, o);
   }
-  const p = ra(o[0], this.errorHandler, f(this, U));
+  const l = ct(r[0], this.errorHandler, f(this, Y));
   return (async () => {
     try {
-      const r = await p(d);
-      if (!r.finalized) throw new Error("Context is not finalized. Did you forget to return a Response object or `await next()`?");
-      return r.res;
-    } catch (r) {
-      return P(this, N, Ue).call(this, r, d);
+      const u = await l(o);
+      if (!u.finalized) throw new Error("Context is not finalized. Did you forget to return a Response object or `await next()`?");
+      return u.res;
+    } catch (u) {
+      return R(this, H, $e).call(this, u, o);
     }
   })();
-}, "Xe"), Ie);
-var Da = [];
-function ft(e, a) {
-  const t = this.buildAllMatchers(), s = /* @__PURE__ */ __name2(((n, i) => {
-    const o = t[n] || t[_], d = o[2][i];
-    if (d) return d;
-    const p = i.match(o[0]);
-    if (!p) return [[], Da];
-    const r = p.indexOf("", 1);
-    return [o[1][r], p];
+}, "Fe"), Ce);
+var Nt = [];
+function ma(e, t) {
+  const a = this.buildAllMatchers(), s = /* @__PURE__ */ __name(((i, n) => {
+    const r = a[i] || a[M], o = r[2][n];
+    if (o) return o;
+    const l = n.match(r[0]);
+    if (!l) return [[], Nt];
+    const u = l.indexOf("", 1);
+    return [r[1][u], l];
   }), "s");
-  return this.match = s, s(e, a);
+  return this.match = s, s(e, t);
 }
-__name(ft, "ft");
-__name2(ft, "ft");
-var Fe = "[^/]+";
-var Ne = ".*";
-var Be = "(?:|/.*)";
-var ye = /* @__PURE__ */ Symbol();
-var mt = new Set(".\\+*[^]$()");
-function bt(e, a) {
-  return e.length === 1 ? a.length === 1 ? e < a ? -1 : 1 : -1 : a.length === 1 || e === Ne || e === Be ? 1 : a === Ne || a === Be ? -1 : e === Fe ? 1 : a === Fe ? -1 : e.length === a.length ? e < a ? -1 : 1 : a.length - e.length;
+__name(ma, "ma");
+var Ye = "[^/]+";
+var Le = ".*";
+var Oe = "(?:|/.*)";
+var Te = /* @__PURE__ */ Symbol();
+var ga = new Set(".\\+*[^]$()");
+function ba(e, t) {
+  return e.length === 1 ? t.length === 1 ? e < t ? -1 : 1 : -1 : t.length === 1 || e === Le || e === Oe ? 1 : t === Le || t === Oe ? -1 : e === Ye ? 1 : t === Ye ? -1 : e.length === t.length ? e < t ? -1 : 1 : t.length - e.length;
 }
-__name(bt, "bt");
-__name2(bt, "bt");
-var le;
-var ce;
-var X;
-var fe;
-var gt = (fe = class {
+__name(ba, "ba");
+var be;
+var he;
+var J;
+var ke;
+var ha = (ke = class {
   static {
-    __name(this, "fe");
-  }
-  static {
-    __name2(this, "fe");
+    __name(this, "ke");
   }
   constructor() {
-    I(this, le);
-    I(this, ce);
-    I(this, X, /* @__PURE__ */ Object.create(null));
+    P(this, be);
+    P(this, he);
+    P(this, J, /* @__PURE__ */ Object.create(null));
   }
-  insert(a, t, s, n, i) {
-    if (a.length === 0) {
-      if (f(this, le) !== void 0) throw ye;
-      if (i) return;
-      S(this, le, t);
+  insert(t, a, s, i, n) {
+    if (t.length === 0) {
+      if (f(this, be) !== void 0) throw Te;
+      if (n) return;
+      E(this, be, a);
       return;
     }
-    const [o, ...d] = a, p = o === "*" ? d.length === 0 ? ["", "", Ne] : ["", "", Fe] : o === "/*" ? ["", "", Be] : o.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);
-    let r;
-    if (p) {
-      const g = p[1];
-      let h = p[2] || Fe;
-      if (g && p[2] && (h === ".*" || (h = h.replace(/^\((?!\?:)(?=[^)]+\)$)/, "(?:"), /\((?!\?:)/.test(h)))) throw ye;
-      if (r = f(this, X)[h], !r) {
-        if (Object.keys(f(this, X)).some((l) => l !== Ne && l !== Be)) throw ye;
-        if (i) return;
-        r = f(this, X)[h] = new fe(), g !== "" && S(r, ce, n.varIndex++);
+    const [r, ...o] = t, l = r === "*" ? o.length === 0 ? ["", "", Le] : ["", "", Ye] : r === "/*" ? ["", "", Oe] : r.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);
+    let u;
+    if (l) {
+      const b = l[1];
+      let d = l[2] || Ye;
+      if (b && l[2] && (d === ".*" || (d = d.replace(/^\((?!\?:)(?=[^)]+\)$)/, "(?:"), /\((?!\?:)/.test(d)))) throw Te;
+      if (u = f(this, J)[d], !u) {
+        if (Object.keys(f(this, J)).some((c) => c !== Le && c !== Oe)) throw Te;
+        if (n) return;
+        u = f(this, J)[d] = new ke(), b !== "" && E(u, he, i.varIndex++);
       }
-      !i && g !== "" && s.push([g, f(r, ce)]);
-    } else if (r = f(this, X)[o], !r) {
-      if (Object.keys(f(this, X)).some((g) => g.length > 1 && g !== Ne && g !== Be)) throw ye;
-      if (i) return;
-      r = f(this, X)[o] = new fe();
+      !n && b !== "" && s.push([b, f(u, he)]);
+    } else if (u = f(this, J)[r], !u) {
+      if (Object.keys(f(this, J)).some((b) => b.length > 1 && b !== Le && b !== Oe)) throw Te;
+      if (n) return;
+      u = f(this, J)[r] = new ke();
     }
-    r.insert(d, t, s, n, i);
+    u.insert(o, a, s, i, n);
   }
   buildRegExpStr() {
-    const t = Object.keys(f(this, X)).sort(bt).map((s) => {
-      const n = f(this, X)[s];
-      return (typeof f(n, ce) == "number" ? `(${s})@${f(n, ce)}` : mt.has(s) ? `\\${s}` : s) + n.buildRegExpStr();
+    const a = Object.keys(f(this, J)).sort(ba).map((s) => {
+      const i = f(this, J)[s];
+      return (typeof f(i, he) == "number" ? `(${s})@${f(i, he)}` : ga.has(s) ? `\\${s}` : s) + i.buildRegExpStr();
     });
-    return typeof f(this, le) == "number" && t.unshift(`#${f(this, le)}`), t.length === 0 ? "" : t.length === 1 ? t[0] : "(?:" + t.join("|") + ")";
+    return typeof f(this, be) == "number" && a.unshift(`#${f(this, be)}`), a.length === 0 ? "" : a.length === 1 ? a[0] : "(?:" + a.join("|") + ")";
   }
-}, le = /* @__PURE__ */ new WeakMap(), ce = /* @__PURE__ */ new WeakMap(), X = /* @__PURE__ */ new WeakMap(), fe);
-var $e;
-var Ke;
-var ma;
-var ht = (ma = class {
+}, be = /* @__PURE__ */ new WeakMap(), he = /* @__PURE__ */ new WeakMap(), J = /* @__PURE__ */ new WeakMap(), ke);
+var Ve;
+var Ue;
+var ht;
+var va = (ht = class {
   static {
-    __name(this, "ma");
-  }
-  static {
-    __name2(this, "ma");
+    __name(this, "ht");
   }
   constructor() {
-    I(this, $e, { varIndex: 0 });
-    I(this, Ke, new gt());
+    P(this, Ve, { varIndex: 0 });
+    P(this, Ue, new ha());
   }
-  insert(e, a, t) {
-    const s = [], n = [];
-    for (let o = 0; ; ) {
-      let d = false;
-      if (e = e.replace(/\{[^}]+\}/g, (p) => {
-        const r = `@\\${o}`;
-        return n[o] = [r, p], o++, d = true, r;
-      }), !d) break;
+  insert(e, t, a) {
+    const s = [], i = [];
+    for (let r = 0; ; ) {
+      let o = false;
+      if (e = e.replace(/\{[^}]+\}/g, (l) => {
+        const u = `@\\${r}`;
+        return i[r] = [u, l], r++, o = true, u;
+      }), !o) break;
     }
-    const i = e.match(/(?::[^\/]+)|(?:\/\*$)|./g) || [];
-    for (let o = n.length - 1; o >= 0; o--) {
-      const [d] = n[o];
-      for (let p = i.length - 1; p >= 0; p--) if (i[p].indexOf(d) !== -1) {
-        i[p] = i[p].replace(d, n[o][1]);
+    const n = e.match(/(?::[^\/]+)|(?:\/\*$)|./g) || [];
+    for (let r = i.length - 1; r >= 0; r--) {
+      const [o] = i[r];
+      for (let l = n.length - 1; l >= 0; l--) if (n[l].indexOf(o) !== -1) {
+        n[l] = n[l].replace(o, i[r][1]);
         break;
       }
     }
-    return f(this, Ke).insert(i, a, s, f(this, $e), t), s;
+    return f(this, Ue).insert(n, t, s, f(this, Ve), a), s;
   }
   buildRegExp() {
-    let e = f(this, Ke).buildRegExpStr();
+    let e = f(this, Ue).buildRegExpStr();
     if (e === "") return [/^$/, [], []];
-    let a = 0;
-    const t = [], s = [];
-    return e = e.replace(/#(\d+)|@(\d+)|\.\*\$/g, (n, i, o) => i !== void 0 ? (t[++a] = Number(i), "$()") : (o !== void 0 && (s[Number(o)] = ++a), "")), [new RegExp(`^${e}`), t, s];
+    let t = 0;
+    const a = [], s = [];
+    return e = e.replace(/#(\d+)|@(\d+)|\.\*\$/g, (i, n, r) => n !== void 0 ? (a[++t] = Number(n), "$()") : (r !== void 0 && (s[Number(r)] = ++t), "")), [new RegExp(`^${e}`), a, s];
   }
-}, $e = /* @__PURE__ */ new WeakMap(), Ke = /* @__PURE__ */ new WeakMap(), ma);
-var vt = [/^$/, [], /* @__PURE__ */ Object.create(null)];
+}, Ve = /* @__PURE__ */ new WeakMap(), Ue = /* @__PURE__ */ new WeakMap(), ht);
+var ya = [/^$/, [], /* @__PURE__ */ Object.create(null)];
 var Ge = /* @__PURE__ */ Object.create(null);
-function Na(e) {
-  return Ge[e] ?? (Ge[e] = new RegExp(e === "*" ? "" : `^${e.replace(/\/\*$|([.\\+*[^\]$()])/g, (a, t) => t ? `\\${t}` : "(?:|/.*)")}$`));
+function Lt(e) {
+  return Ge[e] ?? (Ge[e] = new RegExp(e === "*" ? "" : `^${e.replace(/\/\*$|([.\\+*[^\]$()])/g, (t, a) => a ? `\\${a}` : "(?:|/.*)")}$`));
 }
-__name(Na, "Na");
-__name2(Na, "Na");
-function yt() {
+__name(Lt, "Lt");
+function ka() {
   Ge = /* @__PURE__ */ Object.create(null);
 }
-__name(yt, "yt");
-__name2(yt, "yt");
-function kt(e) {
-  var r;
-  const a = new ht(), t = [];
-  if (e.length === 0) return vt;
-  const s = e.map((g) => [!/\*|\/:/.test(g[0]), ...g]).sort(([g, h], [l, c]) => g ? 1 : l ? -1 : h.length - c.length), n = /* @__PURE__ */ Object.create(null);
-  for (let g = 0, h = -1, l = s.length; g < l; g++) {
-    const [c, m, b] = s[g];
-    c ? n[m] = [b.map(([y]) => [y, /* @__PURE__ */ Object.create(null)]), Da] : h++;
-    let A;
+__name(ka, "ka");
+function xa(e) {
+  var u;
+  const t = new va(), a = [];
+  if (e.length === 0) return ya;
+  const s = e.map((b) => [!/\*|\/:/.test(b[0]), ...b]).sort(([b, d], [c, m]) => b ? 1 : c ? -1 : d.length - m.length), i = /* @__PURE__ */ Object.create(null);
+  for (let b = 0, d = -1, c = s.length; b < c; b++) {
+    const [m, g, h] = s[b];
+    m ? i[g] = [h.map(([y]) => [y, /* @__PURE__ */ Object.create(null)]), Nt] : d++;
+    let k;
     try {
-      A = a.insert(m, h, c);
+      k = t.insert(g, d, m);
     } catch (y) {
-      throw y === ye ? new Ca(m) : y;
+      throw y === Te ? new Rt(g) : y;
     }
-    c || (t[h] = b.map(([y, u]) => {
-      const x = /* @__PURE__ */ Object.create(null);
-      for (u -= 1; u >= 0; u--) {
-        const [v, C] = A[u];
-        x[v] = C;
+    m || (a[d] = h.map(([y, p]) => {
+      const w = /* @__PURE__ */ Object.create(null);
+      for (p -= 1; p >= 0; p--) {
+        const [v, I] = k[p];
+        w[v] = I;
       }
-      return [y, x];
+      return [y, w];
     }));
   }
-  const [i, o, d] = a.buildRegExp();
-  for (let g = 0, h = t.length; g < h; g++) for (let l = 0, c = t[g].length; l < c; l++) {
-    const m = (r = t[g][l]) == null ? void 0 : r[1];
-    if (!m) continue;
-    const b = Object.keys(m);
-    for (let A = 0, y = b.length; A < y; A++) m[b[A]] = d[m[b[A]]];
+  const [n, r, o] = t.buildRegExp();
+  for (let b = 0, d = a.length; b < d; b++) for (let c = 0, m = a[b].length; c < m; c++) {
+    const g = (u = a[b][c]) == null ? void 0 : u[1];
+    if (!g) continue;
+    const h = Object.keys(g);
+    for (let k = 0, y = h.length; k < y; k++) g[h[k]] = o[g[h[k]]];
   }
-  const p = [];
-  for (const g in o) p[g] = t[o[g]];
-  return [i, p, n];
+  const l = [];
+  for (const b in r) l[b] = a[r[b]];
+  return [n, l, i];
 }
-__name(kt, "kt");
-__name2(kt, "kt");
-function ge(e, a) {
+__name(xa, "xa");
+function xe(e, t) {
   if (e) {
-    for (const t of Object.keys(e).sort((s, n) => n.length - s.length)) if (Na(t).test(a)) return [...e[t]];
+    for (const a of Object.keys(e).sort((s, i) => i.length - s.length)) if (Lt(a).test(t)) return [...e[a]];
   }
 }
-__name(ge, "ge");
-__name2(ge, "ge");
-var ee;
-var ae;
-var Ye;
-var Ba;
-var ba;
-var xt = (ba = class {
+__name(xe, "xe");
+var oe;
+var de;
+var We;
+var Ot;
+var vt;
+var wa = (vt = class {
   static {
-    __name(this, "ba");
-  }
-  static {
-    __name2(this, "ba");
+    __name(this, "vt");
   }
   constructor() {
-    I(this, Ye);
-    w(this, "name", "RegExpRouter");
-    I(this, ee);
-    I(this, ae);
-    w(this, "match", ft);
-    S(this, ee, { [_]: /* @__PURE__ */ Object.create(null) }), S(this, ae, { [_]: /* @__PURE__ */ Object.create(null) });
+    P(this, We);
+    A(this, "name", "RegExpRouter");
+    P(this, oe);
+    P(this, de);
+    A(this, "match", ma);
+    E(this, oe, { [M]: /* @__PURE__ */ Object.create(null) }), E(this, de, { [M]: /* @__PURE__ */ Object.create(null) });
   }
-  add(e, a, t) {
-    var d;
-    const s = f(this, ee), n = f(this, ae);
-    if (!s || !n) throw new Error(Ea);
-    s[e] || [s, n].forEach((p) => {
-      p[e] = /* @__PURE__ */ Object.create(null), Object.keys(p[_]).forEach((r) => {
-        p[e][r] = [...p[_][r]];
+  add(e, t, a) {
+    var o;
+    const s = f(this, oe), i = f(this, de);
+    if (!s || !i) throw new Error(Bt);
+    s[e] || [s, i].forEach((l) => {
+      l[e] = /* @__PURE__ */ Object.create(null), Object.keys(l[M]).forEach((u) => {
+        l[e][u] = [...l[M][u]];
       });
-    }), a === "/*" && (a = "*");
-    const i = (a.match(/\/:/g) || []).length;
-    if (/\*$/.test(a)) {
-      const p = Na(a);
-      e === _ ? Object.keys(s).forEach((r) => {
-        var g;
-        (g = s[r])[a] || (g[a] = ge(s[r], a) || ge(s[_], a) || []);
-      }) : (d = s[e])[a] || (d[a] = ge(s[e], a) || ge(s[_], a) || []), Object.keys(s).forEach((r) => {
-        (e === _ || e === r) && Object.keys(s[r]).forEach((g) => {
-          p.test(g) && s[r][g].push([t, i]);
+    }), t === "/*" && (t = "*");
+    const n = (t.match(/\/:/g) || []).length;
+    if (/\*$/.test(t)) {
+      const l = Lt(t);
+      e === M ? Object.keys(s).forEach((u) => {
+        var b;
+        (b = s[u])[t] || (b[t] = xe(s[u], t) || xe(s[M], t) || []);
+      }) : (o = s[e])[t] || (o[t] = xe(s[e], t) || xe(s[M], t) || []), Object.keys(s).forEach((u) => {
+        (e === M || e === u) && Object.keys(s[u]).forEach((b) => {
+          l.test(b) && s[u][b].push([a, n]);
         });
-      }), Object.keys(n).forEach((r) => {
-        (e === _ || e === r) && Object.keys(n[r]).forEach((g) => p.test(g) && n[r][g].push([t, i]));
+      }), Object.keys(i).forEach((u) => {
+        (e === M || e === u) && Object.keys(i[u]).forEach((b) => l.test(b) && i[u][b].push([a, n]));
       });
       return;
     }
-    const o = xa(a) || [a];
-    for (let p = 0, r = o.length; p < r; p++) {
-      const g = o[p];
-      Object.keys(n).forEach((h) => {
-        var l;
-        (e === _ || e === h) && ((l = n[h])[g] || (l[g] = [...ge(s[h], g) || ge(s[_], g) || []]), n[h][g].push([t, i - r + p + 1]));
+    const r = Tt(t) || [t];
+    for (let l = 0, u = r.length; l < u; l++) {
+      const b = r[l];
+      Object.keys(i).forEach((d) => {
+        var c;
+        (e === M || e === d) && ((c = i[d])[b] || (c[b] = [...xe(s[d], b) || xe(s[M], b) || []]), i[d][b].push([a, n - u + l + 1]));
       });
     }
   }
   buildAllMatchers() {
     const e = /* @__PURE__ */ Object.create(null);
-    return Object.keys(f(this, ae)).concat(Object.keys(f(this, ee))).forEach((a) => {
-      e[a] || (e[a] = P(this, Ye, Ba).call(this, a));
-    }), S(this, ee, S(this, ae, void 0)), yt(), e;
+    return Object.keys(f(this, de)).concat(Object.keys(f(this, oe))).forEach((t) => {
+      e[t] || (e[t] = R(this, We, Ot).call(this, t));
+    }), E(this, oe, E(this, de, void 0)), ka(), e;
   }
-}, ee = /* @__PURE__ */ new WeakMap(), ae = /* @__PURE__ */ new WeakMap(), Ye = /* @__PURE__ */ new WeakSet(), Ba = /* @__PURE__ */ __name2(function(e) {
-  const a = [];
-  let t = e === _;
-  return [f(this, ee), f(this, ae)].forEach((s) => {
-    const n = s[e] ? Object.keys(s[e]).map((i) => [i, s[e][i]]) : [];
-    n.length !== 0 ? (t || (t = true), a.push(...n)) : e !== _ && a.push(...Object.keys(s[_]).map((i) => [i, s[_][i]]));
-  }), t ? kt(a) : null;
-}, "Ba"), ba);
+}, oe = /* @__PURE__ */ new WeakMap(), de = /* @__PURE__ */ new WeakMap(), We = /* @__PURE__ */ new WeakSet(), Ot = /* @__PURE__ */ __name(function(e) {
+  const t = [];
+  let a = e === M;
+  return [f(this, oe), f(this, de)].forEach((s) => {
+    const i = s[e] ? Object.keys(s[e]).map((n) => [n, s[e][n]]) : [];
+    i.length !== 0 ? (a || (a = true), t.push(...i)) : e !== M && t.push(...Object.keys(s[M]).map((n) => [n, s[M][n]]));
+  }), a ? xa(t) : null;
+}, "Ot"), vt);
+var le;
 var te;
-var V;
-var ga;
-var St = (ga = class {
+var yt;
+var Sa = (yt = class {
   static {
-    __name(this, "ga");
-  }
-  static {
-    __name2(this, "ga");
+    __name(this, "yt");
   }
   constructor(e) {
-    w(this, "name", "SmartRouter");
-    I(this, te, []);
-    I(this, V, []);
-    S(this, te, e.routers);
+    A(this, "name", "SmartRouter");
+    P(this, le, []);
+    P(this, te, []);
+    E(this, le, e.routers);
   }
-  add(e, a, t) {
-    if (!f(this, V)) throw new Error(Ea);
-    f(this, V).push([e, a, t]);
+  add(e, t, a) {
+    if (!f(this, te)) throw new Error(Bt);
+    f(this, te).push([e, t, a]);
   }
-  match(e, a) {
-    if (!f(this, V)) throw new Error("Fatal error");
-    const t = f(this, te), s = f(this, V), n = t.length;
-    let i = 0, o;
-    for (; i < n; i++) {
-      const d = t[i];
+  match(e, t) {
+    if (!f(this, te)) throw new Error("Fatal error");
+    const a = f(this, le), s = f(this, te), i = a.length;
+    let n = 0, r;
+    for (; n < i; n++) {
+      const o = a[n];
       try {
-        for (let p = 0, r = s.length; p < r; p++) d.add(...s[p]);
-        o = d.match(e, a);
-      } catch (p) {
-        if (p instanceof Ca) continue;
-        throw p;
+        for (let l = 0, u = s.length; l < u; l++) o.add(...s[l]);
+        r = o.match(e, t);
+      } catch (l) {
+        if (l instanceof Rt) continue;
+        throw l;
       }
-      this.match = d.match.bind(d), S(this, te, [d]), S(this, V, void 0);
+      this.match = o.match.bind(o), E(this, le, [o]), E(this, te, void 0);
       break;
     }
-    if (i === n) throw new Error("Fatal error");
-    return this.name = `SmartRouter + ${this.activeRouter.name}`, o;
+    if (n === i) throw new Error("Fatal error");
+    return this.name = `SmartRouter + ${this.activeRouter.name}`, r;
   }
   get activeRouter() {
-    if (f(this, V) || f(this, te).length !== 1) throw new Error("No active router has been determined yet.");
-    return f(this, te)[0];
+    if (f(this, te) || f(this, le).length !== 1) throw new Error("No active router has been determined yet.");
+    return f(this, le)[0];
   }
-}, te = /* @__PURE__ */ new WeakMap(), V = /* @__PURE__ */ new WeakMap(), ga);
-var De = /* @__PURE__ */ Object.create(null);
-var wt = /* @__PURE__ */ __name2((e) => {
-  for (const a in e) return true;
+}, le = /* @__PURE__ */ new WeakMap(), te = /* @__PURE__ */ new WeakMap(), yt);
+var Ne = /* @__PURE__ */ Object.create(null);
+var Ta = /* @__PURE__ */ __name((e) => {
+  for (const t in e) return true;
   return false;
-}, "wt");
-var se;
-var R;
-var pe;
-var Ae;
-var B;
-var J;
-var oe;
-var Pe;
-var Tt = (Pe = class {
+}, "Ta");
+var ce;
+var z;
+var ve;
+var _e;
+var j;
+var ae;
+var me;
+var Be;
+var Ia = (Be = class {
   static {
-    __name(this, "Pe");
+    __name(this, "Be");
   }
-  static {
-    __name2(this, "Pe");
-  }
-  constructor(a, t, s) {
-    I(this, J);
-    I(this, se);
-    I(this, R);
-    I(this, pe);
-    I(this, Ae, 0);
-    I(this, B, De);
-    if (S(this, R, s || /* @__PURE__ */ Object.create(null)), S(this, se, []), a && t) {
-      const n = /* @__PURE__ */ Object.create(null);
-      n[a] = { handler: t, possibleKeys: [], score: 0 }, S(this, se, [n]);
+  constructor(t, a, s) {
+    P(this, ae);
+    P(this, ce);
+    P(this, z);
+    P(this, ve);
+    P(this, _e, 0);
+    P(this, j, Ne);
+    if (E(this, z, s || /* @__PURE__ */ Object.create(null)), E(this, ce, []), t && a) {
+      const i = /* @__PURE__ */ Object.create(null);
+      i[t] = { handler: a, possibleKeys: [], score: 0 }, E(this, ce, [i]);
     }
-    S(this, pe, []);
+    E(this, ve, []);
   }
-  insert(a, t, s) {
-    S(this, Ae, ++ia(this, Ae)._);
-    let n = this;
-    const i = Qa(t), o = [];
-    for (let d = 0, p = i.length; d < p; d++) {
-      const r = i[d], g = i[d + 1], h = at(r, g), l = Array.isArray(h) ? h[0] : r;
-      if (l in f(n, R)) {
-        n = f(n, R)[l], h && o.push(h[1]);
+  insert(t, a, s) {
+    E(this, _e, ++lt(this, _e)._);
+    let i = this;
+    const n = Zt(a), r = [];
+    for (let o = 0, l = n.length; o < l; o++) {
+      const u = n[o], b = n[o + 1], d = aa(u, b), c = Array.isArray(d) ? d[0] : u;
+      if (c in f(i, z)) {
+        i = f(i, z)[c], d && r.push(d[1]);
         continue;
       }
-      f(n, R)[l] = new Pe(), h && (f(n, pe).push(h), o.push(h[1])), n = f(n, R)[l];
+      f(i, z)[c] = new Be(), d && (f(i, ve).push(d), r.push(d[1])), i = f(i, z)[c];
     }
-    return f(n, se).push({ [a]: { handler: s, possibleKeys: o.filter((d, p, r) => r.indexOf(d) === p), score: f(this, Ae) } }), n;
+    return f(i, ce).push({ [t]: { handler: s, possibleKeys: r.filter((o, l, u) => u.indexOf(o) === l), score: f(this, _e) } }), i;
   }
-  search(a, t) {
-    var g;
+  search(t, a) {
+    var b;
     const s = [];
-    S(this, B, De);
-    let i = [this];
-    const o = va(t), d = [], p = o.length;
-    let r = null;
-    for (let h = 0; h < p; h++) {
-      const l = o[h], c = h === p - 1, m = [];
-      for (let A = 0, y = i.length; A < y; A++) {
-        const u = i[A], x = f(u, R)[l];
-        x && (S(x, B, f(u, B)), c ? (f(x, R)["*"] && P(this, J, oe).call(this, s, f(x, R)["*"], a, f(u, B)), P(this, J, oe).call(this, s, x, a, f(u, B))) : m.push(x));
-        for (let v = 0, C = f(u, pe).length; v < C; v++) {
-          const T = f(u, pe)[v], k = f(u, B) === De ? {} : { ...f(u, B) };
-          if (T === "*") {
-            const F = f(u, R)["*"];
-            F && (P(this, J, oe).call(this, s, F, a, f(u, B)), S(F, B, k), m.push(F));
+    E(this, j, Ne);
+    let n = [this];
+    const r = xt(a), o = [], l = r.length;
+    let u = null;
+    for (let d = 0; d < l; d++) {
+      const c = r[d], m = d === l - 1, g = [];
+      for (let k = 0, y = n.length; k < y; k++) {
+        const p = n[k], w = f(p, z)[c];
+        w && (E(w, j, f(p, j)), m ? (f(w, z)["*"] && R(this, ae, me).call(this, s, f(w, z)["*"], t, f(p, j)), R(this, ae, me).call(this, s, w, t, f(p, j))) : g.push(w));
+        for (let v = 0, I = f(p, ve).length; v < I; v++) {
+          const S = f(p, ve)[v], x = f(p, j) === Ne ? {} : { ...f(p, j) };
+          if (S === "*") {
+            const C = f(p, z)["*"];
+            C && (R(this, ae, me).call(this, s, C, t, f(p, j)), E(C, j, x), g.push(C));
             continue;
           }
-          const [M, q, H] = T;
-          if (!l && !(H instanceof RegExp)) continue;
-          const L = f(u, R)[M];
-          if (H instanceof RegExp) {
-            if (r === null) {
-              r = new Array(p);
-              let be = t[0] === "/" ? 1 : 0;
-              for (let Ce = 0; Ce < p; Ce++) r[Ce] = be, be += o[Ce].length + 1;
+          const [_, O, B] = S;
+          if (!c && !(B instanceof RegExp)) continue;
+          const L = f(p, z)[_];
+          if (B instanceof RegExp) {
+            if (u === null) {
+              u = new Array(l);
+              let q = a[0] === "/" ? 1 : 0;
+              for (let ne = 0; ne < l; ne++) u[ne] = q, q += r[ne].length + 1;
             }
-            const F = t.substring(r[h]), Je = H.exec(F);
-            if (Je) {
-              if (k[q] = Je[0], P(this, J, oe).call(this, s, L, a, f(u, B), k), wt(f(L, R))) {
-                S(L, B, k);
-                const be = ((g = Je[0].match(/\//)) == null ? void 0 : g.length) ?? 0;
-                (d[be] || (d[be] = [])).push(L);
+            const C = a.substring(u[d]), N = B.exec(C);
+            if (N) {
+              if (x[O] = N[0], R(this, ae, me).call(this, s, L, t, f(p, j), x), Ta(f(L, z))) {
+                E(L, j, x);
+                const q = ((b = N[0].match(/\//)) == null ? void 0 : b.length) ?? 0;
+                (o[q] || (o[q] = [])).push(L);
               }
               continue;
             }
           }
-          (H === true || H.test(l)) && (k[q] = l, c ? (P(this, J, oe).call(this, s, L, a, k, f(u, B)), f(L, R)["*"] && P(this, J, oe).call(this, s, f(L, R)["*"], a, k, f(u, B))) : (S(L, B, k), m.push(L)));
+          (B === true || B.test(c)) && (x[O] = c, m ? (R(this, ae, me).call(this, s, L, t, x, f(p, j)), f(L, z)["*"] && R(this, ae, me).call(this, s, f(L, z)["*"], t, x, f(p, j))) : (E(L, j, x), g.push(L)));
         }
       }
-      const b = d.shift();
-      i = b ? m.concat(b) : m;
+      const h = o.shift();
+      n = h ? g.concat(h) : g;
     }
-    return s.length > 1 && s.sort((h, l) => h.score - l.score), [s.map(({ handler: h, params: l }) => [h, l])];
+    return s.length > 1 && s.sort((d, c) => d.score - c.score), [s.map(({ handler: d, params: c }) => [d, c])];
   }
-}, se = /* @__PURE__ */ new WeakMap(), R = /* @__PURE__ */ new WeakMap(), pe = /* @__PURE__ */ new WeakMap(), Ae = /* @__PURE__ */ new WeakMap(), B = /* @__PURE__ */ new WeakMap(), J = /* @__PURE__ */ new WeakSet(), oe = /* @__PURE__ */ __name2(function(a, t, s, n, i) {
-  for (let o = 0, d = f(t, se).length; o < d; o++) {
-    const p = f(t, se)[o], r = p[s] || p[_], g = {};
-    if (r !== void 0 && (r.params = /* @__PURE__ */ Object.create(null), a.push(r), n !== De || i && i !== De)) for (let h = 0, l = r.possibleKeys.length; h < l; h++) {
-      const c = r.possibleKeys[h], m = g[r.score];
-      r.params[c] = i != null && i[c] && !m ? i[c] : n[c] ?? (i == null ? void 0 : i[c]), g[r.score] = true;
+}, ce = /* @__PURE__ */ new WeakMap(), z = /* @__PURE__ */ new WeakMap(), ve = /* @__PURE__ */ new WeakMap(), _e = /* @__PURE__ */ new WeakMap(), j = /* @__PURE__ */ new WeakMap(), ae = /* @__PURE__ */ new WeakSet(), me = /* @__PURE__ */ __name(function(t, a, s, i, n) {
+  for (let r = 0, o = f(a, ce).length; r < o; r++) {
+    const l = f(a, ce)[r], u = l[s] || l[M], b = {};
+    if (u !== void 0 && (u.params = /* @__PURE__ */ Object.create(null), t.push(u), i !== Ne || n && n !== Ne)) for (let d = 0, c = u.possibleKeys.length; d < c; d++) {
+      const m = u.possibleKeys[d], g = b[u.score];
+      u.params[m] = n != null && n[m] && !g ? n[m] : i[m] ?? (n == null ? void 0 : n[m]), b[u.score] = true;
     }
   }
-}, "oe"), Pe);
-var ue;
-var ha;
-var It = (ha = class {
+}, "me"), Be);
+var ye;
+var kt;
+var Ea = (kt = class {
   static {
-    __name(this, "ha");
-  }
-  static {
-    __name2(this, "ha");
+    __name(this, "kt");
   }
   constructor() {
-    w(this, "name", "TrieRouter");
-    I(this, ue);
-    S(this, ue, new Tt());
+    A(this, "name", "TrieRouter");
+    P(this, ye);
+    E(this, ye, new Ia());
   }
-  add(e, a, t) {
-    const s = xa(a);
+  add(e, t, a) {
+    const s = Tt(t);
     if (s) {
-      for (let n = 0, i = s.length; n < i; n++) f(this, ue).insert(e, s[n], t);
+      for (let i = 0, n = s.length; i < n; i++) f(this, ye).insert(e, s[i], a);
       return;
     }
-    f(this, ue).insert(e, a, t);
+    f(this, ye).insert(e, t, a);
   }
-  match(e, a) {
-    return f(this, ue).search(e, a);
+  match(e, t) {
+    return f(this, ye).search(e, t);
   }
-}, ue = /* @__PURE__ */ new WeakMap(), ha);
-var Ra = class extends ut {
+}, ye = /* @__PURE__ */ new WeakMap(), kt);
+var qt = class extends fa {
   static {
-    __name(this, "Ra");
-  }
-  static {
-    __name2(this, "Ra");
+    __name(this, "qt");
   }
   constructor(e = {}) {
-    super(e), this.router = e.router ?? new St({ routers: [new xt(), new It()] });
+    super(e), this.router = e.router ?? new Sa({ routers: [new wa(), new Ea()] });
   }
 };
-var At = /^\s*(?:text\/(?!event-stream(?:[;\s]|$))[^;\s]+|application\/(?:javascript|json|xml|xml-dtd|ecmascript|dart|postscript|rtf|tar|toml|vnd\.dart|vnd\.ms-fontobject|vnd\.ms-opentype|wasm|x-httpd-php|x-javascript|x-ns-proxy-autoconfig|x-sh|x-tar|x-virtualbox-hdd|x-virtualbox-ova|x-virtualbox-ovf|x-virtualbox-vbox|x-virtualbox-vdi|x-virtualbox-vhd|x-virtualbox-vmdk|x-www-form-urlencoded)|font\/(?:otf|ttf)|image\/(?:bmp|vnd\.adobe\.photoshop|vnd\.microsoft\.icon|vnd\.ms-dds|x-icon|x-ms-bmp)|message\/rfc822|model\/gltf-binary|x-shader\/x-fragment|x-shader\/x-vertex|[^;\s]+?\+(?:json|text|xml|yaml))(?:[;\s]|$)/i;
-var la = /* @__PURE__ */ __name2((e, a = Et) => {
-  const t = /\.([a-zA-Z0-9]+?)$/, s = e.match(t);
+var Aa = /^\s*(?:text\/(?!event-stream(?:[;\s]|$))[^;\s]+|application\/(?:javascript|json|xml|xml-dtd|ecmascript|dart|postscript|rtf|tar|toml|vnd\.dart|vnd\.ms-fontobject|vnd\.ms-opentype|wasm|x-httpd-php|x-javascript|x-ns-proxy-autoconfig|x-sh|x-tar|x-virtualbox-hdd|x-virtualbox-ova|x-virtualbox-ovf|x-virtualbox-vbox|x-virtualbox-vdi|x-virtualbox-vhd|x-virtualbox-vmdk|x-www-form-urlencoded)|font\/(?:otf|ttf)|image\/(?:bmp|vnd\.adobe\.photoshop|vnd\.microsoft\.icon|vnd\.ms-dds|x-icon|x-ms-bmp)|message\/rfc822|model\/gltf-binary|x-shader\/x-fragment|x-shader\/x-vertex|[^;\s]+?\+(?:json|text|xml|yaml))(?:[;\s]|$)/i;
+var ft = /* @__PURE__ */ __name((e, t = Ca) => {
+  const a = /\.([a-zA-Z0-9]+?)$/, s = e.match(a);
   if (!s) return;
-  let n = a[s[1].toLowerCase()];
-  return n && n.startsWith("text") && (n += "; charset=utf-8"), n;
-}, "la");
-var Pt = { aac: "audio/aac", avi: "video/x-msvideo", avif: "image/avif", av1: "video/av1", bin: "application/octet-stream", bmp: "image/bmp", css: "text/css", csv: "text/csv", eot: "application/vnd.ms-fontobject", epub: "application/epub+zip", gif: "image/gif", gz: "application/gzip", htm: "text/html", html: "text/html", ico: "image/x-icon", ics: "text/calendar", jpeg: "image/jpeg", jpg: "image/jpeg", js: "text/javascript", json: "application/json", jsonld: "application/ld+json", map: "application/json", mid: "audio/x-midi", midi: "audio/x-midi", mjs: "text/javascript", mp3: "audio/mpeg", mp4: "video/mp4", mpeg: "video/mpeg", oga: "audio/ogg", ogv: "video/ogg", ogx: "application/ogg", opus: "audio/opus", otf: "font/otf", pdf: "application/pdf", png: "image/png", rtf: "application/rtf", svg: "image/svg+xml", tif: "image/tiff", tiff: "image/tiff", ts: "video/mp2t", ttf: "font/ttf", txt: "text/plain", wasm: "application/wasm", webm: "video/webm", weba: "audio/webm", webmanifest: "application/manifest+json", webp: "image/webp", woff: "font/woff", woff2: "font/woff2", xhtml: "application/xhtml+xml", xml: "application/xml", zip: "application/zip", "3gp": "video/3gpp", "3g2": "video/3gpp2", gltf: "model/gltf+json", glb: "model/gltf-binary" };
-var Et = Pt;
-var Ct = /* @__PURE__ */ __name2((...e) => {
-  let a = e.filter((n) => n !== "").join("/");
-  a = a.replace(new RegExp("(?<=\\/)\\/+", "g"), "");
-  const t = a.split("/"), s = [];
-  for (const n of t) n === ".." && s.length > 0 && s.at(-1) !== ".." ? s.pop() : n !== "." && s.push(n);
+  let i = t[s[1].toLowerCase()];
+  return i && i.startsWith("text") && (i += "; charset=utf-8"), i;
+}, "ft");
+var Pa = { aac: "audio/aac", avi: "video/x-msvideo", avif: "image/avif", av1: "video/av1", bin: "application/octet-stream", bmp: "image/bmp", css: "text/css", csv: "text/csv", eot: "application/vnd.ms-fontobject", epub: "application/epub+zip", gif: "image/gif", gz: "application/gzip", htm: "text/html", html: "text/html", ico: "image/x-icon", ics: "text/calendar", jpeg: "image/jpeg", jpg: "image/jpeg", js: "text/javascript", json: "application/json", jsonld: "application/ld+json", map: "application/json", mid: "audio/x-midi", midi: "audio/x-midi", mjs: "text/javascript", mp3: "audio/mpeg", mp4: "video/mp4", mpeg: "video/mpeg", oga: "audio/ogg", ogv: "video/ogg", ogx: "application/ogg", opus: "audio/opus", otf: "font/otf", pdf: "application/pdf", png: "image/png", rtf: "application/rtf", svg: "image/svg+xml", tif: "image/tiff", tiff: "image/tiff", ts: "video/mp2t", ttf: "font/ttf", txt: "text/plain", wasm: "application/wasm", webm: "video/webm", weba: "audio/webm", webmanifest: "application/manifest+json", webp: "image/webp", woff: "font/woff", woff2: "font/woff2", xhtml: "application/xhtml+xml", xml: "application/xml", zip: "application/zip", "3gp": "video/3gpp", "3g2": "video/3gpp2", gltf: "model/gltf+json", glb: "model/gltf-binary" };
+var Ca = Pa;
+var _a = /* @__PURE__ */ __name((...e) => {
+  let t = e.filter((i) => i !== "").join("/");
+  t = t.replace(new RegExp("(?<=\\/)\\/+", "g"), "");
+  const a = t.split("/"), s = [];
+  for (const i of a) i === ".." && s.length > 0 && s.at(-1) !== ".." ? s.pop() : i !== "." && s.push(i);
   return s.join("/") || ".";
-}, "Ct");
-var qa = { br: ".br", zstd: ".zst", gzip: ".gz" };
-var _t = Object.keys(qa);
-var Dt = "index.html";
-var Nt = /* @__PURE__ */ __name2((e) => {
-  const a = e.root ?? "./", t = e.path, s = e.join ?? Ct;
-  return async (n, i) => {
-    var g, h, l, c;
-    if (n.finalized) return i();
-    let o;
-    if (e.path) o = e.path;
+}, "_a");
+var Mt = { br: ".br", zstd: ".zst", gzip: ".gz" };
+var Ba = Object.keys(Mt);
+var Ra = "index.html";
+var Da = /* @__PURE__ */ __name((e) => {
+  const t = e.root ?? "./", a = e.path, s = e.join ?? _a;
+  return async (i, n) => {
+    var b, d, c, m;
+    if (i.finalized) return n();
+    let r;
+    if (e.path) r = e.path;
     else try {
-      if (o = ya(n.req.path), /(?:^|[\/\\])\.{1,2}(?:$|[\/\\])|[\/\\]{2,}/.test(o)) throw new Error();
+      if (r = wt(i.req.path), /(?:^|[\/\\])\.{1,2}(?:$|[\/\\])|[\/\\]{2,}/.test(r)) throw new Error();
     } catch {
-      return await ((g = e.onNotFound) == null ? void 0 : g.call(e, n.req.path, n)), i();
+      return await ((b = e.onNotFound) == null ? void 0 : b.call(e, i.req.path, i)), n();
     }
-    let d = s(a, !t && e.rewriteRequestPath ? e.rewriteRequestPath(o) : o);
-    e.isDir && await e.isDir(d) && (d = s(d, Dt));
-    const p = e.getContent;
-    let r = await p(d, n);
-    if (r instanceof Response) return n.newResponse(r.body, r);
-    if (r) {
-      const m = e.mimes && la(d, e.mimes) || la(d);
-      if (n.header("Content-Type", m || "application/octet-stream"), e.precompressed && (!m || At.test(m))) {
-        const b = new Set((h = n.req.header("Accept-Encoding")) == null ? void 0 : h.split(",").map((A) => A.trim()));
-        for (const A of _t) {
-          if (!b.has(A)) continue;
-          const y = await p(d + qa[A], n);
+    let o = s(t, !a && e.rewriteRequestPath ? e.rewriteRequestPath(r) : r);
+    e.isDir && await e.isDir(o) && (o = s(o, Ra));
+    const l = e.getContent;
+    let u = await l(o, i);
+    if (u instanceof Response) return i.newResponse(u.body, u);
+    if (u) {
+      const g = e.mimes && ft(o, e.mimes) || ft(o);
+      if (i.header("Content-Type", g || "application/octet-stream"), e.precompressed && (!g || Aa.test(g))) {
+        const h = new Set((d = i.req.header("Accept-Encoding")) == null ? void 0 : d.split(",").map((k) => k.trim()));
+        for (const k of Ba) {
+          if (!h.has(k)) continue;
+          const y = await l(o + Mt[k], i);
           if (y) {
-            r = y, n.header("Content-Encoding", A), n.header("Vary", "Accept-Encoding", { append: true });
+            u = y, i.header("Content-Encoding", k), i.header("Vary", "Accept-Encoding", { append: true });
             break;
           }
         }
       }
-      return await ((l = e.onFound) == null ? void 0 : l.call(e, d, n)), n.body(r);
+      return await ((c = e.onFound) == null ? void 0 : c.call(e, o, i)), i.body(u);
     }
-    await ((c = e.onNotFound) == null ? void 0 : c.call(e, d, n)), await i();
+    await ((m = e.onNotFound) == null ? void 0 : m.call(e, o, i)), await n();
   };
-}, "Nt");
-var Bt = /* @__PURE__ */ __name2(async (e, a) => {
-  let t;
-  a && a.manifest ? typeof a.manifest == "string" ? t = JSON.parse(a.manifest) : t = a.manifest : typeof __STATIC_CONTENT_MANIFEST == "string" ? t = JSON.parse(__STATIC_CONTENT_MANIFEST) : t = __STATIC_CONTENT_MANIFEST;
+}, "Da");
+var Na = /* @__PURE__ */ __name(async (e, t) => {
+  let a;
+  t && t.manifest ? typeof t.manifest == "string" ? a = JSON.parse(t.manifest) : a = t.manifest : typeof __STATIC_CONTENT_MANIFEST == "string" ? a = JSON.parse(__STATIC_CONTENT_MANIFEST) : a = __STATIC_CONTENT_MANIFEST;
   let s;
-  a && a.namespace ? s = a.namespace : s = __STATIC_CONTENT;
-  const n = t[e];
-  if (!n) return null;
-  const i = await s.get(n, { type: "stream" });
-  return i || null;
-}, "Bt");
-var Rt = /* @__PURE__ */ __name2((e) => async function(t, s) {
-  return Nt({ ...e, getContent: /* @__PURE__ */ __name2(async (i) => Bt(i, { manifest: e.manifest, namespace: e.namespace ? e.namespace : t.env ? t.env.__STATIC_CONTENT : void 0 }), "getContent") })(t, s);
-}, "Rt");
-var qt = /* @__PURE__ */ __name2((e) => Rt(e), "qt");
-function Ot() {
+  t && t.namespace ? s = t.namespace : s = __STATIC_CONTENT;
+  const i = a[e];
+  if (!i) return null;
+  const n = await s.get(i, { type: "stream" });
+  return n || null;
+}, "Na");
+var La = /* @__PURE__ */ __name((e) => async function(a, s) {
+  return Da({ ...e, getContent: /* @__PURE__ */ __name(async (n) => Na(n, { manifest: e.manifest, namespace: e.namespace ? e.namespace : a.env ? a.env.__STATIC_CONTENT : void 0 }), "getContent") })(a, s);
+}, "La");
+var Oa = /* @__PURE__ */ __name((e) => La(e), "Oa");
+function qa() {
   return `<!DOCTYPE html>
 <html lang="id">
 <head>
@@ -2286,12 +2241,12 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   <div class="grp-body">
 
     <!-- SNAP Token -->
-    ${E("snap-token", "POST", "/api/v1.0/access-token/b2b", "Get Access Token B2B", [{ name: "grantType", in: "body", type: "string", req: true, desc: "Harus bernilai <code>client_credentials</code>" }, { name: "X-TIMESTAMP", in: "header", type: "string", req: true, desc: "ISO 8601 datetime: <code>2024-01-15T10:30:00+07:00</code>" }, { name: "X-CLIENT-KEY", in: "header", type: "string", req: true, desc: "Partner ID / Client Key dari konfigurasi SNAP" }, { name: "X-SIGNATURE", in: "header", type: "string", req: true, desc: "Tanda tangan RSA SHA-256 dengan private key LPD" }], '{"responseCode":"2007300","responseMessage":"Successful","accessToken":"eyJ0eXAiOiJKV1QiLC...","tokenType":"BearerToken","expiresIn":"900"}', `{
+    ${D("snap-token", "POST", "/api/v1.0/access-token/b2b", "Get Access Token B2B", [{ name: "grantType", in: "body", type: "string", req: true, desc: "Harus bernilai <code>client_credentials</code>" }, { name: "X-TIMESTAMP", in: "header", type: "string", req: true, desc: "ISO 8601 datetime: <code>2024-01-15T10:30:00+07:00</code>" }, { name: "X-CLIENT-KEY", in: "header", type: "string", req: true, desc: "Partner ID / Client Key dari konfigurasi SNAP" }, { name: "X-SIGNATURE", in: "header", type: "string", req: true, desc: "Tanda tangan RSA SHA-256 dengan private key LPD" }], '{"responseCode":"2007300","responseMessage":"Successful","accessToken":"eyJ0eXAiOiJKV1QiLC...","tokenType":"BearerToken","expiresIn":"900"}', `{
   "grantType": "client_credentials"
 }`, ["snapTransferIn middleware", "RSA SHA-256 signature", "JWT token (exp: 15 menit)"], "Token digunakan untuk semua request SNAP selanjutnya. Expire dalam 15 menit.")}
 
     <!-- SNAP Inquiry -->
-    ${E("snap-inquiry", "POST", "/api/v1.0/transfer-va/inquiry", "Virtual Account Inquiry", [{ name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {accessToken} dari endpoint access-token/b2b" }, { name: "X-TIMESTAMP", in: "header", type: "string", req: true, desc: "ISO 8601 datetime" }, { name: "X-SIGNATURE", in: "header", type: "string", req: true, desc: "HMAC-SHA512 signature" }, { name: "X-PARTNER-ID", in: "header", type: "string", req: true, desc: "Partner ID (BPD Bali)" }, { name: "X-EXTERNAL-ID", in: "header", type: "string", req: true, desc: "Unique ID request (max 36 char)" }, { name: "CHANNEL-ID", in: "header", type: "string", req: true, desc: "Channel ID sistem" }, { name: "partnerServiceId", in: "body", type: "string", req: true, desc: "Kode bank prefix (8 digit, left-padded dengan spasi)" }, { name: "customerNo", in: "body", type: "string", req: true, desc: "Nomor nasabah (max 20 char)" }, { name: "virtualAccountNo", in: "body", type: "string", req: true, desc: "Nomor Virtual Account lengkap" }, { name: "inquiryRequestId", in: "body", type: "string", req: true, desc: "Reference ID unik dari bank pengirim" }, { name: "amount", in: "body", type: "object", req: false, desc: 'Object {value: "100000.00", currency: "IDR"}' }, { name: "additionalInfo", in: "body", type: "object", req: true, desc: "{terminalType, terminalId}" }], '{"responseCode":"2002400","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","inquiryRequestId":"INQ-001","virtualAccountName":"I MADE BUDI"}}', `{
+    ${D("snap-inquiry", "POST", "/api/v1.0/transfer-va/inquiry", "Virtual Account Inquiry", [{ name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {accessToken} dari endpoint access-token/b2b" }, { name: "X-TIMESTAMP", in: "header", type: "string", req: true, desc: "ISO 8601 datetime" }, { name: "X-SIGNATURE", in: "header", type: "string", req: true, desc: "HMAC-SHA512 signature" }, { name: "X-PARTNER-ID", in: "header", type: "string", req: true, desc: "Partner ID (BPD Bali)" }, { name: "X-EXTERNAL-ID", in: "header", type: "string", req: true, desc: "Unique ID request (max 36 char)" }, { name: "CHANNEL-ID", in: "header", type: "string", req: true, desc: "Channel ID sistem" }, { name: "partnerServiceId", in: "body", type: "string", req: true, desc: "Kode bank prefix (8 digit, left-padded dengan spasi)" }, { name: "customerNo", in: "body", type: "string", req: true, desc: "Nomor nasabah (max 20 char)" }, { name: "virtualAccountNo", in: "body", type: "string", req: true, desc: "Nomor Virtual Account lengkap" }, { name: "inquiryRequestId", in: "body", type: "string", req: true, desc: "Reference ID unik dari bank pengirim" }, { name: "amount", in: "body", type: "object", req: false, desc: 'Object {value: "100000.00", currency: "IDR"}' }, { name: "additionalInfo", in: "body", type: "object", req: true, desc: "{terminalType, terminalId}" }], '{"responseCode":"2002400","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","inquiryRequestId":"INQ-001","virtualAccountName":"I MADE BUDI"}}', `{
   "partnerServiceId": "  881234",
   "customerNo": "0123456",
   "virtualAccountNo": "  8812340123456",
@@ -2301,7 +2256,7 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
 }`, ["snapTransferIn middleware", "HMAC-SHA512 signature check", "IP whitelist BPD (8 IP)", "Token validation"], "Middleware memvalidasi: IP sumber, HMAC signature, token JWT, dan field mandatory.")}
 
     <!-- SNAP Payment -->
-    ${E("snap-payment", "POST", "/api/v1.0/transfer-va/payment", "Virtual Account Payment", [{ name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {accessToken}" }, { name: "X-TIMESTAMP", in: "header", type: "string", req: true, desc: "ISO 8601 datetime" }, { name: "X-SIGNATURE", in: "header", type: "string", req: true, desc: "HMAC-SHA512 signature" }, { name: "X-PARTNER-ID", in: "header", type: "string", req: true, desc: "Partner ID" }, { name: "X-EXTERNAL-ID", in: "header", type: "string", req: true, desc: "Unique request ID" }, { name: "partnerServiceId", in: "body", type: "string", req: true, desc: "Kode bank prefix" }, { name: "customerNo", in: "body", type: "string", req: true, desc: "Nomor nasabah" }, { name: "virtualAccountNo", in: "body", type: "string", req: true, desc: "Nomor Virtual Account" }, { name: "virtualAccountName", in: "body", type: "string", req: true, desc: "Nama nasabah" }, { name: "paymentRequestId", in: "body", type: "string", req: true, desc: "Reference ID unik pembayaran" }, { name: "amount", in: "body", type: "object", req: true, desc: '{value: "100000.00", currency: "IDR"}' }, { name: "trxDateTime", in: "body", type: "string", req: true, desc: "Waktu transaksi ISO 8601" }, { name: "additionalInfo", in: "body", type: "object", req: false, desc: "{terminalType, terminalId}" }], '{"responseCode":"2002500","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","paymentRequestId":"PAY-001","paidAmount":{"value":"100000.00","currency":"IDR"},"trxDateTime":"2024-01-15T10:35:00+07:00"}}', `{
+    ${D("snap-payment", "POST", "/api/v1.0/transfer-va/payment", "Virtual Account Payment", [{ name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {accessToken}" }, { name: "X-TIMESTAMP", in: "header", type: "string", req: true, desc: "ISO 8601 datetime" }, { name: "X-SIGNATURE", in: "header", type: "string", req: true, desc: "HMAC-SHA512 signature" }, { name: "X-PARTNER-ID", in: "header", type: "string", req: true, desc: "Partner ID" }, { name: "X-EXTERNAL-ID", in: "header", type: "string", req: true, desc: "Unique request ID" }, { name: "partnerServiceId", in: "body", type: "string", req: true, desc: "Kode bank prefix" }, { name: "customerNo", in: "body", type: "string", req: true, desc: "Nomor nasabah" }, { name: "virtualAccountNo", in: "body", type: "string", req: true, desc: "Nomor Virtual Account" }, { name: "virtualAccountName", in: "body", type: "string", req: true, desc: "Nama nasabah" }, { name: "paymentRequestId", in: "body", type: "string", req: true, desc: "Reference ID unik pembayaran" }, { name: "amount", in: "body", type: "object", req: true, desc: '{value: "100000.00", currency: "IDR"}' }, { name: "trxDateTime", in: "body", type: "string", req: true, desc: "Waktu transaksi ISO 8601" }, { name: "additionalInfo", in: "body", type: "object", req: false, desc: "{terminalType, terminalId}" }], '{"responseCode":"2002500","responseMessage":"Success","virtualAccountData":{"partnerServiceId":"  881234","customerNo":"0123456","virtualAccountNo":"  8812340123456","paymentRequestId":"PAY-001","paidAmount":{"value":"100000.00","currency":"IDR"},"trxDateTime":"2024-01-15T10:35:00+07:00"}}', `{
   "partnerServiceId": "  881234",
   "customerNo": "0123456",
   "virtualAccountNo": "  8812340123456",
@@ -2330,17 +2285,17 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("ios-token", "POST", "/api/smart/access/token", "Get Access Token iOS", [{ name: "user_id", in: "query", type: "string", req: true, desc: "Customer ID / IMEI (dienkripsi AES-256)" }, { name: "device_id", in: "query", type: "string", req: true, desc: "Device identifier" }, { name: "X-Access-Key", in: "header", type: "string", req: true, desc: "Access key dari konfigurasi" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","token":"eyJ0eXAiOiJKV1Qi...","expired":"2024-01-15 11:30:00"}', "", ["iosCheckAccess middleware", "IP whitelist check", "Partner validation", "Access logging"], "Token berlaku selama sesi aktif. Gunakan sebagai Authorization header di endpoint lain.")}
+    ${D("ios-token", "POST", "/api/smart/access/token", "Get Access Token iOS", [{ name: "user_id", in: "query", type: "string", req: true, desc: "Customer ID / IMEI (dienkripsi AES-256)" }, { name: "device_id", in: "query", type: "string", req: true, desc: "Device identifier" }, { name: "X-Access-Key", in: "header", type: "string", req: true, desc: "Access key dari konfigurasi" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","token":"eyJ0eXAiOiJKV1Qi...","expired":"2024-01-15 11:30:00"}', "", ["iosCheckAccess middleware", "IP whitelist check", "Partner validation", "Access logging"], "Token berlaku selama sesi aktif. Gunakan sebagai Authorization header di endpoint lain.")}
 
-    ${E("ios-register", "POST", "/api/smart/access/register", "Register Nasabah", [{ name: "user_name", in: "query", type: "string", req: true, desc: "Username nasabah (dienkripsi)" }, { name: "user_pass", in: "query", type: "string", req: true, desc: "Password (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token} dari /access/token" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","pin":"ENC_PIN...","account_list":[{"norek":"1.123456","type":"tabungan"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}', "", ["iosCheckAccess", "iosTokenMdw"], "Jika nasabah pertama kali (status=SY), akan di-upgrade ke status A dan dikembalikan data lengkap.")}
+    ${D("ios-register", "POST", "/api/smart/access/register", "Register Nasabah", [{ name: "user_name", in: "query", type: "string", req: true, desc: "Username nasabah (dienkripsi)" }, { name: "user_pass", in: "query", type: "string", req: true, desc: "Password (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token} dari /access/token" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","pin":"ENC_PIN...","account_list":[{"norek":"1.123456","type":"tabungan"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}', "", ["iosCheckAccess", "iosTokenMdw"], "Jika nasabah pertama kali (status=SY), akan di-upgrade ke status A dan dikembalikan data lengkap.")}
 
-    ${E("ios-login", "POST", "/api/smart/access/login", "Login Nasabah", [{ name: "user_name", in: "query", type: "string", req: true, desc: "Username (dienkripsi AES-256)" }, { name: "user_pass", in: "query", type: "string", req: true, desc: "Password (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","account_list":[{"norek":"1.123456","type":"tabungan","saldo":"ENC_SALDO"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}', "", ["iosCheckAccess", "iosTokenMdw"], "Mengembalikan daftar rekening dan saldo (terenkripsi), daftar bank, dan produk PPOB aktif.")}
+    ${D("ios-login", "POST", "/api/smart/access/login", "Login Nasabah", [{ name: "user_name", in: "query", type: "string", req: true, desc: "Username (dienkripsi AES-256)" }, { name: "user_pass", in: "query", type: "string", req: true, desc: "Password (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_id":"ENC_ID...","customer_name":"I MADE BUDI","account_list":[{"norek":"1.123456","type":"tabungan","saldo":"ENC_SALDO"}],"bank_key":"KEY...","bank_list":[...],"ppob_list":[...]}', "", ["iosCheckAccess", "iosTokenMdw"], "Mengembalikan daftar rekening dan saldo (terenkripsi), daftar bank, dan produk PPOB aktif.")}
 
-    ${E("ios-logout", "POST", "/api/smart/access/logout", "Logout Nasabah", [{ name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses"}', "", ["iosCheckAccess", "iosTokenMdw"], "Menutup token di gmob_token (set status=closed, end_time=now).")}
+    ${D("ios-logout", "POST", "/api/smart/access/logout", "Logout Nasabah", [{ name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses"}', "", ["iosCheckAccess", "iosTokenMdw"], "Menutup token di gmob_token (set status=closed, end_time=now).")}
 
-    ${E("ios-update-pass", "POST", "/api/smart/access/update/pass", "Update Password", [{ name: "old_pass", in: "query", type: "string", req: true, desc: "Password lama (dienkripsi AES-256)" }, { name: "new_pass", in: "query", type: "string", req: true, desc: "Password baru (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Password berhasil diubah"}', "", ["iosCheckAccess", "iosTokenMdw"], "Verifikasi password lama sebelum update ke gmob_nasabah.pass_crypto.")}
+    ${D("ios-update-pass", "POST", "/api/smart/access/update/pass", "Update Password", [{ name: "old_pass", in: "query", type: "string", req: true, desc: "Password lama (dienkripsi AES-256)" }, { name: "new_pass", in: "query", type: "string", req: true, desc: "Password baru (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Password berhasil diubah"}', "", ["iosCheckAccess", "iosTokenMdw"], "Verifikasi password lama sebelum update ke gmob_nasabah.pass_crypto.")}
 
-    ${E("ios-update-pin", "POST", "/api/smart/access/update/pin", "Update PIN", [{ name: "old_pin", in: "query", type: "string", req: true, desc: "PIN lama (dienkripsi AES-256)" }, { name: "new_pin", in: "query", type: "string", req: true, desc: "PIN baru (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"PIN berhasil diubah"}', "", ["iosCheckAccess", "iosTokenMdw"], "Verifikasi PIN lama sebelum update ke gmob_nasabah.pin_crypto.")}
+    ${D("ios-update-pin", "POST", "/api/smart/access/update/pin", "Update PIN", [{ name: "old_pin", in: "query", type: "string", req: true, desc: "PIN lama (dienkripsi AES-256)" }, { name: "new_pin", in: "query", type: "string", req: true, desc: "PIN baru (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"PIN berhasil diubah"}', "", ["iosCheckAccess", "iosTokenMdw"], "Verifikasi PIN lama sebelum update ke gmob_nasabah.pin_crypto.")}
 
   </div>
 </div>
@@ -2360,11 +2315,11 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("tab-list", "POST", "/api/smart/tabungan/account-list", "Daftar Rekening Nasabah", [{ name: "customer_id", in: "query", type: "string", req: true, desc: "Customer ID terenkripsi" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","data":[{"norek":"ENC...","type":"tabungan","saldo":"ENC...","currency":"IDR"},{"norek":"ENC...","type":"pinjaman","saldo":"ENC..."}]}', "", ["iosCheckAccess", "iosTokenMdw"], "Mengembalikan semua rekening (tabungan, pinjaman, deposito) dengan saldo terenkripsi.")}
+    ${D("tab-list", "POST", "/api/smart/tabungan/account-list", "Daftar Rekening Nasabah", [{ name: "customer_id", in: "query", type: "string", req: true, desc: "Customer ID terenkripsi" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","data":[{"norek":"ENC...","type":"tabungan","saldo":"ENC...","currency":"IDR"},{"norek":"ENC...","type":"pinjaman","saldo":"ENC..."}]}', "", ["iosCheckAccess", "iosTokenMdw"], "Mengembalikan semua rekening (tabungan, pinjaman, deposito) dengan saldo terenkripsi.")}
 
-    ${E("tab-history", "POST", "/api/smart/tabungan/transaction-history", "Histori Transaksi", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (dienkripsi)" }, { name: "start_date", in: "query", type: "string", req: false, desc: "Tanggal mulai YYYY-MM-DD" }, { name: "end_date", in: "query", type: "string", req: false, desc: "Tanggal akhir YYYY-MM-DD" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","data":[{"tanggal":"2024-01-15","keterangan":"Transfer Masuk","debet":0,"kredit":100000,"saldo":1500000}]}', "", ["iosCheckAccess", "iosTokenMdw"], "Query dari gtb_folio, hasil dienkripsi. Default 30 hari terakhir jika tanggal tidak disertakan.")}
+    ${D("tab-history", "POST", "/api/smart/tabungan/transaction-history", "Histori Transaksi", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (dienkripsi)" }, { name: "start_date", in: "query", type: "string", req: false, desc: "Tanggal mulai YYYY-MM-DD" }, { name: "end_date", in: "query", type: "string", req: false, desc: "Tanggal akhir YYYY-MM-DD" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","data":[{"tanggal":"2024-01-15","keterangan":"Transfer Masuk","debet":0,"kredit":100000,"saldo":1500000}]}', "", ["iosCheckAccess", "iosTokenMdw"], "Query dari gtb_folio, hasil dienkripsi. Default 30 hari terakhir jika tanggal tidak disertakan.")}
 
-    ${E("tab-mutasi", "POST", "/api/smart/tabungan/mutasi-history", "Histori Mutasi", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (dienkripsi)" }, { name: "period", in: "query", type: "string", req: false, desc: "Periode: YYYYMM (default: bulan ini)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","saldo_awal":"ENC...","saldo_akhir":"ENC...","data":[{"tgl":"2024-01-15","ket":"PPOB-PLN","nominal":"ENC...","jenis":"D"}]}', "", ["iosCheckAccess", "iosTokenMdw"], "Mutasi per periode (bulanan). Semua nilai nominal dienkripsi AES-256-CBC.")}
+    ${D("tab-mutasi", "POST", "/api/smart/tabungan/mutasi-history", "Histori Mutasi", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (dienkripsi)" }, { name: "period", in: "query", type: "string", req: false, desc: "Periode: YYYYMM (default: bulan ini)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","saldo_awal":"ENC...","saldo_akhir":"ENC...","data":[{"tgl":"2024-01-15","ket":"PPOB-PLN","nominal":"ENC...","jenis":"D"}]}', "", ["iosCheckAccess", "iosTokenMdw"], "Mutasi per periode (bulanan). Semua nilai nominal dienkripsi AES-256-CBC.")}
 
   </div>
 </div>
@@ -2384,17 +2339,17 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("tr-lpd-check", "POST", "/api/smart/transfer/lpd/check", "LPD \u2013 Cek Rekening Tujuan", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening tujuan (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses inquiry","product_type":"tabungan","customer_name":"I WAYAN SARI"}', "", ["iosCheckAccess", "iosTokenMdw"], "Verifikasi rekening tujuan sesama LPD. Error 01 = rekening tidak aktif.")}
+    ${D("tr-lpd-check", "POST", "/api/smart/transfer/lpd/check", "LPD \u2013 Cek Rekening Tujuan", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening tujuan (dienkripsi AES-256)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses inquiry","product_type":"tabungan","customer_name":"I WAYAN SARI"}', "", ["iosCheckAccess", "iosTokenMdw"], "Verifikasi rekening tujuan sesama LPD. Error 01 = rekening tidak aktif.")}
 
-    ${E("tr-lpd-inquiry", "POST", "/api/smart/transfer/lpd/inquiry", "LPD \u2013 Inquiry Transfer", [{ name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "to_acc", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal (dienkripsi)" }, { name: "from_name", in: "query", type: "string", req: true, desc: "Nama pengirim (dienkripsi)" }, { name: "to_name", in: "query", type: "string", req: true, desc: "Nama penerima (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan + hashCode (dienkripsi, format: ket<>hash)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"81","message":"Sukses Inquiry"}', "", ["iosCheckAccess", "iosTokenMdw", "SHA-256 hash check", "Saldo & limit check"], "Verifikasi: hash SHA-256, saldo cukup (min SALDO_MIN=50.000), limit transfer (10K\u20131M). Status 81 = bisa dilanjutkan.")}
+    ${D("tr-lpd-inquiry", "POST", "/api/smart/transfer/lpd/inquiry", "LPD \u2013 Inquiry Transfer", [{ name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "to_acc", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal (dienkripsi)" }, { name: "from_name", in: "query", type: "string", req: true, desc: "Nama pengirim (dienkripsi)" }, { name: "to_name", in: "query", type: "string", req: true, desc: "Nama penerima (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan + hashCode (dienkripsi, format: ket<>hash)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"81","message":"Sukses Inquiry"}', "", ["iosCheckAccess", "iosTokenMdw", "SHA-256 hash check", "Saldo & limit check"], "Verifikasi: hash SHA-256, saldo cukup (min SALDO_MIN=50.000), limit transfer (10K\u20131M). Status 81 = bisa dilanjutkan.")}
 
-    ${E("tr-lpd-post", "POST", "/api/smart/transfer/lpd/post", "LPD \u2013 Posting Transfer", [{ name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi unik (dienkripsi)" }, { name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "to_acc", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN nasabah (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Transfer Berhasil","reference_no":"20240115120001"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN validation", "Duplicate check (trans_no)", "DB: gtb_folio + gak_mutasi"], "Error 40=saldo kurang, 45=duplikat transaksi, 51-53=hash mismatch, 54=PIN salah. Posting ke gtb_folio dan gak_mutasi.")}
+    ${D("tr-lpd-post", "POST", "/api/smart/transfer/lpd/post", "LPD \u2013 Posting Transfer", [{ name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi unik (dienkripsi)" }, { name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "to_acc", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN nasabah (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Transfer Berhasil","reference_no":"20240115120001"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN validation", "Duplicate check (trans_no)", "DB: gtb_folio + gak_mutasi"], "Error 40=saldo kurang, 45=duplikat transaksi, 51-53=hash mismatch, 54=PIN salah. Posting ke gtb_folio dan gak_mutasi.")}
 
-    ${E("tr-bank-check", "POST", "/api/smart/transfer/bank/check", "Bank \u2013 Cek Rekening Tujuan", [{ name: "bank_code", in: "query", type: "string", req: true, desc: "Kode bank tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening tujuan di bank (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_name":"I KETUT DANA","bank_name":"BNI"}', "", ["iosCheckAccess", "iosTokenMdw"], "Melakukan cURL ke BPD API untuk validasi rekening tujuan di bank lain.")}
+    ${D("tr-bank-check", "POST", "/api/smart/transfer/bank/check", "Bank \u2013 Cek Rekening Tujuan", [{ name: "bank_code", in: "query", type: "string", req: true, desc: "Kode bank tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening tujuan di bank (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_name":"I KETUT DANA","bank_name":"BNI"}', "", ["iosCheckAccess", "iosTokenMdw"], "Melakukan cURL ke BPD API untuk validasi rekening tujuan di bank lain.")}
 
-    ${E("tr-bank-inquiry", "POST", "/api/smart/transfer/bank/inquiry", "Bank \u2013 Inquiry Transfer", [{ name: "bank_code", in: "query", type: "string", req: true, desc: "Kode bank tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal transfer (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan + hash (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"81","message":"Sukses Inquiry","fee":"3500","total":"103500"}', "", ["iosCheckAccess", "iosTokenMdw", "HMAC-SHA256 check", "BPD cURL call"], "Menghitung biaya transfer dari gcore_bankcode. Status 81 = dapat dilanjutkan ke posting.")}
+    ${D("tr-bank-inquiry", "POST", "/api/smart/transfer/bank/inquiry", "Bank \u2013 Inquiry Transfer", [{ name: "bank_code", in: "query", type: "string", req: true, desc: "Kode bank tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal transfer (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan + hash (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"81","message":"Sukses Inquiry","fee":"3500","total":"103500"}', "", ["iosCheckAccess", "iosTokenMdw", "HMAC-SHA256 check", "BPD cURL call"], "Menghitung biaya transfer dari gcore_bankcode. Status 81 = dapat dilanjutkan ke posting.")}
 
-    ${E("tr-bank-post", "POST", "/api/smart/transfer/bank/post", "Bank \u2013 Posting Transfer", [{ name: "bank_code", in: "query", type: "string", req: true, desc: "Kode bank (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN nasabah (dienkripsi)" }, { name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Transfer Berhasil","reference_no":"BPD20240115001"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN check", "BPD API call via cURL", "DB: gcore_transfer"], "Mengirim ke BPD API, jika sukses insert ke gcore_transfer. Jika gagal, lakukan rollback gtb_folio.")}
+    ${D("tr-bank-post", "POST", "/api/smart/transfer/bank/post", "Bank \u2013 Posting Transfer", [{ name: "bank_code", in: "query", type: "string", req: true, desc: "Kode bank (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening tujuan (dienkripsi)" }, { name: "from_acc", in: "query", type: "string", req: true, desc: "Rekening sumber (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN nasabah (dienkripsi)" }, { name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi (dienkripsi)" }, { name: "remark", in: "query", type: "string", req: true, desc: "Keterangan (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Transfer Berhasil","reference_no":"BPD20240115001"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN check", "BPD API call via cURL", "DB: gcore_transfer"], "Mengirim ke BPD API, jika sukses insert ke gcore_transfer. Jika gagal, lakukan rollback gtb_folio.")}
 
   </div>
 </div>
@@ -2414,13 +2369,13 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("ppob-check", "POST", "/api/smart/ppob/check", "PPOB \u2013 Cek Tagihan", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk PPOB (dienkripsi). Contoh: PLN-POSTPAID" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "ID Pelanggan / nomor meter (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_name":"I MADE SUKERTA","tagihan":"150000","period":"202401","denda":"0","total":"150000","admin":"2500"}', "", ["iosCheckAccess", "iosTokenMdw"], "Cek ke FastPay/IAK. Kembalikan detail tagihan: nama, jumlah, periode, denda, biaya admin.")}
+    ${D("ppob-check", "POST", "/api/smart/ppob/check", "PPOB \u2013 Cek Tagihan", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk PPOB (dienkripsi). Contoh: PLN-POSTPAID" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "ID Pelanggan / nomor meter (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","customer_name":"I MADE SUKERTA","tagihan":"150000","period":"202401","denda":"0","total":"150000","admin":"2500"}', "", ["iosCheckAccess", "iosTokenMdw"], "Cek ke FastPay/IAK. Kembalikan detail tagihan: nama, jumlah, periode, denda, biaya admin.")}
 
-    ${E("ppob-request", "POST", "/api/smart/ppob/request", "PPOB \u2013 Bayar Tagihan", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk PPOB (dienkripsi)" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "ID Pelanggan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal pembayaran (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN transaksi (dienkripsi)" }, { name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi unik (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Pembayaran Berhasil","ref_no":"FP20240115001","struk":"PLN POSTPAID 150000 OK"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN validation", "Saldo check", "FastPay/IAK API call"], "Cek saldo cukup, kirim ke FastPay/IAK, insert gppob_transaction dan gtb_folio. Jika gagal = rollback.")}
+    ${D("ppob-request", "POST", "/api/smart/ppob/request", "PPOB \u2013 Bayar Tagihan", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk PPOB (dienkripsi)" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "ID Pelanggan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal pembayaran (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN transaksi (dienkripsi)" }, { name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi unik (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Pembayaran Berhasil","ref_no":"FP20240115001","struk":"PLN POSTPAID 150000 OK"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN validation", "Saldo check", "FastPay/IAK API call"], "Cek saldo cukup, kirim ke FastPay/IAK, insert gppob_transaction dan gtb_folio. Jika gagal = rollback.")}
 
-    ${E("iak-check", "POST", "/api/smart/iak/check", "IAK \u2013 Cek Produk", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk IAK (dienkripsi). Contoh: TSEL5 (Telkomsel 5K)" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "Nomor HP tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","product_name":"Telkomsel 5.000","price":"5500","admin":"0"}', "", ["iosCheckAccess", "iosTokenMdw"], "Cek ketersediaan dan harga produk IAK (pulsa, paket data, game voucher).")}
+    ${D("iak-check", "POST", "/api/smart/iak/check", "IAK \u2013 Cek Produk", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk IAK (dienkripsi). Contoh: TSEL5 (Telkomsel 5K)" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "Nomor HP tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Sukses","product_name":"Telkomsel 5.000","price":"5500","admin":"0"}', "", ["iosCheckAccess", "iosTokenMdw"], "Cek ketersediaan dan harga produk IAK (pulsa, paket data, game voucher).")}
 
-    ${E("iak-request", "POST", "/api/smart/iak/request", "IAK \u2013 Beli Produk", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk IAK (dienkripsi)" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "Nomor HP tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN transaksi (dienkripsi)" }, { name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi unik (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Transaksi Berhasil","ref_no":"IAK20240115001","sn":"SN123456789"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN validation", "IAK API call"], "Pembelian pulsa/paket via IAK API. SN = serial number produk dari IAK.")}
+    ${D("iak-request", "POST", "/api/smart/iak/request", "IAK \u2013 Beli Produk", [{ name: "product_code", in: "query", type: "string", req: true, desc: "Kode produk IAK (dienkripsi)" }, { name: "customer_id", in: "query", type: "string", req: true, desc: "Nomor HP tujuan (dienkripsi)" }, { name: "account_no", in: "query", type: "string", req: true, desc: "Rekening pembayaran (dienkripsi)" }, { name: "pin", in: "query", type: "string", req: true, desc: "PIN transaksi (dienkripsi)" }, { name: "trans_no", in: "query", type: "string", req: true, desc: "Nomor transaksi unik (dienkripsi)" }, { name: "Authorization", in: "header", type: "string", req: true, desc: "Bearer {token}" }, { name: "X-Timestamp", in: "header", type: "string", req: true, desc: "Unix timestamp" }], '{"status":"00","message":"Transaksi Berhasil","ref_no":"IAK20240115001","sn":"SN123456789"}', "", ["iosCheckAccess", "iosTokenMdw", "PIN validation", "IAK API call"], "Pembelian pulsa/paket via IAK API. SN = serial number produk dari IAK.")}
 
   </div>
 </div>
@@ -2440,19 +2395,19 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("atm-create-token", "POST", "/api/cardless/create-token", "ATM \u2013 Buat Token Cardless", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening lengkap (format: PREFIX+norek, contoh: 8812341.123456)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC-SHA256 hash dari mesin ATM" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP address mesin ATM (whitelist)" }], '{"status":"00","message":"Token Berhasil.","data":"A1B2C3"}', "", ["machineCheck middleware", "IP whitelist", "HMAC hash validation"], "Token 6 karakter, berlaku 5 menit. Disimpan di gmob_token. Digunakan untuk transaksi cardless.")}
+    ${D("atm-create-token", "POST", "/api/cardless/create-token", "ATM \u2013 Buat Token Cardless", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening lengkap (format: PREFIX+norek, contoh: 8812341.123456)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC-SHA256 hash dari mesin ATM" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP address mesin ATM (whitelist)" }], '{"status":"00","message":"Token Berhasil.","data":"A1B2C3"}', "", ["machineCheck middleware", "IP whitelist", "HMAC hash validation"], "Token 6 karakter, berlaku 5 menit. Disimpan di gmob_token. Digunakan untuk transaksi cardless.")}
 
-    ${E("atm-get-token", "POST", "/api/cardless/get-token", "ATM \u2013 Validasi Token dari Mobile", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (format BPD)" }, { name: "transaction_code", in: "query", type: "string", req: true, desc: 'Kode transaksi ATM (harus "39")' }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi ATM" }, { name: "transaction_datetime", in: "query", type: "string", req: true, desc: "Datetime transaksi (YYYYMMDDHHmmss)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin ATM" }], '{"transaction_code":"39","transaction_id":"TXN001","response_code":"00","token":"A1B2C3"}', "", ["machineCheck middleware"], "Mesin ATM memanggil ini untuk mendapatkan token yang dibuat nasabah dari mobile. response_code: 00=OK, 12=kode salah, 14=rekening tidak aktif, 30=token expired.")}
+    ${D("atm-get-token", "POST", "/api/cardless/get-token", "ATM \u2013 Validasi Token dari Mobile", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (format BPD)" }, { name: "transaction_code", in: "query", type: "string", req: true, desc: 'Kode transaksi ATM (harus "39")' }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi ATM" }, { name: "transaction_datetime", in: "query", type: "string", req: true, desc: "Datetime transaksi (YYYYMMDDHHmmss)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin ATM" }], '{"transaction_code":"39","transaction_id":"TXN001","response_code":"00","token":"A1B2C3"}', "", ["machineCheck middleware"], "Mesin ATM memanggil ini untuk mendapatkan token yang dibuat nasabah dari mobile. response_code: 00=OK, 12=kode salah, 14=rekening tidak aktif, 30=token expired.")}
 
-    ${E("atm-balance", "POST", "/api/cardless/check-balance", "ATM \u2013 Cek Saldo", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (format BPD)" }, { name: "token", in: "query", type: "string", req: true, desc: "Token cardless 6 digit" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Sukses","saldo":"1500000","account_no":"1.123456","account_name":"I MADE BUDI"}', "", ["machineCheck middleware", "Token validation"], "Validasi token aktif, kembalikan saldo dari gtb_folio (sum kredit-debit).")}
+    ${D("atm-balance", "POST", "/api/cardless/check-balance", "ATM \u2013 Cek Saldo", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening (format BPD)" }, { name: "token", in: "query", type: "string", req: true, desc: "Token cardless 6 digit" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Sukses","saldo":"1500000","account_no":"1.123456","account_name":"I MADE BUDI"}', "", ["machineCheck middleware", "Token validation"], "Validasi token aktif, kembalikan saldo dari gtb_folio (sum kredit-debit).")}
 
-    ${E("atm-debit", "POST", "/api/cardless/cash-debit", "ATM \u2013 Penarikan Tunai", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "token", in: "query", type: "string", req: true, desc: "Token cardless aktif" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal penarikan (numerik)" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi ATM unik" }, { name: "transaction_datetime", in: "query", type: "string", req: true, desc: "Datetime (YYYYMMDDHHmmss)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Penarikan Berhasil","saldo_akhir":"1400000","reference":"ATM20240115001"}', "", ["machineCheck", "Token validation", "Saldo check", "DB: gtb_folio + gak_mutasi"], "Debet rekening nasabah. Insert folio debet ke gtb_folio dan mutasi ke gak_mutasi. Token dinonaktifkan setelah transaksi.")}
+    ${D("atm-debit", "POST", "/api/cardless/cash-debit", "ATM \u2013 Penarikan Tunai", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "token", in: "query", type: "string", req: true, desc: "Token cardless aktif" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal penarikan (numerik)" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi ATM unik" }, { name: "transaction_datetime", in: "query", type: "string", req: true, desc: "Datetime (YYYYMMDDHHmmss)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Penarikan Berhasil","saldo_akhir":"1400000","reference":"ATM20240115001"}', "", ["machineCheck", "Token validation", "Saldo check", "DB: gtb_folio + gak_mutasi"], "Debet rekening nasabah. Insert folio debet ke gtb_folio dan mutasi ke gak_mutasi. Token dinonaktifkan setelah transaksi.")}
 
-    ${E("atm-credit", "POST", "/api/cardless/cash-credit", "ATM \u2013 Penyetoran Tunai", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "token", in: "query", type: "string", req: true, desc: "Token cardless aktif" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal setoran (numerik)" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi ATM unik" }, { name: "transaction_datetime", in: "query", type: "string", req: true, desc: "Datetime (YYYYMMDDHHmmss)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Setoran Berhasil","saldo_akhir":"1600000","reference":"ATM20240115002"}', "", ["machineCheck", "Token validation", "DB: gtb_folio + gak_mutasi"], "Kredit rekening nasabah. Insert folio kredit ke gtb_folio. Token dinonaktifkan setelah transaksi.")}
+    ${D("atm-credit", "POST", "/api/cardless/cash-credit", "ATM \u2013 Penyetoran Tunai", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "token", in: "query", type: "string", req: true, desc: "Token cardless aktif" }, { name: "amount", in: "query", type: "string", req: true, desc: "Nominal setoran (numerik)" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi ATM unik" }, { name: "transaction_datetime", in: "query", type: "string", req: true, desc: "Datetime (YYYYMMDDHHmmss)" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Setoran Berhasil","saldo_akhir":"1600000","reference":"ATM20240115002"}', "", ["machineCheck", "Token validation", "DB: gtb_folio + gak_mutasi"], "Kredit rekening nasabah. Insert folio kredit ke gtb_folio. Token dinonaktifkan setelah transaksi.")}
 
-    ${E("atm-rev-debit", "POST", "/api/cardless/reversal-debit", "ATM \u2013 Batal Penarikan", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi yang akan dibatalkan" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Batal Penarikan Berhasil"}', "", ["machineCheck", "Transaction lookup"], "Reversal transaksi penarikan. Hapus record dari gtb_folio dan gak_mutasi berdasarkan transaction_id.")}
+    ${D("atm-rev-debit", "POST", "/api/cardless/reversal-debit", "ATM \u2013 Batal Penarikan", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi yang akan dibatalkan" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Batal Penarikan Berhasil"}', "", ["machineCheck", "Transaction lookup"], "Reversal transaksi penarikan. Hapus record dari gtb_folio dan gak_mutasi berdasarkan transaction_id.")}
 
-    ${E("atm-rev-credit", "POST", "/api/cardless/reversal-credit", "ATM \u2013 Batal Setoran", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi yang akan dibatalkan" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Batal Setoran Berhasil"}', "", ["machineCheck", "Transaction lookup"], "Reversal transaksi setoran. Hapus record folio kredit dari database.")}
+    ${D("atm-rev-credit", "POST", "/api/cardless/reversal-credit", "ATM \u2013 Batal Setoran", [{ name: "account_no", in: "query", type: "string", req: true, desc: "Nomor rekening" }, { name: "transaction_id", in: "query", type: "string", req: true, desc: "ID transaksi yang akan dibatalkan" }, { name: "X-Machine-Hash", in: "header", type: "string", req: true, desc: "HMAC hash mesin" }, { name: "X-Machine-IP", in: "header", type: "string", req: true, desc: "IP mesin" }], '{"status":"00","message":"Batal Setoran Berhasil"}', "", ["machineCheck", "Transaction lookup"], "Reversal transaksi setoran. Hapus record folio kredit dari database.")}
 
   </div>
 </div>
@@ -2472,7 +2427,7 @@ pre.code-block{background:var(--code-bg);color:#e2e8f0;padding:14px 16px;border-
   </div>
   <div class="grp-body">
 
-    ${E("ppob-cb", "POST", "/api/ppob/callback", "PPOB \u2013 Notifikasi Callback FastPay", [{ name: "ref_id", in: "body", type: "string", req: true, desc: "Reference ID transaksi dari FastPay" }, { name: "product_code", in: "body", type: "string", req: true, desc: "Kode produk" }, { name: "customer_id", in: "body", type: "string", req: true, desc: "ID pelanggan" }, { name: "status", in: "body", type: "string", req: true, desc: "Status: 00=sukses, lainnya=gagal" }, { name: "amount", in: "body", type: "number", req: true, desc: "Nominal transaksi" }, { name: "timestamp", in: "body", type: "string", req: false, desc: "Waktu callback dari FastPay" }, { name: "X-FastPay-Signature", in: "header", type: "string", req: false, desc: "Tanda tangan dari FastPay (opsional tergantung konfigurasi)" }], '{"status":"00","message":"OK"}', `{
+    ${D("ppob-cb", "POST", "/api/ppob/callback", "PPOB \u2013 Notifikasi Callback FastPay", [{ name: "ref_id", in: "body", type: "string", req: true, desc: "Reference ID transaksi dari FastPay" }, { name: "product_code", in: "body", type: "string", req: true, desc: "Kode produk" }, { name: "customer_id", in: "body", type: "string", req: true, desc: "ID pelanggan" }, { name: "status", in: "body", type: "string", req: true, desc: "Status: 00=sukses, lainnya=gagal" }, { name: "amount", in: "body", type: "number", req: true, desc: "Nominal transaksi" }, { name: "timestamp", in: "body", type: "string", req: false, desc: "Waktu callback dari FastPay" }, { name: "X-FastPay-Signature", in: "header", type: "string", req: false, desc: "Tanda tangan dari FastPay (opsional tergantung konfigurasi)" }], '{"status":"00","message":"OK"}', `{
   "ref_id": "FP20240115001",
   "product_code": "PLN-POSTPAID",
   "customer_id": "12345678901",
@@ -2936,41 +2891,40 @@ document.getElementById('base-url-input').addEventListener('change', function() 
 </body>
 </html>`;
 }
-__name(Ot, "Ot");
-__name2(Ot, "Ot");
-function E(e, a, t, s, n, i, o, d, p) {
-  const r = "mb-post", g = n.map((v) => `
+__name(qa, "qa");
+function D(e, t, a, s, i, n, r, o, l) {
+  const u = "mb-post", b = i.map((v) => `
     <tr>
       <td><span class="param-name">${v.name}</span></td>
       <td><span class="param-type">${v.type}</span></td>
       <td><span class="param-in">${v.in}</span></td>
       <td><span class="${v.req ? "param-req" : "param-opt"}">${v.req ? "required" : "optional"}</span></td>
       <td style="color:#374151;font-size:12px">${v.desc}</td>
-    </tr>`).join(""), h = n.filter((v) => v.in === "header"), l = n.filter((v) => v.in === "query"), c = n.filter((v) => v.in === "body"), m = h.length ? `
+    </tr>`).join(""), d = i.filter((v) => v.in === "header"), c = i.filter((v) => v.in === "query"), m = i.filter((v) => v.in === "body"), g = d.length ? `
     <div class="try-label">Headers</div>
-    ${h.map((v) => `
+    ${d.map((v) => `
     <div class="try-row">
       <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px">${v.name}${v.req ? ' <span style="color:red">*</span>' : ""}</label>
       <input class="try-input try-header-input" data-key="${v.name}" type="text"
         placeholder="${v.name === "Authorization" ? "Bearer eyJ0eXAi..." : v.name === "X-TIMESTAMP" ? "2024-01-15T10:30:00+07:00" : v.type}"/>
-    </div>`).join("")}` : "", b = l.length ? `
+    </div>`).join("")}` : "", h = c.length ? `
     <div class="try-label" style="margin-top:8px">Query Parameters</div>
-    ${l.map((v) => `
+    ${c.map((v) => `
     <div class="try-row">
       <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px">${v.name}${v.req ? ' <span style="color:red">*</span>' : ""}</label>
       <input class="try-input try-query-input" data-key="${v.name}" type="text" placeholder="${v.type}"/>
-    </div>`).join("")}` : "", A = c.length ? `
+    </div>`).join("")}` : "", k = m.length ? `
     <div class="try-label" style="margin-top:8px">Request Body (JSON)</div>
-    ${o ? `<button onclick="copyExample('${e}')" style="font-size:11px;background:#f1f5f9;border:1px solid #e2e8f0;padding:3px 8px;border-radius:4px;cursor:pointer;margin-bottom:6px;color:#475569"><i class="fas fa-copy" style="margin-right:4px"></i>Isi Contoh</button>` : ""}
-    <textarea id="try-body-${e}" class="try-input try-textarea" data-example="${o.replace(/"/g, "&quot;")}"
-      placeholder='${JSON.stringify(Object.fromEntries(c.map((v) => [v.name, v.type])), null, 2)}'>${o}</textarea>` : "", y = d.map((v) => `<span class="mw-badge"><i class="fas fa-shield-alt"></i>${v}</span>`).join(""), u = p ? `<div class="info-box ib-blue" style="margin-top:12px"><i class="fas fa-info-circle"></i><span>${p}</span></div>` : "", x = i ? `
+    ${r ? `<button onclick="copyExample('${e}')" style="font-size:11px;background:#f1f5f9;border:1px solid #e2e8f0;padding:3px 8px;border-radius:4px;cursor:pointer;margin-bottom:6px;color:#475569"><i class="fas fa-copy" style="margin-right:4px"></i>Isi Contoh</button>` : ""}
+    <textarea id="try-body-${e}" class="try-input try-textarea" data-example="${r.replace(/"/g, "&quot;")}"
+      placeholder='${JSON.stringify(Object.fromEntries(m.map((v) => [v.name, v.type])), null, 2)}'>${r}</textarea>` : "", y = o.map((v) => `<span class="mw-badge"><i class="fas fa-shield-alt"></i>${v}</span>`).join(""), p = l ? `<div class="info-box ib-blue" style="margin-top:12px"><i class="fas fa-info-circle"></i><span>${l}</span></div>` : "", w = n ? `
     <div class="try-label">Contoh Response 200 OK</div>
-    <div class="schema-obj">${Lt(i)}</div>` : "";
+    <div class="schema-obj">${Ma(n)}</div>` : "";
   return `
 <div class="ep-card" id="ep-${e}">
   <div class="ep-header" onclick="epToggle('${e}')">
-    <span class="method-badge ${r}">${a}</span>
-    <span class="ep-path">${t}</span>
+    <span class="method-badge ${u}">${t}</span>
+    <span class="ep-path">${a}</span>
     <span class="ep-summary">${s}</span>
     <i class="fas fa-chevron-down ep-chevron"></i>
   </div>
@@ -2984,16 +2938,16 @@ function E(e, a, t, s, n, i, o, d, p) {
     <!-- PARAMS TAB -->
     <div class="ep-pane active" id="pane-${e}-params">
       ${y ? `<div style="margin-bottom:10px">${y}</div>` : ""}
-      ${u}
+      ${p}
       <table class="param-table">
         <thead><tr><th>Name</th><th>Type</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
-        <tbody>${g}</tbody>
+        <tbody>${b}</tbody>
       </table>
     </div>
 
     <!-- RESPONSE TAB -->
     <div class="ep-pane" id="pane-${e}-response">
-      ${x}
+      ${w}
       <div class="try-label" style="margin-top:16px">Response Codes</div>
       <table class="param-table" style="margin-top:6px">
         <thead><tr><th>Status / Code</th><th>Arti</th></tr></thead>
@@ -3014,11 +2968,11 @@ function E(e, a, t, s, n, i, o, d, p) {
     <!-- TRY IT OUT TAB -->
     <div class="ep-pane" id="pane-${e}-try">
       <div class="try-panel">
-        ${m}
-        ${b}
-        ${A}
+        ${g}
+        ${h}
+        ${k}
         <div style="display:flex;align-items:center;margin-top:14px;flex-wrap:wrap;gap:8px">
-          <button class="try-btn" id="try-btn-${e}" data-method="${a}" data-path="${t}" onclick="tryRequest('${e}')">
+          <button class="try-btn" id="try-btn-${e}" data-method="${t}" data-path="${a}" onclick="tryRequest('${e}')">
             <i class="fas fa-paper-plane"></i> Send Request
           </button>
           <button class="try-clear" onclick="document.getElementById('resp-${e}').style.display='none'">Clear</button>
@@ -3042,18 +2996,16 @@ function E(e, a, t, s, n, i, o, d, p) {
   </div>
 </div>`;
 }
-__name(E, "E");
-__name2(E, "E");
-function Lt(e) {
+__name(D, "D");
+function Ma(e) {
   try {
     return JSON.stringify(JSON.parse(e), null, 2).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/("[\w-]+")\s*:/g, '<span class="hl-key">$1</span>:').replace(/:\s*(".*?")/g, ': <span class="hl-str">$1</span>').replace(/:\s*(-?\d+\.?\d*)/g, ': <span class="hl-num">$1</span>').replace(/:\s*(true|false)/g, ': <span class="hl-bool">$1</span>');
   } catch {
     return e;
   }
 }
-__name(Lt, "Lt");
-__name2(Lt, "Lt");
-function Mt() {
+__name(Ma, "Ma");
+function Ha() {
   return `<!DOCTYPE html>
 <html lang="id">
 <head>
@@ -4976,9 +4928,2053 @@ updateLoginBanner();
 </body>
 </html>`;
 }
-__name(Mt, "Mt");
-__name2(Mt, "Mt");
-var Oa = `-----BEGIN PRIVATE KEY-----
+__name(Ha, "Ha");
+function ja() {
+  return `<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LPD Seminyak \u2014 Admin Panel</title>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>
+<style>
+:root{--primary:#0f766e;--primary-dark:#0d5752;--secondary:#0f172a;--sidebar-w:240px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+
+/* \u2500\u2500 SIDEBAR \u2500\u2500 */
+#sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:#134e4a;overflow-y:auto;z-index:100;border-right:1px solid #0d3b37;display:flex;flex-direction:column}
+#sidebar .logo{padding:16px 14px 12px;background:linear-gradient(135deg,#0d3b37,#0f766e);border-bottom:1px solid #0d3b37}
+#sidebar .logo h1{font-size:14px;font-weight:800;color:#fff;letter-spacing:.5px}
+#sidebar .logo p{font-size:10px;color:#99f6e4;margin-top:2px}
+#sidebar nav{flex:1;padding:8px 0}
+#sidebar nav a{display:flex;align-items:center;gap:9px;padding:9px 14px;font-size:12px;color:#99f6e4;text-decoration:none;transition:all .15s;cursor:pointer;border-left:3px solid transparent}
+#sidebar nav a:hover,#sidebar nav a.active{color:#fff;background:rgba(20,184,166,.2);border-left-color:#14b8a6}
+#sidebar nav a i{width:16px;text-align:center;font-size:12px}
+#sidebar .nav-section{padding:10px 14px 3px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#0d6b65}
+#sidebar .sidebar-footer{padding:12px 14px;border-top:1px solid #0d3b37;font-size:10px;color:#4d9e99}
+
+/* \u2500\u2500 MAIN \u2500\u2500 */
+#main{margin-left:var(--sidebar-w);min-height:100vh;padding:0 0 40px}
+.topbar{background:#134e4a;border-bottom:1px solid #0d3b37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.topbar h2{font-size:15px;font-weight:700;color:#a7f3d0}
+.topbar-right{display:flex;align-items:center;gap:12px;font-size:11px;color:#5eead4}
+.section{display:none}.section.active{display:block}
+.content{padding:20px 24px}
+
+/* \u2500\u2500 CARDS \u2500\u2500 */
+.stat-card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:16px;position:relative;overflow:hidden;transition:border-color .2s}
+.stat-card:hover{border-color:#14b8a6}
+.stat-card .sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px}
+.stat-card .sc-val{font-size:26px;font-weight:800;color:#e2e8f0;line-height:1}
+.stat-card .sc-label{font-size:11px;color:#64748b;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.stat-card .sc-sub{font-size:11px;color:#14b8a6;margin-top:4px}
+
+/* \u2500\u2500 PANEL \u2500\u2500 */
+.panel{background:#1e293b;border:1px solid #334155;border-radius:10px;margin-bottom:16px;overflow:hidden}
+.panel-header{padding:12px 16px;background:#0f172a;border-bottom:1px solid #1e293b;display:flex;align-items:center;justify-content:space-between}
+.panel-header-left{display:flex;align-items:center;gap:8px}
+.panel-header h3{font-size:13px;font-weight:700;color:#5eead4}
+.panel-header .badge{font-size:10px;padding:2px 7px;border-radius:999px;background:#134e4a;color:#5eead4;font-weight:600}
+.panel-body{padding:16px}
+
+/* \u2500\u2500 TABLE \u2500\u2500 */
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{text-align:left;padding:8px 12px;background:#0f172a;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:10px;border-bottom:1px solid #1e293b;white-space:nowrap}
+.data-table td{padding:8px 12px;border-bottom:1px solid #1e293b;color:#cbd5e1;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(20,184,166,.04)}
+.data-table td.mono{font-family:'Courier New',monospace;font-size:11px;color:#67e8f9;word-break:break-all}
+.data-table td.ts{font-family:'Courier New',monospace;font-size:11px;color:#94a3b8;white-space:nowrap}
+.data-table td.url{font-family:'Courier New',monospace;font-size:10px;color:#a5b4fc;word-break:break-all;max-width:200px}
+.data-table td.status-ok{color:#34d399;font-weight:700}
+.data-table td.status-err{color:#f87171;font-weight:700}
+.data-table td.status-warn{color:#fbbf24;font-weight:700}
+
+/* \u2500\u2500 BUTTONS \u2500\u2500 */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .15s;text-transform:uppercase;letter-spacing:.5px}
+.btn-primary{background:linear-gradient(135deg,#0f766e,#0d6b65);color:#fff}
+.btn-primary:hover{background:linear-gradient(135deg,#0d6b65,#0a5952);transform:translateY(-1px)}
+.btn-secondary{background:#1e293b;border:1px solid #334155;color:#94a3b8}
+.btn-secondary:hover{background:#334155;color:#e2e8f0}
+.btn-sm{padding:4px 10px;font-size:10px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+/* \u2500\u2500 FORM \u2500\u2500 */
+label{display:block;font-size:10px;font-weight:700;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+input[type=text],input[type=date],select,textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:6px;padding:8px 10px;color:#e2e8f0;font-size:12px;font-family:'Courier New',monospace;outline:none;transition:border .15s}
+input[type=text]:focus,input[type=date]:focus,select:focus,textarea:focus{border-color:#0f766e}
+select{cursor:pointer}
+
+/* \u2500\u2500 MISC \u2500\u2500 */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+@media(max-width:1100px){.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.field-row{margin-bottom:10px}
+.info-box{padding:10px 14px;border-radius:8px;font-size:12px;margin:10px 0;display:flex;gap:9px;align-items:flex-start;line-height:1.6}
+.info-box i{margin-top:2px;flex-shrink:0}
+.info-teal{background:#0d3b37;border-left:3px solid #14b8a6;color:#99f6e4}
+.info-yellow{background:#1c1200;border-left:3px solid #d97706;color:#fcd34d}
+.info-red{background:#2d0000;border-left:3px solid #dc2626;color:#fca5a5}
+.badge-pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700}
+.badge-ok{background:#022c22;color:#34d399}
+.badge-warn{background:#2c1900;color:#fbbf24}
+.badge-err{background:#2d0000;color:#f87171}
+.badge-info{background:#0d3b37;color:#5eead4}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#14b8a6;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:40px 20px;color:#475569}
+.empty-state i{font-size:36px;margin-bottom:10px;display:block}
+.log-entry{border:1px solid #1e293b;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#0a0f1a}
+.log-entry-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#0f172a;cursor:pointer;user-select:none}
+.log-entry-body{padding:12px;font-size:11px;font-family:'Courier New',monospace;color:#7dd3fc;white-space:pre-wrap;word-break:break-all;display:none;max-height:300px;overflow-y:auto;line-height:1.6}
+.log-entry-body.show{display:block}
+.method-tag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px}
+.method-post{background:#1e1b4b;color:#a78bfa}
+.method-get{background:#022c22;color:#34d399}
+.search-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.search-bar input,.search-bar select{flex:1;min-width:120px;padding:7px 10px;font-size:12px}
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:10px 0;font-size:11px;color:#64748b}
+.pagination-btns{display:flex;gap:6px}
+.chart-container{position:relative;height:180px}
+.section-title{font-size:13px;font-weight:700;color:#5eead4;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title i{font-size:14px}
+.tag{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;background:#1e293b;color:#94a3b8;margin:1px}
+.separator{height:1px;background:#1e293b;margin:12px 0}
+.truncate-cell{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:help}
+
+/* \u2500\u2500 MOBILE \u2500\u2500 */
+#menu-toggle{display:none;background:none;border:none;color:#5eead4;font-size:20px;cursor:pointer;padding:4px}
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99}
+#sidebar-overlay.show{display:block}
+@media(max-width:768px){
+  #menu-toggle{display:block}
+  #sidebar{transform:translateX(-100%);transition:transform .25s}
+  #sidebar.open{transform:translateX(0)}
+  #sidebar-overlay.show{display:block}
+  #main{margin-left:0}
+  .topbar{padding:10px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar overlay -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- \u2500\u2500 SIDEBAR \u2500\u2500 -->
+<aside id="sidebar">
+  <div class="logo">
+    <h1><i class="fas fa-university mr-2"></i>LPD Seminyak</h1>
+    <p>Admin Management Panel</p>
+  </div>
+  <nav>
+    <div class="nav-section">Dashboard</div>
+    <a href="#" onclick="showSection('dashboard')" id="nav-dashboard" class="active">
+      <i class="fas fa-tachometer-alt"></i> Overview
+    </a>
+    <a href="#" onclick="showSection('activity')" id="nav-activity">
+      <i class="fas fa-chart-line"></i> Aktivitas Harian
+    </a>
+
+    <div class="nav-section">Monitoring</div>
+    <a href="#" onclick="showSection('logs-access')" id="nav-logs-access">
+      <i class="fas fa-sign-in-alt"></i> Log Akses Nasabah
+    </a>
+    <a href="#" onclick="showSection('logs-transfer')" id="nav-logs-transfer">
+      <i class="fas fa-exchange-alt"></i> Log Transfer
+    </a>
+    <a href="#" onclick="showSection('logs-tabungan')" id="nav-logs-tabungan">
+      <i class="fas fa-piggy-bank"></i> Log Tabungan
+    </a>
+    <a href="#" onclick="showSection('logs-token')" id="nav-logs-token">
+      <i class="fas fa-key"></i> Log Token / SNAP
+    </a>
+
+    <div class="nav-section">Analisis</div>
+    <a href="#" onclick="showSection('stats')" id="nav-stats">
+      <i class="fas fa-chart-bar"></i> Statistik API
+    </a>
+    <a href="#" onclick="showSection('errors')" id="nav-errors">
+      <i class="fas fa-exclamation-triangle"></i> Error Log
+    </a>
+
+    <div class="nav-section">Transaksi</div>
+    <a href="#" onclick="showSection('trx')" id="nav-trx">
+      <i class="fas fa-terminal"></i> Jalankan Transaksi
+    </a>
+    <a href="#" onclick="showSection('trx-history')" id="nav-trx-history">
+      <i class="fas fa-history"></i> Riwayat Transaksi
+    </a>
+
+    <div class="nav-section">Sistem</div>
+    <a href="#" onclick="showSection('crypto-ops')" id="nav-crypto-ops">
+      <i class="fas fa-lock"></i> Crypto Test
+    </a>
+    <a href="/crypto" target="_blank">
+      <i class="fas fa-tools"></i> Crypto Toolkit <i class="fas fa-external-link-alt ml-1" style="font-size:9px"></i>
+    </a>
+    <a href="/swagger" target="_blank">
+      <i class="fas fa-book"></i> Swagger API <i class="fas fa-external-link-alt ml-1" style="font-size:9px"></i>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div><i class="fas fa-circle" style="color:#22c55e;font-size:7px"></i> Production: lpdseminyak.biz.id</div>
+    <div style="margin-top:3px"><i class="fas fa-clock"></i> <span id="sidebar-time">\u2014</span></div>
+  </div>
+</aside>
+
+<!-- \u2500\u2500 MAIN \u2500\u2500 -->
+<main id="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button id="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <h2 id="topbar-title"><i class="fas fa-tachometer-alt mr-2"></i>Overview</h2>
+    </div>
+    <div class="topbar-right">
+      <span id="topbar-date" style="font-size:11px;color:#5eead4"></span>
+      <button class="btn btn-secondary btn-sm" onclick="refreshAll()"><i class="fas fa-sync-alt"></i> Refresh</button>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: DASHBOARD
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-dashboard" class="section active content">
+
+    <div class="grid-4" style="margin-bottom:16px" id="stat-cards">
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#0d3b37"><i class="fas fa-sign-in-alt" style="color:#14b8a6"></i></div>
+        <div class="sc-val" id="stat-total-access">\u2014</div>
+        <div class="sc-label">Total Login Hari Ini</div>
+        <div class="sc-sub" id="stat-access-sub">memuat...</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#1e1b4b"><i class="fas fa-exchange-alt" style="color:#a78bfa"></i></div>
+        <div class="sc-val" id="stat-total-transfer">\u2014</div>
+        <div class="sc-label">Transfer Hari Ini</div>
+        <div class="sc-sub" id="stat-transfer-sub">memuat...</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#022c22"><i class="fas fa-key" style="color:#34d399"></i></div>
+        <div class="sc-val" id="stat-total-token">\u2014</div>
+        <div class="sc-label">Token Request Hari Ini</div>
+        <div class="sc-sub" id="stat-token-sub">memuat...</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon" style="background:#1c0d00"><i class="fas fa-exclamation-triangle" style="color:#f97316"></i></div>
+        <div class="sc-val" id="stat-total-errors">\u2014</div>
+        <div class="sc-label">Error 7 Hari</div>
+        <div class="sc-sub" id="stat-error-sub">memuat...</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <h3><i class="fas fa-sign-in-alt mr-2"></i>Login Terbaru</h3>
+            <span class="badge" id="badge-recent-access">\u2014</span>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="showSection('logs-access')">Lihat Semua</button>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="data-table">
+            <thead><tr><th>Waktu</th><th>Endpoint</th><th>Status</th></tr></thead>
+            <tbody id="recent-access-body">
+              <tr><td colspan="3" class="text-center" style="padding:16px;color:#475569">Memuat...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <h3><i class="fas fa-exchange-alt mr-2"></i>Transfer Terbaru</h3>
+            <span class="badge" id="badge-recent-transfer">\u2014</span>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="showSection('logs-transfer')">Lihat Semua</button>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="data-table">
+            <thead><tr><th>Waktu</th><th>Endpoint</th><th>Nominal</th></tr></thead>
+            <tbody id="recent-transfer-body">
+              <tr><td colspan="3" class="text-center" style="padding:16px;color:#475569">Memuat...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h3><i class="fas fa-history mr-2"></i>File Log Tersedia</h3>
+        </div>
+      </div>
+      <div class="panel-body" id="log-files-overview">
+        <div style="color:#475569;font-size:12px">Memuat...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: AKTIVITAS HARIAN
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-activity" class="section content">
+    <div class="section-title"><i class="fas fa-chart-line"></i> Aktivitas Harian \u2014 Request per Jam</div>
+
+    <div class="panel" style="margin-bottom:16px">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h3><i class="fas fa-calendar mr-2"></i>Pilih Tanggal & Tipe Log</h3>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="loadActivity()"><i class="fas fa-search"></i> Load</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row">
+            <label>Tanggal</label>
+            <input type="date" id="act-date" />
+          </div>
+          <div class="field-row">
+            <label>Tipe Log</label>
+            <select id="act-type">
+              <option value="access">Access (Login/Logout)</option>
+              <option value="transfer-AR">Transfer Bank (AR)</option>
+              <option value="transfer-AB">Transfer LPD (AB)</option>
+              <option value="tabungan">Tabungan / Mutasi</option>
+              <option value="token">Token SNAP</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label>Filter Endpoint</label>
+            <input type="text" id="act-filter" placeholder="cth: login, transfer, inquiry" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Request Per Jam</h3><span class="badge" id="badge-act-total">0</span></div></div>
+        <div class="panel-body"><div class="chart-container"><canvas id="chart-hourly"></canvas></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Distribusi Endpoint</h3></div></div>
+        <div class="panel-body"><div class="chart-container"><canvas id="chart-endpoint"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list mr-2"></i>Log Entries</h3><span class="badge" id="badge-act-entries">0</span></div>
+      </div>
+      <div class="panel-body" style="padding:0">
+        <div id="activity-log-list" style="padding:12px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: LOG AKSES
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-logs-access" class="section content">
+    <div class="section-title"><i class="fas fa-sign-in-alt"></i> Log Akses Nasabah</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadAccessLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="acc-date"/></div>
+          <div class="field-row"><label>Sumber File</label>
+            <select id="acc-source">
+              <option value="root">Root (access-YYYY-MM-DD.txt)</option>
+              <option value="his">his/ (access-YYYY-MM-DD.txt)</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="acc-search" placeholder="endpoint, username hash, ..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-acc-count">0</span></div>
+      </div>
+      <div id="access-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: LOG TRANSFER
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-logs-transfer" class="section content">
+    <div class="section-title"><i class="fas fa-exchange-alt"></i> Log Transfer</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTransferLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="tr-date"/></div>
+          <div class="field-row"><label>Tipe Transfer</label>
+            <select id="tr-type">
+              <option value="AR">Transfer Bank Antar (AR)</option>
+              <option value="AB">Transfer LPD Antar (AB)</option>
+              <option value="in">Transfer In (Masuk)</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Sumber</label>
+            <select id="tr-source">
+              <option value="root">Root</option>
+              <option value="his">his/</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row"><label>Cari Teks</label><input type="text" id="tr-search" placeholder="endpoint, reference, ..."/></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-tr-count">0</span></div>
+      </div>
+      <div id="transfer-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: LOG TABUNGAN
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-logs-tabungan" class="section content">
+    <div class="section-title"><i class="fas fa-piggy-bank"></i> Log Tabungan & Mutasi</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTabunganLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="tab-date"/></div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="tab-search" placeholder="customer_id, endpoint..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-tab-count">0</span></div>
+      </div>
+      <div id="tabungan-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: LOG TOKEN
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-logs-token" class="section content">
+    <div class="section-title"><i class="fas fa-key"></i> Log Token / SNAP B2B</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTokenLogs()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field-row"><label>Tanggal</label><input type="date" id="tok-date"/></div>
+          <div class="field-row"><label>Tipe</label>
+            <select id="tok-type">
+              <option value="root">Root (token-YYYY-MM-DD.txt)</option>
+              <option value="token-dir">token/ (request-YYYY-MM-DD.log)</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="tok-search" placeholder="accessToken, responseCode..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-list-alt mr-2"></i>Log Entries</h3><span class="badge" id="badge-tok-count">0</span></div>
+      </div>
+      <div id="token-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: STATISTIK
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-stats" class="section content">
+    <div class="section-title"><i class="fas fa-chart-bar"></i> Statistik API</div>
+    <div class="info-box info-teal">
+      <i class="fas fa-info-circle"></i>
+      Statistik dihitung dari file log yang tersedia di storage Laravel.
+      Data diambil secara real-time dari server.
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Top Endpoints (7 Hari)</h3></div></div>
+        <div class="panel-body" id="stats-endpoints">
+          <div style="color:#475569;text-align:center;padding:20px">Memuat...</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3>Aktivitas Per Hari (30 Hari)</h3></div></div>
+        <div class="panel-body"><div class="chart-container"><canvas id="chart-daily"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3>Daftar File Log</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadStats()"><i class="fas fa-sync-alt"></i> Refresh</button>
+      </div>
+      <div class="panel-body" style="padding:0">
+        <table class="data-table">
+          <thead><tr><th>File</th><th>Direktori</th><th>Ukuran</th><th>Entri</th></tr></thead>
+          <tbody id="stats-files-body">
+            <tr><td colspan="4" style="text-align:center;padding:16px;color:#475569">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: ERROR LOG
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-errors" class="section content">
+    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> Error Log Laravel</div>
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-header"><div class="panel-header-left"><h3>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadErrors()"><i class="fas fa-search"></i> Cari</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div class="field-row"><label>Level</label>
+            <select id="err-level">
+              <option value="all">Semua</option>
+              <option value="ERROR">ERROR</option>
+              <option value="WARNING">WARNING</option>
+              <option value="INFO">INFO</option>
+            </select>
+          </div>
+          <div class="field-row"><label>Cari Teks</label><input type="text" id="err-search" placeholder="SQLSTATE, Exception, ..."/></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-bug mr-2"></i>Laravel Error Log</h3><span class="badge" id="badge-err-count">0</span></div>
+      </div>
+      <div id="error-log-list" style="padding:12px"></div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: TRANSAKSI
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-trx" class="section content">
+    <div class="section-title"><i class="fas fa-terminal"></i> Jalankan Transaksi Smart API</div>
+    <div class="info-box info-teal" style="margin-bottom:14px">
+      <i class="fas fa-info-circle"></i>
+      <div>Lakukan transaksi langsung ke server LPD. Semua data dienkripsi AES-256-CBC sebelum dikirim.
+      Alur: <strong>1. Setup Sesi</strong> \u2192 <strong>2. Login</strong> \u2192 <strong>3. Pilih Transaksi</strong> \u2192 <strong>4. Posting</strong></div>
+    </div>
+
+    <!-- Step 1: Session Setup -->
+    <div class="panel" style="border-left:3px solid #14b8a6">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <span style="background:#14b8a6;color:#0f172a;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0">1</span>
+          <h3><i class="fas fa-key mr-2"></i>Setup Sesi (Derive Keys)</h3>
+          <span class="badge" id="trx-session-badge">Belum aktif</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-secondary btn-sm" onclick="trxAutoSetup()"><i class="fas fa-magic"></i> Auto Setup</button>
+          <button class="btn btn-secondary btn-sm" onclick="trxGetFreshToken(true)"><i class="fas fa-sync-alt"></i> Refresh Token</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div>
+            <div class="field-row"><label>Client ID Raw</label><input type="text" id="trx-clientid" value="AQ3A.240912.001.01102025120205"/></div>
+            <div class="field-row"><label>Base URL Server</label><input type="text" id="trx-baseurl" value="https://lpdseminyak.biz.id:8000"/></div>
+          </div>
+          <div>
+            <div class="field-row"><label>Client ID Encoded (X-CLIENT-ID)</label><input type="text" id="trx-clientid-enc" placeholder="Otomatis dari Auto Setup..."/></div>
+            <div class="field-row"><label>Timestamp Sesi</label><input type="text" id="trx-session-ts" placeholder="Otomatis dari Auto Setup..."/></div>
+          </div>
+        </div>
+        <div class="grid-2" style="margin-top:6px">
+          <div><div class="field-row"><label>AES Key (Base64)</label><input type="text" id="trx-aeskey" placeholder="Otomatis dari Auto Setup..."/></div></div>
+          <div><div class="field-row"><label>AES IV (Base64)</label><input type="text" id="trx-aesiv" placeholder="Otomatis dari Auto Setup..."/></div></div>
+        </div>
+        <div class="field-row" style="margin-top:6px"><label>AES CS (Base64)</label><input type="text" id="trx-aescs" placeholder="Otomatis dari Auto Setup..."/></div>
+        <div style="margin-top:10px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;font-weight:700">Status Token iOS:</span>
+          <span id="trx-token-status"><span class="badge-pill badge-err">Belum ada token</span></span>
+        </div>
+        <div class="field-row" style="margin-top:8px">
+          <label>Token iOS Manual (jika Auto gagal)</label>
+          <div style="display:flex;gap:6px">
+            <input type="text" id="trx-ios-token-manual" placeholder="Paste token iOS manual di sini jika Auto Setup gagal ambil token..." style="flex:1;font-size:11px"/>
+            <button class="btn btn-secondary btn-sm" onclick="trxSetManualToken()" title="Gunakan token manual yang di-paste"><i class="fas fa-check"></i> Pakai</button>
+          </div>
+        </div>
+        <div id="trx-setup-result" style="margin-top:10px;display:none"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Login -->
+    <div class="panel" style="border-left:3px solid #a78bfa">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <span style="background:#a78bfa;color:#0f172a;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0">2</span>
+          <h3><i class="fas fa-sign-in-alt mr-2"></i>Login Nasabah</h3>
+          <span class="badge" id="trx-login-badge">Belum login</span>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="trxLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div><div class="field-row"><label>Username</label><input type="text" id="trx-username" placeholder="username nasabah"/></div></div>
+          <div><div class="field-row"><label>Password (plain atau MD5)</label><input type="text" id="trx-password" placeholder="password nasabah"/></div></div>
+        </div>
+        <div id="trx-login-result" style="margin-top:10px;display:none"></div>
+      </div>
+    </div>
+
+    <!-- Nasabah Info Panel (muncul setelah login sukses) -->
+    <div id="trx-nasabah-panel" class="panel" style="display:none;border-left:3px solid #34d399;margin-bottom:16px">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <i class="fas fa-user-circle" style="font-size:18px;color:#34d399"></i>
+          <h3><i class="fas fa-id-card mr-2"></i>Info Nasabah</h3>
+          <span class="badge" id="trx-nb-rekcount">0 rekening</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="text-align:right">
+            <div style="font-size:13px;font-weight:800;color:#34d399" id="trx-nb-nama">\u2014</div>
+            <div style="font-size:10px;color:#64748b">User: <span id="trx-nb-user">\u2014</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body" style="padding:0">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>No. Rekening</th>
+              <th>Nama</th>
+              <th>Produk</th>
+              <th style="text-align:right">Saldo</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="trx-nb-accounts">
+            <tr><td colspan="5" style="padding:16px;text-align:center;color:#475569">Login terlebih dahulu</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Step 3: Select Operation -->
+    <div class="panel" style="border-left:3px solid #fbbf24">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <span style="background:#fbbf24;color:#0f172a;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0">3</span>
+          <h3><i class="fas fa-list mr-2"></i>Pilih Operasi</h3>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="grid-4" style="margin-bottom:12px">
+          <button class="btn btn-secondary" onclick="trxShowOp('cek-saldo')"><i class="fas fa-wallet"></i> Cek Saldo</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('account-list')"><i class="fas fa-list-alt"></i> Daftar Rekening</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('mutasi')"><i class="fas fa-history"></i> Mutasi</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('transfer-lpd')"><i class="fas fa-building mr-1"></i> Transfer LPD</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('transfer-bank')"><i class="fas fa-university mr-1"></i> Transfer Bank</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('logout')"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+
+        <!-- CEK SALDO -->
+        <div id="trx-op-cek-saldo" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-wallet"></i> Cek Saldo Rekening</div>
+          <div class="field-row"><label>Nomor Rekening</label><input type="text" id="trx-cs-norek" placeholder="e.g. 2010123456"/></div>
+          <button class="btn btn-primary" onclick="trxExec('cek-saldo')"><i class="fas fa-search"></i> Cek Saldo</button>
+          <div id="trx-result-cek-saldo" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- ACCOUNT LIST -->
+        <div id="trx-op-account-list" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-list-alt"></i> Daftar Rekening Nasabah</div>
+          <div class="field-row"><label>Customer ID</label><input type="text" id="trx-al-custid" placeholder="e.g. 12345"/></div>
+          <button class="btn btn-primary" onclick="trxExec('account-list')"><i class="fas fa-search"></i> Cari Rekening</button>
+          <div id="trx-result-account-list" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- MUTASI HISTORY -->
+        <div id="trx-op-mutasi" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-history"></i> Riwayat Mutasi</div>
+          <div class="grid-2">
+            <div><div class="field-row"><label>Nomor Rekening</label><input type="text" id="trx-mu-norek" placeholder="e.g. 2010123456"/></div></div>
+            <div><div class="field-row"><label>Customer ID</label><input type="text" id="trx-mu-custid" placeholder="e.g. 12345"/></div></div>
+            <div><div class="field-row"><label>Tanggal Awal</label><input type="date" id="trx-mu-tglawal"/></div></div>
+            <div><div class="field-row"><label>Tanggal Akhir</label><input type="date" id="trx-mu-tglakhir"/></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <button class="btn btn-primary" onclick="trxExec('mutasi-history')"><i class="fas fa-history"></i> Cek Mutasi</button>
+            <button class="btn btn-secondary" onclick="trxExec('transaction-history')"><i class="fas fa-list"></i> Riwayat Transaksi</button>
+          </div>
+          <div id="trx-result-mutasi-history" style="margin-top:10px;display:none"></div>
+          <div id="trx-result-transaction-history" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- TRANSFER LPD -->
+        <div id="trx-op-transfer-lpd" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-building"></i> Transfer Sesama LPD</div>
+          <div class="grid-2">
+            <div><div class="field-row"><label>Rekening Sumber</label><input type="text" id="trx-tlpd-from" placeholder="No rekening pengirim"/></div></div>
+            <div>
+              <div class="field-row">
+                <label>Rekening Tujuan</label>
+                <div style="display:flex;gap:6px">
+                  <input type="text" id="trx-tlpd-to" placeholder="No rekening tujuan"/>
+                  <button class="btn btn-secondary btn-sm" onclick="trxExec('transfer-lpd-check')" style="white-space:nowrap"><i class="fas fa-search"></i> Cek</button>
+                </div>
+              </div>
+              <div id="trx-result-transfer-lpd-check" style="margin-bottom:8px;display:none"></div>
+            </div>
+            <div><div class="field-row"><label>Nama Tujuan</label><input type="text" id="trx-tlpd-name" placeholder="Nama pemilik rekening"/></div></div>
+            <div><div class="field-row"><label>Nominal (Rp)</label><input type="text" id="trx-tlpd-nominal" placeholder="e.g. 100000"/></div></div>
+            <div><div class="field-row"><label>Keterangan</label><input type="text" id="trx-tlpd-ket" placeholder="Pembayaran..."/></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn btn-secondary" onclick="trxExec('transfer-lpd-inquiry')"><i class="fas fa-check-circle"></i> Inquiry</button>
+            <button class="btn btn-primary" onclick="trxConfirmPosting('transfer-lpd-posting')"><i class="fas fa-paper-plane"></i> Posting</button>
+          </div>
+          <div id="trx-result-transfer-lpd-inquiry" style="margin-top:10px;display:none"></div>
+          <div id="trx-result-transfer-lpd-posting" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- TRANSFER BANK -->
+        <div id="trx-op-transfer-bank" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-university"></i> Transfer ke Bank Lain</div>
+          <div class="grid-2">
+            <div><div class="field-row"><label>Rekening Sumber</label><input type="text" id="trx-tbank-from" placeholder="No rekening pengirim"/></div></div>
+            <div>
+              <div class="field-row">
+                <label>Rekening Tujuan</label>
+                <div style="display:flex;gap:6px">
+                  <input type="text" id="trx-tbank-to" placeholder="No rekening tujuan"/>
+                  <button class="btn btn-secondary btn-sm" onclick="trxExec('transfer-bank-check')" style="white-space:nowrap"><i class="fas fa-search"></i> Cek</button>
+                </div>
+              </div>
+              <div id="trx-result-transfer-bank-check" style="margin-bottom:8px;display:none"></div>
+            </div>
+            <div>
+              <div class="field-row"><label>Kode Bank</label>
+                <select id="trx-tbank-kode">
+                  <option value="">-- Pilih Bank --</option>
+                  <option value="014">BCA (014)</option>
+                  <option value="008">Mandiri (008)</option>
+                  <option value="009">BNI (009)</option>
+                  <option value="002">BRI (002)</option>
+                  <option value="022">CIMB Niaga (022)</option>
+                  <option value="011">Danamon (011)</option>
+                  <option value="016">BII Maybank (016)</option>
+                  <option value="013">Permata (013)</option>
+                  <option value="023">UOB (023)</option>
+                  <option value="028">OCBC NISP (028)</option>
+                  <option value="147">Muamalat (147)</option>
+                  <option value="451">BSI (451)</option>
+                  <option value="110">BJB (110)</option>
+                  <option value="112">BPD Bali (112)</option>
+                  <option value="111">DKI (111)</option>
+                </select>
+              </div>
+            </div>
+            <div><div class="field-row"><label>Nominal (Rp)</label><input type="text" id="trx-tbank-nominal" placeholder="e.g. 100000"/></div></div>
+            <div><div class="field-row"><label>Keterangan</label><input type="text" id="trx-tbank-ket" placeholder="Pembayaran..."/></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn btn-secondary" onclick="trxExec('transfer-bank-inquiry')"><i class="fas fa-check-circle"></i> Inquiry</button>
+            <button class="btn btn-primary" onclick="trxConfirmPosting('transfer-bank-posting')"><i class="fas fa-paper-plane"></i> Posting</button>
+          </div>
+          <div id="trx-result-transfer-bank-inquiry" style="margin-top:10px;display:none"></div>
+          <div id="trx-result-transfer-bank-posting" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- LOGOUT -->
+        <div id="trx-op-logout" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-sign-out-alt"></i> Logout Sesi</div>
+          <button class="btn btn-primary" onclick="trxExec('logout')"><i class="fas fa-sign-out-alt"></i> Logout Sekarang</button>
+          <div id="trx-result-logout" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: RIWAYAT TRANSAKSI
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-trx-history" class="section content">
+    <div class="section-title"><i class="fas fa-history"></i> Riwayat Transaksi</div>
+    <div class="panel" style="margin-bottom:16px">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-filter mr-2"></i>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTrxHistory()"><i class="fas fa-sync-alt"></i> Muat</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-4">
+          <div><div class="field-row"><label>Tipe Log</label>
+            <select id="th-type">
+              <option value="transfer-AB">Transfer AB (Bank)</option>
+              <option value="transfer-AR">Transfer AR (LPD)</option>
+              <option value="access">Akses Login</option>
+              <option value="tabungan">Tabungan</option>
+            </select>
+          </div></div>
+          <div><div class="field-row"><label>Tanggal</label><input type="date" id="th-date"/></div></div>
+          <div><div class="field-row"><label>Filter Teks</label><input type="text" id="th-search" placeholder="nomor rekening, nominal..."/></div></div>
+          <div style="display:flex;align-items:flex-end;padding-bottom:10px"><button class="btn btn-secondary" onclick="loadTrxHistory()"><i class="fas fa-search"></i> Cari</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h3><i class="fas fa-list mr-2"></i>Hasil</h3>
+          <span class="badge" id="th-count">0</span>
+        </div>
+      </div>
+      <div id="th-log-list" style="padding:12px">
+        <div class="empty-state"><i class="fas fa-search"></i><div>Pilih filter dan klik Muat</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+       SECTION: CRYPTO TEST
+  \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div id="section-crypto-ops" class="section content">
+    <div class="section-title"><i class="fas fa-lock"></i> Crypto Operations Test</div>
+    <div class="info-box info-teal">
+      <i class="fas fa-shield-alt"></i>
+      Operasi kriptografi berjalan di Cloudflare Edge menggunakan Web Crypto API.
+      Tidak ada proxy ke sandbox \u2014 semua operasi 100% edge-native.
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-clock mr-2"></i>Timestamp Jakarta</h3></div></div>
+        <div class="panel-body">
+          <button class="btn btn-primary" onclick="cryptoTest('timestamp')"><i class="fas fa-sync-alt"></i> Get Timestamp</button>
+          <div id="result-timestamp" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-key mr-2"></i>Generate AES Keys</h3></div></div>
+        <div class="panel-body">
+          <div class="field-row">
+            <label>Client ID</label>
+            <input type="text" id="cto-clientid" value="AQ3A.240912.001.01102025120205"/>
+          </div>
+          <div class="field-row">
+            <label>Timestamp</label>
+            <input type="text" id="cto-ts" placeholder="2026-04-20 11:44:20"/>
+          </div>
+          <button class="btn btn-primary" onclick="cryptoTest('keygen')"><i class="fas fa-cogs"></i> Generate Keys</button>
+          <div id="result-keygen" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-fingerprint mr-2"></i>Encode X-CLIENT-ID</h3></div></div>
+        <div class="panel-body">
+          <div class="field-row">
+            <label>Client ID Raw</label>
+            <input type="text" id="cto-did-cid" value="AQ3A.240912.001.01102025120205"/>
+          </div>
+          <div class="field-row">
+            <label>Timestamp</label>
+            <input type="text" id="cto-did-ts" placeholder="2026-04-20 11:44:20"/>
+          </div>
+          <button class="btn btn-primary" onclick="cryptoTest('did-encode')"><i class="fas fa-code"></i> Encode DID</button>
+          <div id="result-did-encode" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-header-left"><h3><i class="fas fa-signature mr-2"></i>Generate Signature</h3></div></div>
+        <div class="panel-body">
+          <div class="field-row">
+            <label>AES CS (dari keygen)</label>
+            <input type="text" id="cto-sig-cs" placeholder="EueZ6DfS18s="/>
+          </div>
+          <div class="field-row">
+            <label>Client ID Encoded</label>
+            <input type="text" id="cto-sig-cid" placeholder="U01ZU2V6G3C7CWtV..."/>
+          </div>
+          <button class="btn btn-primary" onclick="cryptoTest('signature')"><i class="fas fa-pencil-alt"></i> Generate Sig</button>
+          <div id="result-signature" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   STATE & HELPERS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+let hourlyChart = null, endpointChart = null, dailyChart = null;
+
+function todayStr() {
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+
+function fmtTime(s) {
+  // Extract timestamp from log entry text
+  const m = s.match(/\\[(\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2})\\]/);
+  return m ? m[1] : '\u2014';
+}
+
+function extractEndpoint(text) {
+  const m = text.match(/POST\\s+(https?:\\/\\/[^\\n]+)/);
+  if (m) {
+    const url = m[1].trim();
+    const parts = url.split('/');
+    return parts.slice(-3).join('/');
+  }
+  return '\u2014';
+}
+
+function extractDataBody(text) {
+  const m = text.match(/DATA:\\s*([\\s\\S]*?)(?=\\[\\d{4}|$)/);
+  if (m && m[1].trim()) return m[1].trim();
+  return '';
+}
+
+function escH(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('#sidebar nav a').forEach(el => el.classList.remove('active'));
+  document.getElementById('section-' + name)?.classList.add('active');
+  document.getElementById('nav-' + name)?.classList.add('active');
+  const titles = {
+    'dashboard': '<i class="fas fa-tachometer-alt mr-2"></i>Overview',
+    'activity': '<i class="fas fa-chart-line mr-2"></i>Aktivitas Harian',
+    'logs-access': '<i class="fas fa-sign-in-alt mr-2"></i>Log Akses Nasabah',
+    'logs-transfer': '<i class="fas fa-exchange-alt mr-2"></i>Log Transfer',
+    'logs-tabungan': '<i class="fas fa-piggy-bank mr-2"></i>Log Tabungan',
+    'logs-token': '<i class="fas fa-key mr-2"></i>Log Token',
+    'stats': '<i class="fas fa-chart-bar mr-2"></i>Statistik API',
+    'errors': '<i class="fas fa-exclamation-triangle mr-2"></i>Error Log',
+    'crypto-ops': '<i class="fas fa-lock mr-2"></i>Crypto Test',
+    'trx': '<i class="fas fa-terminal mr-2"></i>Jalankan Transaksi',
+    'trx-history': '<i class="fas fa-history mr-2"></i>Riwayat Transaksi',
+  };
+  document.getElementById('topbar-title').innerHTML = titles[name] || name;
+  closeSidebar();
+  return false;
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+
+function updateClock() {
+  const now = new Date();
+  const wib = new Date(now.getTime() + 7*3600000);
+  const ts = wib.toISOString().replace('T',' ').slice(0,19);
+  document.getElementById('sidebar-time').textContent = ts + ' WIB';
+  document.getElementById('topbar-date').textContent = ts + ' WIB';
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   API CALLS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function callAdmin(payload) {
+  const r = await fetch('/api/admin', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+  return r.json();
+}
+
+async function callCrypto(payload) {
+  const r = await fetch('/api/crypto', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+  return r.json();
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   PARSE LOG ENTRIES
+   Format: [YYYY-MM-DD HH:MM:SS] local.INFO: \\nREQUEST:\\n...
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+function parseLogEntries(text) {
+  // Split on timestamp markers
+  const chunks = text.split(/(?=\\[\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\])/);
+  return chunks.filter(c => c.trim().length > 5).map(chunk => {
+    const ts = fmtTime(chunk);
+    const endpoint = extractEndpoint(chunk);
+    const data = extractDataBody(chunk);
+    const isResponse = chunk.includes('RESPONSE');
+    const isError = chunk.toLowerCase().includes('local.error') || chunk.toLowerCase().includes('exception');
+    return { ts, endpoint, data, raw: chunk.trim(), isResponse, isError };
+  });
+}
+
+function renderLogEntries(entries, containerId, searchText = '') {
+  const el = document.getElementById(containerId);
+  if (!entries || entries.length === 0) {
+    el.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><div>Tidak ada log ditemukan</div></div>';
+    return 0;
+  }
+  const filtered = searchText
+    ? entries.filter(e => e.raw.toLowerCase().includes(searchText.toLowerCase()))
+    : entries;
+  
+  el.innerHTML = filtered.slice(0, 200).map((e, i) => {
+    const method = e.raw.includes('POST ') ? '<span class="method-tag method-post">POST</span>' :
+                   e.raw.includes('GET ') ? '<span class="method-tag method-get">GET</span>' : '';
+    const typeTag = e.isResponse
+      ? '<span class="badge-pill badge-info">RESPONSE</span>'
+      : e.isError
+        ? '<span class="badge-pill badge-err">ERROR</span>'
+        : '<span class="badge-pill badge-ok">REQUEST</span>';
+    const endpointShort = e.endpoint.length > 50 ? e.endpoint.slice(-50) : e.endpoint;
+    return \`<div class="log-entry">
+      <div class="log-entry-header" onclick="toggleLog(this)">
+        <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">
+          \${method} \${typeTag}
+          <span style="font-family:monospace;font-size:10px;color:#94a3b8;white-space:nowrap">\${e.ts}</span>
+          <span style="font-size:11px;color:#7dd3fc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">\${escH(endpointShort)}</span>
+        </div>
+        <i class="fas fa-chevron-down" style="color:#334155;font-size:10px;flex-shrink:0;margin-left:8px"></i>
+      </div>
+      <div class="log-entry-body"><pre>\${escH(e.raw)}</pre></div>
+    </div>\`;
+  }).join('');
+  return filtered.length;
+}
+
+function toggleLog(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.fa-chevron-down,.fa-chevron-up');
+  body.classList.toggle('show');
+  if (icon) {
+    icon.classList.toggle('fa-chevron-down');
+    icon.classList.toggle('fa-chevron-up');
+  }
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   DASHBOARD LOAD
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadDashboard() {
+  const today = todayStr();
+
+  // Load today's access log
+  try {
+    const accRes = await callAdmin({ op: 'read-log', path: \`access-\${today}.txt\`, dir: 'root' });
+    if (accRes.ok && accRes.content) {
+      const entries = parseLogEntries(accRes.content).filter(e => !e.isResponse);
+      document.getElementById('stat-total-access').textContent = entries.length;
+      document.getElementById('stat-access-sub').textContent = 'Login/Logout hari ini';
+      const recent = entries.slice(-5).reverse();
+      document.getElementById('badge-recent-access').textContent = entries.length;
+      document.getElementById('recent-access-body').innerHTML = recent.map(e =>
+        \`<tr><td class="ts">\${e.ts.slice(11)}</td><td class="url">\${escH(e.endpoint)}</td>
+         <td><span class="badge-pill badge-ok">OK</span></td></tr>\`
+      ).join('') || '<tr><td colspan="3" style="text-align:center;color:#475569;padding:10px">\u2014</td></tr>';
+    } else {
+      document.getElementById('stat-total-access').textContent = '0';
+      document.getElementById('stat-access-sub').textContent = 'Belum ada log';
+    }
+  } catch(e) {
+    document.getElementById('stat-total-access').textContent = '?';
+  }
+
+  // Load today's transfer log
+  try {
+    const trRes = await callAdmin({ op: 'read-log', path: \`transfer-AB-\${today}.txt\`, dir: 'root' });
+    if (trRes.ok && trRes.content) {
+      const entries = parseLogEntries(trRes.content).filter(e => !e.isResponse);
+      document.getElementById('stat-total-transfer').textContent = entries.length;
+      document.getElementById('stat-transfer-sub').textContent = 'Transfer LPD (AB) hari ini';
+      const recent = entries.slice(-5).reverse();
+      document.getElementById('badge-recent-transfer').textContent = entries.length;
+      document.getElementById('recent-transfer-body').innerHTML = recent.map(e => {
+        const body = e.data;
+        const amtMatch = body.match(/"amount":"([^"]+)"/);
+        return \`<tr><td class="ts">\${e.ts.slice(11)}</td><td class="url">\${escH(e.endpoint)}</td>
+               <td class="mono" style="font-size:10px">\${amtMatch ? '\u{1F512} enc' : '\u2014'}</td></tr>\`;
+      }).join('') || '<tr><td colspan="3" style="text-align:center;color:#475569;padding:10px">\u2014</td></tr>';
+    } else {
+      document.getElementById('stat-total-transfer').textContent = '0';
+      document.getElementById('stat-transfer-sub').textContent = 'Belum ada log';
+      document.getElementById('recent-transfer-body').innerHTML = '<tr><td colspan="3" style="text-align:center;color:#475569;padding:10px">\u2014</td></tr>';
+    }
+  } catch(e) {
+    document.getElementById('stat-total-transfer').textContent = '?';
+  }
+
+  // Load today's token log
+  try {
+    const tokRes = await callAdmin({ op: 'read-log', path: \`token-\${today}.txt\`, dir: 'root' });
+    if (tokRes.ok && tokRes.content) {
+      const entries = parseLogEntries(tokRes.content);
+      document.getElementById('stat-total-token').textContent = entries.length;
+      document.getElementById('stat-token-sub').textContent = 'Token request hari ini';
+    } else {
+      document.getElementById('stat-total-token').textContent = '0';
+      document.getElementById('stat-token-sub').textContent = 'Belum ada log';
+    }
+  } catch(e) {
+    document.getElementById('stat-total-token').textContent = '?';
+  }
+
+  // Load log files overview
+  try {
+    const filesRes = await callAdmin({ op: 'list-logs' });
+    if (filesRes.ok) {
+      document.getElementById('stat-total-errors').textContent = filesRes.error_count || '\u2014';
+      document.getElementById('stat-error-sub').textContent = '7 hari terakhir';
+      renderLogFilesOverview(filesRes.files);
+    }
+  } catch(e) {}
+}
+
+function renderLogFilesOverview(files) {
+  if (!files || files.length === 0) return;
+  const grouped = {};
+  files.forEach(f => {
+    const g = f.dir || 'root';
+    if (!grouped[g]) grouped[g] = [];
+    grouped[g].push(f);
+  });
+  
+  const html = Object.entries(grouped).map(([dir, flist]) => \`
+    <div style="margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#0d6b65;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">
+        <i class="fas fa-folder-open mr-1"></i> \${dir === 'root' ? 'storage/logs/' : 'storage/logs/' + dir + '/'}
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">
+        \${flist.slice(0,20).map(f => \`<span class="tag" title="\${f.name}">\${f.name}</span>\`).join('')}
+        \${flist.length > 20 ? \`<span class="tag" style="color:#64748b">+\${flist.length-20} lainnya</span>\` : ''}
+      </div>
+    </div>
+  \`).join('');
+  document.getElementById('log-files-overview').innerHTML = html;
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   ACTIVITY SECTION
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadActivity() {
+  const date = document.getElementById('act-date').value || todayStr();
+  const type = document.getElementById('act-type').value;
+  const filter = document.getElementById('act-filter').value.toLowerCase();
+
+  // Build filename
+  let filename = '';
+  let dir = 'root';
+  if (type === 'access') { filename = \`access-\${date}.txt\`; }
+  else if (type === 'transfer-AR') { filename = \`transfer-AR-\${date}.txt\`; }
+  else if (type === 'transfer-AB') { filename = \`transfer-AB-\${date}.txt\`; }
+  else if (type === 'tabungan') { filename = \`tabungan-\${date}.txt\`; }
+  else if (type === 'token') { filename = \`token-\${date}.txt\`; }
+
+  document.getElementById('activity-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span> Memuat...</div>';
+
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('activity-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-exclamation-triangle"></i> \${res.error || 'File tidak ditemukan: ' + filename}</div>\`;
+    document.getElementById('badge-act-total').textContent = '0';
+    document.getElementById('badge-act-entries').textContent = '0';
+    return;
+  }
+
+  const entries = parseLogEntries(res.content);
+  const filtered = filter ? entries.filter(e => e.raw.toLowerCase().includes(filter)) : entries;
+  document.getElementById('badge-act-total').textContent = filtered.length;
+  document.getElementById('badge-act-entries').textContent = filtered.length;
+
+  // Hourly chart
+  const hourCounts = Array(24).fill(0);
+  filtered.forEach(e => {
+    const h = parseInt(e.ts.slice(11,13));
+    if (!isNaN(h)) hourCounts[h]++;
+  });
+  renderHourlyChart(hourCounts);
+
+  // Endpoint chart
+  const epCount = {};
+  filtered.forEach(e => {
+    const ep = e.endpoint.split('/').slice(-1)[0] || 'unknown';
+    epCount[ep] = (epCount[ep] || 0) + 1;
+  });
+  renderEndpointChart(epCount);
+
+  // Log list
+  const count = renderLogEntries(filtered, 'activity-log-list', '');
+  if (filtered.length === 0) {
+    document.getElementById('activity-log-list').innerHTML = \`<div class="empty-state"><i class="fas fa-inbox"></i><div>Tidak ada log untuk \${filename}</div></div>\`;
+  }
+}
+
+function renderHourlyChart(data) {
+  const ctx = document.getElementById('chart-hourly').getContext('2d');
+  if (hourlyChart) hourlyChart.destroy();
+  hourlyChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Array.from({length:24}, (_,i) => i+'h'),
+      datasets: [{
+        data,
+        backgroundColor: 'rgba(20,184,166,.6)',
+        borderColor: '#14b8a6',
+        borderWidth: 1,
+        borderRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#475569', font: { size: 9 } }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#475569', font: { size: 9 } }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+
+function renderEndpointChart(data) {
+  const ctx = document.getElementById('chart-endpoint').getContext('2d');
+  if (endpointChart) endpointChart.destroy();
+  const sorted = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  endpointChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: sorted.map(e=>e[0]),
+      datasets: [{ data: sorted.map(e=>e[1]),
+        backgroundColor: ['#14b8a6','#a78bfa','#34d399','#fbbf24','#60a5fa','#f87171','#fb923c','#818cf8'],
+        borderWidth: 1, borderColor: '#0f172a' }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 9 }, boxWidth: 10, padding: 8 } } }
+    }
+  });
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   ACCESS LOGS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadAccessLogs() {
+  const date = document.getElementById('acc-date').value || todayStr();
+  const source = document.getElementById('acc-source').value;
+  const search = document.getElementById('acc-search').value;
+  
+  let filename = \`access-\${date}.txt\`;
+  let dir = source;
+  if (source === 'his') { dir = 'his'; }
+
+  document.getElementById('access-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('access-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-acc-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'access-log-list', search);
+  document.getElementById('badge-acc-count').textContent = count;
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   TRANSFER LOGS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadTransferLogs() {
+  const date = document.getElementById('tr-date').value || todayStr();
+  const type = document.getElementById('tr-type').value;
+  const source = document.getElementById('tr-source').value;
+  const search = document.getElementById('tr-search').value;
+  
+  let filename = '';
+  if (type === 'AR') filename = \`transfer-AR-\${date}.txt\`;
+  else if (type === 'AB') filename = \`transfer-AB-\${date}.txt\`;
+  else filename = \`transfer-in-\${date}.txt\`;
+  let dir = source;
+
+  document.getElementById('transfer-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('transfer-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-tr-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'transfer-log-list', search);
+  document.getElementById('badge-tr-count').textContent = count;
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   TABUNGAN LOGS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadTabunganLogs() {
+  const date = document.getElementById('tab-date').value || todayStr();
+  const search = document.getElementById('tab-search').value;
+  const filename = \`tabungan-\${date}.txt\`;
+
+  document.getElementById('tabungan-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir: 'root' });
+  if (!res.ok) {
+    document.getElementById('tabungan-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-tab-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'tabungan-log-list', search);
+  document.getElementById('badge-tab-count').textContent = count;
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   TOKEN LOGS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadTokenLogs() {
+  const date = document.getElementById('tok-date').value || todayStr();
+  const type = document.getElementById('tok-type').value;
+  const search = document.getElementById('tok-search').value;
+  
+  let filename = '', dir = 'root';
+  if (type === 'root') { filename = \`token-\${date}.txt\`; dir = 'root'; }
+  else { filename = \`request-\${date}.log\`; dir = 'token'; }
+
+  document.getElementById('token-log-list').innerHTML = '<div style="text-align:center;padding:20px;color:#475569"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: filename, dir });
+  if (!res.ok) {
+    document.getElementById('token-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-info-circle"></i> \${res.error || 'File tidak ditemukan'}</div>\`;
+    document.getElementById('badge-tok-count').textContent = '0';
+    return;
+  }
+  const entries = parseLogEntries(res.content);
+  const count = renderLogEntries(entries, 'token-log-list', search);
+  document.getElementById('badge-tok-count').textContent = count;
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   STATISTICS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadStats() {
+  document.getElementById('stats-files-body').innerHTML = '<tr><td colspan="4" style="text-align:center;padding:16px"><span class="spinner"></span></td></tr>';
+  const res = await callAdmin({ op: 'list-logs' });
+  if (!res.ok) return;
+  
+  // Files table
+  const filesHtml = (res.files || []).map(f => \`
+    <tr>
+      <td class="mono">\${f.name}</td>
+      <td><span class="tag">\${f.dir}</span></td>
+      <td class="mono">\${f.size_kb ? f.size_kb + ' KB' : '\u2014'}</td>
+      <td><span class="badge-pill badge-info">\${f.entries || '\u2014'}</span></td>
+    </tr>
+  \`).join('');
+  document.getElementById('stats-files-body').innerHTML = filesHtml || '<tr><td colspan="4" style="text-align:center;color:#475569">Tidak ada file</td></tr>';
+
+  // Endpoint stats
+  if (res.endpoints) {
+    const sorted = Object.entries(res.endpoints).sort((a,b)=>b[1]-a[1]).slice(0,15);
+    const max = sorted[0]?.[1] || 1;
+    document.getElementById('stats-endpoints').innerHTML = sorted.map(([ep, cnt]) => \`
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px">
+        <div style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace;color:#a5b4fc" title="\${ep}">\${ep}</div>
+        <div style="background:#14b8a6;height:6px;border-radius:3px;width:\${Math.round(cnt/max*120)}px;flex-shrink:0"></div>
+        <div style="color:#5eead4;font-weight:700;min-width:30px;text-align:right">\${cnt}</div>
+      </div>
+    \`).join('') || '<div style="color:#475569;text-align:center;padding:20px">Belum ada data</div>';
+  }
+
+  // Daily chart
+  if (res.daily) renderDailyChart(res.daily);
+}
+
+function renderDailyChart(data) {
+  const ctx = document.getElementById('chart-daily').getContext('2d');
+  if (dailyChart) dailyChart.destroy();
+  const sorted = Object.entries(data).sort((a,b)=>a[0].localeCompare(b[0])).slice(-30);
+  dailyChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: sorted.map(e=>e[0].slice(5)),
+      datasets: [{
+        data: sorted.map(e=>e[1]),
+        borderColor: '#14b8a6', backgroundColor: 'rgba(20,184,166,.1)',
+        borderWidth: 2, pointRadius: 2, fill: true, tension: 0.4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#475569', font: { size: 9 }, maxRotation: 45 }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#475569', font: { size: 9 } }, grid: { color: '#1e293b' } }
+      }
+    }
+  });
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   ERROR LOGS
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function loadErrors() {
+  const level = document.getElementById('err-level').value;
+  const search = document.getElementById('err-search').value;
+
+  document.getElementById('error-log-list').innerHTML = '<div style="text-align:center;padding:20px"><span class="spinner"></span></div>';
+  
+  const res = await callAdmin({ op: 'read-log', path: 'laravel.log', dir: 'root' });
+  if (!res.ok) {
+    document.getElementById('error-log-list').innerHTML = \`<div class="info-box info-red"><i class="fas fa-times-circle"></i> \${res.error || 'Gagal membaca laravel.log'}</div>\`;
+    return;
+  }
+
+  // Parse laravel log blocks (each starts with [date])
+  const raw = res.content || '';
+  const blocks = raw.split(/(?=\\[\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}\\])/);
+  
+  let filtered = blocks.filter(b => {
+    if (!b.trim()) return false;
+    if (level !== 'all' && !b.toLowerCase().includes('local.' + level.toLowerCase())) return false;
+    if (search && !b.toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+
+  document.getElementById('badge-err-count').textContent = filtered.length;
+  
+  if (filtered.length === 0) {
+    document.getElementById('error-log-list').innerHTML = '<div class="empty-state"><i class="fas fa-check-circle" style="color:#34d399"></i><div>Tidak ada error ditemukan</div></div>';
+    return;
+  }
+
+  document.getElementById('error-log-list').innerHTML = filtered.slice(-100).reverse().map((block, i) => {
+    const ts = fmtTime(block);
+    const isErr = block.toLowerCase().includes('local.error');
+    const isWarn = block.toLowerCase().includes('local.warning');
+    const cls = isErr ? 'badge-err' : isWarn ? 'badge-warn' : 'badge-info';
+    const levelText = isErr ? 'ERROR' : isWarn ? 'WARNING' : 'INFO';
+    const preview = block.trim().slice(0,120).replace(/\\n/g,' ');
+    return \`<div class="log-entry">
+      <div class="log-entry-header" onclick="toggleLog(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+          <span class="badge-pill \${cls}">\${levelText}</span>
+          <span style="font-family:monospace;font-size:10px;color:#94a3b8;white-space:nowrap">\${ts}</span>
+          <span style="font-size:11px;color:#cbd5e1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">\${escH(preview)}</span>
+        </div>
+        <i class="fas fa-chevron-down" style="color:#334155;font-size:10px;flex-shrink:0;margin-left:8px"></i>
+      </div>
+      <div class="log-entry-body"><pre>\${escH(block.trim())}</pre></div>
+    </div>\`;
+  }).join('');
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   CRYPTO TEST
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+async function cryptoTest(op) {
+  const resultId = 'result-' + op;
+  const el = document.getElementById(resultId);
+  el.style.display = 'block';
+  el.innerHTML = '<span class="spinner"></span> Memproses...';
+  
+  let payload = { op };
+  if (op === 'keygen') {
+    payload.clientID = document.getElementById('cto-clientid').value;
+    payload.timestamp = document.getElementById('cto-ts').value;
+    if (!payload.timestamp) {
+      const tsRes = await callCrypto({ op: 'timestamp' });
+      payload.timestamp = tsRes.result?.jakarta || '';
+    }
+  } else if (op === 'did-encode') {
+    payload.clientID = document.getElementById('cto-did-cid').value;
+    payload.timestamp = document.getElementById('cto-did-ts').value;
+    if (!payload.timestamp) {
+      const tsRes = await callCrypto({ op: 'timestamp' });
+      payload.timestamp = tsRes.result?.jakarta || '';
+    }
+  } else if (op === 'signature') {
+    payload.aesCs = document.getElementById('cto-sig-cs').value;
+    payload.clientIdEnc = document.getElementById('cto-sig-cid').value;
+  }
+  
+  try {
+    const res = await callCrypto(payload);
+    el.innerHTML = \`<div style="background:#020617;border:1px solid #1e293b;border-radius:6px;padding:10px;font-size:11px;font-family:monospace;color:#a5f3fc;overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto">\${JSON.stringify(res, null, 2)}</div>\`;
+  } catch(e) {
+    el.innerHTML = \`<div class="info-box info-red"><i class="fas fa-times-circle"></i> Error: \${e.message}</div>\`;
+  }
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   TRANSAKSI \u2014 STATE
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+const TRX = {
+  baseUrl: '',
+  clientIdRaw: '',
+  clientIdEnc: '',
+  aesKey: '',
+  aesIv: '',
+  aesCs: '',
+  sessionTs: '',
+  loggedIn: false,
+  postingRef: '',        // stored ref after inquiry for posting
+  bankHashCode: '',      // hash_code from bank inquiry
+  // iOS token management (expire 3 menit di gmob_token DB)
+  iosToken: '',          // token dari /smart/access-token (disimpan di gmob_token)
+  tokenFetchedAt: 0,     // timestamp saat token diambil (ms)
+  TOKEN_TTL: 150_000,    // 150 detik (safety margin dari 180s expiry)
+};
+
+// Update status token di UI
+function trxUpdateTokenStatus() {
+  const el = document.getElementById('trx-token-status');
+  if (!el) return;
+  if (!TRX.iosToken) {
+    el.innerHTML = '<span class="badge-pill badge-err">Belum ada token</span>';
+    return;
+  }
+  const age  = Date.now() - TRX.tokenFetchedAt;
+  const remaining = Math.max(0, Math.ceil((TRX.TOKEN_TTL - age) / 1000));
+  if (remaining <= 0) {
+    el.innerHTML = '<span class="badge-pill badge-err">Token kadaluarsa \u2014 akan diperbarui otomatis</span>';
+  } else {
+    el.innerHTML = \`<span class="badge-pill badge-ok">Token aktif (~\${remaining}s)</span> <span style="font-size:9px;font-family:monospace;color:#475569">\${TRX.iosToken.slice(0,20)}...</span>\`;
+  }
+}
+
+// Set token iOS manual (digunakan jika auto-fetch gagal, misal server LPD sedang maintenance)
+function trxSetManualToken() {
+  const tokenInput = document.getElementById('trx-ios-token-manual') as HTMLInputElement;
+  const token = tokenInput ? tokenInput.value.trim() : '';
+  if (!token) { alert('Token tidak boleh kosong'); return; }
+  TRX.iosToken = token;
+  TRX.tokenFetchedAt = Date.now();
+  trxUpdateTokenStatus();
+  tokenInput.value = '';
+  trxLog([{ key: 'Manual Token', value: token.slice(0,30)+'...' }]);
+  if (!trxTokenRefreshTimer) trxStartTokenRefresh();
+  trxResultEl('trx-setup-result', '\u2713 Token manual berhasil diset. Sesi siap digunakan.', false);
+}
+
+// Ambil fresh iOS token dari server LPD (otomatis sebelum setiap transaksi)
+async function trxGetFreshToken(force = false) {
+  const sess = trxGetSession();
+  if (!sess.clientIdEnc) return null;
+  const age = Date.now() - TRX.tokenFetchedAt;
+  // Pakai token yang ada jika masih valid
+  if (!force && TRX.iosToken && age < TRX.TOKEN_TTL) {
+    trxUpdateTokenStatus();
+    return TRX.iosToken;
+  }
+  // Ambil token baru
+  const el = document.getElementById('trx-token-status');
+  if (el) el.innerHTML = '<span class="badge-pill badge-warn"><span class="spinner" style="width:10px;height:10px;border-width:1px"></span> Mengambil token baru...</span>';
+  
+  const res = await fetch('/api/smart/get-ios-token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ baseUrl: sess.baseUrl, clientIdEnc: sess.clientIdEnc, aesCs: sess.aesCs })
+  }).then(r => r.json()).catch(e => ({ ok: false, error: e.message }));
+  
+  if (res.ok && res.token) {
+    TRX.iosToken = res.token;
+    TRX.tokenFetchedAt = Date.now();
+    trxUpdateTokenStatus();
+    return res.token;
+  }
+  if (el) el.innerHTML = \`<span class="badge-pill badge-err">Gagal ambil token: \${res.error || '?'}</span>\`;
+  return null;
+}
+
+function trxLog(items) {
+  if (!Array.isArray(items)) items = [items];
+  const now = new Date();
+  const ts = now.toLocaleTimeString('id-ID');
+  items.forEach(entry => {
+    if (typeof entry === 'string') {
+      TRX_HISTORY.push({ ts, text: entry });
+    } else {
+      TRX_HISTORY.push({ ts, ...entry });
+    }
+  });
+}
+const TRX_HISTORY = [];
+
+function trxShowOp(op) {
+  document.querySelectorAll('.trx-op-panel').forEach(el => el.style.display = 'none');
+  const el = document.getElementById('trx-op-' + op);
+  if (el) el.style.display = 'block';
+}
+
+function trxResultEl(id, html, isErr) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'block';
+  const cls = isErr ? 'info-red' : 'info-teal';
+  el.innerHTML = \`<div class="info-box \${cls}" style="font-family:monospace;font-size:11px;white-space:pre-wrap;word-break:break-all">\${html}</div>\`;
+}
+
+function trxJsonBox(id, obj, ok) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'block';
+  const color = ok ? '#a7f3d0' : '#fca5a5';
+  el.innerHTML = \`<div style="background:#020617;border:1px solid #1e293b;border-radius:6px;padding:10px;font-size:11px;font-family:monospace;color:\${color};white-space:pre-wrap;word-break:break-all;max-height:300px;overflow-y:auto">\${escH(JSON.stringify(obj, null, 2))}</div>\`;
+}
+
+function trxSpin(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display = 'block'; el.innerHTML = '<div style="text-align:center;padding:10px"><span class="spinner"></span></div>'; }
+}
+
+async function trxAutoSetup() {
+  const clientId = document.getElementById('trx-clientid').value.trim();
+  if (!clientId) { alert('Client ID harus diisi'); return; }
+  
+  trxSpin('trx-setup-result');
+
+  // 1. Get timestamp
+  const tsRes = await callCrypto({ op: 'timestamp' });
+  if (!tsRes.ok) { trxResultEl('trx-setup-result', 'Gagal get timestamp: ' + (tsRes.error||'?'), true); return; }
+  const ts = tsRes.result?.jakarta || '';
+  document.getElementById('trx-session-ts').value = ts;
+
+  // 2. Derive AES keys
+  const kgRes = await callCrypto({ op: 'keygen', clientID: clientId, timestamp: ts });
+  if (!kgRes.ok) { trxResultEl('trx-setup-result', 'Gagal keygen: ' + (kgRes.error||'?'), true); return; }
+  const keys = kgRes.result || {};
+  document.getElementById('trx-aeskey').value = keys.aesKey || '';
+  document.getElementById('trx-aesiv').value  = keys.aesIv || '';
+  document.getElementById('trx-aescs').value  = keys.aesCs || '';
+
+  // 3. Encode X-CLIENT-ID
+  const didRes = await callCrypto({ op: 'did-encode', clientID: clientId, timestamp: ts });
+  if (!didRes.ok) { trxResultEl('trx-setup-result', 'Gagal DID encode: ' + (didRes.error||'?'), true); return; }
+  const enc = didRes.result?.encoded || '';
+  document.getElementById('trx-clientid-enc').value = enc;
+
+  // Store into TRX state
+  TRX.baseUrl      = document.getElementById('trx-baseurl').value.trim();
+  TRX.clientIdRaw  = clientId;
+  TRX.clientIdEnc  = enc;
+  TRX.aesKey       = keys.aesKey || '';
+  TRX.aesIv        = keys.aesIv  || '';
+  TRX.aesCs        = keys.aesCs  || '';
+  TRX.sessionTs    = ts;
+
+  document.getElementById('trx-session-badge').textContent = 'Aktif \u2713';
+  document.getElementById('trx-session-badge').style.background = '#022c22';
+  document.getElementById('trx-session-badge').style.color = '#34d399';
+
+  // 4. Auto-fetch iOS token dari server LPD
+  const tokenStatusEl = document.getElementById('trx-token-status');
+  if (tokenStatusEl) tokenStatusEl.innerHTML = '<span class="badge-pill badge-warn"><span class="spinner" style="width:10px;height:10px;border-width:1px"></span> Mengambil iOS token...</span>';
+  const tokenRes = await fetch('/api/smart/get-ios-token', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ baseUrl: TRX.baseUrl, clientIdEnc: enc, aesCs: keys.aesCs || '' })
+  }).then(r => r.json()).catch(e => ({ ok: false, error: e.message }));
+
+  let tokenInfo = '';
+  if (tokenRes.ok && tokenRes.token) {
+    TRX.iosToken = tokenRes.token;
+    TRX.tokenFetchedAt = Date.now();
+    trxUpdateTokenStatus();
+    tokenInfo = \`\\n  iOS Token  : \${tokenRes.token.slice(0,20)}... (aktif ~\${tokenRes.expiresIn||180}s)\`;
+  } else {
+    if (tokenStatusEl) tokenStatusEl.innerHTML = \`<span class="badge-pill badge-err">Token gagal: \${tokenRes.error||'?'}</span>\`;
+    tokenInfo = \`\\n  iOS Token  : GAGAL (\${tokenRes.error||'?'}) \u2014 coba Refresh Token manual\`;
+  }
+
+  trxResultEl('trx-setup-result', \`\u2713 Sesi siap\\n  Timestamp  : \${ts}\\n  Client ID  : \${clientId}\\n  AES Key    : \${keys.aesKey?.slice(0,20)}...\\n  AES IV     : \${keys.aesIv?.slice(0,20)}...\\n  AES CS     : \${keys.aesCs}\\n  X-CLIENT-ID: \${enc?.slice(0,30)}...\${tokenInfo}\`, false);
+
+  // Start timer to refresh token periodically
+  trxStartTokenRefresh();
+}
+
+let trxTokenRefreshTimer = null;
+function trxStartTokenRefresh() {
+  if (trxTokenRefreshTimer) clearInterval(trxTokenRefreshTimer);
+  // Update status display every 10 seconds
+  trxTokenRefreshTimer = setInterval(() => {
+    trxUpdateTokenStatus();
+    // Auto-refresh token saat tinggal 20 detik
+    const age = Date.now() - TRX.tokenFetchedAt;
+    if (TRX.iosToken && age > (TRX.TOKEN_TTL - 20_000)) {
+      trxGetFreshToken(true);
+    }
+  }, 10_000);
+}
+
+async function trxLogin() {
+  const un = document.getElementById('trx-username').value.trim();
+  const pw = document.getElementById('trx-password').value.trim();
+  if (!un || !pw) { alert('Username dan password harus diisi'); return; }
+  if (!TRX.clientIdEnc && !document.getElementById('trx-clientid-enc').value.trim()) {
+    alert('Lakukan Auto Setup sesi terlebih dahulu');
+    return;
+  }
+  // Allow manual override
+  TRX.clientIdEnc = document.getElementById('trx-clientid-enc').value.trim() || TRX.clientIdEnc;
+  TRX.aesKey = document.getElementById('trx-aeskey').value.trim() || TRX.aesKey;
+  TRX.aesIv  = document.getElementById('trx-aesiv').value.trim()  || TRX.aesIv;
+  TRX.aesCs  = document.getElementById('trx-aescs').value.trim()  || TRX.aesCs;
+  TRX.baseUrl = document.getElementById('trx-baseurl').value.trim();
+
+  trxSpin('trx-login-result');
+  // Login butuh iosToken yang valid di server DB
+  const freshToken = await trxGetFreshToken();
+  const res = await fetch('/api/smart', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      action: 'login',
+      baseUrl: TRX.baseUrl,
+      clientIdEnc: TRX.clientIdEnc,
+      aesKey: TRX.aesKey,
+      aesIv: TRX.aesIv,
+      aesCs: TRX.aesCs,
+      iosToken: freshToken || '',
+      user_name: un,
+      user_pass: pw,
+    })
+  }).then(r=>r.json()).catch(e=>({ok:false,error:e.message}));
+
+  const ok = res.ok === true;
+  TRX.loggedIn = ok;
+  if (ok && res.nasabah) {
+    const nb = res.nasabah;
+    const nama = nb.nama || nb.accounts?.[0]?.nama || un;
+    document.getElementById('trx-login-badge').textContent = \`\${nama} \u2713\`;
+    document.getElementById('trx-login-badge').style.background = '#022c22';
+    document.getElementById('trx-login-badge').style.color = '#34d399';
+    trxLog({ action: 'login', user: un, nama, ts: new Date().toISOString(), ok: true });
+    // Tampilkan info nasabah lengkap
+    trxShowNasabahInfo(nb, un);
+  } else if (ok) {
+    document.getElementById('trx-login-badge').textContent = \`Login: \${un} \u2713\`;
+    document.getElementById('trx-login-badge').style.background = '#022c22';
+    document.getElementById('trx-login-badge').style.color = '#34d399';
+  } else {
+    const errMsg = res.result?.message || res.error || 'Username/password salah';
+    document.getElementById('trx-login-badge').textContent = 'Gagal login';
+    document.getElementById('trx-login-badge').style.background = '#2d0000';
+    document.getElementById('trx-login-badge').style.color = '#f87171';
+    trxJsonBox('trx-login-result', res, false);
+    return;
+  }
+  trxJsonBox('trx-login-result', res, ok);
+}
+
+function fmtRupiah(s) {
+  const n = parseFloat(String(s).replace(/[^0-9.-]/g, ''));
+  if (isNaN(n)) return s || '\u2014';
+  return 'Rp ' + n.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function trxShowNasabahInfo(nb, username) {
+  const panel = document.getElementById('trx-nasabah-panel');
+  if (!panel) return;
+  panel.style.display = 'block';
+
+  const accounts = nb.accounts || [];
+  const nama = nb.nama || accounts[0]?.nama || username;
+  const firstNorek = accounts[0]?.norek || '';
+
+  // Auto-isi field rekening di semua form transaksi
+  if (firstNorek) {
+    ['trx-cs-norek','trx-tlpd-from','trx-tbank-from'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && !el.value) el.value = firstNorek;
+    });
+  }
+
+  document.getElementById('trx-nb-nama').textContent = nama;
+  document.getElementById('trx-nb-user').textContent = username;
+  document.getElementById('trx-nb-rekcount').textContent = accounts.length + ' rekening';
+
+  const tbody = document.getElementById('trx-nb-accounts');
+  if (!tbody) return;
+  if (accounts.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="padding:12px;text-align:center;color:#475569">Tidak ada rekening ditemukan</td></tr>';
+    return;
+  }
+  tbody.innerHTML = accounts.map((acc, i) => \`
+    <tr>
+      <td class="mono" style="cursor:pointer" onclick="trxCopyNorek('\${escH(acc.norek)}')" title="Klik untuk salin">
+        \${escH(acc.norek)} <i class="fas fa-copy" style="font-size:9px;color:#475569;margin-left:4px"></i>
+      </td>
+      <td>\${escH(acc.nama)}</td>
+      <td>\${escH(acc.produk)}</td>
+      <td style="text-align:right;font-weight:700;color:\${acc.saldo && parseFloat(acc.saldo)>0?'#34d399':'#94a3b8'}">\${fmtRupiah(acc.saldo)}</td>
+      <td>
+        <button class="btn btn-secondary btn-sm" onclick="trxUseNorek('\${escH(acc.norek)}')">
+          <i class="fas fa-hand-point-right"></i> Pakai
+        </button>
+      </td>
+    </tr>
+  \`).join('');
+}
+
+function trxCopyNorek(norek) {
+  navigator.clipboard?.writeText(norek).then(() => {
+    // Brief feedback
+    const el = event.target.closest('td');
+    if (el) { el.style.color = '#34d399'; setTimeout(() => el.style.color = '', 800); }
+  });
+}
+
+function trxUseNorek(norek) {
+  // Isi ke field rekening sumber semua form yang aktif
+  ['trx-cs-norek','trx-tlpd-from','trx-tbank-from'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = norek;
+  });
+  // Highlight field yang terisi
+  document.querySelectorAll('.trx-op-panel:not([style*="display: none"]) input').forEach(el => {
+    if (el.value === norek) { el.style.borderColor = '#14b8a6'; setTimeout(() => el.style.borderColor='', 1500); }
+  });
+}
+
+function trxGetSession() {
+  // Allow manual override from input fields
+  return {
+    baseUrl:     document.getElementById('trx-baseurl').value.trim()      || TRX.baseUrl,
+    clientIdEnc: document.getElementById('trx-clientid-enc').value.trim() || TRX.clientIdEnc,
+    aesKey:      document.getElementById('trx-aeskey').value.trim()       || TRX.aesKey,
+    aesIv:       document.getElementById('trx-aesiv').value.trim()        || TRX.aesIv,
+    aesCs:       document.getElementById('trx-aescs').value.trim()        || TRX.aesCs,
+  };
+}
+
+async function trxExec(action) {
+  const sess = trxGetSession();
+  if (!sess.clientIdEnc) { alert('Setup sesi terlebih dahulu (langkah 1)'); return; }
+
+  const resultId = 'trx-result-' + action;
+  trxSpin(resultId);
+
+  // Auto-refresh iOS token sebelum setiap request (token expire 3 menit di server)
+  const freshToken = await trxGetFreshToken();
+  if (!freshToken) {
+    trxResultEl(resultId, '\u274C Gagal mendapatkan iOS token dari server LPD.
+Pastikan:
+1. Auto Setup sesi sudah dijalankan
+2. Koneksi ke server LPD aktif
+3. IP whitelist terdaftar di server', true);
+    return;
+  }
+
+  let payload = { action, ...sess, iosToken: freshToken };
+
+  // Build payload per action
+  if (action === 'cek-saldo') {
+    payload.no_rek = document.getElementById('trx-cs-norek').value.trim();
+    if (!payload.no_rek) { trxResultEl(resultId, 'Nomor rekening harus diisi', true); return; }
+
+  } else if (action === 'account-list') {
+    payload.customer_id = document.getElementById('trx-al-custid').value.trim();
+
+  } else if (action === 'mutasi-history') {
+    payload.customer_id = document.getElementById('trx-mu-custid').value.trim();
+    payload.no_rek      = document.getElementById('trx-mu-norek').value.trim();
+    payload.tgl_awal    = document.getElementById('trx-mu-tglawal').value;
+    payload.tgl_akhir   = document.getElementById('trx-mu-tglakhir').value;
+
+  } else if (action === 'transaction-history') {
+    payload.no_rek    = document.getElementById('trx-mu-norek').value.trim();
+    payload.tgl_awal  = document.getElementById('trx-mu-tglawal').value;
+    payload.tgl_akhir = document.getElementById('trx-mu-tglakhir').value;
+
+  } else if (action === 'transfer-lpd-check') {
+    payload.no_rek_tujuan = document.getElementById('trx-tlpd-to').value.trim();
+    if (!payload.no_rek_tujuan) { trxResultEl(resultId, 'Nomor rekening tujuan harus diisi', true); return; }
+
+  } else if (action === 'transfer-lpd-inquiry') {
+    payload.no_rek_from  = document.getElementById('trx-tlpd-from').value.trim();
+    payload.no_rek_to    = document.getElementById('trx-tlpd-to').value.trim();
+    payload.nama_tujuan  = document.getElementById('trx-tlpd-name').value.trim();
+    payload.nominal      = document.getElementById('trx-tlpd-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan   = document.getElementById('trx-tlpd-ket').value.trim();
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.nominal) {
+      trxResultEl(resultId, 'Rekening sumber, tujuan, dan nominal harus diisi', true); return;
+    }
+
+  } else if (action === 'transfer-lpd-posting') {
+    payload.no_rek_from  = document.getElementById('trx-tlpd-from').value.trim();
+    payload.no_rek_to    = document.getElementById('trx-tlpd-to').value.trim();
+    payload.nama_tujuan  = document.getElementById('trx-tlpd-name').value.trim();
+    payload.nominal      = document.getElementById('trx-tlpd-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan   = document.getElementById('trx-tlpd-ket').value.trim();
+    if (TRX.postingRef) payload.transNo = TRX.postingRef;
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.nominal) {
+      trxResultEl(resultId, 'Rekening sumber, tujuan, dan nominal harus diisi', true); return;
+    }
+
+  } else if (action === 'transfer-bank-check') {
+    payload.no_rek_tujuan = document.getElementById('trx-tbank-to').value.trim();
+    payload.kode_bank     = document.getElementById('trx-tbank-kode').value.trim();
+    if (!payload.no_rek_tujuan || !payload.kode_bank) { trxResultEl(resultId, 'Nomor rekening dan kode bank harus diisi', true); return; }
+
+  } else if (action === 'transfer-bank-inquiry') {
+    payload.no_rek_from = document.getElementById('trx-tbank-from').value.trim();
+    payload.no_rek_to   = document.getElementById('trx-tbank-to').value.trim();
+    payload.kode_bank   = document.getElementById('trx-tbank-kode').value.trim();
+    payload.nominal     = document.getElementById('trx-tbank-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan  = document.getElementById('trx-tbank-ket').value.trim();
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.kode_bank || !payload.nominal) {
+      trxResultEl(resultId, 'Semua field transfer bank harus diisi', true); return;
+    }
+
+  } else if (action === 'transfer-bank-posting') {
+    payload.no_rek_from = document.getElementById('trx-tbank-from').value.trim();
+    payload.no_rek_to   = document.getElementById('trx-tbank-to').value.trim();
+    payload.kode_bank   = document.getElementById('trx-tbank-kode').value.trim();
+    payload.nominal     = document.getElementById('trx-tbank-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan  = document.getElementById('trx-tbank-ket').value.trim();
+    if (TRX.postingRef)   payload.transNo  = TRX.postingRef;
+    if (TRX.bankHashCode) payload.hash_code = TRX.bankHashCode;
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.kode_bank || !payload.nominal) {
+      trxResultEl(resultId, 'Semua field transfer bank harus diisi', true); return;
+    }
+  }
+
+  const res = await fetch('/api/smart', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).then(r=>r.json()).catch(e=>({ok:false,error:e.message}));
+
+  const ok = res.ok !== false;
+
+  // Store ref for posting
+  if (action === 'transfer-lpd-inquiry' && res.debug?.ref) TRX.postingRef = res.debug.ref;
+  if (action === 'transfer-bank-inquiry') {
+    if (res.debug?.ref) TRX.postingRef = res.debug.ref;
+    const bc = res.result?.data?.hash_code || res.result?.hash_code || '';
+    if (bc) TRX.bankHashCode = bc;
+  }
+  if (action === 'logout' && ok) {
+    TRX.loggedIn = false;
+    document.getElementById('trx-login-badge').textContent = 'Belum login';
+    document.getElementById('trx-login-badge').style.background = '#134e4a';
+    document.getElementById('trx-login-badge').style.color = '#5eead4';
+  }
+
+  trxLog({ action, ok, ts: new Date().toISOString() });
+  trxJsonBox(resultId, res, ok);
+}
+
+async function trxConfirmPosting(action) {
+  const label = action === 'transfer-lpd-posting' ? 'Transfer LPD' : 'Transfer Bank';
+  const nomEl = action === 'transfer-lpd-posting' 
+    ? document.getElementById('trx-tlpd-nominal')
+    : document.getElementById('trx-tbank-nominal');
+  const nom = nomEl ? nomEl.value.trim().replace(/[^0-9]/g,'') : '?';
+  const fmtNom = new Intl.NumberFormat('id-ID').format(parseInt(nom)||0);
+  
+  const ok = confirm(\`Konfirmasi Posting\\n\\nAksi: \${label}\\nNominal: Rp \${fmtNom}\\n\\nApakah Anda yakin ingin melanjutkan?\`);
+  if (ok) await trxExec(action);
+}
+
+async function loadTrxHistory() {
+  const type   = document.getElementById('th-type').value;
+  const date   = document.getElementById('th-date').value || todayStr();
+  const search = document.getElementById('th-search').value.trim();
+  
+  const dir  = (type === 'access' || type === 'tabungan') ? 'root' : 'root';
+  const file = \`\${type}-\${date}.txt\`;
+  
+  document.getElementById('th-log-list').innerHTML = '<div style="text-align:center;padding:20px"><span class="spinner"></span></div>';
+
+  const res = await callAdmin({ op: 'read-log', path: file, dir });
+  if (!res.ok) {
+    document.getElementById('th-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-exclamation-triangle"></i> \${res.error || 'File tidak ditemukan: '+file}</div>\`;
+    document.getElementById('th-count').textContent = '0';
+    return;
+  }
+
+  const entries = parseLogEntries(res.content || '');
+  const cnt = renderLogEntries(entries, 'th-log-list', search);
+  document.getElementById('th-count').textContent = String(cnt);
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   REFRESH ALL
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+function refreshAll() {
+  const active = document.querySelector('.section.active');
+  if (active?.id === 'section-dashboard') loadDashboard();
+  else if (active?.id === 'section-stats') loadStats();
+  else if (active?.id === 'section-errors') loadErrors();
+  else if (active?.id === 'section-activity') loadActivity();
+  else if (active?.id === 'section-logs-access') loadAccessLogs();
+  else if (active?.id === 'section-logs-transfer') loadTransferLogs();
+  else if (active?.id === 'section-logs-tabungan') loadTabunganLogs();
+  else if (active?.id === 'section-logs-token') loadTokenLogs();
+  else if (active?.id === 'section-trx-history') loadTrxHistory();
+}
+
+/* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   INIT
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+window.addEventListener('DOMContentLoaded', () => {
+  // Set default dates
+  const today = todayStr();
+  ['act-date','acc-date','tr-date','tab-date','tok-date','th-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = today;
+  });
+  // Set trx mutasi default dates
+  const tglawal  = document.getElementById('trx-mu-tglawal');
+  const tglakhir = document.getElementById('trx-mu-tglakhir');
+  if (tglawal)  tglawal.value  = today;
+  if (tglakhir) tglakhir.value = today;
+  
+  updateClock();
+  setInterval(updateClock, 10000);
+  loadDashboard();
+});
+<\/script>
+</body>
+</html>`;
+}
+__name(ja, "ja");
+var Ht = `-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQD3KiZu/RXRO+R/
 onutm7eR205pKykTggG7rWQyCJj/bMK6IqxESOHjO8Y4quWPnQCnO+TKwENJzrKj
 z8S91zQgoHSfYYc2mJ5Rs93bUzvO5csPbzzQ+JwKxu3aFgvjDl4UxP6qmBf+dXC1
@@ -5006,7 +7002,7 @@ LIU0rIaMxiyLBc2bDtFLUSmSfvOA83BZCRN452obnM3pgQYTD5/AvultHlJwraVL
 1O9CH97AwrE9TUsc+hlrIVGGZFUHfZr2Buj5TZUFOR+/gKszBcgpvROwnqklTsId
 tZ4umdUY0ubwdxMbJQU3S2pX2A==
 -----END PRIVATE KEY-----`;
-var Ht = `-----BEGIN PRIVATE KEY-----
+var za = `-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDLhEUdMTZ3/dJz
 FEE5zvwulheeHaoLI9WxPB9Xm4tnKMWWn0aS0EtNZWyAU9HQV6VEY0JoE4f8f3g6
 hMkdMcmN37eUJ7imef3HIBenVQNUZnyABIOAdLuaetClNlWm5944+H+BZFnpudCO
@@ -5034,431 +7030,608 @@ VTllOVESELjc6V6OWo0mBnKXylQ4j/ps7kY9Imz7jpyi22dtLfqwzirmi/lsIERv
 MswoO11LenV8bbIamN/vBfLJKKYGen+lOerjBDSJhIWyPN1VrczVKm5Y0bGP4qgy
 Utb/zmklYi3CbDFQwlX02oS4bQ==
 -----END PRIVATE KEY-----`;
-var Ve = "p91wrswK";
-function ne(e) {
-  const a = e.replace(/-/g, "+").replace(/_/g, "/"), t = a.padEnd(a.length + (4 - a.length % 4) % 4, "="), s = atob(t);
-  return Uint8Array.from(s, (n) => n.charCodeAt(0));
+var Qe = "p91wrswK";
+function pe(e) {
+  if (!e || typeof e != "string") return new Uint8Array(0);
+  const t = e.replace(/-/g, "+").replace(/_/g, "/"), a = t.padEnd(t.length + (4 - t.length % 4) % 4, "=");
+  try {
+    const s = atob(a);
+    return Uint8Array.from(s, (i) => i.charCodeAt(0));
+  } catch {
+    return new Uint8Array(0);
+  }
 }
-__name(ne, "ne");
-__name2(ne, "ne");
-function ie(e) {
+__name(pe, "pe");
+function ue(e) {
   return btoa(String.fromCharCode(...new Uint8Array(e)));
 }
-__name(ie, "ie");
-__name2(ie, "ie");
-function Ee(e) {
-  return Array.from(new Uint8Array(e)).map((a) => a.toString(16).padStart(2, "0")).join("");
+__name(ue, "ue");
+function Re(e) {
+  return Array.from(new Uint8Array(e)).map((t) => t.toString(16).padStart(2, "0")).join("");
 }
-__name(Ee, "Ee");
-__name2(Ee, "Ee");
-function G(e) {
+__name(Re, "Re");
+function W(e) {
   return new TextEncoder().encode(e);
 }
-__name(G, "G");
-__name2(G, "G");
-function Kt(e) {
-  function a(y, u) {
-    const x = (y & 65535) + (u & 65535);
-    return (y >> 16) + (u >> 16) + (x >> 16) << 16 | x & 65535;
-  }
-  __name(a, "a");
-  __name2(a, "a");
-  function t(y, u) {
-    return y << u | y >>> 32 - u;
+__name(W, "W");
+function Ka(e) {
+  function t(y, p) {
+    const w = (y & 65535) + (p & 65535);
+    return (y >> 16) + (p >> 16) + (w >> 16) << 16 | w & 65535;
   }
   __name(t, "t");
-  __name2(t, "t");
-  function s(y, u, x, v, C, T) {
-    return a(t(a(a(u, y), a(v, T)), C), x);
+  function a(y, p) {
+    return y << p | y >>> 32 - p;
+  }
+  __name(a, "a");
+  function s(y, p, w, v, I, S) {
+    return t(a(t(t(p, y), t(v, S)), I), w);
   }
   __name(s, "s");
-  __name2(s, "s");
-  function n(y, u, x, v, C, T, k) {
-    return s(u & x | ~u & v, y, u, C, T, k);
-  }
-  __name(n, "n");
-  __name2(n, "n");
-  function i(y, u, x, v, C, T, k) {
-    return s(u & v | x & ~v, y, u, C, T, k);
+  function i(y, p, w, v, I, S, x) {
+    return s(p & w | ~p & v, y, p, I, S, x);
   }
   __name(i, "i");
-  __name2(i, "i");
-  function o(y, u, x, v, C, T, k) {
-    return s(u ^ x ^ v, y, u, C, T, k);
+  function n(y, p, w, v, I, S, x) {
+    return s(p & v | w & ~v, y, p, I, S, x);
+  }
+  __name(n, "n");
+  function r(y, p, w, v, I, S, x) {
+    return s(p ^ w ^ v, y, p, I, S, x);
+  }
+  __name(r, "r");
+  function o(y, p, w, v, I, S, x) {
+    return s(w ^ (p | ~v), y, p, I, S, x);
   }
   __name(o, "o");
-  __name2(o, "o");
-  function d(y, u, x, v, C, T, k) {
-    return s(x ^ (u | ~v), y, u, C, T, k);
-  }
-  __name(d, "d");
-  __name2(d, "d");
-  function p(y) {
-    const u = [];
-    for (let x = 0; x < y.length; x++) {
-      const v = y.charCodeAt(x);
-      v < 128 ? u.push(v) : v < 2048 ? u.push(v >> 6 | 192, v & 63 | 128) : v < 65536 ? u.push(v >> 12 | 224, v >> 6 & 63 | 128, v & 63 | 128) : u.push(v >> 18 | 240, v >> 12 & 63 | 128, v >> 6 & 63 | 128, v & 63 | 128);
+  function l(y) {
+    const p = [];
+    for (let w = 0; w < y.length; w++) {
+      const v = y.charCodeAt(w);
+      v < 128 ? p.push(v) : v < 2048 ? p.push(v >> 6 | 192, v & 63 | 128) : v < 65536 ? p.push(v >> 12 | 224, v >> 6 & 63 | 128, v & 63 | 128) : p.push(v >> 18 | 240, v >> 12 & 63 | 128, v >> 6 & 63 | 128, v & 63 | 128);
     }
-    return u;
+    return p;
   }
-  __name(p, "p");
-  __name2(p, "p");
-  const r = p(e), g = r.length;
-  for (r.push(128); r.length % 64 !== 56; ) r.push(0);
-  const h = g * 8;
-  for (let y = 0; y < 8; y++) r.push(y < 4 ? h >>> y * 8 & 255 : h / 4294967296 >>> y * 4 * 8 & 255);
-  let l = 1732584193, c = 4023233417, m = 2562383102, b = 271733878;
-  for (let y = 0; y < r.length; y += 64) {
-    const u = [];
-    for (let k = 0; k < 16; k++) u[k] = r[y + k * 4] | r[y + k * 4 + 1] << 8 | r[y + k * 4 + 2] << 16 | r[y + k * 4 + 3] << 24;
-    let [x, v, C, T] = [l, c, m, b];
-    l = n(l, c, m, b, u[0], 7, -680876936), b = n(b, l, c, m, u[1], 12, -389564586), m = n(m, b, l, c, u[2], 17, 606105819), c = n(c, m, b, l, u[3], 22, -1044525330), l = n(l, c, m, b, u[4], 7, -176418897), b = n(b, l, c, m, u[5], 12, 1200080426), m = n(m, b, l, c, u[6], 17, -1473231341), c = n(c, m, b, l, u[7], 22, -45705983), l = n(l, c, m, b, u[8], 7, 1770035416), b = n(b, l, c, m, u[9], 12, -1958414417), m = n(m, b, l, c, u[10], 17, -42063), c = n(c, m, b, l, u[11], 22, -1990404162), l = n(l, c, m, b, u[12], 7, 1804603682), b = n(b, l, c, m, u[13], 12, -40341101), m = n(m, b, l, c, u[14], 17, -1502002290), c = n(c, m, b, l, u[15], 22, 1236535329), l = i(l, c, m, b, u[1], 5, -165796510), b = i(b, l, c, m, u[6], 9, -1069501632), m = i(m, b, l, c, u[11], 14, 643717713), c = i(c, m, b, l, u[0], 20, -373897302), l = i(l, c, m, b, u[5], 5, -701558691), b = i(b, l, c, m, u[10], 9, 38016083), m = i(m, b, l, c, u[15], 14, -660478335), c = i(c, m, b, l, u[4], 20, -405537848), l = i(l, c, m, b, u[9], 5, 568446438), b = i(b, l, c, m, u[14], 9, -1019803690), m = i(m, b, l, c, u[3], 14, -187363961), c = i(c, m, b, l, u[8], 20, 1163531501), l = i(l, c, m, b, u[13], 5, -1444681467), b = i(b, l, c, m, u[2], 9, -51403784), m = i(m, b, l, c, u[7], 14, 1735328473), c = i(c, m, b, l, u[12], 20, -1926607734), l = o(l, c, m, b, u[5], 4, -378558), b = o(b, l, c, m, u[8], 11, -2022574463), m = o(m, b, l, c, u[11], 16, 1839030562), c = o(c, m, b, l, u[14], 23, -35309556), l = o(l, c, m, b, u[1], 4, -1530992060), b = o(b, l, c, m, u[4], 11, 1272893353), m = o(m, b, l, c, u[7], 16, -155497632), c = o(c, m, b, l, u[10], 23, -1094730640), l = o(l, c, m, b, u[13], 4, 681279174), b = o(b, l, c, m, u[0], 11, -358537222), m = o(m, b, l, c, u[3], 16, -722521979), c = o(c, m, b, l, u[6], 23, 76029189), l = o(l, c, m, b, u[9], 4, -640364487), b = o(b, l, c, m, u[12], 11, -421815835), m = o(m, b, l, c, u[15], 16, 530742520), c = o(c, m, b, l, u[2], 23, -995338651), l = d(l, c, m, b, u[0], 6, -198630844), b = d(b, l, c, m, u[7], 10, 1126891415), m = d(m, b, l, c, u[14], 15, -1416354905), c = d(c, m, b, l, u[5], 21, -57434055), l = d(l, c, m, b, u[12], 6, 1700485571), b = d(b, l, c, m, u[3], 10, -1894986606), m = d(m, b, l, c, u[10], 15, -1051523), c = d(c, m, b, l, u[1], 21, -2054922799), l = d(l, c, m, b, u[8], 6, 1873313359), b = d(b, l, c, m, u[15], 10, -30611744), m = d(m, b, l, c, u[6], 15, -1560198380), c = d(c, m, b, l, u[13], 21, 1309151649), l = d(l, c, m, b, u[4], 6, -145523070), b = d(b, l, c, m, u[11], 10, -1120210379), m = d(m, b, l, c, u[2], 15, 718787259), c = d(c, m, b, l, u[9], 21, -343485551), l = a(l, x), c = a(c, v), m = a(m, C), b = a(b, T);
+  __name(l, "l");
+  const u = l(e), b = u.length;
+  for (u.push(128); u.length % 64 !== 56; ) u.push(0);
+  const d = b * 8;
+  for (let y = 0; y < 8; y++) u.push(y < 4 ? d >>> y * 8 & 255 : d / 4294967296 >>> y * 4 * 8 & 255);
+  let c = 1732584193, m = 4023233417, g = 2562383102, h = 271733878;
+  for (let y = 0; y < u.length; y += 64) {
+    const p = [];
+    for (let x = 0; x < 16; x++) p[x] = u[y + x * 4] | u[y + x * 4 + 1] << 8 | u[y + x * 4 + 2] << 16 | u[y + x * 4 + 3] << 24;
+    let [w, v, I, S] = [c, m, g, h];
+    c = i(c, m, g, h, p[0], 7, -680876936), h = i(h, c, m, g, p[1], 12, -389564586), g = i(g, h, c, m, p[2], 17, 606105819), m = i(m, g, h, c, p[3], 22, -1044525330), c = i(c, m, g, h, p[4], 7, -176418897), h = i(h, c, m, g, p[5], 12, 1200080426), g = i(g, h, c, m, p[6], 17, -1473231341), m = i(m, g, h, c, p[7], 22, -45705983), c = i(c, m, g, h, p[8], 7, 1770035416), h = i(h, c, m, g, p[9], 12, -1958414417), g = i(g, h, c, m, p[10], 17, -42063), m = i(m, g, h, c, p[11], 22, -1990404162), c = i(c, m, g, h, p[12], 7, 1804603682), h = i(h, c, m, g, p[13], 12, -40341101), g = i(g, h, c, m, p[14], 17, -1502002290), m = i(m, g, h, c, p[15], 22, 1236535329), c = n(c, m, g, h, p[1], 5, -165796510), h = n(h, c, m, g, p[6], 9, -1069501632), g = n(g, h, c, m, p[11], 14, 643717713), m = n(m, g, h, c, p[0], 20, -373897302), c = n(c, m, g, h, p[5], 5, -701558691), h = n(h, c, m, g, p[10], 9, 38016083), g = n(g, h, c, m, p[15], 14, -660478335), m = n(m, g, h, c, p[4], 20, -405537848), c = n(c, m, g, h, p[9], 5, 568446438), h = n(h, c, m, g, p[14], 9, -1019803690), g = n(g, h, c, m, p[3], 14, -187363961), m = n(m, g, h, c, p[8], 20, 1163531501), c = n(c, m, g, h, p[13], 5, -1444681467), h = n(h, c, m, g, p[2], 9, -51403784), g = n(g, h, c, m, p[7], 14, 1735328473), m = n(m, g, h, c, p[12], 20, -1926607734), c = r(c, m, g, h, p[5], 4, -378558), h = r(h, c, m, g, p[8], 11, -2022574463), g = r(g, h, c, m, p[11], 16, 1839030562), m = r(m, g, h, c, p[14], 23, -35309556), c = r(c, m, g, h, p[1], 4, -1530992060), h = r(h, c, m, g, p[4], 11, 1272893353), g = r(g, h, c, m, p[7], 16, -155497632), m = r(m, g, h, c, p[10], 23, -1094730640), c = r(c, m, g, h, p[13], 4, 681279174), h = r(h, c, m, g, p[0], 11, -358537222), g = r(g, h, c, m, p[3], 16, -722521979), m = r(m, g, h, c, p[6], 23, 76029189), c = r(c, m, g, h, p[9], 4, -640364487), h = r(h, c, m, g, p[12], 11, -421815835), g = r(g, h, c, m, p[15], 16, 530742520), m = r(m, g, h, c, p[2], 23, -995338651), c = o(c, m, g, h, p[0], 6, -198630844), h = o(h, c, m, g, p[7], 10, 1126891415), g = o(g, h, c, m, p[14], 15, -1416354905), m = o(m, g, h, c, p[5], 21, -57434055), c = o(c, m, g, h, p[12], 6, 1700485571), h = o(h, c, m, g, p[3], 10, -1894986606), g = o(g, h, c, m, p[10], 15, -1051523), m = o(m, g, h, c, p[1], 21, -2054922799), c = o(c, m, g, h, p[8], 6, 1873313359), h = o(h, c, m, g, p[15], 10, -30611744), g = o(g, h, c, m, p[6], 15, -1560198380), m = o(m, g, h, c, p[13], 21, 1309151649), c = o(c, m, g, h, p[4], 6, -145523070), h = o(h, c, m, g, p[11], 10, -1120210379), g = o(g, h, c, m, p[2], 15, 718787259), m = o(m, g, h, c, p[9], 21, -343485551), c = t(c, w), m = t(m, v), g = t(g, I), h = t(h, S);
   }
-  function A(y) {
-    let u = "";
-    for (let x = 0; x < 4; x++) u += (y >>> x * 8 & 255).toString(16).padStart(2, "0");
-    return u;
+  function k(y) {
+    let p = "";
+    for (let w = 0; w < 4; w++) p += (y >>> w * 8 & 255).toString(16).padStart(2, "0");
+    return p;
   }
-  __name(A, "A");
-  __name2(A, "A");
-  return A(l) + A(c) + A(m) + A(b);
+  __name(k, "k");
+  return k(c) + k(m) + k(g) + k(h);
 }
-__name(Kt, "Kt");
-__name2(Kt, "Kt");
-async function zt(e, a) {
-  const t = a.slice(-8), s = t.split(":").map(Number), n = await crypto.subtle.importKey("raw", G(a), { name: "HMAC", hash: "SHA-512" }, false, ["sign"]), i = new Uint8Array(await crypto.subtle.sign("HMAC", n, G(e))), o = i.length, d = s[0], p = Math.floor((o + s[1]) / 2) - 16, r = Math.floor((o + s[2]) / 3) - 8, g = ie(i.slice(d, d + 32)), h = ie(i.slice(p, p + 16)), l = ie(i.slice(r, r + 8));
-  return { aesKey: g, aesIv: h, aesCs: l, times: s, kStart: d, ivStart: p, csStart: r, debug: { lastEight: t, times: s, kStart: d, ivStart: p, csStart: r, keyBytesHex: Ee(i).slice(0, 32) + "..." } };
+__name(Ka, "Ka");
+async function Ua(e, t) {
+  const a = t.slice(-8), s = a.split(":").map(Number), i = await crypto.subtle.importKey("raw", W(t), { name: "HMAC", hash: "SHA-512" }, false, ["sign"]), n = new Uint8Array(await crypto.subtle.sign("HMAC", i, W(e))), r = n.length, o = s[0], l = Math.floor((r + s[1]) / 2) - 16, u = Math.floor((r + s[2]) / 3) - 8, b = ue(n.slice(o, o + 32)), d = ue(n.slice(l, l + 16)), c = ue(n.slice(u, u + 8));
+  return { aesKey: b, aesIv: d, aesCs: c, times: s, kStart: o, ivStart: l, csStart: u, debug: { lastEight: a, times: s, kStart: o, ivStart: l, csStart: u, keyBytesHex: Re(n).slice(0, 32) + "..." } };
 }
-__name(zt, "zt");
-__name2(zt, "zt");
-async function D(e, a, t) {
-  const s = await crypto.subtle.importKey("raw", ne(a), "AES-CBC", false, ["encrypt"]), n = ne(t), i = await crypto.subtle.encrypt({ name: "AES-CBC", iv: n }, s, G(e));
-  return ie(i);
+__name(Ua, "Ua");
+async function T(e, t, a) {
+  const s = await crypto.subtle.importKey("raw", pe(t), "AES-CBC", false, ["encrypt"]), i = pe(a), n = await crypto.subtle.encrypt({ name: "AES-CBC", iv: i }, s, W(e));
+  return ue(n);
 }
-__name(D, "D");
-__name2(D, "D");
-async function La(e, a, t) {
+__name(T, "T");
+async function nt(e, t, a) {
   try {
-    const s = await crypto.subtle.importKey("raw", ne(a), "AES-CBC", false, ["decrypt"]), n = ne(t), i = await crypto.subtle.decrypt({ name: "AES-CBC", iv: n }, s, ne(e));
-    return new TextDecoder().decode(i);
+    const s = await crypto.subtle.importKey("raw", pe(t), "AES-CBC", false, ["decrypt"]), i = pe(a), n = await crypto.subtle.decrypt({ name: "AES-CBC", iv: i }, s, pe(e));
+    return new TextDecoder().decode(n);
   } catch {
     return null;
   }
 }
-__name(La, "La");
-__name2(La, "La");
-function jt(e) {
-  const a = e.endsWith("==") ? "==" : e.endsWith("=") ? "=" : "", t = e.substring(7, 13), s = parseInt(t[0]) * 10 + t.charCodeAt(1) - 64, n = 100 + parseInt(t[2]) * 10 + t.charCodeAt(3) - 64, i = 100 + parseInt(t[4]) * 10 + t.charCodeAt(5) - 64, o = e.substring(16, 20), d = o.charCodeAt(0) - 64, p = o.charCodeAt(1) - 64, r = parseInt(o.slice(2)), g = e.substring(s, s + d) + e.substring(n, n + p) + e.substring(i, i + r), h = atob((g + a).replace(/-/g, "+").replace(/_/g, "/")), l = h.split("|");
-  return { app: l[0] || "", clientID: l[1] || "", regTime: l[2] || "", rawDecoded: h, parts: l, debug: { col1: s, col2: n, col3: i, len1: d, len2: p, len3: r, idd: g.slice(0, 20) + "..." } };
+__name(nt, "nt");
+function Xa(e) {
+  const t = e.endsWith("==") ? "==" : e.endsWith("=") ? "=" : "", a = e.substring(7, 13), s = parseInt(a[0]) * 10 + a.charCodeAt(1) - 64, i = 100 + parseInt(a[2]) * 10 + a.charCodeAt(3) - 64, n = 100 + parseInt(a[4]) * 10 + a.charCodeAt(5) - 64, r = e.substring(16, 20), o = r.charCodeAt(0) - 64, l = r.charCodeAt(1) - 64, u = parseInt(r.slice(2)), b = e.substring(s, s + o) + e.substring(i, i + l) + e.substring(n, n + u), d = atob((b + t).replace(/-/g, "+").replace(/_/g, "/")), c = d.split("|");
+  return { app: c[0] || "", clientID: c[1] || "", regTime: c[2] || "", rawDecoded: d, parts: c, debug: { col1: s, col2: i, col3: n, len1: o, len2: l, len3: u, idd: b.slice(0, 20) + "..." } };
 }
-__name(jt, "jt");
-__name2(jt, "jt");
-function Ut(e, a, t = "Seminyak") {
-  const s = `${t}|${e}|${a}`, n = btoa(s), i = n.endsWith("==") ? "==" : n.endsWith("=") ? "=" : "", o = n.slice(0, n.length - i.length), d = o.length, p = 20, r = 104, g = 172, h = Math.floor(d / 3), l = h, c = h, m = d - l - c, b = o.slice(0, l), A = o.slice(l, l + c), y = o.slice(l + c), u = /* @__PURE__ */ __name2((k) => String(Math.floor(k / 10)) + String.fromCharCode(k % 10 + 64), "u"), x = u(p) + u(r - 100) + u(g - 100), v = String.fromCharCode(l + 64) + String.fromCharCode(c + 64) + String(m).padStart(2, "0"), C = Math.max(g + m, 200), T = new Array(C + 50).fill("A");
-  T[7] = x[0], T[8] = x[1], T[9] = x[2], T[10] = x[3], T[11] = x[4], T[12] = x[5], T[16] = v[0], T[17] = v[1], T[18] = v[2], T[19] = v[3];
-  for (let k = 0; k < b.length; k++) T[p + k] = b[k];
-  for (let k = 0; k < A.length; k++) T[r + k] = A[k];
-  for (let k = 0; k < y.length; k++) T[g + k] = y[k];
-  return T.join("").slice(0, g + m) + i;
+__name(Xa, "Xa");
+function $a(e, t, a = "Seminyak") {
+  const s = `${a}|${e}|${t}`, i = btoa(s), n = i.endsWith("==") ? "==" : i.endsWith("=") ? "=" : "", r = i.slice(0, i.length - n.length), o = r.length, l = 69, u = 135, b = 175, d = Math.floor(o / 3), c = d, m = d, g = o - c - m, h = r.slice(0, c), k = r.slice(c, c + m), y = r.slice(c + m), p = /* @__PURE__ */ __name((x) => String(Math.floor(x / 10)) + String.fromCharCode(x % 10 + 64), "p"), w = p(l) + p(u - 100) + p(b - 100), v = String.fromCharCode(c + 64) + String.fromCharCode(m + 64) + String(g).padStart(2, "0"), I = b + g + 200, S = new Array(I + 100).fill("A");
+  S[7] = w[0], S[8] = w[1], S[9] = w[2], S[10] = w[3], S[11] = w[4], S[12] = w[5], S[16] = v[0], S[17] = v[1], S[18] = v[2], S[19] = v[3];
+  for (let x = 0; x < h.length; x++) S[l + x] = h[x];
+  for (let x = 0; x < k.length; x++) S[u + x] = k[x];
+  for (let x = 0; x < y.length; x++) S[b + x] = y[x];
+  return S.join("").slice(0, b + g) + n;
 }
-__name(Ut, "Ut");
-__name2(Ut, "Ut");
-function Xt(e) {
-  const a = e.split(".");
-  if (a.length < 2) return { error: "Bukan format JWT valid" };
+__name($a, "$a");
+function Fa(e) {
+  const t = e.split(".");
+  if (t.length < 2) return { error: "Bukan format JWT valid" };
   try {
-    const t = JSON.parse(atob(a[0].replace(/-/g, "+").replace(/_/g, "/"))), s = JSON.parse(atob(a[1].replace(/-/g, "+").replace(/_/g, "/")));
-    return { header: t, payload: s, signatureB64: a[2] || "", raw: { headerB64: a[0], payloadB64: a[1] } };
-  } catch (t) {
-    return { error: t instanceof Error ? t.message : String(t) };
+    const a = JSON.parse(atob(t[0].replace(/-/g, "+").replace(/_/g, "/"))), s = JSON.parse(atob(t[1].replace(/-/g, "+").replace(/_/g, "/")));
+    return { header: a, payload: s, signatureB64: t[2] || "", raw: { headerB64: t[0], payloadB64: t[1] } };
+  } catch (a) {
+    return { error: a instanceof Error ? a.message : String(a) };
   }
 }
-__name(Xt, "Xt");
-__name2(Xt, "Xt");
-async function ta(e) {
-  const a = e.replace(/-----[^-]+-----/g, "").replace(/\s/g, "");
-  return ne(a).buffer;
+__name(Fa, "Fa");
+async function it(e) {
+  const t = e.replace(/-----[^-]+-----/g, "").replace(/\s/g, "");
+  return pe(t).buffer;
 }
-__name(ta, "ta");
-__name2(ta, "ta");
-async function Ma(e, a, t = Oa) {
-  const s = btoa(JSON.stringify({ trans_no: e, alg: "RS256" })).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, ""), n = btoa(JSON.stringify({ trans_time: a })).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, ""), i = `${s}.${n}`, o = await ta(t), d = await crypto.subtle.importKey("pkcs8", o, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"]), p = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", d, G(i)), r = ie(p).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
-  return `${i}.${r}`;
+__name(it, "it");
+async function jt(e, t, a = Ht) {
+  const s = btoa(JSON.stringify({ trans_no: e, alg: "RS256" })).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, ""), i = btoa(JSON.stringify({ trans_time: t })).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, ""), n = `${s}.${i}`, r = await it(a), o = await crypto.subtle.importKey("pkcs8", r, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"]), l = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", o, W(n)), u = ue(l).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+  return `${n}.${u}`;
 }
-__name(Ma, "Ma");
-__name2(Ma, "Ma");
-async function sa(e, a, t) {
-  const s = ne(t), n = G(`${e}:${a}`), i = await crypto.subtle.importKey("raw", s, { name: "HMAC", hash: "SHA-512" }, false, ["sign"]), o = await crypto.subtle.sign("HMAC", i, n);
-  return ie(o);
+__name(jt, "jt");
+async function rt(e, t, a) {
+  const s = pe(a), i = s.length >= 8 ? s : new Uint8Array(8), n = W(`${e}:${t}`), r = await crypto.subtle.importKey("raw", i, { name: "HMAC", hash: "SHA-512" }, false, ["sign"]), o = await crypto.subtle.sign("HMAC", r, n);
+  return ue(o);
 }
-__name(sa, "sa");
-__name2(sa, "sa");
-function Gt(e) {
-  return Ee(ne(e));
+__name(rt, "rt");
+function Ga(e) {
+  return Re(pe(e));
 }
-__name(Gt, "Gt");
-__name2(Gt, "Gt");
-async function Ha(e) {
-  const a = `%${e.fromAcc}#${e.amount}@${e.dateTime}^${e.refNo}*${e.destBank}~${e.destAcc}|${Ve}%`;
-  return Ee(await crypto.subtle.digest("SHA-256", G(a)));
+__name(Ga, "Ga");
+async function zt(e) {
+  const t = `%${e.fromAcc}#${e.amount}@${e.dateTime}^${e.refNo}*${e.destBank}~${e.destAcc}|${Qe}%`;
+  return Re(await crypto.subtle.digest("SHA-256", W(t)));
 }
-__name(Ha, "Ha");
-__name2(Ha, "Ha");
-async function Ka(e) {
-  const a = `@${e.fromAcc}|${e.amount}~${e.dateTime}*${e.refNo}^${e.destBank}#${e.destAcc}(${e.destName})${Ve}@`;
-  return Ee(await crypto.subtle.digest("SHA-256", G(a)));
+__name(zt, "zt");
+async function Kt(e) {
+  const t = `@${e.fromAcc}|${e.amount}~${e.dateTime}*${e.refNo}^${e.destBank}#${e.destAcc}(${e.destName})${Qe}@`;
+  return Re(await crypto.subtle.digest("SHA-256", W(t)));
 }
-__name(Ka, "Ka");
-__name2(Ka, "Ka");
-async function Ft(e) {
-  const a = `{${e.nominal}*${e.norekFrom}^${e.norekTo}%${e.nameFrom}#${e.nameTo}@${Ve}}`;
-  return Ee(await crypto.subtle.digest("SHA-256", G(a)));
+__name(Kt, "Kt");
+async function Ya(e) {
+  const t = `{${e.nominal}*${e.norekFrom}^${e.norekTo}%${e.nameFrom}#${e.nameTo}@${Qe}}`;
+  return Re(await crypto.subtle.digest("SHA-256", W(t)));
 }
-__name(Ft, "Ft");
-__name2(Ft, "Ft");
-async function za(e) {
-  const a = Ee(await crypto.subtle.digest("SHA-256", G(`Seminyak|${e}`))), t = await ta(Oa), s = await crypto.subtle.importKey("pkcs8", t, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"]), n = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", s, G(a));
-  return { signature: ie(n), timestamp: e, clientStamp: a };
+__name(Ya, "Ya");
+async function ot(e) {
+  const t = Re(await crypto.subtle.digest("SHA-256", W(`Seminyak|${e}`))), a = await it(Ht), s = await crypto.subtle.importKey("pkcs8", a, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"]), i = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", s, W(t));
+  return { signature: ue(i), timestamp: e, clientStamp: t };
 }
-__name(za, "za");
-__name2(za, "za");
-async function ja(e, a) {
-  const t = `${e}|${a}`, s = await ta(Ht), n = await crypto.subtle.importKey("pkcs8", s, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"]), i = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", n, G(t));
-  return { signature: ie(i), clientKey: e, timestamp: a, message: t };
+__name(ot, "ot");
+async function Ut(e, t) {
+  const a = `${e}|${t}`, s = await it(za), i = await crypto.subtle.importKey("pkcs8", s, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"]), n = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", i, W(a));
+  return { signature: ue(n), clientKey: e, timestamp: t, message: a };
 }
-__name(ja, "ja");
-__name2(ja, "ja");
-function ke() {
+__name(Ut, "Ut");
+function V() {
   const e = /* @__PURE__ */ new Date();
   return new Date(e.getTime() + 7 * 36e5).toISOString().replace("T", " ").slice(0, 19);
 }
-__name(ke, "ke");
-__name2(ke, "ke");
-function Re() {
+__name(V, "V");
+function qe() {
   const e = /* @__PURE__ */ new Date();
   return new Date(e.getTime() + 7 * 36e5).toISOString().slice(0, 19) + "+07:00";
 }
-__name(Re, "Re");
-__name2(Re, "Re");
-function me(e = "SMY") {
-  const a = new Date((/* @__PURE__ */ new Date()).getTime() + 252e5), t = a.toISOString().slice(11, 19).replace(/:/g, "").slice(0, 6), s = String(Math.floor(Math.random() * 9e3) + 1e3), n = a.toISOString().slice(0, 10).replace(/-/g, "");
-  return `${e}${t}${s}O1012${n.slice(4)}`;
+__name(qe, "qe");
+function $(e = "SMY") {
+  const t = new Date((/* @__PURE__ */ new Date()).getTime() + 252e5), a = t.toISOString().slice(11, 19).replace(/:/g, "").slice(0, 6), s = String(Math.floor(Math.random() * 9e3) + 1e3), i = t.toISOString().slice(0, 10).replace(/-/g, "");
+  return `${e}${a}${s}O1012${i.slice(4)}`;
 }
-__name(me, "me");
-__name2(me, "me");
-async function $t(e) {
-  const a = e.timestamp || ke(), t = e.refNo || me(), s = await D(e.fromAcc, e.aesKey, e.aesIv), n = await D(String(e.amount), e.aesKey, e.aesIv), i = await D(e.dateTime, e.aesKey, e.aesIv), o = await D(e.destName || "", e.aesKey, e.aesIv);
-  let d, p, r;
-  e.step === "posting" ? (d = await Ka({ ...e, refNo: t }), p = await D(`${e.destBank}-${e.destAcc}`, e.aesKey, e.aesIv), r = await D(d, e.aesKey, e.aesIv)) : (d = await Ha({ ...e, refNo: t }), p = await D(`${e.destBank}-${e.destAcc}-${d}`, e.aesKey, e.aesIv), r = null);
-  const g = await Ma(t, Re()), h = await sa(g, a, e.aesCs), l = h, c = { from_acc: s, to_acc: p, amount: n, date_time: i, to_name: o, hash_code: r || "", remark: e.remark || "" };
-  return { headers: { "Content-Type": "application/json", Authorization: g, "X-TIMESTAMP": a, "X-SIGNATURE": h, "X-PARTNER-ID": l, "X-CLIENT-ID": e.didEncoded || "", "X-REFERENCE": t, "X-Forwarded-For": "34.50.74.78", "X-Real-IP": "34.50.74.78" }, body: c, url: `${e.baseUrl || "https://lpdseminyak.biz.id:8000"}/api/smart/transfer/bank/post`, refNo: t, ts: a, debug: { hashRaw: d, step: e.step || "check" } };
+__name($, "$");
+async function Ja(e) {
+  const t = e.timestamp || V(), a = e.refNo || $(), s = await T(e.fromAcc, e.aesKey, e.aesIv), i = await T(String(e.amount), e.aesKey, e.aesIv), n = await T(e.dateTime, e.aesKey, e.aesIv), r = await T(e.destName || "", e.aesKey, e.aesIv);
+  let o, l, u;
+  e.step === "posting" ? (o = await Kt({ ...e, refNo: a }), l = await T(`${e.destBank}-${e.destAcc}`, e.aesKey, e.aesIv), u = await T(o, e.aesKey, e.aesIv)) : (o = await zt({ ...e, refNo: a }), l = await T(`${e.destBank}-${e.destAcc}-${o}`, e.aesKey, e.aesIv), u = null);
+  const b = await jt(a, qe()), d = await rt(b, t, e.aesCs), c = d, m = { from_acc: s, to_acc: l, amount: i, date_time: n, to_name: r, hash_code: u || "", remark: e.remark || "" };
+  return { headers: { "Content-Type": "application/json", Authorization: b, "X-TIMESTAMP": t, "X-SIGNATURE": d, "X-PARTNER-ID": c, "X-CLIENT-ID": e.didEncoded || "", "X-REFERENCE": a, "X-Forwarded-For": "34.50.74.78", "X-Real-IP": "34.50.74.78" }, body: m, url: `${e.baseUrl || "https://lpdseminyak.biz.id:8000"}/api/smart/transfer/bank/post`, refNo: a, ts: t, debug: { hashRaw: o, step: e.step || "check" } };
 }
-__name($t, "$t");
-__name2($t, "$t");
-async function Yt(e, a, t) {
+__name(Ja, "Ja");
+async function Va(e, t, a) {
   const s = {};
-  for (const [n, i] of Object.entries(e)) i && typeof i == "string" && (s[n] = await La(i, a, t));
+  for (const [i, n] of Object.entries(e)) n && typeof n == "string" && (s[i] = await nt(n, t, a));
   return s;
 }
-__name(Yt, "Yt");
-__name2(Yt, "Yt");
-async function Vt(e) {
-  const a = e.op;
+__name(Va, "Va");
+async function Wa(e) {
+  const t = e.op;
   try {
-    let t;
-    if (a === "keygen") t = await zt(e.clientID, e.timestamp);
-    else if (a === "encrypt") t = { encrypted: await D(e.plaintext, e.aesKey, e.aesIv), plaintext: e.plaintext };
-    else if (a === "decrypt") t = { decrypted: await La(e.ciphertext, e.aesKey, e.aesIv), ciphertext: e.ciphertext };
-    else if (a === "did-decode") t = jt(e.did);
-    else if (a === "did-encode") t = { encoded: Ut(e.clientID, e.timestamp, e.appName || "Seminyak"), clientID: e.clientID, timestamp: e.timestamp };
-    else if (a === "jwt-decode") t = Xt(e.jwt);
-    else if (a === "hashcode") {
+    let a;
+    if (t === "keygen") a = await Ua(e.clientID, e.timestamp);
+    else if (t === "encrypt") a = { encrypted: await T(e.plaintext, e.aesKey, e.aesIv), plaintext: e.plaintext };
+    else if (t === "decrypt") a = { decrypted: await nt(e.ciphertext, e.aesKey, e.aesIv), ciphertext: e.ciphertext };
+    else if (t === "did-decode") a = Xa(e.did);
+    else if (t === "did-encode") a = { encoded: $a(e.clientID, e.timestamp, e.appName || "Seminyak"), clientID: e.clientID, timestamp: e.timestamp };
+    else if (t === "jwt-decode") a = Fa(e.jwt);
+    else if (t === "hashcode") {
       const s = e.step || "check";
-      let n;
-      s === "posting" ? n = await Ka(e) : s === "lpd" ? n = await Ft(e) : n = await Ha(e);
-      const i = Ve;
-      t = { hash: n, step: s, formula: s === "posting" ? `SHA256("@"+fromAcc+"|"+amount+"~"+dateTime+"*"+refNo+"^"+destBank+"#"+destAcc+"("+destName+")${i}@")` : `SHA256("%"+fromAcc+"#"+amount+"@"+dateTime+"^"+refNo+"*"+destBank+"~"+destAcc+"|${i}%")` };
-    } else if (a === "reference") {
+      let i;
+      s === "posting" ? i = await Kt(e) : s === "lpd" ? i = await Ya(e) : i = await zt(e);
+      const n = Qe;
+      a = { hash: i, step: s, formula: s === "posting" ? `SHA256("@"+fromAcc+"|"+amount+"~"+dateTime+"*"+refNo+"^"+destBank+"#"+destAcc+"("+destName+")${n}@")` : `SHA256("%"+fromAcc+"#"+amount+"@"+dateTime+"^"+refNo+"*"+destBank+"~"+destAcc+"|${n}%")` };
+    } else if (t === "reference") {
       const s = [];
-      for (let n = 0; n < (parseInt(e.count) || 3); n++) s.push(me(e.prefix || "SMY"));
-      t = { references: s };
-    } else if (a === "signature") t = { signature: await sa(e.token, e.timestamp, e.aesCs) };
-    else if (a === "sig-decode") {
-      const s = Gt(e.signature);
-      t = { hex: s, length: s.length };
-    } else if (a === "ios-token-sig") t = await za(e.timestamp || ke());
-    else if (a === "snap-token-sig") t = await ja(e.clientKey || "LPD-SEMINYAK-001", e.timestamp || Re());
-    else if (a === "build-transfer") t = await $t({ ...e, timestamp: e.timestamp || ke(), refNo: e.refNo || me() });
-    else if (a === "decrypt-body") {
+      for (let i = 0; i < (parseInt(e.count) || 3); i++) s.push($(e.prefix || "SMY"));
+      a = { references: s };
+    } else if (t === "signature") a = { signature: await rt(e.token, e.timestamp, e.aesCs) };
+    else if (t === "sig-decode") {
+      const s = Ga(e.signature);
+      a = { hex: s, length: s.length };
+    } else if (t === "ios-token-sig") a = await ot(e.timestamp || V());
+    else if (t === "snap-token-sig") a = await Ut(e.clientKey || "LPD-SEMINYAK-001", e.timestamp || qe());
+    else if (t === "build-transfer") a = await Ja({ ...e, timestamp: e.timestamp || V(), refNo: e.refNo || $() });
+    else if (t === "decrypt-body") {
       const s = JSON.parse(e.body || "{}");
-      t = { decrypted: await Yt(s, e.aesKey, e.aesIv) };
-    } else if (a === "timestamp") t = { jakarta: ke(), jakartaISO: Re(), utc: (/* @__PURE__ */ new Date()).toISOString() };
-    else return { ok: false, error: `Unknown operation: ${a}` };
-    return { ok: true, op: a, result: t };
-  } catch (t) {
-    return { ok: false, op: a, error: t instanceof Error ? t.message : String(t) };
+      a = { decrypted: await Va(s, e.aesKey, e.aesIv) };
+    } else if (t === "timestamp") a = { jakarta: V(), jakartaISO: qe(), utc: (/* @__PURE__ */ new Date()).toISOString() };
+    else return { ok: false, error: `Unknown operation: ${t}` };
+    return { ok: true, op: t, result: a };
+  } catch (a) {
+    return { ok: false, op: t, error: a instanceof Error ? a.message : String(a) };
   }
 }
-__name(Vt, "Vt");
-__name2(Vt, "Vt");
-var z = new Ra();
-z.use("/static/*", qt({ root: "./public" }));
-z.get("/favicon.ico", (e) => e.body(null, 204));
-z.post("/api/exec", async (e) => {
+__name(Wa, "Wa");
+var U = new qt();
+U.use("/static/*", Oa({ root: "./public" }));
+U.get("/favicon.ico", (e) => e.body(null, 204));
+U.post("/api/exec", async (e) => {
   try {
-    const a = await e.req.json(), s = await (await fetch("http://127.0.0.1:3001/exec", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(a) })).json();
+    const t = await e.req.json(), s = await (await fetch("http://127.0.0.1:3001/exec", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(t) })).json();
     return e.json(s);
-  } catch (a) {
-    const t = a instanceof Error ? a.message : String(a);
-    return e.json({ stdout: "", stderr: "Terminal server tidak tersedia: " + t, cwd: "/home/user", exitCode: 1 }, 500);
+  } catch (t) {
+    const a = t instanceof Error ? t.message : String(t);
+    return e.json({ stdout: "", stderr: "Terminal server tidak tersedia: " + a, cwd: "/home/user", exitCode: 1 }, 500);
   }
 });
-z.get("/api/exec/health", async (e) => {
+U.get("/api/exec/health", async (e) => {
   try {
-    const t = await (await fetch("http://127.0.0.1:3001/health")).json();
-    return e.json({ ok: true, ...t });
+    const a = await (await fetch("http://127.0.0.1:3001/health")).json();
+    return e.json({ ok: true, ...a });
   } catch {
     return e.json({ ok: false, error: "Terminal server tidak tersedia di production. Gunakan sandbox URL untuk operasi crypto.", sandbox_only: true });
   }
 });
-z.post("/api/crypto", async (e) => {
+U.post("/api/crypto", async (e) => {
   try {
-    const a = await e.req.json(), t = await Vt(a);
-    return e.json(t);
-  } catch (a) {
-    const t = a instanceof Error ? a.message : String(a);
-    return e.json({ ok: false, error: "Crypto error: " + t });
+    const t = await e.req.json(), a = await Wa(t);
+    return e.json(a);
+  } catch (t) {
+    const a = t instanceof Error ? t.message : String(t);
+    return e.json({ ok: false, error: "Crypto error: " + a });
   }
 });
-var ca = "34.50.74.78";
-async function je(e, a, t) {
-  const s = ke(), n = Re(), i = t || me(), o = await Ma(i, n), d = await sa(o, s, e), p = me();
-  return { jwt: o, ts: s, tsISO: n, sig: d, xref: p, headers: { "Content-Type": "application/json", Authorization: o, "X-TIMESTAMP": s, "X-SIGNATURE": d, "X-PARTNER-ID": d, "X-CLIENT-ID": a, "X-REFERENCE": p, "X-Forwarded-For": ca, "X-Real-IP": ca } };
+function Qa(e) {
+  return e ? e.split("{#}").filter(Boolean).map((t) => {
+    const a = t.split("<>");
+    return { norek: a[0] || "", nama: a[1] || "", saldo: a[2] || "", produk: a[3] || "" };
+  }) : [];
 }
-__name(je, "je");
-__name2(je, "je");
-z.post("/api/smart", async (e) => {
+__name(Qa, "Qa");
+var Je = "34.50.74.78";
+async function X(e, t, a, s) {
+  if (!t) throw new Error("X-CLIENT-ID (clientIdEnc) wajib diisi \u2014 jalankan Derive AES Keys terlebih dahulu");
+  const i = V(), n = qe(), r = a || $(), o = await jt(r, n), l = $(), u = s && s.trim() ? s.trim() : o, b = await rt(u, i, e || ""), d = b;
+  return { jwt: o, ts: i, tsISO: n, sig: d, xref: l, headers: { "Content-Type": "application/json", Authorization: u, "X-TIMESTAMP": i, "X-SIGNATURE": d, "X-PARTNER-ID": b, "X-CLIENT-ID": t, "X-REFERENCE": l, "X-Forwarded-For": Je, "X-Real-IP": Je } };
+}
+__name(X, "X");
+async function Za(e, t, a) {
   try {
-    const a = await e.req.json(), { action: t, baseUrl: s, aesKey: n, aesIv: i, aesCs: o, clientIdEnc: d, transNo: p, ...r } = a, g = (s || "https://lpdseminyak.biz.id:8000").replace(/\/+$/, ""), h = /* @__PURE__ */ __name2((c) => Kt(c), "h"), l = /* @__PURE__ */ __name2((c) => /^[0-9a-f]{32}$/i.test(c), "l");
-    if (t === "login") {
-      if (!r.user_name || !r.user_pass) throw new Error("user_name dan user_pass wajib diisi");
-      if (!d) throw new Error("clientIdEnc (X-CLIENT-ID) wajib diisi");
-      const c = l(r.user_name) ? r.user_name : h(r.user_name), m = l(r.user_pass) ? r.user_pass : h(r.user_pass), { headers: b, ts: A, xref: y, jwt: u, sig: x } = await je(o, d, p), v = g + "/api/smart/access/login", C = JSON.stringify({ user_name: c, user_pass: m });
-      let T = 0, k = {};
-      try {
-        const M = await fetch(v, { method: "POST", headers: b, body: C });
-        T = M.status;
-        const q = await M.text();
-        try {
-          k = JSON.parse(q);
-        } catch {
-          k = { _raw: q };
-        }
-      } catch (M) {
-        return e.json({ ok: false, action: t, error: M.message, url: v, headers: b });
-      }
-      return e.json({ ok: T >= 200 && T < 300, action: t, httpStatus: T, url: v, result: k, debug: { ts: A, xref: y, user_name_sent: c, user_pass_sent: m, jwt_preview: u.substring(0, 40) + "...", sig_preview: x.substring(0, 20) + "..." }, requestHeaders: b, requestBody: { user_name: c, user_pass: m } });
+    if (!t) return { ok: false, error: "clientIdEnc (X-CLIENT-ID) wajib diisi \u2014 jalankan Auto Setup terlebih dahulu" };
+    const s = V(), i = await ot(s), n = e + "/api/smart/access/token", r = { "Content-Type": "application/json", "X-TIMESTAMP": s, "X-CLIENT-ID": t, "X-SIGNATURE": i.signature, "X-Forwarded-For": Je, "X-Real-IP": Je }, o = JSON.stringify({ credential: "{get-token}" }), l = await fetch(n, { method: "POST", headers: r, body: o }), u = await l.text();
+    let b = {};
+    try {
+      b = JSON.parse(u);
+    } catch {
+      b = { _raw: u };
     }
-    if (t === "cek-saldo") {
-      if (!r.no_rek) throw new Error("no_rek wajib diisi");
-      if (!d) throw new Error("clientIdEnc wajib diisi");
-      if (!n || !i) throw new Error("aesKey dan aesIv wajib diisi");
-      const c = await D(r.no_rek, n, i), { headers: m, ts: b, xref: A } = await je(o, d, p), y = g + "/api/smart/account/balance", u = JSON.stringify({ no_rek: c });
-      let x = 0, v = {};
+    const d = b.token || "", c = b.status || "";
+    return c === "2007300" && d ? { ok: true, token: d } : { ok: false, error: `${c || "HTTP " + l.status}: ${b.message || u.slice(0, 200)}` };
+  } catch (s) {
+    return { ok: false, error: s.message };
+  }
+}
+__name(Za, "Za");
+U.post("/api/smart/get-ios-token", async (e) => {
+  try {
+    const t = await e.req.json(), { baseUrl: a, clientIdEnc: s, aesCs: i } = t;
+    if (!s) return e.json({ ok: false, error: "clientIdEnc wajib diisi \u2014 jalankan Auto Setup terlebih dahulu" });
+    const n = (a || "https://lpdseminyak.biz.id:8000").replace(/\/+$/, ""), r = await Za(n, s, i || "");
+    return e.json({ ok: r.ok, token: r.token, error: r.error, expiresIn: 180 });
+  } catch (t) {
+    return e.json({ ok: false, error: t.message });
+  }
+});
+U.post("/api/smart", async (e) => {
+  var t;
+  try {
+    const a = await e.req.json(), { action: s, baseUrl: i, aesKey: n, aesIv: r, aesCs: o, clientIdEnc: l, transNo: u, iosToken: b, ...d } = a, c = (i || "https://lpdseminyak.biz.id:8000").replace(/\/+$/, ""), m = /* @__PURE__ */ __name((k) => Ka(k), "m"), g = /* @__PURE__ */ __name((k) => /^[0-9a-f]{32}$/i.test(k), "g");
+    if (s === "login") {
+      if (!d.user_name || !d.user_pass) throw new Error("user_name dan user_pass wajib diisi");
+      if (!l) throw new Error("clientIdEnc (X-CLIENT-ID) wajib diisi");
+      const k = g(d.user_name) ? d.user_name : m(d.user_name), y = g(d.user_pass) ? d.user_pass : m(d.user_pass), { headers: p, ts: w, xref: v, jwt: I, sig: S } = await X(o, l, u, b), x = c + "/api/smart/access/login", _ = JSON.stringify({ user_name: k, user_pass: y });
+      let O = 0, B = {};
       try {
-        const C = await fetch(y, { method: "POST", headers: m, body: u });
-        x = C.status;
-        const T = await C.text();
+        const N = await fetch(x, { method: "POST", headers: p, body: _ });
+        O = N.status;
+        const q = await N.text();
         try {
-          v = JSON.parse(T);
+          B = JSON.parse(q);
         } catch {
-          v = { _raw: T };
+          B = { _raw: q };
+        }
+      } catch (N) {
+        return e.json({ ok: false, action: s, error: N.message, url: x, headers: p });
+      }
+      const L = O >= 200 && O < 300 && B.status === "00";
+      let C = null;
+      if (L && B.account_list && n && r) try {
+        const N = await nt(B.account_list, n, r);
+        if (N) {
+          const q = Qa(N);
+          C = { nama: ((t = q[0]) == null ? void 0 : t.nama) || "", noid: d.user_name, accounts: q };
+        }
+      } catch {
+      }
+      return e.json({ ok: L, action: s, httpStatus: O, url: x, result: B, nasabah: C, debug: { ts: w, xref: v, user_name_sent: k, user_pass_sent: y, jwt_preview: I.substring(0, 40) + "...", sig_preview: S.substring(0, 20) + "..." }, requestHeaders: p });
+    }
+    if (s === "cek-saldo") {
+      if (!d.no_rek) throw new Error("no_rek wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = await T(d.no_rek, n, r), { headers: y, ts: p, xref: w } = await X(o, l, u, b), v = c + "/api/smart/account/balance", I = JSON.stringify({ no_rek: k });
+      let S = 0, x = {};
+      try {
+        const _ = await fetch(v, { method: "POST", headers: y, body: I });
+        S = _.status;
+        const O = await _.text();
+        try {
+          x = JSON.parse(O);
+        } catch {
+          x = { _raw: O };
+        }
+      } catch (_) {
+        return e.json({ ok: false, action: s, error: _.message });
+      }
+      return e.json({ ok: S >= 200 && S < 300, action: s, httpStatus: S, url: v, result: x, debug: { ts: p, xref: w, no_rek_enc: k }, requestHeaders: y });
+    }
+    if (s === "inquiry") {
+      if (!d.no_rek_from || !d.no_rek_to || !d.nominal) throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      const k = u || $(), { headers: y, ts: p, xref: w } = await X(o, l, k, b), [v, I, S, x] = await Promise.all([T(d.no_rek_from, n, r), T(d.no_rek_to, n, r), T(d.nominal, n, r), d.bank_dest ? T(d.bank_dest, n, r) : Promise.resolve("")]), _ = c + "/api/smart/transfer/inquiry", O = JSON.stringify({ no_rek_from: v, no_rek_to: I, nominal: S, bank_dest: x, ref_no: k });
+      let B = 0, L = {};
+      try {
+        const C = await fetch(_, { method: "POST", headers: y, body: O });
+        B = C.status;
+        const N = await C.text();
+        try {
+          L = JSON.parse(N);
+        } catch {
+          L = { _raw: N };
         }
       } catch (C) {
-        return e.json({ ok: false, action: t, error: C.message });
+        return e.json({ ok: false, action: s, error: C.message });
       }
-      return e.json({ ok: x >= 200 && x < 300, action: t, httpStatus: x, url: y, result: v, debug: { ts: b, xref: A, no_rek_enc: c }, requestHeaders: m });
+      return e.json({ ok: B >= 200 && B < 300, action: s, httpStatus: B, url: _, result: L, debug: { ts: p, xref: w, ref: k }, requestHeaders: y });
     }
-    if (t === "inquiry") {
-      if (!r.no_rek_from || !r.no_rek_to || !r.nominal) throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");
-      if (!d) throw new Error("clientIdEnc wajib diisi");
-      const c = p || me(), { headers: m, ts: b, xref: A } = await je(o, d, c), [y, u, x, v] = await Promise.all([D(r.no_rek_from, n, i), D(r.no_rek_to, n, i), D(r.nominal, n, i), r.bank_dest ? D(r.bank_dest, n, i) : Promise.resolve("")]), C = g + "/api/smart/transfer/inquiry", T = JSON.stringify({ no_rek_from: y, no_rek_to: u, nominal: x, bank_dest: v, ref_no: c });
-      let k = 0, M = {};
+    if (s === "posting") {
+      if (!d.no_rek_from || !d.no_rek_to || !d.nominal) throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      const k = u || $(), { headers: y, ts: p, xref: w } = await X(o, l, k, b), [v, I, S, x, _, O] = await Promise.all([T(d.no_rek_from, n, r), T(d.no_rek_to, n, r), T(d.nominal, n, r), d.bank_dest ? T(d.bank_dest, n, r) : Promise.resolve(""), d.nama_dest ? T(d.nama_dest, n, r) : Promise.resolve(""), d.keterangan ? T(d.keterangan, n, r) : Promise.resolve("")]), B = c + "/api/smart/transfer/posting", L = JSON.stringify({ no_rek_from: v, no_rek_to: I, nominal: S, bank_dest: x, nama_dest: _, keterangan: O, ref_no: k });
+      let C = 0, N = {};
       try {
-        const q = await fetch(C, { method: "POST", headers: m, body: T });
-        k = q.status;
-        const H = await q.text();
+        const q = await fetch(B, { method: "POST", headers: y, body: L });
+        C = q.status;
+        const ne = await q.text();
         try {
-          M = JSON.parse(H);
+          N = JSON.parse(ne);
         } catch {
-          M = { _raw: H };
+          N = { _raw: ne };
         }
       } catch (q) {
-        return e.json({ ok: false, action: t, error: q.message });
+        return e.json({ ok: false, action: s, error: q.message });
       }
-      return e.json({ ok: k >= 200 && k < 300, action: t, httpStatus: k, url: C, result: M, debug: { ts: b, xref: A, ref: c }, requestHeaders: m });
+      return e.json({ ok: C >= 200 && C < 300, action: s, httpStatus: C, url: B, result: N, debug: { ts: p, xref: w, ref: k }, requestHeaders: y });
     }
-    if (t === "posting") {
-      if (!r.no_rek_from || !r.no_rek_to || !r.nominal) throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");
-      if (!d) throw new Error("clientIdEnc wajib diisi");
-      const c = p || me(), { headers: m, ts: b, xref: A } = await je(o, d, c), [y, u, x, v, C, T] = await Promise.all([D(r.no_rek_from, n, i), D(r.no_rek_to, n, i), D(r.nominal, n, i), r.bank_dest ? D(r.bank_dest, n, i) : Promise.resolve(""), r.nama_dest ? D(r.nama_dest, n, i) : Promise.resolve(""), r.keterangan ? D(r.keterangan, n, i) : Promise.resolve("")]), k = g + "/api/smart/transfer/posting", M = JSON.stringify({ no_rek_from: y, no_rek_to: u, nominal: x, bank_dest: v, nama_dest: C, keterangan: T, ref_no: c });
-      let q = 0, H = {};
+    const h = /* @__PURE__ */ __name(async (k, y, p) => {
+      const w = await fetch(k, { method: "POST", headers: y, body: p }), v = await w.text();
+      let I;
       try {
-        const L = await fetch(k, { method: "POST", headers: m, body: M });
-        q = L.status;
-        const F = await L.text();
-        try {
-          H = JSON.parse(F);
-        } catch {
-          H = { _raw: F };
-        }
-      } catch (L) {
-        return e.json({ ok: false, action: t, error: L.message });
+        I = JSON.parse(v);
+      } catch {
+        I = { _raw: v };
       }
-      return e.json({ ok: q >= 200 && q < 300, action: t, httpStatus: q, url: k, result: H, debug: { ts: b, xref: A, ref: c }, requestHeaders: m });
+      return { httpStatus: w.status, parsed: I };
+    }, "h");
+    if (s === "logout") {
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      const { headers: k, ts: y, xref: p } = await X(o, l, void 0, b), w = c + "/api/smart/access/logout";
+      try {
+        const { httpStatus: v, parsed: I } = await h(w, k, "{}");
+        return e.json({ ok: v < 400, action: s, httpStatus: v, url: w, result: I, debug: { ts: y, xref: p } });
+      } catch (v) {
+        return e.json({ ok: false, action: s, error: v.message });
+      }
     }
-    return e.json({ ok: false, error: "Unknown action: " + t });
+    if (s === "account-list") {
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = await T(d.customer_id || "", n, r), { headers: y, ts: p, xref: w } = await X(o, l, void 0, b), v = c + "/api/smart/tabungan/account-list", I = JSON.stringify({ customer_id: k });
+      try {
+        const { httpStatus: S, parsed: x } = await h(v, y, I);
+        return e.json({ ok: S < 400, action: s, httpStatus: S, url: v, result: x, debug: { ts: p, xref: w, customer_id_enc: k } });
+      } catch (S) {
+        return e.json({ ok: false, action: s, error: S.message });
+      }
+    }
+    if (s === "mutasi-history") {
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = await T(d.customer_id || "", n, r), { headers: y, ts: p, xref: w } = await X(o, l, void 0, b), v = c + "/api/smart/tabungan/mutasi-history", I = JSON.stringify({ customer_id: k });
+      try {
+        const { httpStatus: S, parsed: x } = await h(v, y, I);
+        return e.json({ ok: S < 400, action: s, httpStatus: S, url: v, result: x, debug: { ts: p, xref: w, customer_id_enc: k } });
+      } catch (S) {
+        return e.json({ ok: false, action: s, error: S.message });
+      }
+    }
+    if (s === "transaction-history") {
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = await T(d.no_rek || "", n, r), y = await T(d.tgl_awal || "", n, r), p = await T(d.tgl_akhir || "", n, r), { headers: w, ts: v, xref: I } = await X(o, l, void 0, b), S = c + "/api/smart/tabungan/transaction-history", x = JSON.stringify({ no_rek: k, tgl_awal: y, tgl_akhir: p });
+      try {
+        const { httpStatus: _, parsed: O } = await h(S, w, x);
+        return e.json({ ok: _ < 400, action: s, httpStatus: _, url: S, result: O, debug: { ts: v, xref: I } });
+      } catch (_) {
+        return e.json({ ok: false, action: s, error: _.message });
+      }
+    }
+    if (s === "transfer-lpd-check") {
+      if (!d.no_rek_tujuan) throw new Error("no_rek_tujuan wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = $(), y = await T(d.no_rek_tujuan, n, r), { headers: p, ts: w, xref: v } = await X(o, l, k, b), I = c + "/api/smart/transfer/lpd/check", S = JSON.stringify({ account_no: y });
+      try {
+        const { httpStatus: x, parsed: _ } = await h(I, p, S);
+        return e.json({ ok: x < 400, action: s, httpStatus: x, url: I, result: _, debug: { ts: w, xref: v, ref: k, account_no_enc: y } });
+      } catch (x) {
+        return e.json({ ok: false, action: s, error: x.message });
+      }
+    }
+    if (s === "transfer-lpd-inquiry") {
+      if (!d.no_rek_from || !d.no_rek_to || !d.nominal) throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = u || $(), { headers: y, ts: p, xref: w } = await X(o, l, k, b), [v, I, S, x, _, O] = await Promise.all([T(d.no_rek_from, n, r), T(d.no_rek_to, n, r), T(d.nama_tujuan || "", n, r), T(d.nominal, n, r), T(d.date_time || V(), n, r), T(d.keterangan || "", n, r)]), B = c + "/api/smart/transfer/lpd/inquiry", L = JSON.stringify({ to_acc: I, to_name: S, from_acc: v, from_name: v, amount: x, remark: O });
+      try {
+        const { httpStatus: C, parsed: N } = await h(B, y, L);
+        return e.json({ ok: C < 400, action: s, httpStatus: C, url: B, result: N, debug: { ts: p, xref: w, ref: k } });
+      } catch (C) {
+        return e.json({ ok: false, action: s, error: C.message });
+      }
+    }
+    if (s === "transfer-lpd-posting") {
+      if (!d.no_rek_from || !d.no_rek_to || !d.nominal) throw new Error("no_rek_from, no_rek_to, nominal wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = u || $(), { headers: y, ts: p, xref: w } = await X(o, l, k, b), [v, I, S, x, _, O] = await Promise.all([T(d.no_rek_from, n, r), T(d.no_rek_to, n, r), T(d.nama_tujuan || "", n, r), T(d.nominal, n, r), T(d.date_time || V(), n, r), T(d.keterangan || "", n, r)]), B = c + "/api/smart/transfer/lpd/post", L = JSON.stringify({ to_acc: I, to_name: S, from_acc: v, from_name: v, amount: x, remark: O });
+      try {
+        const { httpStatus: C, parsed: N } = await h(B, y, L);
+        return e.json({ ok: C < 400, action: s, httpStatus: C, url: B, result: N, debug: { ts: p, xref: w, ref: k } });
+      } catch (C) {
+        return e.json({ ok: false, action: s, error: C.message });
+      }
+    }
+    if (s === "transfer-bank-check") {
+      if (!d.no_rek_tujuan || !d.kode_bank) throw new Error("no_rek_tujuan dan kode_bank wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = $(), [y, p] = await Promise.all([T(d.no_rek_tujuan, n, r), T(d.kode_bank, n, r)]), { headers: w, ts: v, xref: I } = await X(o, l, k, b), S = c + "/api/smart/transfer/bank/check", x = JSON.stringify({ account_no: y, bank_code: p });
+      try {
+        const { httpStatus: _, parsed: O } = await h(S, w, x);
+        return e.json({ ok: _ < 400, action: s, httpStatus: _, url: S, result: O, debug: { ts: v, xref: I, ref: k } });
+      } catch (_) {
+        return e.json({ ok: false, action: s, error: _.message });
+      }
+    }
+    if (s === "transfer-bank-inquiry") {
+      if (!d.no_rek_from || !d.no_rek_to || !d.nominal || !d.kode_bank) throw new Error("no_rek_from, no_rek_to, nominal, kode_bank wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = u || $(), { headers: y, ts: p, xref: w } = await X(o, l, k, b), [v, I, S, x, _, O] = await Promise.all([T(d.no_rek_from, n, r), T(d.no_rek_to, n, r), T(d.kode_bank, n, r), T(d.nominal, n, r), T(d.date_time || V(), n, r), T(d.hash_code || "", n, r)]), B = c + "/api/smart/transfer/bank/inquiry", L = JSON.stringify({ from_acc: v, to_acc: I, bank_code: S, amount: x, date_time: _, hash_code: O, remark: "" });
+      try {
+        const { httpStatus: C, parsed: N } = await h(B, y, L);
+        return e.json({ ok: C < 400, action: s, httpStatus: C, url: B, result: N, debug: { ts: p, xref: w, ref: k } });
+      } catch (C) {
+        return e.json({ ok: false, action: s, error: C.message });
+      }
+    }
+    if (s === "transfer-bank-posting") {
+      if (!d.no_rek_from || !d.no_rek_to || !d.nominal || !d.kode_bank) throw new Error("no_rek_from, no_rek_to, nominal, kode_bank wajib diisi");
+      if (!l) throw new Error("clientIdEnc wajib diisi");
+      if (!n || !r) throw new Error("aesKey dan aesIv wajib diisi");
+      const k = u || $(), { headers: y, ts: p, xref: w } = await X(o, l, k, b), [v, I, S, x, _, O, B] = await Promise.all([T(d.no_rek_from, n, r), T(d.no_rek_to, n, r), T(d.kode_bank, n, r), T(d.nominal, n, r), T(d.date_time || V(), n, r), T(d.hash_code || "", n, r), T(d.keterangan || "", n, r)]), L = c + "/api/smart/transfer/bank/post", C = JSON.stringify({ from_acc: v, to_acc: I, bank_code: S, amount: x, date_time: _, hash_code: O, remark: B });
+      try {
+        const { httpStatus: N, parsed: q } = await h(L, y, C);
+        return e.json({ ok: N < 400, action: s, httpStatus: N, url: L, result: q, debug: { ts: p, xref: w, ref: k } });
+      } catch (N) {
+        return e.json({ ok: false, action: s, error: N.message });
+      }
+    }
+    return e.json({ ok: false, error: "Unknown action: " + s });
   } catch (a) {
-    const t = a instanceof Error ? a.message : String(a);
-    return e.json({ ok: false, error: "Smart error: " + t });
+    const s = a instanceof Error ? a.message : String(a);
+    return e.json({ ok: false, error: "Smart error: " + s });
   }
 });
-z.post("/api/token/generate", async (e) => {
+U.post("/api/token/generate", async (e) => {
   try {
-    const a = await e.req.json(), { type: t, baseUrl: s, clientIdEnc: n, clientKey: i } = a;
-    let o;
-    if (t === "ios") {
-      const d = ke(), p = await za(d), r = (s || "https://lpdseminyak.biz.id:8000") + "/api/smart/access/token", g = { "Content-Type": "application/json", "X-TIMESTAMP": d, "X-CLIENT-ID": n || "", "X-SIGNATURE": p.signature, "X-Forwarded-For": "34.50.74.78", "X-Real-IP": "34.50.74.78" };
+    const t = await e.req.json(), { type: a, baseUrl: s, clientIdEnc: i, clientKey: n } = t;
+    let r;
+    if (a === "ios") {
+      const o = V(), l = await ot(o), u = (s || "https://lpdseminyak.biz.id:8000") + "/api/smart/access/token", b = { "Content-Type": "application/json", "X-TIMESTAMP": o, "X-CLIENT-ID": i || "", "X-SIGNATURE": l.signature, "X-Forwarded-For": "34.50.74.78", "X-Real-IP": "34.50.74.78" };
       try {
-        const h = await fetch(r, { method: "POST", headers: g, body: "{}" }), l = await h.text();
-        let c;
+        const d = await fetch(u, { method: "POST", headers: b, body: JSON.stringify({ credential: "{get-token}" }) }), c = await d.text();
+        let m;
         try {
-          c = JSON.parse(l);
+          m = JSON.parse(c);
         } catch {
-          c = { _raw: l };
+          m = { _raw: c };
         }
-        o = { ok: h.status < 400, httpStatus: h.status, result: c, debug: p };
-      } catch (h) {
-        o = { ok: false, error: h.message };
+        r = { ok: d.status < 400, httpStatus: d.status, result: m, debug: l };
+      } catch (d) {
+        r = { ok: false, error: d.message };
       }
-    } else if (t === "snap") {
-      const d = Re();
-      o = { ok: true, result: await ja(i || "LPD-SEMINYAK-001", d) };
-    } else o = { ok: false, error: "type must be snap or ios" };
-    return e.json(o);
-  } catch (a) {
-    const t = a instanceof Error ? a.message : String(a);
-    return e.json({ ok: false, error: "Token error: " + t });
+    } else if (a === "snap") {
+      const o = qe();
+      r = { ok: true, result: await Ut(n || "LPD-SEMINYAK-001", o) };
+    } else r = { ok: false, error: "type must be snap or ios" };
+    return e.json(r);
+  } catch (t) {
+    const a = t instanceof Error ? t.message : String(t);
+    return e.json({ ok: false, error: "Token error: " + a });
   }
 });
-z.get("/", (e) => e.redirect("/swagger"));
-z.get("/swagger", (e) => e.html(Ot()));
-z.get("/crypto", (e) => e.html(Mt()));
-z.get("/docs", (e) => {
-  const a = Jt();
-  return e.html(a);
+var Q = "/home/user/webapp/lpd_seminyak/storage/logs";
+U.post("/api/admin", async (e) => {
+  try {
+    const t = await e.req.json(), a = t.op;
+    if (a === "list-logs") {
+      const r = ((await (await fetch("http://127.0.0.1:3001/exec", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ command: `find ${Q} -maxdepth 2 \\( -name "*.txt" -o -name "*.log" \\) | sort -r | head -200` }) })).json()).stdout || "").trim().split(`
+`).filter(Boolean).map((k) => {
+        const y = k.split("/").pop() || "", p = k.replace(Q + "/", "").replace("/" + y, "");
+        return { name: y, dir: p === y ? "root" : p, path: k };
+      }), l = await (await fetch("http://127.0.0.1:3001/exec", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ command: `grep -c "local.ERROR" ${Q}/laravel.log 2>/dev/null || echo 0` }) })).json(), u = parseInt((l.stdout || "0").trim()) || 0, d = await (await fetch("http://127.0.0.1:3001/exec", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ command: `grep -h "POST http" ${Q}/access-*.txt ${Q}/transfer-*.txt ${Q}/tabungan-*.txt 2>/dev/null | grep -oP '/api/[a-z/._-]+' | sort | uniq -c | sort -rn | head -20` }) })).json(), c = {};
+      (d.stdout || "").trim().split(`
+`).forEach((k) => {
+        const y = k.trim().match(/^(\d+)\s+(.+)$/);
+        y && (c[y[2]] = parseInt(y[1]));
+      });
+      const g = await (await fetch("http://127.0.0.1:3001/exec", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ command: `grep -h "REQUEST" ${Q}/access-*.txt 2>/dev/null | grep -oP '\\d{4}-\\d{2}-\\d{2}' | sort | uniq -c | tail -30` }) })).json(), h = {};
+      return (g.stdout || "").trim().split(`
+`).forEach((k) => {
+        const y = k.trim().match(/^(\d+)\s+(\d{4}-\d{2}-\d{2})$/);
+        y && (h[y[2]] = parseInt(y[1]));
+      }), e.json({ ok: true, files: r, error_count: u, endpoints: c, daily: h });
+    }
+    if (a === "read-log") {
+      const s = (t.path || "").replace(/\.\./g, "").replace(/[^a-zA-Z0-9._\-]/g, ""), i = (t.dir || "root").replace(/\.\./g, "").replace(/[^a-zA-Z0-9._\-]/g, "");
+      let n = "";
+      i === "root" ? n = `${Q}/${s}` : n = `${Q}/${i}/${s}`;
+      const o = await (await fetch("http://127.0.0.1:3001/exec", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ command: `cat "${n}" 2>/dev/null | head -c 500000` }) })).json();
+      return !o.stdout || o.stdout.trim() === "" ? e.json({ ok: false, error: `File tidak ditemukan atau kosong: ${s}` }) : e.json({ ok: true, content: o.stdout, path: n });
+    }
+    return e.json({ ok: false, error: "Unknown operation: " + a });
+  } catch (t) {
+    const a = t instanceof Error ? t.message : String(t);
+    return a.includes("fetch") || a.includes("ECONNREFUSED") || a.includes("refused") ? e.json({ ok: false, error: "Admin panel memerlukan sandbox environment. Di production, fitur baca log tidak tersedia karena tidak ada akses filesystem." }) : e.json({ ok: false, error: "Admin error: " + a });
+  }
 });
-function Jt() {
+U.get("/", (e) => e.redirect("/admin"));
+U.get("/swagger", (e) => e.html(qa()));
+U.get("/admin", (e) => e.html(ja()));
+U.get("/crypto", (e) => e.html(Ha()));
+U.get("/docs", (e) => {
+  const t = es();
+  return e.html(t);
+});
+function es() {
   const e = { installPhp: ["# Ubuntu/Debian:", "sudo apt-get install -y software-properties-common", "sudo add-apt-repository ppa:ondrej/php", "sudo apt-get update", "sudo apt-get install -y php7.4 php7.4-cli php7.4-mbstring php7.4-xml \\", "  php7.4-curl php7.4-zip php7.4-json php7.4-pdo php7.4-intl", "", "# Verifikasi:", "php7.4 --version"].join(`
 `), installOdbc: ["# Install ODBC Driver 17 (Ubuntu):", "curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -", "curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list \\", "  > /etc/apt/sources.list.d/mssql-release.list", "sudo apt-get update", "sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev", "", "# Install ekstensi PHP sqlsrv:", "sudo pecl install sqlsrv pdo_sqlsrv", 'echo "extension=sqlsrv.so" >> /etc/php/7.4/cli/php.ini', 'echo "extension=pdo_sqlsrv.so" >> /etc/php/7.4/cli/php.ini'].join(`
 `), extractCode: ["# Extract dari zip:", "unzip lpd_seminyak.zip -d /var/www/html/", "", "# Atau clone dari repository (jika ada):", "git clone https://your-repo.git /var/www/html/lpd_seminyak", "", "# Masuk ke direktori:", "cd /var/www/html/lpd_seminyak"].join(`
@@ -7121,28 +9294,29 @@ function toggleSidebar() { document.getElementById('sidebar').classList.toggle('
 </body>
 </html>`;
 }
-__name(Jt, "Jt");
-__name2(Jt, "Jt");
-var pa = new Ra();
-var Wt = Object.assign({ "/src/index.tsx": z });
-var Ua = false;
-for (const [, e] of Object.entries(Wt)) e && (pa.all("*", (a) => {
-  let t;
+__name(es, "es");
+var mt = new qt();
+var ts = Object.assign({ "/src/index.tsx": U });
+var Xt = false;
+for (const [, e] of Object.entries(ts)) e && (mt.all("*", (t) => {
+  let a;
   try {
-    t = a.executionCtx;
+    a = t.executionCtx;
   } catch {
   }
-  return e.fetch(a.req.raw, a.env, t);
-}), pa.notFound((a) => {
-  let t;
+  return e.fetch(t.req.raw, t.env, a);
+}), mt.notFound((t) => {
+  let a;
   try {
-    t = a.executionCtx;
+    a = t.executionCtx;
   } catch {
   }
-  return e.fetch(a.req.raw, a.env, t);
-}), Ua = true);
-if (!Ua) throw new Error("Can't import modules from ['/src/index.ts','/src/index.tsx','/app/server.ts']");
-var drainBody = /* @__PURE__ */ __name2(async (request, env2, _ctx, middlewareCtx) => {
+  return e.fetch(t.req.raw, t.env, a);
+}), Xt = true);
+if (!Xt) throw new Error("Can't import modules from ['/src/index.ts','/src/index.tsx','/app/server.ts']");
+
+// ../node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
+var drainBody = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx) => {
   try {
     return await middlewareCtx.next(request, env2);
   } finally {
@@ -7158,6 +9332,8 @@ var drainBody = /* @__PURE__ */ __name2(async (request, env2, _ctx, middlewareCt
   }
 }, "drainBody");
 var middleware_ensure_req_body_drained_default = drainBody;
+
+// ../node_modules/wrangler/templates/middleware/middleware-miniflare3-json-error.ts
 function reduceError(e) {
   return {
     name: e?.name,
@@ -7167,8 +9343,7 @@ function reduceError(e) {
   };
 }
 __name(reduceError, "reduceError");
-__name2(reduceError, "reduceError");
-var jsonError = /* @__PURE__ */ __name2(async (request, env2, _ctx, middlewareCtx) => {
+var jsonError = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx) => {
   try {
     return await middlewareCtx.next(request, env2);
   } catch (e) {
@@ -7180,17 +9355,20 @@ var jsonError = /* @__PURE__ */ __name2(async (request, env2, _ctx, middlewareCt
   }
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
+
+// ../.wrangler/tmp/bundle-utXNhq/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
 ];
-var middleware_insertion_facade_default = pa;
+var middleware_insertion_facade_default = mt;
+
+// ../node_modules/wrangler/templates/middleware/common.ts
 var __facade_middleware__ = [];
 function __facade_register__(...args) {
   __facade_middleware__.push(...args.flat());
 }
 __name(__facade_register__, "__facade_register__");
-__name2(__facade_register__, "__facade_register__");
 function __facade_invokeChain__(request, env2, ctx, dispatch, middlewareChain) {
   const [head, ...tail] = middlewareChain;
   const middlewareCtx = {
@@ -7202,7 +9380,6 @@ function __facade_invokeChain__(request, env2, ctx, dispatch, middlewareChain) {
   return head(request, env2, ctx, middlewareCtx);
 }
 __name(__facade_invokeChain__, "__facade_invokeChain__");
-__name2(__facade_invokeChain__, "__facade_invokeChain__");
 function __facade_invoke__(request, env2, ctx, dispatch, finalMiddleware) {
   return __facade_invokeChain__(request, env2, ctx, dispatch, [
     ...__facade_middleware__,
@@ -7210,18 +9387,16 @@ function __facade_invoke__(request, env2, ctx, dispatch, finalMiddleware) {
   ]);
 }
 __name(__facade_invoke__, "__facade_invoke__");
-__name2(__facade_invoke__, "__facade_invoke__");
+
+// ../.wrangler/tmp/bundle-utXNhq/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
-  static {
-    __name(this, "___Facade_ScheduledController__");
-  }
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
     this.cron = cron;
     this.#noRetry = noRetry;
   }
   static {
-    __name2(this, "__Facade_ScheduledController__");
+    __name(this, "__Facade_ScheduledController__");
   }
   #noRetry;
   noRetry() {
@@ -7238,7 +9413,7 @@ function wrapExportedHandler(worker) {
   for (const middleware of __INTERNAL_WRANGLER_MIDDLEWARE__) {
     __facade_register__(middleware);
   }
-  const fetchDispatcher = /* @__PURE__ */ __name2(function(request, env2, ctx) {
+  const fetchDispatcher = /* @__PURE__ */ __name(function(request, env2, ctx) {
     if (worker.fetch === void 0) {
       throw new Error("Handler does not export a fetch() function.");
     }
@@ -7247,7 +9422,7 @@ function wrapExportedHandler(worker) {
   return {
     ...worker,
     fetch(request, env2, ctx) {
-      const dispatcher = /* @__PURE__ */ __name2(function(type, init) {
+      const dispatcher = /* @__PURE__ */ __name(function(type, init) {
         if (type === "scheduled" && worker.scheduled !== void 0) {
           const controller = new __Facade_ScheduledController__(
             Date.now(),
@@ -7263,7 +9438,6 @@ function wrapExportedHandler(worker) {
   };
 }
 __name(wrapExportedHandler, "wrapExportedHandler");
-__name2(wrapExportedHandler, "wrapExportedHandler");
 function wrapWorkerEntrypoint(klass) {
   if (__INTERNAL_WRANGLER_MIDDLEWARE__ === void 0 || __INTERNAL_WRANGLER_MIDDLEWARE__.length === 0) {
     return klass;
@@ -7272,7 +9446,7 @@ function wrapWorkerEntrypoint(klass) {
     __facade_register__(middleware);
   }
   return class extends klass {
-    #fetchDispatcher = /* @__PURE__ */ __name2((request, env2, ctx) => {
+    #fetchDispatcher = /* @__PURE__ */ __name((request, env2, ctx) => {
       this.env = env2;
       this.ctx = ctx;
       if (super.fetch === void 0) {
@@ -7280,7 +9454,7 @@ function wrapWorkerEntrypoint(klass) {
       }
       return super.fetch(request);
     }, "#fetchDispatcher");
-    #dispatcher = /* @__PURE__ */ __name2((type, init) => {
+    #dispatcher = /* @__PURE__ */ __name((type, init) => {
       if (type === "scheduled" && super.scheduled !== void 0) {
         const controller = new __Facade_ScheduledController__(
           Date.now(),
@@ -7303,7 +9477,6 @@ function wrapWorkerEntrypoint(klass) {
   };
 }
 __name(wrapWorkerEntrypoint, "wrapWorkerEntrypoint");
-__name2(wrapWorkerEntrypoint, "wrapWorkerEntrypoint");
 var WRAPPED_ENTRY;
 if (typeof middleware_insertion_facade_default === "object") {
   WRAPPED_ENTRY = wrapExportedHandler(middleware_insertion_facade_default);
@@ -7311,232 +9484,8 @@ if (typeof middleware_insertion_facade_default === "object") {
   WRAPPED_ENTRY = wrapWorkerEntrypoint(middleware_insertion_facade_default);
 }
 var middleware_loader_entry_default = WRAPPED_ENTRY;
-
-// node_modules/wrangler/templates/pages-dev-util.ts
-function isRoutingRuleMatch(pathname, routingRule) {
-  if (!pathname) {
-    throw new Error("Pathname is undefined.");
-  }
-  if (!routingRule) {
-    throw new Error("Routing rule is undefined.");
-  }
-  const ruleRegExp = transformRoutingRuleToRegExp(routingRule);
-  return pathname.match(ruleRegExp) !== null;
-}
-__name(isRoutingRuleMatch, "isRoutingRuleMatch");
-function transformRoutingRuleToRegExp(rule) {
-  let transformedRule;
-  if (rule === "/" || rule === "/*") {
-    transformedRule = rule;
-  } else if (rule.endsWith("/*")) {
-    transformedRule = `${rule.substring(0, rule.length - 2)}(/*)?`;
-  } else if (rule.endsWith("/")) {
-    transformedRule = `${rule.substring(0, rule.length - 1)}(/)?`;
-  } else if (rule.endsWith("*")) {
-    transformedRule = rule;
-  } else {
-    transformedRule = `${rule}(/)?`;
-  }
-  transformedRule = `^${transformedRule.replaceAll(/\./g, "\\.").replaceAll(/\*/g, ".*")}$`;
-  return new RegExp(transformedRule);
-}
-__name(transformRoutingRuleToRegExp, "transformRoutingRuleToRegExp");
-
-// .wrangler/tmp/pages-0dd3vj/li91wpj9wj.js
-var define_ROUTES_default = { version: 1, include: ["/*"], exclude: ["/index.html", "/static/*"] };
-var routes = define_ROUTES_default;
-var pages_dev_pipeline_default = {
-  fetch(request, env2, context2) {
-    const { pathname } = new URL(request.url);
-    for (const exclude of routes.exclude) {
-      if (isRoutingRuleMatch(pathname, exclude)) {
-        return env2.ASSETS.fetch(request);
-      }
-    }
-    for (const include of routes.include) {
-      if (isRoutingRuleMatch(pathname, include)) {
-        const workerAsHandler = middleware_loader_entry_default;
-        if (workerAsHandler.fetch === void 0) {
-          throw new TypeError("Entry point missing `fetch` handler");
-        }
-        return workerAsHandler.fetch(request, env2, context2);
-      }
-    }
-    return env2.ASSETS.fetch(request);
-  }
-};
-
-// node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
-var drainBody2 = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx) => {
-  try {
-    return await middlewareCtx.next(request, env2);
-  } finally {
-    try {
-      if (request.body !== null && !request.bodyUsed) {
-        const reader = request.body.getReader();
-        while (!(await reader.read()).done) {
-        }
-      }
-    } catch (e) {
-      console.error("Failed to drain the unused request body.", e);
-    }
-  }
-}, "drainBody");
-var middleware_ensure_req_body_drained_default2 = drainBody2;
-
-// node_modules/wrangler/templates/middleware/middleware-miniflare3-json-error.ts
-function reduceError2(e) {
-  return {
-    name: e?.name,
-    message: e?.message ?? String(e),
-    stack: e?.stack,
-    cause: e?.cause === void 0 ? void 0 : reduceError2(e.cause)
-  };
-}
-__name(reduceError2, "reduceError");
-var jsonError2 = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx) => {
-  try {
-    return await middlewareCtx.next(request, env2);
-  } catch (e) {
-    const error3 = reduceError2(e);
-    return Response.json(error3, {
-      status: 500,
-      headers: { "MF-Experimental-Error-Stack": "true" }
-    });
-  }
-}, "jsonError");
-var middleware_miniflare3_json_error_default2 = jsonError2;
-
-// .wrangler/tmp/bundle-YtdM8H/middleware-insertion-facade.js
-var __INTERNAL_WRANGLER_MIDDLEWARE__2 = [
-  middleware_ensure_req_body_drained_default2,
-  middleware_miniflare3_json_error_default2
-];
-var middleware_insertion_facade_default2 = pages_dev_pipeline_default;
-
-// node_modules/wrangler/templates/middleware/common.ts
-var __facade_middleware__2 = [];
-function __facade_register__2(...args) {
-  __facade_middleware__2.push(...args.flat());
-}
-__name(__facade_register__2, "__facade_register__");
-function __facade_invokeChain__2(request, env2, ctx, dispatch, middlewareChain) {
-  const [head, ...tail] = middlewareChain;
-  const middlewareCtx = {
-    dispatch,
-    next(newRequest, newEnv) {
-      return __facade_invokeChain__2(newRequest, newEnv, ctx, dispatch, tail);
-    }
-  };
-  return head(request, env2, ctx, middlewareCtx);
-}
-__name(__facade_invokeChain__2, "__facade_invokeChain__");
-function __facade_invoke__2(request, env2, ctx, dispatch, finalMiddleware) {
-  return __facade_invokeChain__2(request, env2, ctx, dispatch, [
-    ...__facade_middleware__2,
-    finalMiddleware
-  ]);
-}
-__name(__facade_invoke__2, "__facade_invoke__");
-
-// .wrangler/tmp/bundle-YtdM8H/middleware-loader.entry.ts
-var __Facade_ScheduledController__2 = class ___Facade_ScheduledController__2 {
-  constructor(scheduledTime, cron, noRetry) {
-    this.scheduledTime = scheduledTime;
-    this.cron = cron;
-    this.#noRetry = noRetry;
-  }
-  static {
-    __name(this, "__Facade_ScheduledController__");
-  }
-  #noRetry;
-  noRetry() {
-    if (!(this instanceof ___Facade_ScheduledController__2)) {
-      throw new TypeError("Illegal invocation");
-    }
-    this.#noRetry();
-  }
-};
-function wrapExportedHandler2(worker) {
-  if (__INTERNAL_WRANGLER_MIDDLEWARE__2 === void 0 || __INTERNAL_WRANGLER_MIDDLEWARE__2.length === 0) {
-    return worker;
-  }
-  for (const middleware of __INTERNAL_WRANGLER_MIDDLEWARE__2) {
-    __facade_register__2(middleware);
-  }
-  const fetchDispatcher = /* @__PURE__ */ __name(function(request, env2, ctx) {
-    if (worker.fetch === void 0) {
-      throw new Error("Handler does not export a fetch() function.");
-    }
-    return worker.fetch(request, env2, ctx);
-  }, "fetchDispatcher");
-  return {
-    ...worker,
-    fetch(request, env2, ctx) {
-      const dispatcher = /* @__PURE__ */ __name(function(type, init) {
-        if (type === "scheduled" && worker.scheduled !== void 0) {
-          const controller = new __Facade_ScheduledController__2(
-            Date.now(),
-            init.cron ?? "",
-            () => {
-            }
-          );
-          return worker.scheduled(controller, env2, ctx);
-        }
-      }, "dispatcher");
-      return __facade_invoke__2(request, env2, ctx, dispatcher, fetchDispatcher);
-    }
-  };
-}
-__name(wrapExportedHandler2, "wrapExportedHandler");
-function wrapWorkerEntrypoint2(klass) {
-  if (__INTERNAL_WRANGLER_MIDDLEWARE__2 === void 0 || __INTERNAL_WRANGLER_MIDDLEWARE__2.length === 0) {
-    return klass;
-  }
-  for (const middleware of __INTERNAL_WRANGLER_MIDDLEWARE__2) {
-    __facade_register__2(middleware);
-  }
-  return class extends klass {
-    #fetchDispatcher = /* @__PURE__ */ __name((request, env2, ctx) => {
-      this.env = env2;
-      this.ctx = ctx;
-      if (super.fetch === void 0) {
-        throw new Error("Entrypoint class does not define a fetch() function.");
-      }
-      return super.fetch(request);
-    }, "#fetchDispatcher");
-    #dispatcher = /* @__PURE__ */ __name((type, init) => {
-      if (type === "scheduled" && super.scheduled !== void 0) {
-        const controller = new __Facade_ScheduledController__2(
-          Date.now(),
-          init.cron ?? "",
-          () => {
-          }
-        );
-        return super.scheduled(controller);
-      }
-    }, "#dispatcher");
-    fetch(request) {
-      return __facade_invoke__2(
-        request,
-        this.env,
-        this.ctx,
-        this.#dispatcher,
-        this.#fetchDispatcher
-      );
-    }
-  };
-}
-__name(wrapWorkerEntrypoint2, "wrapWorkerEntrypoint");
-var WRAPPED_ENTRY2;
-if (typeof middleware_insertion_facade_default2 === "object") {
-  WRAPPED_ENTRY2 = wrapExportedHandler2(middleware_insertion_facade_default2);
-} else if (typeof middleware_insertion_facade_default2 === "function") {
-  WRAPPED_ENTRY2 = wrapWorkerEntrypoint2(middleware_insertion_facade_default2);
-}
-var middleware_loader_entry_default2 = WRAPPED_ENTRY2;
 export {
-  __INTERNAL_WRANGLER_MIDDLEWARE__2 as __INTERNAL_WRANGLER_MIDDLEWARE__,
-  middleware_loader_entry_default2 as default
+  __INTERNAL_WRANGLER_MIDDLEWARE__,
+  middleware_loader_entry_default as default
 };
-//# sourceMappingURL=li91wpj9wj.js.map
+//# sourceMappingURL=bundledWorker-0.5471426690350152.mjs.map

@@ -59,12 +59,28 @@ import {
   generateSignature as edgeGenSig,
   generateReference as edgeGenRef,
   aesEncrypt as edgeAesEnc,
+  aesDecrypt as edgeAesDec,
   nowJakarta as edgeNowJkt,
   nowJakartaISO as edgeNowISO,
   generateIosTokenSig as edgeIosSig,
   generateSnapTokenSig as edgeSnapSig,
   md5 as edgeMd5,
 } from './edge-crypto'
+
+// Parse account_list dari response login/register
+// Format setelah decrypt: "norek<>nama<>saldo<>produk{#}norek<>nama<>saldo<>produk{#}..."
+function parseAccountList(decrypted: string): Array<{norek:string; nama:string; saldo:string; produk:string}> {
+  if (!decrypted) return []
+  return decrypted.split('{#}').filter(Boolean).map(item => {
+    const parts = item.split('<>')
+    return {
+      norek:  parts[0] || '',
+      nama:   parts[1] || '',
+      saldo:  parts[2] || '',
+      produk: parts[3] || '',
+    }
+  })
+}
 
 const WHITELIST_IP = '34.50.74.78'
 
@@ -76,11 +92,14 @@ async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: s
   const tsISO = edgeNowISO()
   const ref   = transNo || edgeGenRef()
   const jwt   = await edgeCreateJWT(ref, tsISO)
-  // Signature selalu pakai JWT lokal (HMAC-SHA512 dengan aesCs)
-  const sig   = await edgeGenSig(jwt, ts, aesCs || '')
   const xref  = edgeGenRef()
   // Authorization: pakai iosToken dari DB jika tersedia, fallback ke JWT lokal
   const authToken = iosToken && iosToken.trim() ? iosToken.trim() : jwt
+  // X-PARTNER-ID = base64(HMAC-SHA512(Authorization + ":" + X-TIMESTAMP, aesCs))
+  // Server validates: $partner64 = base64(hash_hmac("sha512", $token.":".$timeStamp, $aes_cs, true))
+  const partnerSig = await edgeGenSig(authToken, ts, aesCs || '')
+  // X-SIGNATURE: signature dokumen (untuk kompatibilitas, pakai partnerSig juga)
+  const sig = partnerSig
   return {
     jwt, ts, tsISO, sig, xref,
     headers: {
@@ -88,7 +107,7 @@ async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: s
       'Authorization':   authToken,
       'X-TIMESTAMP':     ts,
       'X-SIGNATURE':     sig,
-      'X-PARTNER-ID':    sig,
+      'X-PARTNER-ID':    partnerSig,
       'X-CLIENT-ID':     clientIdEnc,
       'X-REFERENCE':     xref,
       'X-Forwarded-For': WHITELIST_IP,
@@ -97,40 +116,52 @@ async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: s
   }
 }
 
-// Ambil fresh iOS token dari server LPD (simpan ke gmob_token DB, expire 3 menit)
-async function fetchIosToken(base: string, clientIdEnc: string, aesCs: string): Promise<{ok:boolean; token?:string; error?:string}> {
+// Ambil fresh iOS token dari server LPD via endpoint /api/smart/access/token (LPD key)
+// Endpoint ini menyimpan token ke gmob_token DB, expire 3 menit.
+// Signature: RSASSA-PKCS1-v1_5 SHA-256 sign(SHA256("Seminyak|timestamp")) dengan LPD private key
+// X-TIMESTAMP format: "YYYY-MM-DD HH:MM:SS" (Jakarta/Makassar time)
+// X-CLIENT-ID: encrypted client ID (wajib ada)
+// Body: {"credential":"{get-token}"}
+// Response: { "status": "2007300", "message": "Success", "token": "...", "signature": "..." }
+async function fetchIosToken(base: string, clientIdEnc: string, _aesCs: string): Promise<{ok:boolean; token?:string; error?:string}> {
   try {
-    const ts  = edgeNowJkt()
-    const sig = await edgeIosSig(ts)
+    if (!clientIdEnc) return { ok: false, error: 'clientIdEnc (X-CLIENT-ID) wajib diisi — jalankan Auto Setup terlebih dahulu' }
+    const ts     = edgeNowJkt()         // "YYYY-MM-DD HH:MM:SS" format, Makassar/Jakarta time
+    // Signature: sign(SHA256("Seminyak|" + ts)) with LPD private key
+    const iosSig = await edgeIosSig(ts)
     const url = base + '/api/smart/access/token'
     const headers = {
       'Content-Type':    'application/json',
       'X-TIMESTAMP':     ts,
       'X-CLIENT-ID':     clientIdEnc,
-      'X-SIGNATURE':     sig.signature,
+      'X-SIGNATURE':     iosSig.signature,
       'X-Forwarded-For': WHITELIST_IP,
       'X-Real-IP':       WHITELIST_IP,
     }
-    const r   = await fetch(url, { method: 'POST', headers, body: '{}' })
+    const body = JSON.stringify({ credential: '{get-token}' })
+    const r   = await fetch(url, { method: 'POST', headers, body })
     const raw = await r.text()
     let parsed: Record<string, unknown> = {}
     try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
-    const token = (parsed.token || parsed.accessToken || '') as string
-    if (r.status < 400 && token) {
+    // iOS token response: { "status": "2007300", "message": "Success", "token": "...", "signature": "..." }
+    const token = (parsed.token || '') as string
+    const rc    = (parsed.status || '') as string
+    if (rc === '2007300' && token) {
       return { ok: true, token }
     }
-    return { ok: false, error: `HTTP ${r.status}: ${parsed.message || raw.slice(0,100)}` }
+    return { ok: false, error: `${rc || ('HTTP '+r.status)}: ${parsed.message || raw.slice(0,200)}` }
   } catch(e: unknown) {
     return { ok: false, error: (e as Error).message }
   }
 }
 
-// Endpoint khusus untuk fetch iOS token dari server LPD
+// Endpoint khusus untuk fetch iOS token dari server LPD via /api/smart/access/token
+// Membutuhkan clientIdEnc (X-CLIENT-ID) — generate via Auto Setup di panel Transaksi
 app.post('/api/smart/get-ios-token', async (c) => {
   try {
     const body = await c.req.json() as Record<string, string>
     const { baseUrl: rawBase, clientIdEnc, aesCs } = body
-    if (!clientIdEnc) return c.json({ ok: false, error: 'clientIdEnc wajib diisi' })
+    if (!clientIdEnc) return c.json({ ok: false, error: 'clientIdEnc wajib diisi — jalankan Auto Setup terlebih dahulu' })
     const base = (rawBase || 'https://lpdseminyak.biz.id:8000').replace(/\/+$/, '')
     const result = await fetchIosToken(base, clientIdEnc, aesCs || '')
     return c.json({ ok: result.ok, token: result.token, error: result.error, expiresIn: 180 })
@@ -155,18 +186,39 @@ app.post('/api/smart', async (c) => {
       const { headers, ts, xref, jwt, sig } = await buildSmartHeaders(aesCs, clientIdEnc, transNo, iosToken)
       const url  = base + '/api/smart/access/login'
       const data = JSON.stringify({ user_name: finalUser, user_pass: finalPass })
-      let httpStatus = 0, parsed: unknown = {}
+      let httpStatus = 0, parsed: Record<string,unknown> = {}
       try {
         const r = await fetch(url, { method: 'POST', headers, body: data })
         httpStatus = r.status
         const raw = await r.text()
         try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
       } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message, url, headers }) }
+
+      const loginOk = httpStatus >= 200 && httpStatus < 300 && parsed.status === '00'
+
+      // Jika login sukses, decrypt account_list dan ekstrak info nasabah lengkap
+      let nasabah: { accounts: Array<{norek:string;nama:string;saldo:string;produk:string}>; nama?: string; noid?: string } | null = null
+      if (loginOk && parsed.account_list && aesKey && aesIv) {
+        try {
+          const decrypted = await edgeAesDec(parsed.account_list as string, aesKey, aesIv)
+          if (decrypted) {
+            const accounts = parseAccountList(decrypted)
+            nasabah = {
+              nama:     accounts[0]?.nama || '',
+              noid:     params.user_name,
+              accounts,
+            }
+          }
+        } catch { /* decrypt error — lanjut tanpa nasabah info */ }
+      }
+
       return c.json({
-        ok: httpStatus >= 200 && httpStatus < 300, action, httpStatus, url, result: parsed,
+        ok: loginOk, action, httpStatus, url,
+        result: parsed,
+        nasabah,   // null jika login gagal, objek lengkap jika sukses
         debug: { ts, xref, user_name_sent: finalUser, user_pass_sent: finalPass,
           jwt_preview: jwt.substring(0,40)+'...', sig_preview: sig.substring(0,20)+'...' },
-        requestHeaders: headers, requestBody: { user_name: finalUser, user_pass: finalPass },
+        requestHeaders: headers,
       })
     }
 
@@ -479,7 +531,7 @@ app.post('/api/token/generate', async (c) => {
         'X-Real-IP':       '34.50.74.78',
       }
       try {
-        const r   = await fetch(url, { method: 'POST', headers, body: '{}' })
+        const r   = await fetch(url, { method: 'POST', headers, body: JSON.stringify({ credential: '{get-token}' }) })
         const raw = await r.text()
         let parsed: unknown
         try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }

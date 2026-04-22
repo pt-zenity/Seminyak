@@ -593,6 +593,13 @@ select{cursor:pointer}
           <span style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;font-weight:700">Status Token iOS:</span>
           <span id="trx-token-status"><span class="badge-pill badge-err">Belum ada token</span></span>
         </div>
+        <div class="field-row" style="margin-top:8px">
+          <label>Token iOS Manual (jika Auto gagal)</label>
+          <div style="display:flex;gap:6px">
+            <input type="text" id="trx-ios-token-manual" placeholder="Paste token iOS manual di sini jika Auto Setup gagal ambil token..." style="flex:1;font-size:11px"/>
+            <button class="btn btn-secondary btn-sm" onclick="trxSetManualToken()" title="Gunakan token manual yang di-paste"><i class="fas fa-check"></i> Pakai</button>
+          </div>
+        </div>
         <div id="trx-setup-result" style="margin-top:10px;display:none"></div>
       </div>
     </div>
@@ -613,6 +620,39 @@ select{cursor:pointer}
           <div><div class="field-row"><label>Password (plain atau MD5)</label><input type="text" id="trx-password" placeholder="password nasabah"/></div></div>
         </div>
         <div id="trx-login-result" style="margin-top:10px;display:none"></div>
+      </div>
+    </div>
+
+    <!-- Nasabah Info Panel (muncul setelah login sukses) -->
+    <div id="trx-nasabah-panel" class="panel" style="display:none;border-left:3px solid #34d399;margin-bottom:16px">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <i class="fas fa-user-circle" style="font-size:18px;color:#34d399"></i>
+          <h3><i class="fas fa-id-card mr-2"></i>Info Nasabah</h3>
+          <span class="badge" id="trx-nb-rekcount">0 rekening</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="text-align:right">
+            <div style="font-size:13px;font-weight:800;color:#34d399" id="trx-nb-nama">—</div>
+            <div style="font-size:10px;color:#64748b">User: <span id="trx-nb-user">—</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body" style="padding:0">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>No. Rekening</th>
+              <th>Nama</th>
+              <th>Produk</th>
+              <th style="text-align:right">Saldo</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="trx-nb-accounts">
+            <tr><td colspan="5" style="padding:16px;text-align:center;color:#475569">Login terlebih dahulu</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -1513,6 +1553,20 @@ function trxUpdateTokenStatus() {
   }
 }
 
+// Set token iOS manual (digunakan jika auto-fetch gagal, misal server LPD sedang maintenance)
+function trxSetManualToken() {
+  const tokenInput = document.getElementById('trx-ios-token-manual') as HTMLInputElement;
+  const token = tokenInput ? tokenInput.value.trim() : '';
+  if (!token) { alert('Token tidak boleh kosong'); return; }
+  TRX.iosToken = token;
+  TRX.tokenFetchedAt = Date.now();
+  trxUpdateTokenStatus();
+  tokenInput.value = '';
+  trxLog([{ key: 'Manual Token', value: token.slice(0,30)+'...' }]);
+  if (!trxTokenRefreshTimer) trxStartTokenRefresh();
+  trxResultEl('trx-setup-result', '✓ Token manual berhasil diset. Sesi siap digunakan.', false);
+}
+
 // Ambil fresh iOS token dari server LPD (otomatis sebelum setiap transaksi)
 async function trxGetFreshToken(force = false) {
   const sess = trxGetSession();
@@ -1695,19 +1749,100 @@ async function trxLogin() {
     })
   }).then(r=>r.json()).catch(e=>({ok:false,error:e.message}));
 
-  const ok = res.ok && (res.httpStatus >= 200 && res.httpStatus < 300);
+  const ok = res.ok === true;
   TRX.loggedIn = ok;
-  if (ok) {
+  if (ok && res.nasabah) {
+    const nb = res.nasabah;
+    const nama = nb.nama || nb.accounts?.[0]?.nama || un;
+    document.getElementById('trx-login-badge').textContent = \`\${nama} ✓\`;
+    document.getElementById('trx-login-badge').style.background = '#022c22';
+    document.getElementById('trx-login-badge').style.color = '#34d399';
+    trxLog({ action: 'login', user: un, nama, ts: new Date().toISOString(), ok: true });
+    // Tampilkan info nasabah lengkap
+    trxShowNasabahInfo(nb, un);
+  } else if (ok) {
     document.getElementById('trx-login-badge').textContent = \`Login: \${un} ✓\`;
     document.getElementById('trx-login-badge').style.background = '#022c22';
     document.getElementById('trx-login-badge').style.color = '#34d399';
-    trxLog({ action: 'login', user: un, ts: new Date().toISOString(), ok: true });
   } else {
+    const errMsg = res.result?.message || res.error || 'Username/password salah';
     document.getElementById('trx-login-badge').textContent = 'Gagal login';
     document.getElementById('trx-login-badge').style.background = '#2d0000';
     document.getElementById('trx-login-badge').style.color = '#f87171';
+    trxJsonBox('trx-login-result', res, false);
+    return;
   }
   trxJsonBox('trx-login-result', res, ok);
+}
+
+function fmtRupiah(s) {
+  const n = parseFloat(String(s).replace(/[^0-9.-]/g, ''));
+  if (isNaN(n)) return s || '—';
+  return 'Rp ' + n.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function trxShowNasabahInfo(nb, username) {
+  const panel = document.getElementById('trx-nasabah-panel');
+  if (!panel) return;
+  panel.style.display = 'block';
+
+  const accounts = nb.accounts || [];
+  const nama = nb.nama || accounts[0]?.nama || username;
+  const firstNorek = accounts[0]?.norek || '';
+
+  // Auto-isi field rekening di semua form transaksi
+  if (firstNorek) {
+    ['trx-cs-norek','trx-tlpd-from','trx-tbank-from'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && !el.value) el.value = firstNorek;
+    });
+  }
+
+  document.getElementById('trx-nb-nama').textContent = nama;
+  document.getElementById('trx-nb-user').textContent = username;
+  document.getElementById('trx-nb-rekcount').textContent = accounts.length + ' rekening';
+
+  const tbody = document.getElementById('trx-nb-accounts');
+  if (!tbody) return;
+  if (accounts.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="padding:12px;text-align:center;color:#475569">Tidak ada rekening ditemukan</td></tr>';
+    return;
+  }
+  tbody.innerHTML = accounts.map((acc, i) => \`
+    <tr>
+      <td class="mono" style="cursor:pointer" onclick="trxCopyNorek('\${escH(acc.norek)}')" title="Klik untuk salin">
+        \${escH(acc.norek)} <i class="fas fa-copy" style="font-size:9px;color:#475569;margin-left:4px"></i>
+      </td>
+      <td>\${escH(acc.nama)}</td>
+      <td>\${escH(acc.produk)}</td>
+      <td style="text-align:right;font-weight:700;color:\${acc.saldo && parseFloat(acc.saldo)>0?'#34d399':'#94a3b8'}">\${fmtRupiah(acc.saldo)}</td>
+      <td>
+        <button class="btn btn-secondary btn-sm" onclick="trxUseNorek('\${escH(acc.norek)}')">
+          <i class="fas fa-hand-point-right"></i> Pakai
+        </button>
+      </td>
+    </tr>
+  \`).join('');
+}
+
+function trxCopyNorek(norek) {
+  navigator.clipboard?.writeText(norek).then(() => {
+    // Brief feedback
+    const el = event.target.closest('td');
+    if (el) { el.style.color = '#34d399'; setTimeout(() => el.style.color = '', 800); }
+  });
+}
+
+function trxUseNorek(norek) {
+  // Isi ke field rekening sumber semua form yang aktif
+  ['trx-cs-norek','trx-tlpd-from','trx-tbank-from'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = norek;
+  });
+  // Highlight field yang terisi
+  document.querySelectorAll('.trx-op-panel:not([style*="display: none"]) input').forEach(el => {
+    if (el.value === norek) { el.style.borderColor = '#14b8a6'; setTimeout(() => el.style.borderColor='', 1500); }
+  });
 }
 
 function trxGetSession() {
