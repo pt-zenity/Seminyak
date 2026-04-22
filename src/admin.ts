@@ -177,6 +177,14 @@ select{cursor:pointer}
       <i class="fas fa-exclamation-triangle"></i> Error Log
     </a>
 
+    <div class="nav-section">Transaksi</div>
+    <a href="#" onclick="showSection('trx')" id="nav-trx">
+      <i class="fas fa-terminal"></i> Jalankan Transaksi
+    </a>
+    <a href="#" onclick="showSection('trx-history')" id="nav-trx-history">
+      <i class="fas fa-history"></i> Riwayat Transaksi
+    </a>
+
     <div class="nav-section">Sistem</div>
     <a href="#" onclick="showSection('crypto-ops')" id="nav-crypto-ops">
       <i class="fas fa-lock"></i> Crypto Test
@@ -542,6 +550,247 @@ select{cursor:pointer}
   </div>
 
   <!-- ═══════════════════════════════════════════════════
+       SECTION: TRANSAKSI
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-trx" class="section content">
+    <div class="section-title"><i class="fas fa-terminal"></i> Jalankan Transaksi Smart API</div>
+    <div class="info-box info-teal" style="margin-bottom:14px">
+      <i class="fas fa-info-circle"></i>
+      <div>Lakukan transaksi langsung ke server LPD. Semua data dienkripsi AES-256-CBC sebelum dikirim.
+      Alur: <strong>1. Setup Sesi</strong> → <strong>2. Login</strong> → <strong>3. Pilih Transaksi</strong> → <strong>4. Posting</strong></div>
+    </div>
+
+    <!-- Step 1: Session Setup -->
+    <div class="panel" style="border-left:3px solid #14b8a6">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <span style="background:#14b8a6;color:#0f172a;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0">1</span>
+          <h3><i class="fas fa-key mr-2"></i>Setup Sesi (Derive Keys)</h3>
+          <span class="badge" id="trx-session-badge">Belum aktif</span>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="trxAutoSetup()"><i class="fas fa-magic"></i> Auto Setup</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div>
+            <div class="field-row"><label>Client ID Raw</label><input type="text" id="trx-clientid" value="AQ3A.240912.001.01102025120205"/></div>
+            <div class="field-row"><label>Base URL Server</label><input type="text" id="trx-baseurl" value="https://lpdseminyak.biz.id:8000"/></div>
+          </div>
+          <div>
+            <div class="field-row"><label>Client ID Encoded (X-CLIENT-ID)</label><input type="text" id="trx-clientid-enc" placeholder="Otomatis dari Auto Setup..."/></div>
+            <div class="field-row"><label>Timestamp Sesi</label><input type="text" id="trx-session-ts" placeholder="Otomatis dari Auto Setup..."/></div>
+          </div>
+        </div>
+        <div class="grid-2" style="margin-top:6px">
+          <div><div class="field-row"><label>AES Key (Base64)</label><input type="text" id="trx-aeskey" placeholder="Otomatis dari Auto Setup..."/></div></div>
+          <div><div class="field-row"><label>AES IV (Base64)</label><input type="text" id="trx-aesiv" placeholder="Otomatis dari Auto Setup..."/></div></div>
+        </div>
+        <div class="field-row" style="margin-top:6px"><label>AES CS (Base64)</label><input type="text" id="trx-aescs" placeholder="Otomatis dari Auto Setup..."/></div>
+        <div id="trx-setup-result" style="margin-top:10px;display:none"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Login -->
+    <div class="panel" style="border-left:3px solid #a78bfa">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <span style="background:#a78bfa;color:#0f172a;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0">2</span>
+          <h3><i class="fas fa-sign-in-alt mr-2"></i>Login Nasabah</h3>
+          <span class="badge" id="trx-login-badge">Belum login</span>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="trxLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-2">
+          <div><div class="field-row"><label>Username</label><input type="text" id="trx-username" placeholder="username nasabah"/></div></div>
+          <div><div class="field-row"><label>Password (plain atau MD5)</label><input type="text" id="trx-password" placeholder="password nasabah"/></div></div>
+        </div>
+        <div id="trx-login-result" style="margin-top:10px;display:none"></div>
+      </div>
+    </div>
+
+    <!-- Step 3: Select Operation -->
+    <div class="panel" style="border-left:3px solid #fbbf24">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <span style="background:#fbbf24;color:#0f172a;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0">3</span>
+          <h3><i class="fas fa-list mr-2"></i>Pilih Operasi</h3>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="grid-4" style="margin-bottom:12px">
+          <button class="btn btn-secondary" onclick="trxShowOp('cek-saldo')"><i class="fas fa-wallet"></i> Cek Saldo</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('account-list')"><i class="fas fa-list-alt"></i> Daftar Rekening</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('mutasi')"><i class="fas fa-history"></i> Mutasi</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('transfer-lpd')"><i class="fas fa-building mr-1"></i> Transfer LPD</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('transfer-bank')"><i class="fas fa-university mr-1"></i> Transfer Bank</button>
+          <button class="btn btn-secondary" onclick="trxShowOp('logout')"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+
+        <!-- CEK SALDO -->
+        <div id="trx-op-cek-saldo" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-wallet"></i> Cek Saldo Rekening</div>
+          <div class="field-row"><label>Nomor Rekening</label><input type="text" id="trx-cs-norek" placeholder="e.g. 2010123456"/></div>
+          <button class="btn btn-primary" onclick="trxExec('cek-saldo')"><i class="fas fa-search"></i> Cek Saldo</button>
+          <div id="trx-result-cek-saldo" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- ACCOUNT LIST -->
+        <div id="trx-op-account-list" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-list-alt"></i> Daftar Rekening Nasabah</div>
+          <div class="field-row"><label>Customer ID</label><input type="text" id="trx-al-custid" placeholder="e.g. 12345"/></div>
+          <button class="btn btn-primary" onclick="trxExec('account-list')"><i class="fas fa-search"></i> Cari Rekening</button>
+          <div id="trx-result-account-list" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- MUTASI HISTORY -->
+        <div id="trx-op-mutasi" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-history"></i> Riwayat Mutasi</div>
+          <div class="grid-2">
+            <div><div class="field-row"><label>Nomor Rekening</label><input type="text" id="trx-mu-norek" placeholder="e.g. 2010123456"/></div></div>
+            <div><div class="field-row"><label>Customer ID</label><input type="text" id="trx-mu-custid" placeholder="e.g. 12345"/></div></div>
+            <div><div class="field-row"><label>Tanggal Awal</label><input type="date" id="trx-mu-tglawal"/></div></div>
+            <div><div class="field-row"><label>Tanggal Akhir</label><input type="date" id="trx-mu-tglakhir"/></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <button class="btn btn-primary" onclick="trxExec('mutasi-history')"><i class="fas fa-history"></i> Cek Mutasi</button>
+            <button class="btn btn-secondary" onclick="trxExec('transaction-history')"><i class="fas fa-list"></i> Riwayat Transaksi</button>
+          </div>
+          <div id="trx-result-mutasi-history" style="margin-top:10px;display:none"></div>
+          <div id="trx-result-transaction-history" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- TRANSFER LPD -->
+        <div id="trx-op-transfer-lpd" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-building"></i> Transfer Sesama LPD</div>
+          <div class="grid-2">
+            <div><div class="field-row"><label>Rekening Sumber</label><input type="text" id="trx-tlpd-from" placeholder="No rekening pengirim"/></div></div>
+            <div>
+              <div class="field-row">
+                <label>Rekening Tujuan</label>
+                <div style="display:flex;gap:6px">
+                  <input type="text" id="trx-tlpd-to" placeholder="No rekening tujuan"/>
+                  <button class="btn btn-secondary btn-sm" onclick="trxExec('transfer-lpd-check')" style="white-space:nowrap"><i class="fas fa-search"></i> Cek</button>
+                </div>
+              </div>
+              <div id="trx-result-transfer-lpd-check" style="margin-bottom:8px;display:none"></div>
+            </div>
+            <div><div class="field-row"><label>Nama Tujuan</label><input type="text" id="trx-tlpd-name" placeholder="Nama pemilik rekening"/></div></div>
+            <div><div class="field-row"><label>Nominal (Rp)</label><input type="text" id="trx-tlpd-nominal" placeholder="e.g. 100000"/></div></div>
+            <div><div class="field-row"><label>Keterangan</label><input type="text" id="trx-tlpd-ket" placeholder="Pembayaran..."/></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn btn-secondary" onclick="trxExec('transfer-lpd-inquiry')"><i class="fas fa-check-circle"></i> Inquiry</button>
+            <button class="btn btn-primary" onclick="trxConfirmPosting('transfer-lpd-posting')"><i class="fas fa-paper-plane"></i> Posting</button>
+          </div>
+          <div id="trx-result-transfer-lpd-inquiry" style="margin-top:10px;display:none"></div>
+          <div id="trx-result-transfer-lpd-posting" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- TRANSFER BANK -->
+        <div id="trx-op-transfer-bank" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-university"></i> Transfer ke Bank Lain</div>
+          <div class="grid-2">
+            <div><div class="field-row"><label>Rekening Sumber</label><input type="text" id="trx-tbank-from" placeholder="No rekening pengirim"/></div></div>
+            <div>
+              <div class="field-row">
+                <label>Rekening Tujuan</label>
+                <div style="display:flex;gap:6px">
+                  <input type="text" id="trx-tbank-to" placeholder="No rekening tujuan"/>
+                  <button class="btn btn-secondary btn-sm" onclick="trxExec('transfer-bank-check')" style="white-space:nowrap"><i class="fas fa-search"></i> Cek</button>
+                </div>
+              </div>
+              <div id="trx-result-transfer-bank-check" style="margin-bottom:8px;display:none"></div>
+            </div>
+            <div>
+              <div class="field-row"><label>Kode Bank</label>
+                <select id="trx-tbank-kode">
+                  <option value="">-- Pilih Bank --</option>
+                  <option value="014">BCA (014)</option>
+                  <option value="008">Mandiri (008)</option>
+                  <option value="009">BNI (009)</option>
+                  <option value="002">BRI (002)</option>
+                  <option value="022">CIMB Niaga (022)</option>
+                  <option value="011">Danamon (011)</option>
+                  <option value="016">BII Maybank (016)</option>
+                  <option value="013">Permata (013)</option>
+                  <option value="023">UOB (023)</option>
+                  <option value="028">OCBC NISP (028)</option>
+                  <option value="147">Muamalat (147)</option>
+                  <option value="451">BSI (451)</option>
+                  <option value="110">BJB (110)</option>
+                  <option value="112">BPD Bali (112)</option>
+                  <option value="111">DKI (111)</option>
+                </select>
+              </div>
+            </div>
+            <div><div class="field-row"><label>Nominal (Rp)</label><input type="text" id="trx-tbank-nominal" placeholder="e.g. 100000"/></div></div>
+            <div><div class="field-row"><label>Keterangan</label><input type="text" id="trx-tbank-ket" placeholder="Pembayaran..."/></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn btn-secondary" onclick="trxExec('transfer-bank-inquiry')"><i class="fas fa-check-circle"></i> Inquiry</button>
+            <button class="btn btn-primary" onclick="trxConfirmPosting('transfer-bank-posting')"><i class="fas fa-paper-plane"></i> Posting</button>
+          </div>
+          <div id="trx-result-transfer-bank-inquiry" style="margin-top:10px;display:none"></div>
+          <div id="trx-result-transfer-bank-posting" style="margin-top:10px;display:none"></div>
+        </div>
+
+        <!-- LOGOUT -->
+        <div id="trx-op-logout" class="trx-op-panel" style="display:none">
+          <div class="separator"></div>
+          <div class="section-title" style="margin-bottom:8px"><i class="fas fa-sign-out-alt"></i> Logout Sesi</div>
+          <button class="btn btn-primary" onclick="trxExec('logout')"><i class="fas fa-sign-out-alt"></i> Logout Sekarang</button>
+          <div id="trx-result-logout" style="margin-top:10px;display:none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: RIWAYAT TRANSAKSI
+  ═══════════════════════════════════════════════════ -->
+  <div id="section-trx-history" class="section content">
+    <div class="section-title"><i class="fas fa-history"></i> Riwayat Transaksi</div>
+    <div class="panel" style="margin-bottom:16px">
+      <div class="panel-header">
+        <div class="panel-header-left"><h3><i class="fas fa-filter mr-2"></i>Filter</h3></div>
+        <button class="btn btn-primary btn-sm" onclick="loadTrxHistory()"><i class="fas fa-sync-alt"></i> Muat</button>
+      </div>
+      <div class="panel-body">
+        <div class="grid-4">
+          <div><div class="field-row"><label>Tipe Log</label>
+            <select id="th-type">
+              <option value="transfer-AB">Transfer AB (Bank)</option>
+              <option value="transfer-AR">Transfer AR (LPD)</option>
+              <option value="access">Akses Login</option>
+              <option value="tabungan">Tabungan</option>
+            </select>
+          </div></div>
+          <div><div class="field-row"><label>Tanggal</label><input type="date" id="th-date"/></div></div>
+          <div><div class="field-row"><label>Filter Teks</label><input type="text" id="th-search" placeholder="nomor rekening, nominal..."/></div></div>
+          <div style="display:flex;align-items:flex-end;padding-bottom:10px"><button class="btn btn-secondary" onclick="loadTrxHistory()"><i class="fas fa-search"></i> Cari</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h3><i class="fas fa-list mr-2"></i>Hasil</h3>
+          <span class="badge" id="th-count">0</span>
+        </div>
+      </div>
+      <div id="th-log-list" style="padding:12px">
+        <div class="empty-state"><i class="fas fa-search"></i><div>Pilih filter dan klik Muat</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
        SECTION: CRYPTO TEST
   ═══════════════════════════════════════════════════ -->
   <div id="section-crypto-ops" class="section content">
@@ -662,6 +911,8 @@ function showSection(name) {
     'stats': '<i class="fas fa-chart-bar mr-2"></i>Statistik API',
     'errors': '<i class="fas fa-exclamation-triangle mr-2"></i>Error Log',
     'crypto-ops': '<i class="fas fa-lock mr-2"></i>Crypto Test',
+    'trx': '<i class="fas fa-terminal mr-2"></i>Jalankan Transaksi',
+    'trx-history': '<i class="fas fa-history mr-2"></i>Riwayat Transaksi',
   };
   document.getElementById('topbar-title').innerHTML = titles[name] || name;
   closeSidebar();
@@ -1219,6 +1470,300 @@ async function cryptoTest(op) {
 }
 
 /* ─────────────────────────────────────────────────────
+   TRANSAKSI — STATE
+───────────────────────────────────────────────────── */
+const TRX = {
+  baseUrl: '',
+  clientIdRaw: '',
+  clientIdEnc: '',
+  aesKey: '',
+  aesIv: '',
+  aesCs: '',
+  sessionTs: '',
+  loggedIn: false,
+  postingRef: '',        // stored ref after inquiry for posting
+  bankHashCode: '',      // hash_code from bank inquiry
+};
+
+function trxLog(items) {
+  if (!Array.isArray(items)) items = [items];
+  const now = new Date();
+  const ts = now.toLocaleTimeString('id-ID');
+  items.forEach(entry => {
+    if (typeof entry === 'string') {
+      TRX_HISTORY.push({ ts, text: entry });
+    } else {
+      TRX_HISTORY.push({ ts, ...entry });
+    }
+  });
+}
+const TRX_HISTORY = [];
+
+function trxShowOp(op) {
+  document.querySelectorAll('.trx-op-panel').forEach(el => el.style.display = 'none');
+  const el = document.getElementById('trx-op-' + op);
+  if (el) el.style.display = 'block';
+}
+
+function trxResultEl(id, html, isErr) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'block';
+  const cls = isErr ? 'info-red' : 'info-teal';
+  el.innerHTML = \`<div class="info-box \${cls}" style="font-family:monospace;font-size:11px;white-space:pre-wrap;word-break:break-all">\${html}</div>\`;
+}
+
+function trxJsonBox(id, obj, ok) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'block';
+  const color = ok ? '#a7f3d0' : '#fca5a5';
+  el.innerHTML = \`<div style="background:#020617;border:1px solid #1e293b;border-radius:6px;padding:10px;font-size:11px;font-family:monospace;color:\${color};white-space:pre-wrap;word-break:break-all;max-height:300px;overflow-y:auto">\${escH(JSON.stringify(obj, null, 2))}</div>\`;
+}
+
+function trxSpin(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display = 'block'; el.innerHTML = '<div style="text-align:center;padding:10px"><span class="spinner"></span></div>'; }
+}
+
+async function trxAutoSetup() {
+  const clientId = document.getElementById('trx-clientid').value.trim();
+  if (!clientId) { alert('Client ID harus diisi'); return; }
+  
+  trxSpin('trx-setup-result');
+
+  // 1. Get timestamp
+  const tsRes = await callCrypto({ op: 'timestamp' });
+  if (!tsRes.ok) { trxResultEl('trx-setup-result', 'Gagal get timestamp: ' + (tsRes.error||'?'), true); return; }
+  const ts = tsRes.result?.jakarta || '';
+  document.getElementById('trx-session-ts').value = ts;
+
+  // 2. Derive AES keys
+  const kgRes = await callCrypto({ op: 'keygen', clientID: clientId, timestamp: ts });
+  if (!kgRes.ok) { trxResultEl('trx-setup-result', 'Gagal keygen: ' + (kgRes.error||'?'), true); return; }
+  const keys = kgRes.result || {};
+  document.getElementById('trx-aeskey').value = keys.aesKey || '';
+  document.getElementById('trx-aesiv').value  = keys.aesIv || '';
+  document.getElementById('trx-aescs').value  = keys.aesCs || '';
+
+  // 3. Encode X-CLIENT-ID
+  const didRes = await callCrypto({ op: 'did-encode', clientID: clientId, timestamp: ts });
+  if (!didRes.ok) { trxResultEl('trx-setup-result', 'Gagal DID encode: ' + (didRes.error||'?'), true); return; }
+  const enc = didRes.result?.encoded || '';
+  document.getElementById('trx-clientid-enc').value = enc;
+
+  // Store into TRX state
+  TRX.baseUrl      = document.getElementById('trx-baseurl').value.trim();
+  TRX.clientIdRaw  = clientId;
+  TRX.clientIdEnc  = enc;
+  TRX.aesKey       = keys.aesKey || '';
+  TRX.aesIv        = keys.aesIv  || '';
+  TRX.aesCs        = keys.aesCs  || '';
+  TRX.sessionTs    = ts;
+
+  document.getElementById('trx-session-badge').textContent = 'Aktif ✓';
+  document.getElementById('trx-session-badge').style.background = '#022c22';
+  document.getElementById('trx-session-badge').style.color = '#34d399';
+
+  trxResultEl('trx-setup-result', \`✓ Sesi siap\\n  Timestamp  : \${ts}\\n  Client ID  : \${clientId}\\n  AES Key    : \${keys.aesKey?.slice(0,20)}...\\n  AES IV     : \${keys.aesIv?.slice(0,20)}...\\n  AES CS     : \${keys.aesCs}\\n  X-CLIENT-ID: \${enc?.slice(0,30)}...\`, false);
+}
+
+async function trxLogin() {
+  const un = document.getElementById('trx-username').value.trim();
+  const pw = document.getElementById('trx-password').value.trim();
+  if (!un || !pw) { alert('Username dan password harus diisi'); return; }
+  if (!TRX.clientIdEnc && !document.getElementById('trx-clientid-enc').value.trim()) {
+    alert('Lakukan Auto Setup sesi terlebih dahulu');
+    return;
+  }
+  // Allow manual override
+  TRX.clientIdEnc = document.getElementById('trx-clientid-enc').value.trim() || TRX.clientIdEnc;
+  TRX.aesKey = document.getElementById('trx-aeskey').value.trim() || TRX.aesKey;
+  TRX.aesIv  = document.getElementById('trx-aesiv').value.trim()  || TRX.aesIv;
+  TRX.aesCs  = document.getElementById('trx-aescs').value.trim()  || TRX.aesCs;
+  TRX.baseUrl = document.getElementById('trx-baseurl').value.trim();
+
+  trxSpin('trx-login-result');
+  const res = await fetch('/api/smart', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      action: 'login',
+      baseUrl: TRX.baseUrl,
+      clientIdEnc: TRX.clientIdEnc,
+      aesKey: TRX.aesKey,
+      aesIv: TRX.aesIv,
+      aesCs: TRX.aesCs,
+      user_name: un,
+      user_pass: pw,
+    })
+  }).then(r=>r.json()).catch(e=>({ok:false,error:e.message}));
+
+  const ok = res.ok && (res.httpStatus >= 200 && res.httpStatus < 300);
+  TRX.loggedIn = ok;
+  if (ok) {
+    document.getElementById('trx-login-badge').textContent = \`Login: \${un} ✓\`;
+    document.getElementById('trx-login-badge').style.background = '#022c22';
+    document.getElementById('trx-login-badge').style.color = '#34d399';
+    trxLog({ action: 'login', user: un, ts: new Date().toISOString(), ok: true });
+  } else {
+    document.getElementById('trx-login-badge').textContent = 'Gagal login';
+    document.getElementById('trx-login-badge').style.background = '#2d0000';
+    document.getElementById('trx-login-badge').style.color = '#f87171';
+  }
+  trxJsonBox('trx-login-result', res, ok);
+}
+
+function trxGetSession() {
+  // Allow manual override from input fields
+  return {
+    baseUrl:     document.getElementById('trx-baseurl').value.trim()      || TRX.baseUrl,
+    clientIdEnc: document.getElementById('trx-clientid-enc').value.trim() || TRX.clientIdEnc,
+    aesKey:      document.getElementById('trx-aeskey').value.trim()       || TRX.aesKey,
+    aesIv:       document.getElementById('trx-aesiv').value.trim()        || TRX.aesIv,
+    aesCs:       document.getElementById('trx-aescs').value.trim()        || TRX.aesCs,
+  };
+}
+
+async function trxExec(action) {
+  const sess = trxGetSession();
+  if (!sess.clientIdEnc) { alert('Setup sesi terlebih dahulu (langkah 1)'); return; }
+
+  let payload = { action, ...sess };
+  const resultId = 'trx-result-' + action;
+  trxSpin(resultId);
+
+  // Build payload per action
+  if (action === 'cek-saldo') {
+    payload.no_rek = document.getElementById('trx-cs-norek').value.trim();
+    if (!payload.no_rek) { trxResultEl(resultId, 'Nomor rekening harus diisi', true); return; }
+
+  } else if (action === 'account-list') {
+    payload.customer_id = document.getElementById('trx-al-custid').value.trim();
+
+  } else if (action === 'mutasi-history') {
+    payload.customer_id = document.getElementById('trx-mu-custid').value.trim();
+    payload.no_rek      = document.getElementById('trx-mu-norek').value.trim();
+    payload.tgl_awal    = document.getElementById('trx-mu-tglawal').value;
+    payload.tgl_akhir   = document.getElementById('trx-mu-tglakhir').value;
+
+  } else if (action === 'transaction-history') {
+    payload.no_rek    = document.getElementById('trx-mu-norek').value.trim();
+    payload.tgl_awal  = document.getElementById('trx-mu-tglawal').value;
+    payload.tgl_akhir = document.getElementById('trx-mu-tglakhir').value;
+
+  } else if (action === 'transfer-lpd-check') {
+    payload.no_rek_tujuan = document.getElementById('trx-tlpd-to').value.trim();
+    if (!payload.no_rek_tujuan) { trxResultEl(resultId, 'Nomor rekening tujuan harus diisi', true); return; }
+
+  } else if (action === 'transfer-lpd-inquiry') {
+    payload.no_rek_from  = document.getElementById('trx-tlpd-from').value.trim();
+    payload.no_rek_to    = document.getElementById('trx-tlpd-to').value.trim();
+    payload.nama_tujuan  = document.getElementById('trx-tlpd-name').value.trim();
+    payload.nominal      = document.getElementById('trx-tlpd-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan   = document.getElementById('trx-tlpd-ket').value.trim();
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.nominal) {
+      trxResultEl(resultId, 'Rekening sumber, tujuan, dan nominal harus diisi', true); return;
+    }
+
+  } else if (action === 'transfer-lpd-posting') {
+    payload.no_rek_from  = document.getElementById('trx-tlpd-from').value.trim();
+    payload.no_rek_to    = document.getElementById('trx-tlpd-to').value.trim();
+    payload.nama_tujuan  = document.getElementById('trx-tlpd-name').value.trim();
+    payload.nominal      = document.getElementById('trx-tlpd-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan   = document.getElementById('trx-tlpd-ket').value.trim();
+    if (TRX.postingRef) payload.transNo = TRX.postingRef;
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.nominal) {
+      trxResultEl(resultId, 'Rekening sumber, tujuan, dan nominal harus diisi', true); return;
+    }
+
+  } else if (action === 'transfer-bank-check') {
+    payload.no_rek_tujuan = document.getElementById('trx-tbank-to').value.trim();
+    payload.kode_bank     = document.getElementById('trx-tbank-kode').value.trim();
+    if (!payload.no_rek_tujuan || !payload.kode_bank) { trxResultEl(resultId, 'Nomor rekening dan kode bank harus diisi', true); return; }
+
+  } else if (action === 'transfer-bank-inquiry') {
+    payload.no_rek_from = document.getElementById('trx-tbank-from').value.trim();
+    payload.no_rek_to   = document.getElementById('trx-tbank-to').value.trim();
+    payload.kode_bank   = document.getElementById('trx-tbank-kode').value.trim();
+    payload.nominal     = document.getElementById('trx-tbank-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan  = document.getElementById('trx-tbank-ket').value.trim();
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.kode_bank || !payload.nominal) {
+      trxResultEl(resultId, 'Semua field transfer bank harus diisi', true); return;
+    }
+
+  } else if (action === 'transfer-bank-posting') {
+    payload.no_rek_from = document.getElementById('trx-tbank-from').value.trim();
+    payload.no_rek_to   = document.getElementById('trx-tbank-to').value.trim();
+    payload.kode_bank   = document.getElementById('trx-tbank-kode').value.trim();
+    payload.nominal     = document.getElementById('trx-tbank-nominal').value.trim().replace(/[^0-9]/g,'');
+    payload.keterangan  = document.getElementById('trx-tbank-ket').value.trim();
+    if (TRX.postingRef)   payload.transNo  = TRX.postingRef;
+    if (TRX.bankHashCode) payload.hash_code = TRX.bankHashCode;
+    if (!payload.no_rek_from || !payload.no_rek_to || !payload.kode_bank || !payload.nominal) {
+      trxResultEl(resultId, 'Semua field transfer bank harus diisi', true); return;
+    }
+  }
+
+  const res = await fetch('/api/smart', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).then(r=>r.json()).catch(e=>({ok:false,error:e.message}));
+
+  const ok = res.ok !== false;
+
+  // Store ref for posting
+  if (action === 'transfer-lpd-inquiry' && res.debug?.ref) TRX.postingRef = res.debug.ref;
+  if (action === 'transfer-bank-inquiry') {
+    if (res.debug?.ref) TRX.postingRef = res.debug.ref;
+    const bc = res.result?.data?.hash_code || res.result?.hash_code || '';
+    if (bc) TRX.bankHashCode = bc;
+  }
+  if (action === 'logout' && ok) {
+    TRX.loggedIn = false;
+    document.getElementById('trx-login-badge').textContent = 'Belum login';
+    document.getElementById('trx-login-badge').style.background = '#134e4a';
+    document.getElementById('trx-login-badge').style.color = '#5eead4';
+  }
+
+  trxLog({ action, ok, ts: new Date().toISOString() });
+  trxJsonBox(resultId, res, ok);
+}
+
+async function trxConfirmPosting(action) {
+  const label = action === 'transfer-lpd-posting' ? 'Transfer LPD' : 'Transfer Bank';
+  const nomEl = action === 'transfer-lpd-posting' 
+    ? document.getElementById('trx-tlpd-nominal')
+    : document.getElementById('trx-tbank-nominal');
+  const nom = nomEl ? nomEl.value.trim().replace(/[^0-9]/g,'') : '?';
+  const fmtNom = new Intl.NumberFormat('id-ID').format(parseInt(nom)||0);
+  
+  const ok = confirm(\`Konfirmasi Posting\\n\\nAksi: \${label}\\nNominal: Rp \${fmtNom}\\n\\nApakah Anda yakin ingin melanjutkan?\`);
+  if (ok) await trxExec(action);
+}
+
+async function loadTrxHistory() {
+  const type   = document.getElementById('th-type').value;
+  const date   = document.getElementById('th-date').value || todayStr();
+  const search = document.getElementById('th-search').value.trim();
+  
+  const dir  = (type === 'access' || type === 'tabungan') ? 'root' : 'root';
+  const file = \`\${type}-\${date}.txt\`;
+  
+  document.getElementById('th-log-list').innerHTML = '<div style="text-align:center;padding:20px"><span class="spinner"></span></div>';
+
+  const res = await callAdmin({ op: 'read-log', path: file, dir });
+  if (!res.ok) {
+    document.getElementById('th-log-list').innerHTML = \`<div class="info-box info-yellow"><i class="fas fa-exclamation-triangle"></i> \${res.error || 'File tidak ditemukan: '+file}</div>\`;
+    document.getElementById('th-count').textContent = '0';
+    return;
+  }
+
+  const entries = parseLogEntries(res.content || '');
+  const cnt = renderLogEntries(entries, 'th-log-list', search);
+  document.getElementById('th-count').textContent = String(cnt);
+}
+
+/* ─────────────────────────────────────────────────────
    REFRESH ALL
 ───────────────────────────────────────────────────── */
 function refreshAll() {
@@ -1231,6 +1776,7 @@ function refreshAll() {
   else if (active?.id === 'section-logs-transfer') loadTransferLogs();
   else if (active?.id === 'section-logs-tabungan') loadTabunganLogs();
   else if (active?.id === 'section-logs-token') loadTokenLogs();
+  else if (active?.id === 'section-trx-history') loadTrxHistory();
 }
 
 /* ─────────────────────────────────────────────────────
@@ -1239,10 +1785,15 @@ function refreshAll() {
 window.addEventListener('DOMContentLoaded', () => {
   // Set default dates
   const today = todayStr();
-  ['act-date','acc-date','tr-date','tab-date','tok-date'].forEach(id => {
+  ['act-date','acc-date','tr-date','tab-date','tok-date','th-date'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = today;
   });
+  // Set trx mutasi default dates
+  const tglawal  = document.getElementById('trx-mu-tglawal');
+  const tglakhir = document.getElementById('trx-mu-tglakhir');
+  if (tglawal)  tglawal.value  = today;
+  if (tglakhir) tglakhir.value = today;
   
   updateClock();
   setInterval(updateClock, 10000);
