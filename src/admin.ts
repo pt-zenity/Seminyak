@@ -1555,7 +1555,7 @@ function trxUpdateTokenStatus() {
 
 // Set token iOS manual (digunakan jika auto-fetch gagal, misal server LPD sedang maintenance)
 function trxSetManualToken() {
-  const tokenInput = document.getElementById('trx-ios-token-manual') as HTMLInputElement;
+  const tokenInput = /** @type {HTMLInputElement} */ (document.getElementById('trx-ios-token-manual'));
   const token = tokenInput ? tokenInput.value.trim() : '';
   if (!token) { alert('Token tidak boleh kosong'); return; }
   TRX.iosToken = token;
@@ -1866,7 +1866,7 @@ async function trxExec(action) {
   // Auto-refresh iOS token sebelum setiap request (token expire 3 menit di server)
   const freshToken = await trxGetFreshToken();
   if (!freshToken) {
-    trxResultEl(resultId, '❌ Gagal mendapatkan iOS token dari server LPD.\nPastikan:\n1. Auto Setup sesi sudah dijalankan\n2. Koneksi ke server LPD aktif\n3. IP whitelist terdaftar di server', true);
+    trxResultEl(resultId, '❌ Gagal mendapatkan iOS token dari server LPD.<br>Pastikan:<br>1. Auto Setup sesi sudah dijalankan<br>2. Koneksi ke server LPD aktif<br>3. IP whitelist terdaftar di server', true);
     return;
   }
 
