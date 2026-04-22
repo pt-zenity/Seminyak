@@ -57,6 +57,7 @@ app.post('/api/crypto', async (c) => {
 import {
   createJWT as edgeCreateJWT,
   generateSignature as edgeGenSig,
+  computePartnerID as edgeComputePartnerID,
   generateReference as edgeGenRef,
   aesEncrypt as edgeAesEnc,
   aesDecrypt as edgeAesDec,
@@ -65,6 +66,7 @@ import {
   generateIosTokenSig as edgeIosSig,
   generateSnapTokenSig as edgeSnapSig,
   md5 as edgeMd5,
+  deriveAesKeys as edgeDeriveAesKeys,
 } from './edge-crypto'
 
 // Parse account_list dari response login/register
@@ -95,9 +97,10 @@ async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: s
   const xref  = edgeGenRef()
   // Authorization: pakai iosToken dari DB jika tersedia, fallback ke JWT lokal
   const authToken = iosToken && iosToken.trim() ? iosToken.trim() : jwt
-  // X-PARTNER-ID = base64(HMAC-SHA512(Authorization + ":" + X-TIMESTAMP, aesCs))
-  // Server validates: $partner64 = base64(hash_hmac("sha512", $token.":".$timeStamp, $aes_cs, true))
-  const partnerSig = await edgeGenSig(authToken, ts, aesCs || '')
+  // X-PARTNER-ID = base64(HMAC-SHA512(Authorization + ":" + X-TIMESTAMP, aes_cs_utf8_string))
+  // Server: $partner64 = base64_encode(hash_hmac("sha512", $token.":".$timeStamp, $aes_cs, true))
+  // KUNCI: aes_cs dipakai sebagai UTF-8 string, BUKAN decoded bytes — verified dari PoC logs
+  const partnerSig = await edgeComputePartnerID(authToken, ts, aesCs || '')
   // X-SIGNATURE: signature dokumen (untuk kompatibilitas, pakai partnerSig juga)
   const sig = partnerSig
   return {
@@ -165,6 +168,73 @@ app.post('/api/smart/get-ios-token', async (c) => {
     const base = (rawBase || 'https://lpdseminyak.biz.id:8000').replace(/\/+$/, '')
     const result = await fetchIosToken(base, clientIdEnc, aesCs || '')
     return c.json({ ok: result.ok, token: result.token, error: result.error, expiresIn: 180 })
+  } catch(e: unknown) {
+    return c.json({ ok: false, error: (e as Error).message })
+  }
+})
+
+// ── Endpoint Register Device ─────────────────────────────────────────────────
+// POST /api/smart/register — daftarkan device ke LPD server
+// Flow: 1) derive AES keys dari clientID + timestamp
+//       2) buat JWT (Authorization)  
+//       3) hitung X-PARTNER-ID = HMAC-SHA512(jwt+":"+ts, aesCs_utf8)
+//       4) POST ke /api/smart/access/register
+app.post('/api/smart/register', async (c) => {
+  try {
+    const body       = await c.req.json() as Record<string, string>
+    const { baseUrl: rawBase, clientIdEnc, imei, user_name, user_pass } = body
+    if (!clientIdEnc) return c.json({ ok: false, error: 'clientIdEnc wajib diisi' })
+    if (!imei)        return c.json({ ok: false, error: 'imei wajib diisi' })
+
+    const base = (rawBase || 'https://lpdseminyak.biz.id:8000').replace(/\/+$/, '')
+    const ts     = edgeNowJkt()
+    const tsISO  = edgeNowISO()
+    const ref    = edgeGenRef()
+    const jwt    = await edgeCreateJWT(ref, tsISO)
+
+    // Derive AES keys dari IMEI + timestamp register (Gio_CreateKeyAndIv)
+    const { aesCs } = await edgeDeriveAesKeys(imei, ts)
+
+    // X-PARTNER-ID = HMAC-SHA512(jwt+":"+ts, aesCs sebagai UTF-8 string)
+    const partnerId = await edgeComputePartnerID(jwt, ts, aesCs)
+
+    const md5fn  = (s: string) => edgeMd5(s)
+    const isMd5  = (s: string) => /^[0-9a-f]{32}$/i.test(s)
+    const finalUser = user_name ? (isMd5(user_name) ? user_name : md5fn(user_name)) : ''
+    const finalPass = user_pass ? (isMd5(user_pass) ? user_pass : md5fn(user_pass)) : ''
+
+    const url  = base + '/api/smart/access/register'
+    const data = JSON.stringify({ user_name: finalUser, user_pass: finalPass })
+
+    const headers: Record<string, string> = {
+      'Content-Type':    'application/json',
+      'Authorization':   jwt,
+      'X-TIMESTAMP':     ts,
+      'X-SIGNATURE':     partnerId,    // X-SIGNATURE (dipakai server tapi bisa sama)
+      'X-PARTNER-ID':    partnerId,
+      'X-CLIENT-ID':     clientIdEnc,
+      'X-REFERENCE':     ref,
+      'X-Forwarded-For': WHITELIST_IP,
+      'X-Real-IP':       WHITELIST_IP,
+    }
+
+    let httpStatus = 0, parsed: Record<string,unknown> = {}
+    try {
+      const r = await fetch(url, { method: 'POST', headers, body: data })
+      httpStatus = r.status
+      const raw = await r.text()
+      try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+    } catch(fe: unknown) {
+      parsed = { _fetchError: (fe as Error).message }
+    }
+
+    const ok = httpStatus >= 200 && httpStatus < 300 && (parsed.status === '00' || parsed.status === '2007300')
+    return c.json({
+      ok, action: 'register', httpStatus, url, result: parsed,
+      aesKeys: { aesCs },
+      debug: { ts, ref, imei, partnerId: partnerId.slice(0, 20) + '...' },
+      headers,
+    })
   } catch(e: unknown) {
     return c.json({ ok: false, error: (e as Error).message })
   }

@@ -308,6 +308,19 @@ export async function generateSignature(token: string, timeStamp: string, aesCsB
   return bytesToB64(sig)
 }
 
+/**
+ * Compute X-PARTNER-ID for iOS access requests (register/login)
+ * PHP: base64_encode(hash_hmac("sha512", Authorization+":"+X-TIMESTAMP, $aes_cs, true))
+ * Key = aes_cs as UTF-8 string (NOT decoded bytes) — verified against real PoC logs
+ */
+export async function computePartnerID(authToken: string, timeStamp: string, aesCsStr: string): Promise<string> {
+  const keyMat = strToBytes(aesCsStr)                          // key = aes_cs as UTF-8 string
+  const msg    = strToBytes(`${authToken}:${timeStamp}`)
+  const key    = await crypto.subtle.importKey('raw', keyMat, { name: 'HMAC', hash: 'SHA-512' }, false, ['sign'])
+  const sig    = await crypto.subtle.sign('HMAC', key, msg)
+  return bytesToB64(sig)
+}
+
 export function decodeSignature(sigB64: string): string {
   return hexEncode(b64ToBytes(sigB64))
 }
@@ -497,6 +510,53 @@ export async function handleCryptoOp(params: Record<string, string>): Promise<{ 
 
     } else if (op === 'timestamp') {
       result = { jakarta: nowJakarta(), jakartaISO: nowJakartaISO(), utc: new Date().toISOString() }
+
+    } else if (op === 'partner-id') {
+      // Compute X-PARTNER-ID = HMAC-SHA512(Authorization+":"+timestamp, aesCs_as_utf8)
+      const pid = await computePartnerID(params.token || params.authToken || '', params.timestamp || nowJakarta(), params.aesCs || '')
+      result = { partnerId: pid }
+
+    } else if (op === 'poc-build') {
+      // Build complete PoC request headers (register or login)
+      // params: imei, clientIdEnc, timestamp?, action='register'|'login'
+      // For register: derive AES from imei+timestamp
+      // For login: use provided aesCs (from session after register)
+      const ts     = params.timestamp || nowJakarta()
+      const tsISO  = params.timestampISO || nowJakartaISO()
+      const action = params.action || 'register'
+      const ref    = params.ref || generateReference()
+      // Create JWT
+      const jwt = await createJWT(ref, tsISO)
+      // Get AES keys
+      let aesCs = params.aesCs || ''
+      if (action === 'register' && params.imei) {
+        const keys = await deriveAesKeys(params.imei, ts)
+        aesCs = keys.aesCs
+        result = {
+          action, ts, tsISO, ref, jwt: jwt.slice(0, 30) + '...', aesCs,
+          partnerId: await computePartnerID(jwt, ts, aesCs),
+          headers: {
+            Authorization: jwt,
+            'X-TIMESTAMP': ts,
+            'X-PARTNER-ID': await computePartnerID(jwt, ts, aesCs),
+            'X-CLIENT-ID': params.clientIdEnc || '(encode IMEI first)',
+            'X-REFERENCE': ref,
+          }
+        }
+      } else {
+        const pid = await computePartnerID(jwt, ts, aesCs)
+        result = {
+          action, ts, tsISO, ref, jwt: jwt.slice(0, 30) + '...', aesCs,
+          partnerId: pid,
+          headers: {
+            Authorization: jwt,
+            'X-TIMESTAMP': ts,
+            'X-PARTNER-ID': pid,
+            'X-CLIENT-ID': params.clientIdEnc || '(encode IMEI first)',
+            'X-REFERENCE': ref,
+          }
+        }
+      }
 
     } else {
       return { ok: false, error: `Unknown operation: ${op}` }
