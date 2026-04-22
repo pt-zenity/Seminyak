@@ -568,7 +568,10 @@ select{cursor:pointer}
           <h3><i class="fas fa-key mr-2"></i>Setup Sesi (Derive Keys)</h3>
           <span class="badge" id="trx-session-badge">Belum aktif</span>
         </div>
-        <button class="btn btn-secondary btn-sm" onclick="trxAutoSetup()"><i class="fas fa-magic"></i> Auto Setup</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-secondary btn-sm" onclick="trxAutoSetup()"><i class="fas fa-magic"></i> Auto Setup</button>
+          <button class="btn btn-secondary btn-sm" onclick="trxGetFreshToken(true)"><i class="fas fa-sync-alt"></i> Refresh Token</button>
+        </div>
       </div>
       <div class="panel-body">
         <div class="grid-2">
@@ -586,6 +589,10 @@ select{cursor:pointer}
           <div><div class="field-row"><label>AES IV (Base64)</label><input type="text" id="trx-aesiv" placeholder="Otomatis dari Auto Setup..."/></div></div>
         </div>
         <div class="field-row" style="margin-top:6px"><label>AES CS (Base64)</label><input type="text" id="trx-aescs" placeholder="Otomatis dari Auto Setup..."/></div>
+        <div style="margin-top:10px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;font-weight:700">Status Token iOS:</span>
+          <span id="trx-token-status"><span class="badge-pill badge-err">Belum ada token</span></span>
+        </div>
         <div id="trx-setup-result" style="margin-top:10px;display:none"></div>
       </div>
     </div>
@@ -1483,7 +1490,58 @@ const TRX = {
   loggedIn: false,
   postingRef: '',        // stored ref after inquiry for posting
   bankHashCode: '',      // hash_code from bank inquiry
+  // iOS token management (expire 3 menit di gmob_token DB)
+  iosToken: '',          // token dari /smart/access-token (disimpan di gmob_token)
+  tokenFetchedAt: 0,     // timestamp saat token diambil (ms)
+  TOKEN_TTL: 150_000,    // 150 detik (safety margin dari 180s expiry)
 };
+
+// Update status token di UI
+function trxUpdateTokenStatus() {
+  const el = document.getElementById('trx-token-status');
+  if (!el) return;
+  if (!TRX.iosToken) {
+    el.innerHTML = '<span class="badge-pill badge-err">Belum ada token</span>';
+    return;
+  }
+  const age  = Date.now() - TRX.tokenFetchedAt;
+  const remaining = Math.max(0, Math.ceil((TRX.TOKEN_TTL - age) / 1000));
+  if (remaining <= 0) {
+    el.innerHTML = '<span class="badge-pill badge-err">Token kadaluarsa — akan diperbarui otomatis</span>';
+  } else {
+    el.innerHTML = \`<span class="badge-pill badge-ok">Token aktif (~\${remaining}s)</span> <span style="font-size:9px;font-family:monospace;color:#475569">\${TRX.iosToken.slice(0,20)}...</span>\`;
+  }
+}
+
+// Ambil fresh iOS token dari server LPD (otomatis sebelum setiap transaksi)
+async function trxGetFreshToken(force = false) {
+  const sess = trxGetSession();
+  if (!sess.clientIdEnc) return null;
+  const age = Date.now() - TRX.tokenFetchedAt;
+  // Pakai token yang ada jika masih valid
+  if (!force && TRX.iosToken && age < TRX.TOKEN_TTL) {
+    trxUpdateTokenStatus();
+    return TRX.iosToken;
+  }
+  // Ambil token baru
+  const el = document.getElementById('trx-token-status');
+  if (el) el.innerHTML = '<span class="badge-pill badge-warn"><span class="spinner" style="width:10px;height:10px;border-width:1px"></span> Mengambil token baru...</span>';
+  
+  const res = await fetch('/api/smart/get-ios-token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ baseUrl: sess.baseUrl, clientIdEnc: sess.clientIdEnc, aesCs: sess.aesCs })
+  }).then(r => r.json()).catch(e => ({ ok: false, error: e.message }));
+  
+  if (res.ok && res.token) {
+    TRX.iosToken = res.token;
+    TRX.tokenFetchedAt = Date.now();
+    trxUpdateTokenStatus();
+    return res.token;
+  }
+  if (el) el.innerHTML = \`<span class="badge-pill badge-err">Gagal ambil token: \${res.error || '?'}</span>\`;
+  return null;
+}
 
 function trxLog(items) {
   if (!Array.isArray(items)) items = [items];
@@ -1565,7 +1623,43 @@ async function trxAutoSetup() {
   document.getElementById('trx-session-badge').style.background = '#022c22';
   document.getElementById('trx-session-badge').style.color = '#34d399';
 
-  trxResultEl('trx-setup-result', \`✓ Sesi siap\\n  Timestamp  : \${ts}\\n  Client ID  : \${clientId}\\n  AES Key    : \${keys.aesKey?.slice(0,20)}...\\n  AES IV     : \${keys.aesIv?.slice(0,20)}...\\n  AES CS     : \${keys.aesCs}\\n  X-CLIENT-ID: \${enc?.slice(0,30)}...\`, false);
+  // 4. Auto-fetch iOS token dari server LPD
+  const tokenStatusEl = document.getElementById('trx-token-status');
+  if (tokenStatusEl) tokenStatusEl.innerHTML = '<span class="badge-pill badge-warn"><span class="spinner" style="width:10px;height:10px;border-width:1px"></span> Mengambil iOS token...</span>';
+  const tokenRes = await fetch('/api/smart/get-ios-token', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ baseUrl: TRX.baseUrl, clientIdEnc: enc, aesCs: keys.aesCs || '' })
+  }).then(r => r.json()).catch(e => ({ ok: false, error: e.message }));
+
+  let tokenInfo = '';
+  if (tokenRes.ok && tokenRes.token) {
+    TRX.iosToken = tokenRes.token;
+    TRX.tokenFetchedAt = Date.now();
+    trxUpdateTokenStatus();
+    tokenInfo = \`\\n  iOS Token  : \${tokenRes.token.slice(0,20)}... (aktif ~\${tokenRes.expiresIn||180}s)\`;
+  } else {
+    if (tokenStatusEl) tokenStatusEl.innerHTML = \`<span class="badge-pill badge-err">Token gagal: \${tokenRes.error||'?'}</span>\`;
+    tokenInfo = \`\\n  iOS Token  : GAGAL (\${tokenRes.error||'?'}) — coba Refresh Token manual\`;
+  }
+
+  trxResultEl('trx-setup-result', \`✓ Sesi siap\\n  Timestamp  : \${ts}\\n  Client ID  : \${clientId}\\n  AES Key    : \${keys.aesKey?.slice(0,20)}...\\n  AES IV     : \${keys.aesIv?.slice(0,20)}...\\n  AES CS     : \${keys.aesCs}\\n  X-CLIENT-ID: \${enc?.slice(0,30)}...\${tokenInfo}\`, false);
+
+  // Start timer to refresh token periodically
+  trxStartTokenRefresh();
+}
+
+let trxTokenRefreshTimer = null;
+function trxStartTokenRefresh() {
+  if (trxTokenRefreshTimer) clearInterval(trxTokenRefreshTimer);
+  // Update status display every 10 seconds
+  trxTokenRefreshTimer = setInterval(() => {
+    trxUpdateTokenStatus();
+    // Auto-refresh token saat tinggal 20 detik
+    const age = Date.now() - TRX.tokenFetchedAt;
+    if (TRX.iosToken && age > (TRX.TOKEN_TTL - 20_000)) {
+      trxGetFreshToken(true);
+    }
+  }, 10_000);
 }
 
 async function trxLogin() {
@@ -1584,6 +1678,8 @@ async function trxLogin() {
   TRX.baseUrl = document.getElementById('trx-baseurl').value.trim();
 
   trxSpin('trx-login-result');
+  // Login butuh iosToken yang valid di server DB
+  const freshToken = await trxGetFreshToken();
   const res = await fetch('/api/smart', {
     method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({
@@ -1593,6 +1689,7 @@ async function trxLogin() {
       aesKey: TRX.aesKey,
       aesIv: TRX.aesIv,
       aesCs: TRX.aesCs,
+      iosToken: freshToken || '',
       user_name: un,
       user_pass: pw,
     })
@@ -1628,9 +1725,17 @@ async function trxExec(action) {
   const sess = trxGetSession();
   if (!sess.clientIdEnc) { alert('Setup sesi terlebih dahulu (langkah 1)'); return; }
 
-  let payload = { action, ...sess };
   const resultId = 'trx-result-' + action;
   trxSpin(resultId);
+
+  // Auto-refresh iOS token sebelum setiap request (token expire 3 menit di server)
+  const freshToken = await trxGetFreshToken();
+  if (!freshToken) {
+    trxResultEl(resultId, '❌ Gagal mendapatkan iOS token dari server LPD.\nPastikan:\n1. Auto Setup sesi sudah dijalankan\n2. Koneksi ke server LPD aktif\n3. IP whitelist terdaftar di server', true);
+    return;
+  }
+
+  let payload = { action, ...sess, iosToken: freshToken };
 
   // Build payload per action
   if (action === 'cek-saldo') {

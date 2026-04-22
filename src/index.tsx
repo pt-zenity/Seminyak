@@ -68,19 +68,24 @@ import {
 
 const WHITELIST_IP = '34.50.74.78'
 
-async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: string) {
+// iosToken: token real dari gmob_token DB (via /smart/access-token).
+// Jika ada, pakai sebagai Authorization. Jika kosong, fallback ke JWT lokal.
+async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: string, iosToken?: string) {
   if (!clientIdEnc) throw new Error('X-CLIENT-ID (clientIdEnc) wajib diisi — jalankan Derive AES Keys terlebih dahulu')
   const ts    = edgeNowJkt()
   const tsISO = edgeNowISO()
   const ref   = transNo || edgeGenRef()
   const jwt   = await edgeCreateJWT(ref, tsISO)
+  // Signature selalu pakai JWT lokal (HMAC-SHA512 dengan aesCs)
   const sig   = await edgeGenSig(jwt, ts, aesCs || '')
   const xref  = edgeGenRef()
+  // Authorization: pakai iosToken dari DB jika tersedia, fallback ke JWT lokal
+  const authToken = iosToken && iosToken.trim() ? iosToken.trim() : jwt
   return {
     jwt, ts, tsISO, sig, xref,
     headers: {
       'Content-Type':    'application/json',
-      'Authorization':   jwt,
+      'Authorization':   authToken,
       'X-TIMESTAMP':     ts,
       'X-SIGNATURE':     sig,
       'X-PARTNER-ID':    sig,
@@ -92,10 +97,52 @@ async function buildSmartHeaders(aesCs: string, clientIdEnc: string, transNo?: s
   }
 }
 
+// Ambil fresh iOS token dari server LPD (simpan ke gmob_token DB, expire 3 menit)
+async function fetchIosToken(base: string, clientIdEnc: string, aesCs: string): Promise<{ok:boolean; token?:string; error?:string}> {
+  try {
+    const ts  = edgeNowJkt()
+    const sig = await edgeIosSig(ts)
+    const url = base + '/api/smart/access/token'
+    const headers = {
+      'Content-Type':    'application/json',
+      'X-TIMESTAMP':     ts,
+      'X-CLIENT-ID':     clientIdEnc,
+      'X-SIGNATURE':     sig.signature,
+      'X-Forwarded-For': WHITELIST_IP,
+      'X-Real-IP':       WHITELIST_IP,
+    }
+    const r   = await fetch(url, { method: 'POST', headers, body: '{}' })
+    const raw = await r.text()
+    let parsed: Record<string, unknown> = {}
+    try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+    const token = (parsed.token || parsed.accessToken || '') as string
+    if (r.status < 400 && token) {
+      return { ok: true, token }
+    }
+    return { ok: false, error: `HTTP ${r.status}: ${parsed.message || raw.slice(0,100)}` }
+  } catch(e: unknown) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+// Endpoint khusus untuk fetch iOS token dari server LPD
+app.post('/api/smart/get-ios-token', async (c) => {
+  try {
+    const body = await c.req.json() as Record<string, string>
+    const { baseUrl: rawBase, clientIdEnc, aesCs } = body
+    if (!clientIdEnc) return c.json({ ok: false, error: 'clientIdEnc wajib diisi' })
+    const base = (rawBase || 'https://lpdseminyak.biz.id:8000').replace(/\/+$/, '')
+    const result = await fetchIosToken(base, clientIdEnc, aesCs || '')
+    return c.json({ ok: result.ok, token: result.token, error: result.error, expiresIn: 180 })
+  } catch(e: unknown) {
+    return c.json({ ok: false, error: (e as Error).message })
+  }
+})
+
 app.post('/api/smart', async (c) => {
   try {
     const body = await c.req.json() as Record<string, string>
-    const { action, baseUrl: rawBase, aesKey, aesIv, aesCs, clientIdEnc, transNo, ...params } = body
+    const { action, baseUrl: rawBase, aesKey, aesIv, aesCs, clientIdEnc, transNo, iosToken, ...params } = body
     const base = (rawBase || 'https://lpdseminyak.biz.id:8000').replace(/\/+$/, '')
     const md5 = (s: string) => edgeMd5(s)
     const isMd5 = (s: string) => /^[0-9a-f]{32}$/i.test(s)
@@ -105,7 +152,7 @@ app.post('/api/smart', async (c) => {
       if (!clientIdEnc) throw new Error('clientIdEnc (X-CLIENT-ID) wajib diisi')
       const finalUser = isMd5(params.user_name) ? params.user_name : md5(params.user_name)
       const finalPass = isMd5(params.user_pass) ? params.user_pass : md5(params.user_pass)
-      const { headers, ts, xref, jwt, sig } = await buildSmartHeaders(aesCs, clientIdEnc, transNo)
+      const { headers, ts, xref, jwt, sig } = await buildSmartHeaders(aesCs, clientIdEnc, transNo, iosToken)
       const url  = base + '/api/smart/access/login'
       const data = JSON.stringify({ user_name: finalUser, user_pass: finalPass })
       let httpStatus = 0, parsed: unknown = {}
@@ -128,7 +175,7 @@ app.post('/api/smart', async (c) => {
       if (!clientIdEnc)   throw new Error('clientIdEnc wajib diisi')
       if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
       const encNoRek = await edgeAesEnc(params.no_rek, aesKey, aesIv)
-      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, transNo)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, transNo, iosToken)
       const url  = base + '/api/smart/account/balance'
       const reqBody = JSON.stringify({ no_rek: encNoRek })
       let httpStatus = 0, parsed: unknown = {}
@@ -146,7 +193,7 @@ app.post('/api/smart', async (c) => {
       if (!params.no_rek_from || !params.no_rek_to || !params.nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
       if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
       const ref = transNo || edgeGenRef()
-      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
       const [encFrom, encTo, encNom, encBank] = await Promise.all([
         edgeAesEnc(params.no_rek_from, aesKey, aesIv),
         edgeAesEnc(params.no_rek_to,   aesKey, aesIv),
@@ -170,7 +217,7 @@ app.post('/api/smart', async (c) => {
       if (!params.no_rek_from || !params.no_rek_to || !params.nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
       if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
       const ref = transNo || edgeGenRef()
-      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
       const [encFrom, encTo, encNom, encBank, encNama, encKet] = await Promise.all([
         edgeAesEnc(params.no_rek_from,      aesKey, aesIv),
         edgeAesEnc(params.no_rek_to,        aesKey, aesIv),
@@ -191,6 +238,219 @@ app.post('/api/smart', async (c) => {
       } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
       return c.json({ ok: httpStatus >= 200 && httpStatus < 300, action, httpStatus, url,
         result: parsed, debug: { ts, xref, ref }, requestHeaders: headers })
+    }
+
+    // ── helper: POST ke LPD server ─────────────────────────────────────────
+    const smartPost = async (url: string, hdrs: Record<string,string>, reqBody: string) => {
+      const r = await fetch(url, { method: 'POST', headers: hdrs, body: reqBody })
+      const raw = await r.text()
+      let parsed: unknown
+      try { parsed = JSON.parse(raw) } catch { parsed = { _raw: raw } }
+      return { httpStatus: r.status, parsed }
+    }
+
+    // ── logout ───────────────────────────────────────────────────────────────
+    if (action === 'logout') {
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, undefined, iosToken)
+      const url = base + '/api/smart/access/logout'
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, '{}')
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed, debug: { ts, xref } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── account-list ─────────────────────────────────────────────────────────
+    if (action === 'account-list') {
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const encCid = await edgeAesEnc(params.customer_id || '', aesKey, aesIv)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, undefined, iosToken)
+      const url = base + '/api/smart/tabungan/account-list'
+      const reqBody = JSON.stringify({ customer_id: encCid })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, customer_id_enc: encCid } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── mutasi-history ───────────────────────────────────────────────────────
+    if (action === 'mutasi-history') {
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const encCid = await edgeAesEnc(params.customer_id || '', aesKey, aesIv)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, undefined, iosToken)
+      const url = base + '/api/smart/tabungan/mutasi-history'
+      const reqBody = JSON.stringify({ customer_id: encCid })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, customer_id_enc: encCid } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── transaction-history ──────────────────────────────────────────────────
+    if (action === 'transaction-history') {
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const encNoRek  = await edgeAesEnc(params.no_rek  || '', aesKey, aesIv)
+      const encStart  = await edgeAesEnc(params.tgl_awal || '', aesKey, aesIv)
+      const encEnd    = await edgeAesEnc(params.tgl_akhir || '', aesKey, aesIv)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, undefined, iosToken)
+      const url = base + '/api/smart/tabungan/transaction-history'
+      const reqBody = JSON.stringify({ no_rek: encNoRek, tgl_awal: encStart, tgl_akhir: encEnd })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── transfer-lpd-check ───────────────────────────────────────────────────
+    if (action === 'transfer-lpd-check') {
+      if (!params.no_rek_tujuan) throw new Error('no_rek_tujuan wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const ref = edgeGenRef()
+      const encNoRek = await edgeAesEnc(params.no_rek_tujuan, aesKey, aesIv)
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
+      const url = base + '/api/smart/transfer/lpd/check'
+      const reqBody = JSON.stringify({ account_no: encNoRek })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, ref, account_no_enc: encNoRek } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── transfer-lpd-inquiry ─────────────────────────────────────────────────
+    if (action === 'transfer-lpd-inquiry') {
+      if (!params.no_rek_from || !params.no_rek_to || !params.nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const ref = transNo || edgeGenRef()
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
+      const [encFrom, encTo, encToName, encNom, encDate, encRem] = await Promise.all([
+        edgeAesEnc(params.no_rek_from, aesKey, aesIv),
+        edgeAesEnc(params.no_rek_to,   aesKey, aesIv),
+        edgeAesEnc(params.nama_tujuan || '', aesKey, aesIv),
+        edgeAesEnc(params.nominal,     aesKey, aesIv),
+        edgeAesEnc(params.date_time || edgeNowJkt(), aesKey, aesIv),
+        edgeAesEnc(params.keterangan || '', aesKey, aesIv),
+      ])
+      const url = base + '/api/smart/transfer/lpd/inquiry'
+      const reqBody = JSON.stringify({
+        to_acc: encTo, to_name: encToName, from_acc: encFrom,
+        from_name: encFrom, amount: encNom, remark: encRem,
+      })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, ref } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── transfer-lpd-posting ─────────────────────────────────────────────────
+    if (action === 'transfer-lpd-posting') {
+      if (!params.no_rek_from || !params.no_rek_to || !params.nominal) throw new Error('no_rek_from, no_rek_to, nominal wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const ref = transNo || edgeGenRef()
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
+      const [encFrom, encTo, encToName, encNom, encDate, encRem] = await Promise.all([
+        edgeAesEnc(params.no_rek_from, aesKey, aesIv),
+        edgeAesEnc(params.no_rek_to,   aesKey, aesIv),
+        edgeAesEnc(params.nama_tujuan || '', aesKey, aesIv),
+        edgeAesEnc(params.nominal,     aesKey, aesIv),
+        edgeAesEnc(params.date_time || edgeNowJkt(), aesKey, aesIv),
+        edgeAesEnc(params.keterangan || '', aesKey, aesIv),
+      ])
+      const url = base + '/api/smart/transfer/lpd/post'
+      const reqBody = JSON.stringify({
+        to_acc: encTo, to_name: encToName, from_acc: encFrom,
+        from_name: encFrom, amount: encNom, remark: encRem,
+      })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, ref } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── transfer-bank-check ──────────────────────────────────────────────────
+    if (action === 'transfer-bank-check') {
+      if (!params.no_rek_tujuan || !params.kode_bank) throw new Error('no_rek_tujuan dan kode_bank wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const ref = edgeGenRef()
+      const [encNoRek, encBank] = await Promise.all([
+        edgeAesEnc(params.no_rek_tujuan, aesKey, aesIv),
+        edgeAesEnc(params.kode_bank,     aesKey, aesIv),
+      ])
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
+      const url = base + '/api/smart/transfer/bank/check'
+      const reqBody = JSON.stringify({ account_no: encNoRek, bank_code: encBank })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, ref } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── transfer-bank-inquiry ────────────────────────────────────────────────
+    if (action === 'transfer-bank-inquiry') {
+      if (!params.no_rek_from || !params.no_rek_to || !params.nominal || !params.kode_bank) throw new Error('no_rek_from, no_rek_to, nominal, kode_bank wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const ref = transNo || edgeGenRef()
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
+      const [encFrom, encTo, encBank, encNom, encDate, encHash] = await Promise.all([
+        edgeAesEnc(params.no_rek_from, aesKey, aesIv),
+        edgeAesEnc(params.no_rek_to,   aesKey, aesIv),
+        edgeAesEnc(params.kode_bank,   aesKey, aesIv),
+        edgeAesEnc(params.nominal,     aesKey, aesIv),
+        edgeAesEnc(params.date_time || edgeNowJkt(), aesKey, aesIv),
+        edgeAesEnc(params.hash_code || '', aesKey, aesIv),
+      ])
+      const url = base + '/api/smart/transfer/bank/inquiry'
+      const reqBody = JSON.stringify({
+        from_acc: encFrom, to_acc: encTo, bank_code: encBank,
+        amount: encNom, date_time: encDate, hash_code: encHash, remark: '',
+      })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, ref } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
+    }
+
+    // ── transfer-bank-posting ────────────────────────────────────────────────
+    if (action === 'transfer-bank-posting') {
+      if (!params.no_rek_from || !params.no_rek_to || !params.nominal || !params.kode_bank) throw new Error('no_rek_from, no_rek_to, nominal, kode_bank wajib diisi')
+      if (!clientIdEnc) throw new Error('clientIdEnc wajib diisi')
+      if (!aesKey || !aesIv) throw new Error('aesKey dan aesIv wajib diisi')
+      const ref = transNo || edgeGenRef()
+      const { headers, ts, xref } = await buildSmartHeaders(aesCs, clientIdEnc, ref, iosToken)
+      const [encFrom, encTo, encBank, encNom, encDate, encHash, encRem] = await Promise.all([
+        edgeAesEnc(params.no_rek_from, aesKey, aesIv),
+        edgeAesEnc(params.no_rek_to,   aesKey, aesIv),
+        edgeAesEnc(params.kode_bank,   aesKey, aesIv),
+        edgeAesEnc(params.nominal,     aesKey, aesIv),
+        edgeAesEnc(params.date_time || edgeNowJkt(), aesKey, aesIv),
+        edgeAesEnc(params.hash_code || '', aesKey, aesIv),
+        edgeAesEnc(params.keterangan || '', aesKey, aesIv),
+      ])
+      const url = base + '/api/smart/transfer/bank/post'
+      const reqBody = JSON.stringify({
+        from_acc: encFrom, to_acc: encTo, bank_code: encBank,
+        amount: encNom, date_time: encDate, hash_code: encHash, remark: encRem,
+      })
+      try {
+        const { httpStatus, parsed } = await smartPost(url, headers, reqBody)
+        return c.json({ ok: httpStatus < 400, action, httpStatus, url, result: parsed,
+          debug: { ts, xref, ref } })
+      } catch(e: unknown) { return c.json({ ok: false, action, error: (e as Error).message }) }
     }
 
     return c.json({ ok: false, error: 'Unknown action: ' + action })
