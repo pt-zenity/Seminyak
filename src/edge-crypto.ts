@@ -220,9 +220,9 @@ export function decodeDID(did: string) {
 
 // ── § 5 — DID Encode ────────────────────────────────────────────────────────
 // Reproduces the real LPD iOS app DID encoding scheme.
-// col1=69, col2=135, col3=175 — same fixed positions as the real iOS app.
-// All col/len metadata chars are valid base64 chars (no '@').
-// The DID is a long string with the IMEI b64 embedded at the 3 fixed positions.
+// col1=68, col2=134, col3=174 — positions verified from captured real DID (register PoC).
+// Backbone filler is derived from SHA-256 hash of plaintext to look realistic (not all-A).
+// Total DID length = 468 chars (matching real iOS app output length).
 export function encodeDID(clientID: string, timestamp: string, appName = 'Seminyak'): string {
   const plain  = `${appName}|${clientID}|${timestamp}`
   const b64raw = btoa(plain)
@@ -230,9 +230,8 @@ export function encodeDID(clientID: string, timestamp: string, appName = 'Seminy
   const b64    = b64raw.slice(0, b64raw.length - fix.length)
   const b64Len = b64.length
 
-  // Use same fixed positions as real iOS app: col1=69, col2=135, col3=175
-  // These positions ensure all metadata chars are valid base64 chars (not '@')
-  const col1 = 69, col2 = 135, col3 = 175
+  // Fixed positions from real iOS app DID (verified via PoC register capture)
+  const col1 = 68, col2 = 134, col3 = 174
   const partLen = Math.floor(b64Len / 3)
   const len1 = partLen, len2 = partLen, len3 = b64Len - len1 - len2
 
@@ -240,27 +239,48 @@ export function encodeDID(clientID: string, timestamp: string, appName = 'Seminy
   const seg2 = b64.slice(len1, len1 + len2)
   const seg3 = b64.slice(len1 + len2)
 
-  // encCol: v -> digit + chr(remainder+64), all results are printable ASCII (no '@')
+  // encCol: v -> digit + chr((v%10)+64). Produces valid base64 chars (rem 1-9 → 'A'-'I')
   const encCol = (v: number) => String(Math.floor(v / 10)) + String.fromCharCode((v % 10) + 64)
   const colStr = encCol(col1) + encCol(col2 - 100) + encCol(col3 - 100)
   const lenStr = String.fromCharCode(len1 + 64) + String.fromCharCode(len2 + 64) + String(len3).padStart(2, '0')
 
-  // Fill with valid base64 filler chars (use the backbone chars from real DID)
-  // The backbone chars between segments are taken from a real DID to match the server's expectations.
-  // Positions that are NOT overwritten by seg1/seg2/seg3 or metadata use 'A' as filler (safe for b64).
-  const totalLen = col3 + len3 + 200  // extra space for suffix
-  const out = new Array(totalLen + 100).fill('A')
+  // Generate deterministic backbone using LCG seeded from plaintext.
+  // Uses alphanumeric chars only (no + or /) as filler to match real iOS app DID style
+  // and avoid HTTP header encoding issues. The 3 data segments (which may contain +//)
+  // are embedded at fixed positions and sanitized to URL-safe base64 (- and _ instead of +/).
+  // The server's PHP decoder uses strtr for URL-safe handling.
+  const ALNUM   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const TOTAL   = 468  // matches real iOS app DID length
 
-  // Set col/len metadata
-  out[7]=colStr[0]; out[8]=colStr[1]; out[9]=colStr[2]; out[10]=colStr[3]; out[11]=colStr[4]; out[12]=colStr[5]
-  out[16]=lenStr[0]; out[17]=lenStr[1]; out[18]=lenStr[2]; out[19]=lenStr[3]
+  // Build backbone: LCG seeded from sum of char codes of plain
+  const enc2      = new TextEncoder()
+  const plainBytes = enc2.encode(plain)
+  let seed = 0
+  for (let i = 0; i < plainBytes.length; i++) seed = ((seed * 31 + plainBytes[i]) >>> 0)
+  const backbone: string[] = new Array(TOTAL)
+  for (let i = 0; i < TOTAL; i++) {
+    seed = ((seed * 1664525 + 1013904223) >>> 0)  // Numerical Recipes LCG
+    backbone[i] = ALNUM[seed % 62]
+  }
 
-  // Embed the 3 IMEI b64 segments at fixed positions
-  for (let i = 0; i < seg1.length; i++) out[col1 + i] = seg1[i]
-  for (let i = 0; i < seg2.length; i++) out[col2 + i] = seg2[i]
-  for (let i = 0; i < seg3.length; i++) out[col3 + i] = seg3[i]
+  // Overwrite metadata positions
+  backbone[7] =colStr[0]; backbone[8] =colStr[1]
+  backbone[9] =colStr[2]; backbone[10]=colStr[3]
+  backbone[11]=colStr[4]; backbone[12]=colStr[5]
+  backbone[16]=lenStr[0]; backbone[17]=lenStr[1]
+  backbone[18]=lenStr[2]; backbone[19]=lenStr[3]
 
-  return out.join('').slice(0, col3 + len3) + fix
+  // Embed the 3 base64 segments at their fixed column positions
+  // Replace + with - and / with _ (URL-safe base64) so they are safe in HTTP headers
+  const safe = (s: string) => s.replace(/\+/g, '-').replace(/\//g, '_')
+  const s1 = safe(seg1), s2 = safe(seg2), s3 = safe(seg3)
+  for (let i = 0; i < s1.length; i++) backbone[col1 + i] = s1[i]
+  for (let i = 0; i < s2.length; i++) backbone[col2 + i] = s2[i]
+  for (let i = 0; i < s3.length; i++) backbone[col3 + i] = s3[i]
+
+  // Output: full 468-char backbone. Fix (= or ==) is omitted as real DID doesn't include it
+  // but we append it so decodeDID can recover padding correctly.
+  return backbone.join('') + fix
 }
 
 // ── § 6 — JWT Decode ────────────────────────────────────────────────────────
